@@ -1,0 +1,17 @@
+.Album {
+  text-align: left;
+}
+
+.Album-image {
+  width: 100%;
+  height: auto;
+}
+
+.Album-title {
+  font-size: 1em;
+}
+
+.Album-artist {
+  font-size: 0.9em;
+  color: #444;
+}

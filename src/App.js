@@ -1,21 +1,49 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react'
+
+import config from '../config.json'
+
+import './App.css'
+
+import Plex from './types/Client'
+import AlbumGrid from './components/AlbumGrid'
 
 class App extends Component {
-  render() {
+  constructor () {
+    super()
+
+    this.plex = new Plex(config.server)
+
+    this.state = {
+      albums: [],
+    }
+  }
+
+  componentWillMount () {
+    this.plex.albums()
+      .then((media) => {
+        this.setState((state) => ({
+          albums: state.albums.concat(media.metadata),
+        }))
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }
+
+  render () {
+    const {albums} = this.state
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className='App'>
+        <div className='App-header'>
+          <h2>Plex</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div>
+          <AlbumGrid albums={albums} />
+        </div>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
