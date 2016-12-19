@@ -3,6 +3,12 @@
   text-align: left;
   color: #fff;
   line-height: 2em;
+  cursor: pointer;
+  padding: 0 1em;
+}
+
+.Track:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .Track-index {
@@ -20,6 +26,7 @@
 
 .Track-duration {
   flex: 1;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .Track-userRating {

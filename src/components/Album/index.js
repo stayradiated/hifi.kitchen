@@ -2,15 +2,17 @@ import React, {PropTypes} from 'react'
 
 import './styles.css'
 
+import SquareImage from '../SquareImage'
+
 export default function Album (props) {
   const {album, ...otherProps} = props
 
   return (
     <div {...otherProps} className='Album'>
-      <img
+      <SquareImage
+        className='Album-image'
         src={album.thumb.transcode()}
         alt={album.title}
-        className='Album-image'
       />
       <h2 className='Album-title'>{album.title}</h2>
       <h3 className='Album-artist'>{album.parentTitle}</h3>

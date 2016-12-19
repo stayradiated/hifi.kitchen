@@ -20,23 +20,23 @@ class Client {
     return this.api.query('/library/sections/1')
   }
 
-  fetchMedia (uri) {
+  fetchMedia (uri, start = 0, size = 20) {
     return this.api.query({
       uri,
       extraHeaders: {
-        'X-Plex-Container-Size': '20',
-        'X-Plex-Container-Start': '0',
+        'X-Plex-Container-Start': start.toString(),
+        'X-Plex-Container-Size': size.toString(),
       },
     })
     .then((res) => new MediaContainer(this, res))
   }
 
-  albums () {
+  albums (start, size) {
     const params = qs.stringify({
       type: 9,
       sort: 'addedAt:desc',
     })
-    return this.fetchMedia(`/library/sections/1/all?${params}`)
+    return this.fetchMedia(`/library/sections/1/all?${params}`, start, size)
   }
 
   filter () {

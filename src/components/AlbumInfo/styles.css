@@ -20,9 +20,38 @@
 
 .AlbumInfo-title {
   color: #fff;
+  text-align: left;
+  margin: 0;
+  line-height: 1.5em;
+}
+
+.AlbumInfo-row2 {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  line-height: 1.5em;
+
+  padding-bottom: 2em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .AlbumInfo-artist {
+  color: rgba(255, 255, 255, 0.5);
+  text-align: left;
+  margin: 0;
+}
+
+.AlbumInfo-year {
+  color: rgba(255, 255, 255, 0.5);
+  text-align: right;
+  margin: 0;
+}
+
+.AlbumInfo-genre {
+  color: #fff;
+  margin: 0;
+  text-align: right;
+  line-height: 3em;
 }
 
 .AlbumInfo-background {

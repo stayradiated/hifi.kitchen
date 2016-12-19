@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from 'react'
 import './styles.css'
 
 import TrackList from '../TrackList'
+import SquareImage from '../SquareImage'
 
 export default class AlbumInfo extends Component {
 
@@ -46,7 +47,7 @@ export default class AlbumInfo extends Component {
           style={{backgroundImage: `url(${backgroundImage})`}}
         />
 
-        <img
+        <SquareImage
           className='AlbumInfo-image'
           src={album.thumb.transcode(300, 300)}
           alt={album.title}
@@ -54,9 +55,11 @@ export default class AlbumInfo extends Component {
 
         <div className='AlbumInfo-details'>
           <h2 className='AlbumInfo-title'>{album.title}</h2>
-          <h2 className='AlbumInfo-artist'>{album.parentTitle}</h2>
-          <h2 className='AlbumInfo-year'>{album.year}</h2>
-          <p>{album.genre}</p>
+          <div className='AlbumInfo-row2'>
+            <h2 className='AlbumInfo-artist'>{album.parentTitle}</h2>
+            <h2 className='AlbumInfo-year'>{album.year}</h2>
+          </div>
+          <p className='AlbumInfo-genre'>{album.genre}</p>
           <TrackList tracks={tracks} />
         </div>
       </div>

@@ -13,8 +13,13 @@
   top: 0;
   left: 0;
   right: 0;
+  z-index: 10;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.App-contents {
+  padding-top: 40px;
 }

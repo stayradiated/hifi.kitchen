@@ -17,17 +17,27 @@ class App extends Component {
     this.state = {
       albums: [],
       selectedAlbum: null,
+      index: 0,
     }
 
     this.handleSelectAlbum = this.handleSelectAlbum.bind(this)
+    this.fetchAlbums = this.fetchAlbums.bind(this)
   }
 
   componentWillMount () {
-    this.plex.albums()
+    this.fetchAlbums()
+  }
+
+  fetchAlbums () {
+    const {index, albums} = this.state
+
+    this.plex.albums(index, 20)
       .then((media) => {
-        this.setState((state) => ({
-          albums: state.albums.concat(media.metadata),
-        }))
+        const allAlbums = albums.concat(media.metadata)
+        this.setState({
+          albums: allAlbums,
+          index: allAlbums.length,
+        })
       })
       .catch((err) => {
         console.error(err)
@@ -44,11 +54,12 @@ class App extends Component {
     return (
       <div className='App'>
         <h2 className='App-header'>Plex</h2>
-        <div>
+        <div className='App-contents'>
           <AlbumGrid
             albums={albums}
             onSelect={this.handleSelectAlbum}
           />
+          <button onClick={this.fetchAlbums}>Fetch Albums</button>
           {selectedAlbum &&
             <AlbumInfo album={selectedAlbum} />}
         </div>
