@@ -7,29 +7,30 @@ class Track extends Item {
   constructor (client, data) {
     super(client, data, Track.TYPE_ID)
 
-    this.ratingKey            = data.ratingKey
-    this.key                  = data.key
-    this.parentRatingKey      = data.parentRatingKey
-    this.grandparentRatingKey = data.grandparentRatingKey
-    this.type                 = data.type
-    this.title                = data.title
-    this.grandparentKey       = data.grandparentKey
-    this.parentKey            = data.parentKey
-    this.grandparentTitle     = data.grandparentTitle
-    this.parentTitle          = data.parentTitle
-    this.originalTitle        = data.originalTitle
-    this.summary              = data.summary
-    this.index                = data.index
-    this.parentIndex          = data.parentIndex
-    this.ratingCount          = data.ratingCount
-    this.viewCount            = data.viewCount
-    this.lastViewedAt         = data.lastViewedAt
-    this.thumb                = data.thumb
-    this.parentThumb          = data.parentThumb
-    this.grandparentThumb     = data.grandparentThumb
-    this.duration             = data.duration
     this.addedAt              = data.addedAt
+    this.duration             = data.duration
+    this.grandparentKey       = data.grandparentKey
+    this.grandparentRatingKey = data.grandparentRatingKey
+    this.grandparentThumb     = data.grandparentThumb
+    this.grandparentTitle     = data.grandparentTitle
+    this.index                = data.index
+    this.key                  = data.key
+    this.lastViewedAt         = data.lastViewedAt
+    this.originalTitle        = data.originalTitle
+    this.parentIndex          = data.parentIndex
+    this.parentKey            = data.parentKey
+    this.parentRatingKey      = data.parentRatingKey
+    this.parentThumb          = data.parentThumb
+    this.parentTitle          = data.parentTitle
+    this.ratingCount          = data.ratingCount
+    this.ratingKey            = data.ratingKey
+    this.summary              = data.summary
+    this.thumb                = data.thumb
+    this.title                = data.title
+    this.type                 = data.type
     this.updatedAt            = data.updatedAt
+    this.userRating           = data.userRating
+    this.viewCount            = data.viewCount
 
     this.media = data.Media.map((media) => {
       return new Media(this.client, media)

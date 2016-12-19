@@ -1,0 +1,27 @@
+.Track {
+  display: flex;
+  text-align: left;
+  color: #fff;
+  line-height: 2em;
+}
+
+.Track-index {
+  width: 25px;
+  opacity: 0.4;
+}
+
+.Track-title {
+  flex: 1;
+}
+
+.Track-artist {
+  flex: 1;
+}
+
+.Track-duration {
+  flex: 1;
+}
+
+.Track-userRating {
+  flex: 1;
+}

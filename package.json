@@ -11,7 +11,9 @@
     "plex-api": "^5.0.1",
     "qs": "^6.3.0",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "react-star-rating": "^1.4.2",
+    "react-star-rating-component": "^1.2.2"
   },
   "scripts": {
     "start": "react-scripts start",

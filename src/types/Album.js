@@ -28,11 +28,16 @@ class Album extends Item {
     this.leafCount = data.leafCount
     this.addedAt = data.addedAt
     this.updatedAt = data.updatedAt
-    this.Genre = data.Genre
+
+    this.genre = (data.Genre || [])
+      .map((genre) => genre.tag)
+      .join(' ')
   }
 
   fetchTracks () {
-    return this.client.fetchMedia(this.key)
+    return this.client.fetchMedia(this.key).then((res) => {
+      return res.metadata
+    })
   }
 }
 

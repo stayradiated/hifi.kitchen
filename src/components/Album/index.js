@@ -3,10 +3,10 @@ import React, {PropTypes} from 'react'
 import './styles.css'
 
 export default function Album (props) {
-  const {album} = props
+  const {album, ...otherProps} = props
 
   return (
-    <div className='Album'>
+    <div {...otherProps} className='Album'>
       <img
         src={album.thumb.transcode()}
         alt={album.title}

@@ -6,6 +6,7 @@ import './App.css'
 
 import Plex from './types/Client'
 import AlbumGrid from './components/AlbumGrid'
+import AlbumInfo from './components/AlbumInfo'
 
 class App extends Component {
   constructor () {
@@ -15,7 +16,10 @@ class App extends Component {
 
     this.state = {
       albums: [],
+      selectedAlbum: null,
     }
+
+    this.handleSelectAlbum = this.handleSelectAlbum.bind(this)
   }
 
   componentWillMount () {
@@ -30,16 +34,23 @@ class App extends Component {
       })
   }
 
+  handleSelectAlbum (album) {
+    this.setState({selectedAlbum: album})
+  }
+
   render () {
-    const {albums} = this.state
+    const {albums, selectedAlbum} = this.state
 
     return (
       <div className='App'>
-        <div className='App-header'>
-          <h2>Plex</h2>
-        </div>
+        <h2 className='App-header'>Plex</h2>
         <div>
-          <AlbumGrid albums={albums} />
+          <AlbumGrid
+            albums={albums}
+            onSelect={this.handleSelectAlbum}
+          />
+          {selectedAlbum &&
+            <AlbumInfo album={selectedAlbum} />}
         </div>
       </div>
     )

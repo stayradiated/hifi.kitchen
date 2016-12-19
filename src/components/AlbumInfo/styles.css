@@ -1,0 +1,40 @@
+.AlbumInfo {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  padding: 50px;
+}
+
+.AlbumInfo-image {
+  width: 300px;
+  height: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.05);
+  margin-right: 50px;
+  border-radius: 5px;
+}
+
+.AlbumInfo-details {
+  flex: 1;
+}
+
+.AlbumInfo-title {
+  color: #fff;
+}
+
+.AlbumInfo-artist {
+}
+
+.AlbumInfo-background {
+  z-index: -1;
+
+  position: absolute;
+  top: -30px;
+  left: -30px;
+  right: -30px;
+  bottom: -29px;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(50px) saturate(200%) brightness(80%) contrast(60%);
+}
