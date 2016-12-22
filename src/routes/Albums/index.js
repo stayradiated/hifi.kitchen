@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 
-import config from '../config.json'
+import config from '../../../config.json'
 
-import './App.css'
+import './styles.css'
 
-import Plex from './types/Client'
-import AlbumGrid from './components/AlbumGrid'
-import AlbumInfo from './components/AlbumInfo'
+import Plex from '../../types/Client'
+import AlbumGrid from '../../components/AlbumGrid'
+import AlbumInfo from '../../components/AlbumInfo'
 
-class App extends Component {
+export default class Albums extends Component {
   constructor () {
     super()
 
@@ -52,9 +52,9 @@ class App extends Component {
     const {albums, selectedAlbum} = this.state
 
     return (
-      <div className='App'>
-        <h2 className='App-header'>Plex</h2>
-        <div className='App-contents'>
+      <div className='route_Albums'>
+        <h2 className='route_Albums-header'>Plex</h2>
+        <div className='route_Albums-contents'>
           <AlbumGrid
             albums={albums}
             onSelect={this.handleSelectAlbum}
@@ -67,5 +67,3 @@ class App extends Component {
     )
   }
 }
-
-export default App

@@ -1,8 +1,8 @@
-.App {
+.route_Albums {
   text-align: center;
 }
 
-.App-header {
+.route_Albums-header {
   background-color: #222;
   line-height: 40px;
   color: white;
@@ -16,10 +16,10 @@
   z-index: 10;
 }
 
-.App-intro {
+.route_Albums-intro {
   font-size: large;
 }
 
-.App-contents {
+.route_Albums-contents {
   padding-top: 40px;
 }

@@ -52,7 +52,10 @@ class Client {
   }
 
   transcode (options) {
-    const params = qs.stringify(options)
+    const params = qs.stringify({
+      ...options,
+      'X-Plex-Token': this.api.authToken,
+    })
     return `//${this.api.serverUrl}/photo/:/transcode?${params}`
   }
 }
