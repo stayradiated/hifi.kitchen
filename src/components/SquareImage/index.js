@@ -3,17 +3,19 @@ import classNames from 'classnames'
 
 import './styles.css'
 
+import Image from '../Image'
+
 export default function SquareImage (props) {
-  const {className, src} = props
+  const {className, src, size} = props
 
   return (
     <div className={classNames(className, 'SquareImage')}>
       <div className='SquareImage-container'>
-        <div
+        <Image
           className='SquareImage-image'
-          style={{
-            backgroundImage: `url(${src})`,
-          }}
+          src={src}
+          width={size}
+          height={size}
         />
       </div>
     </div>
@@ -23,4 +25,5 @@ export default function SquareImage (props) {
 SquareImage.propTypes = {
   className: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
 }

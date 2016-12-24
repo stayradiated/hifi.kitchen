@@ -3,6 +3,8 @@ import StarRating from 'react-star-rating-component'
 
 import './styles.css'
 
+import Time from '../Time'
+
 export default function Track (props) {
   const {track} = props
 
@@ -10,7 +12,7 @@ export default function Track (props) {
     <div className='Track'>
       <div className='Track-index'>{track.index}</div>
       <div className='Track-title'>{track.title}</div>
-      <div className='Track-duration'>{track.formatTime()}</div>
+      <Time className='Track-duration' duration={track.duration} />
       <StarRating
         name='react-user-rating'
         value={track.userRating}

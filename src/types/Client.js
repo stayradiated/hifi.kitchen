@@ -1,9 +1,12 @@
-const qs = require('qs')
-const PlexAPI = require('plex-api')
+import qs from 'qs'
+import PlexAPI from 'plex-api'
+import {normalize, schema} from 'normalizr'
 
-const MediaContainer = require('./MediaContainer')
+import {albumSchema} from './album'
+import {trackSchema} from './track'
+import parseMediaContainer from './mediaContainer'
 
-class Client {
+export default class Client {
   constructor (config) {
     this.api = new PlexAPI(config)
   }
@@ -28,7 +31,7 @@ class Client {
         'X-Plex-Container-Size': size.toString(),
       },
     })
-    .then((res) => new MediaContainer(this, res))
+    .then((res) => parseMediaContainer(res))
   }
 
   albums (start, size) {
@@ -36,7 +39,25 @@ class Client {
       type: 9,
       sort: 'addedAt:desc',
     })
-    return this.fetchMedia(`/library/sections/1/all?${params}`, start, size)
+    const path = `/library/sections/1/all?${params}`
+
+    const responseSchema = new schema.Object({
+      metadata: new schema.Array(albumSchema),
+    })
+
+    return this.fetchMedia(path, start, size)
+      .then((res) => normalize(res, responseSchema))
+  }
+
+  albumTracks (albumId) {
+    const path = `/library/metadata/${albumId}/children`
+
+    const responseSchema = new schema.Object({
+      metadata: new schema.Array(trackSchema),
+    })
+
+    return this.fetchMedia(path)
+      .then((res) => normalize(res, responseSchema))
   }
 
   filter () {
@@ -59,5 +80,3 @@ class Client {
     return `//${this.api.serverUrl}/photo/:/transcode?${params}`
   }
 }
-
-module.exports = Client
