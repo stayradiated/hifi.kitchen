@@ -6,7 +6,6 @@ import {Provider} from 'react-redux'
 import './index.css'
 
 import Albums from './routes/Albums'
-import Album from './routes/Album'
 
 import createStore from './stores'
 
@@ -15,9 +14,7 @@ const store = createStore()
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path='/' component={Albums}>
-        <Route path='/albums/:id' component={Album} />
-      </Route>
+      <Route path='/(albums/:id)' component={Albums} />
     </Router>
   </Provider>
 , document.getElementById('root'))

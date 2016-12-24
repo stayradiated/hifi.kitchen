@@ -16,9 +16,11 @@ import {
 
 class AlbumsRoute extends Component {
   static propTypes = {
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
     albums: PropTypes.arrayOf(PropTypes.object).isRequired,
     dispatch: PropTypes.func.isRequired,
-    children: PropTypes.node,
   }
 
   constructor () {
@@ -37,15 +39,16 @@ class AlbumsRoute extends Component {
   }
 
   render () {
-    const {albums, children} = this.props
+    const {albums, params} = this.props
+
+    const albumId = params.id ? parseInt(params.id, 10) : null
 
     return (
       <div className='AlbumsRoute'>
         <h2 className='AlbumsRoute-header'>Plex</h2>
         <div className='AlbumsRoute-contents'>
-          <AlbumGrid albums={albums} />
+          <AlbumGrid albums={albums} albumId={albumId} />
           <button onClick={this.fetchAlbums}>Fetch Albums</button>
-          {children}
         </div>
       </div>
     )

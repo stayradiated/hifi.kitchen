@@ -56,8 +56,7 @@ class AlbumRoute extends Component {
 }
 
 export default connect((state, props) => {
-  // extract albumId from router params
-  const albumId = parseInt(props.params.id, 10)
+  const {albumId} = props
 
   // combine tracks and albumTracks stores
   const allTracks = getTracks.values(state)
