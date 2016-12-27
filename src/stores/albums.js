@@ -1,26 +1,10 @@
 import {
-  c, cacheMap, AsyncMapReducer, createMapSelector, createObjectMergeFunction,
+  AsyncMapReducer, createMapSelector, createObjectMergeFunction,
 } from '@stayradiated/mandarin'
 
-import plex from '../plex'
-import {FETCH_LIBRARY_ALBUMS} from './library'
-
-export const FETCH_ALBUM = c`FETCH_ALBUM`
+import {FETCH_ALBUM, FETCH_LIBRARY_ALBUMS} from './actions'
 
 export const selectors = createMapSelector((state) => state.albums)
-
-export const forceFetchAlbum = (albumId) => ({
-  types: FETCH_ALBUM,
-  payload: {albumId},
-  meta: {
-    async: plex.fetchAlbum(albumId),
-  },
-})
-
-export const fetchAlbum = cacheMap(forceFetchAlbum, (albumId) => ({
-  id: albumId,
-  selectors,
-}))
 
 const reducer = new AsyncMapReducer({
   getValue: (action) => action.value,

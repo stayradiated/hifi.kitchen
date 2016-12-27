@@ -1,26 +1,8 @@
-import {
-  c, AsyncValueReducer, createValueSelector,
-} from '@stayradiated/mandarin'
+import {AsyncValueReducer, createValueSelector} from '@stayradiated/mandarin'
 
-import plex from '../plex'
-
-export const FETCH_LIBRARY_ALBUMS = c`FETCH_LIBRARY_ALBUMS`
+import {FETCH_LIBRARY_ALBUMS} from './actions'
 
 export const selectors = createValueSelector((state) => state.library)
-
-export function fetchLibraryAlbums (section, size) {
-  return (dispatch, getState) => {
-    const start = selectors.value(getState()).length
-
-    return dispatch({
-      types: FETCH_LIBRARY_ALBUMS,
-      payload: {start, size},
-      meta: {
-        async: plex.albums(section, start, size),
-      },
-    })
-  }
-}
 
 const reducer = new AsyncValueReducer({
   defaultValue: [],

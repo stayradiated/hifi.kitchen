@@ -3,24 +3,15 @@ import {connect} from 'react-redux'
 
 import AlbumInfo from '../../components/AlbumInfo'
 
-import {
-  selectors as getAlbums,
-} from '../../stores/albums'
-
-import {
-  fetchAlbumTracks,
-  selectors as getAlbumTracks,
-} from '../../stores/albumTracks'
+import {selectors as getAlbums} from '../../stores/albums'
+import {selectors as getAlbumTracks} from '../../stores/albumTracks'
+import {selectors as getTracks} from '../../stores/tracks'
 
 import {
   rateTrack,
-  selectors as getTracks,
-} from '../../stores/tracks'
-
-import {
-  playTrack,
+  fetchAlbumTracks,
   createQueueFromAlbum,
-} from '../../stores/queue'
+} from '../../stores/actions'
 
 class AlbumContainer extends Component {
   static propTypes = {
@@ -55,9 +46,7 @@ class AlbumContainer extends Component {
 
   handleSelectTrack (track) {
     const {album, librarySectionId, dispatch} = this.props
-
-    dispatch(createQueueFromAlbum(librarySectionId, album))
-    dispatch(playTrack(track))
+    dispatch(createQueueFromAlbum(librarySectionId, album, track))
   }
 
   handleRateTrack (track, rating) {

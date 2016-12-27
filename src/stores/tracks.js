@@ -1,23 +1,10 @@
 import {
-  c, AsyncMapReducer, createMapSelector, createObjectMergeFunction,
+  AsyncMapReducer, createMapSelector, createObjectMergeFunction,
 } from '@stayradiated/mandarin'
 
-import plex from '../plex'
-
-import {FETCH_ALBUM_TRACKS} from './albumTracks'
-import {CREATE_QUEUE} from './queue'
-
-export const RATE_TRACK = c`RATE_TRACK`
+import {CREATE_QUEUE, FETCH_ALBUM_TRACKS, RATE_TRACK} from './actions'
 
 export const selectors = createMapSelector((state) => state.tracks)
-
-export const rateTrack = (track, rating) => ({
-  types: RATE_TRACK,
-  payload: {trackId: track.id, rating},
-  meta: {
-    async: plex.rate(track.id, rating),
-  },
-})
 
 const reducer = new AsyncMapReducer({
   getValue: (action) => action.value,

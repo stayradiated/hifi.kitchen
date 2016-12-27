@@ -1,30 +1,8 @@
-import {
-  c, cacheMap, AsyncMapReducer, createMapSelector,
-} from '@stayradiated/mandarin'
+import {AsyncMapReducer, createMapSelector} from '@stayradiated/mandarin'
 
-import plex from '../plex'
-
-export const FETCH_ALBUM_TRACKS = c`FETCH_ALBUM_TRACKS`
+import {FETCH_ALBUM_TRACKS} from './actions'
 
 export const selectors = createMapSelector((state) => state.albumTracks)
-
-export function forceFetchAlbumTracks (albumId) {
-  return {
-    types: FETCH_ALBUM_TRACKS,
-    payload: {albumId},
-    meta: {
-      async: plex.albumTracks(albumId),
-    },
-  }
-}
-
-export const fetchAlbumTracks = cacheMap(
-  forceFetchAlbumTracks,
-  (albumId) => ({
-    id: albumId,
-    selectors,
-  }),
-)
 
 const fetchAlbumTracksReducer = new AsyncMapReducer({
   defaultMap: [],

@@ -13,9 +13,12 @@ import {
 } from '../../stores/albums'
 
 import {
-  fetchLibraryAlbums,
   selectors as getLibrary,
 } from '../../stores/library'
+
+import {
+  fetchLibraryAlbums,
+} from '../../stores/actions'
 
 class AlbumsRoute extends Component {
   static propTypes = {

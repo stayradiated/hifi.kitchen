@@ -5,9 +5,10 @@ import {connect} from 'react-redux'
 import './styles.css'
 
 import {
-  fetchLibrarySections,
   selectors as getLibrarySections,
 } from '../../stores/librarySections'
+
+import {fetchLibrarySections} from '../../stores/actions'
 
 class HeaderContainer extends Component {
   static propTypes = {

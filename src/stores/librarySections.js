@@ -1,24 +1,8 @@
-import {
-  c, cacheValue, AsyncValueReducer, createValueSelector,
-} from '@stayradiated/mandarin'
+import {AsyncValueReducer, createValueSelector} from '@stayradiated/mandarin'
 
-import plex from '../plex'
-
-export const FETCH_LIBRARY_SECTIONS = c`FETCH_LIBRARY_SECTIONS`
+import {FETCH_LIBRARY_SECTIONS} from './actions'
 
 export const selectors = createValueSelector((state) => state.librarySections)
-
-export const forceFetchLibrarySections = () => ({
-  types: FETCH_LIBRARY_SECTIONS,
-  meta: {
-    async: plex.sections(),
-  },
-})
-
-export const fetchLibrarySections = cacheValue(
-  forceFetchLibrarySections,
-  () => ({selectors}),
-)
 
 const reducer = new AsyncValueReducer({
   defaultValue: [],
