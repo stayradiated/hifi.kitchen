@@ -30,6 +30,14 @@ export default class MagicGrid extends Component {
     this.handleResize()
   }
 
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.currentId !== this.props.currentId) {
+      this.setState({
+        previousId: this.props.currentId,
+      })
+    }
+  }
+
   componentWillUnmount () {
     window.removeEventListener('resize', this.handleResize)
   }

@@ -29,7 +29,7 @@ export const fetchAlbumTracks = cacheMap(
 const fetchAlbumTracksReducer = new AsyncMapReducer({
   defaultMap: [],
   getId: (action) => action.payload.albumId,
-  getValue: (action) => action.value.result.metadata,
+  getValue: (action) => action.value.result.items,
   updateMap: (newMap) => (oldMap) => {
     return oldMap.concat(newMap)
   },

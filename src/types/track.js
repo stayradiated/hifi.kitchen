@@ -1,16 +1,15 @@
 import {schema} from 'normalizr'
 
+import parseMediaContainer from './mediaContainer'
 import parseMedia from './media'
 
-export const TRACK_TYPE = 'track'
 export const trackSchema = new schema.Entity('tracks')
+export const trackContainerSchema = new schema.Object({
+  items: new schema.Array(trackSchema),
+})
 
-export default function parseTrack (data) {
+export function parseTrack (data) {
   const track = {}
-
-  if (data.type !== TRACK_TYPE) {
-    throw new Error(`Expected type "${TRACK_TYPE}", but got type "${data.type}"`)
-  }
 
   track.addedAt              = data.addedAt
   track.duration             = data.duration
@@ -39,9 +38,41 @@ export default function parseTrack (data) {
 
   track.id = parseInt(track.ratingKey, 10)
 
-  track.media = data.Media.map((media) => {
-    return parseMedia(media)
-  })
+  track.media = data.Media.map(parseMedia)
 
   return track
+}
+
+export function parseTrackContainer (data) {
+  if (data.MediaContainer != null) {
+    data = data.MediaContainer
+  }
+
+  const trackContainer = {
+    ...parseMediaContainer(data),
+  }
+
+  trackContainer.allowSync            = data.allowSync
+  trackContainer.art                  = data.art
+  trackContainer.grandparentRatingKey = data.grandparentRatingKey
+  trackContainer.grandparentThumb     = data.grandparentThumb
+  trackContainer.grandparentTitle     = data.grandparentTitle
+  trackContainer.key                  = data.key
+  trackContainer.librarySectionID     = data.librarySectionID
+  trackContainer.librarySectionTitle  = data.librarySectionTitle
+  trackContainer.librarySectionUUID   = data.librarySectionUUID
+  trackContainer.nocache              = data.nocache
+  trackContainer.offset               = data.offset
+  trackContainer.parentIndex          = data.parentIndex
+  trackContainer.parentTitle          = data.parentTitle
+  trackContainer.parentYear           = data.parentYear
+  trackContainer.thumb                = data.thumb
+  trackContainer.title1               = data.title1
+  trackContainer.title2               = data.title2
+  trackContainer.viewGroup            = data.viewGroup
+  trackContainer.viewMode             = data.viewMode
+
+  trackContainer.items = data.Metadata.map(parseTrack)
+
+  return trackContainer
 }

@@ -6,19 +6,15 @@ export default function Arrow (props) {
   const marginLeft = left - size
 
   const styles = {
-    width: 0,
-    height: 0,
     borderLeft: `${size}px solid transparent`,
     borderRight: `${size}px solid transparent`,
-    borderBottom: `${size}px solid red`,
+    borderBottom: `${size}px solid #333`,
     marginTop: -size,
     marginLeft,
-    position: 'absolute',
-    transition: 'all 350ms ease',
   }
 
   return (
-    <div style={styles} />
+    <div className='MagicGrid-arrow' style={styles} />
   )
 }
 

@@ -5,13 +5,17 @@ import './styles.css'
 import Track from '../Track'
 
 export default function TrackList (props) {
-  const {tracks} = props
+  const {tracks, onSelect, onRate} = props
 
   return (
     <div className='TrackList'>
       {tracks.map((track, i) => (
         <div key={i} className='TrackList-track'>
-          <Track track={track} />
+          <Track
+            track={track}
+            onSelect={onSelect}
+            onRate={onRate}
+          />
         </div>
       ))}
     </div>
@@ -20,4 +24,6 @@ export default function TrackList (props) {
 
 TrackList.propTypes = {
   tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onSelect: PropTypes.func,
+  onRate: PropTypes.func,
 }

@@ -9,12 +9,12 @@ export default function Album (props) {
   const {album, ...otherProps} = props
 
   return (
-    <Link {...otherProps} to={`/albums/${album.id}`} className='Album'>
+    <Link {...otherProps} to={`/library/1/albums/${album.id}`} className='Album'>
       <SquareImage
         className='Album-image'
         src={album.thumb}
         alt={album.title}
-        size={300}
+        size={140}
       />
       <h2 className='Album-title'>{album.title}</h2>
       <h3 className='Album-artist'>{album.parentTitle}</h3>

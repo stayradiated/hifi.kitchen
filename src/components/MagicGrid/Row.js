@@ -17,23 +17,23 @@ export default function MagicGridRow (props) {
   const arrowMarginLeft = (itemWidth * (rowCurrentIndex + 1)) - (itemWidth / 2)
 
   return (
-    <div key={index}>
-      {row.map((items, i) => (
-        <div
-          key={i}
-          style={{
-            width: `${itemWidth}px`,
-            display: 'inline-block',
-          }}
-        >
-          {items.element}
-        </div>
-      ))}
+    <div key={index} className='MagicGrid-row'>
+      <div className='MagicGrid-rowItems'>
+        {row.map((items, i) => (
+          <div
+            key={i}
+            className='MagicGrid-item'
+            style={{width: `${itemWidth}px`}}
+          >
+            {items.element}
+          </div>
+        ))}
+      </div>
       {hasCurrent &&
         <Arrow
           id={currentId}
           left={arrowMarginLeft}
-          size={20}
+          size={10}
         />}
       {hasCurrent &&
         <Box id={currentId} component={component} propName={propName} />}
@@ -47,7 +47,7 @@ MagicGridRow.propTypes = {
   itemWidth: PropTypes.number.isRequired,
   row: ItemsType.isRequired,
   index: PropTypes.number.isRequired,
-  currentId: IdType.isRequired,
+  currentId: IdType,
   previousId: IdType,
   component: PropTypes.element.isRequired,
   propName: PropTypes.string.isRequired,

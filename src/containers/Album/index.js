@@ -13,15 +13,29 @@ import {
 } from '../../stores/albumTracks'
 
 import {
+  rateTrack,
   selectors as getTracks,
 } from '../../stores/tracks'
 
-class AlbumRoute extends Component {
+import {
+  playTrack,
+  createQueueFromAlbum,
+} from '../../stores/queue'
+
+class AlbumContainer extends Component {
   static propTypes = {
     albumId: PropTypes.number.isRequired,
     album: PropTypes.shape({}),
     albumTracks: PropTypes.arrayOf(PropTypes.object),
     dispatch: PropTypes.func.isRequired,
+    librarySectionId: PropTypes.number.isRequired,
+  }
+
+  constructor () {
+    super()
+
+    this.handleSelectTrack = this.handleSelectTrack.bind(this)
+    this.handleRateTrack = this.handleRateTrack.bind(this)
   }
 
   componentWillMount () {
@@ -39,6 +53,18 @@ class AlbumRoute extends Component {
     dispatch(fetchAlbumTracks(albumId))
   }
 
+  handleSelectTrack (track) {
+    const {album, librarySectionId, dispatch} = this.props
+
+    dispatch(createQueueFromAlbum(librarySectionId, album))
+    dispatch(playTrack(track))
+  }
+
+  handleRateTrack (track, rating) {
+    const {dispatch} = this.props
+    dispatch(rateTrack(track, rating))
+  }
+
   render () {
     const {album, albumTracks} = this.props
 
@@ -50,6 +76,8 @@ class AlbumRoute extends Component {
       <AlbumInfo
         album={album}
         albumTracks={albumTracks}
+        onSelectTrack={this.handleSelectTrack}
+        onRateTrack={this.handleRateTrack}
       />
     )
   }
@@ -73,4 +101,4 @@ export default connect((state, props) => {
     album,
     albumTracks,
   }
-})(AlbumRoute)
+})(AlbumContainer)

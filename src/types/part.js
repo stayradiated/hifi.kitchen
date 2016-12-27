@@ -1,3 +1,5 @@
+import parseStream from './stream'
+
 export default function parsePart (data) {
   const part = {}
 
@@ -8,6 +10,10 @@ export default function parsePart (data) {
   part.size         = data.size
   part.container    = data.container
   part.hasThumbnail = data.hasThumbnail
+
+  if (part.Stream != null) {
+    part.stream = part.Stream.map(parseStream)
+  }
 
   return part
 }

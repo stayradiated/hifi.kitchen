@@ -1,14 +1,15 @@
 import qs from 'qs'
 import PlexAPI from 'plex-api'
-import {normalize, schema} from 'normalizr'
+import {normalize} from 'normalizr'
 
-import {albumSchema} from './album'
-import {trackSchema} from './track'
-import parseMediaContainer from './mediaContainer'
+import {parseSectionContainer} from './section'
+import {albumContainerSchema, parseAlbumContainer} from './album'
+import {trackContainerSchema, parseTrackContainer} from './track'
+import {playQueueSchema, parsePlayQueue} from './playQueue'
 
 export default class Client {
   constructor (config) {
-    this.api = new PlexAPI(config)
+    this.api = new PlexAPI(config.server)
   }
 
   root () {
@@ -17,47 +18,41 @@ export default class Client {
 
   sections () {
     return this.api.query('/library/sections')
+      .then((res) => parseSectionContainer(res))
   }
 
-  section () {
-    return this.api.query('/library/sections/1')
+  section (id) {
+    return this.api.query(`/library/sections/${id}`)
   }
 
-  fetchMedia (uri, start = 0, size = 20) {
+  queryWithRange (options = {start: 0, size: 20}) {
     return this.api.query({
-      uri,
+      ...options,
       extraHeaders: {
-        'X-Plex-Container-Start': start.toString(),
-        'X-Plex-Container-Size': size.toString(),
+        'X-Plex-Container-Start': options.start.toString(),
+        'X-Plex-Container-Size': options.size.toString(),
       },
     })
-    .then((res) => parseMediaContainer(res))
   }
 
-  albums (start, size) {
+  albums (section, start, size) {
     const params = qs.stringify({
       type: 9,
       sort: 'addedAt:desc',
     })
-    const path = `/library/sections/1/all?${params}`
+    const uri = `/library/sections/${section}/all?${params}`
 
-    const responseSchema = new schema.Object({
-      metadata: new schema.Array(albumSchema),
-    })
-
-    return this.fetchMedia(path, start, size)
-      .then((res) => normalize(res, responseSchema))
+    return this.queryWithRange({uri, start, size})
+      .then((res) => parseAlbumContainer(res))
+      .then((res) => normalize(res, albumContainerSchema))
   }
 
   albumTracks (albumId) {
-    const path = `/library/metadata/${albumId}/children`
+    const uri = `/library/metadata/${albumId}/children`
 
-    const responseSchema = new schema.Object({
-      metadata: new schema.Array(trackSchema),
-    })
-
-    return this.fetchMedia(path)
-      .then((res) => normalize(res, responseSchema))
+    return this.api.query({uri})
+      .then((res) => parseTrackContainer(res))
+      .then((res) => normalize(res, trackContainerSchema))
   }
 
   filter () {
@@ -73,10 +68,38 @@ export default class Client {
   }
 
   transcode (options) {
+    return this.signUrl('/photo/:/transcode', options)
+  }
+
+  signUrl (path, options) {
     const params = qs.stringify({
       ...options,
       'X-Plex-Token': this.api.authToken,
     })
-    return `//${this.api.serverUrl}/photo/:/transcode?${params}`
+    return `//${this.api.serverUrl}${path}?${params}`
+  }
+
+  rate (trackId, rating) {
+    const params = qs.stringify({
+      key: trackId,
+      identifier: 'com.plexapp.plugins.library',
+      rating,
+    })
+    return this.api.perform(`/:/rate?${params}`)
+  }
+
+  createQueue (options = {}) {
+    const params = qs.stringify({
+      type: 'audio',
+      uri: options.uri,
+      key: options.key,
+      shuffle: options.shuffle ? 1 : 0,
+      repeat: options.repeat ? 1 : 0,
+      includeChapters: options.includeChapters ? 1 : 0,
+      includeRelated: options.includeRelated ? 1 : 0,
+    })
+    return this.api.postQuery(`/playQueues?${params}`)
+      .then((res) => parsePlayQueue(res))
+      .then((res) => normalize(res, playQueueSchema))
   }
 }

@@ -1,2 +1,24 @@
 .MagicGrid {
 }
+
+.MagicGrid-row {
+}
+
+.MagicGrid-rowItems {
+  display: flex;
+}
+
+.MagicGrid-item {
+  display: block;
+}
+
+.MagicGrid-arrow {
+  width: 0;
+  height: 0;
+  position: absolute;
+  transition: all 350ms ease;
+}
+
+.MagicGrid-box {
+  margin-bottom: 10px;
+}

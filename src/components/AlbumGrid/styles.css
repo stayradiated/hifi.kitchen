@@ -1,9 +1,0 @@
-.AlbumGrid {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.AlbumGrid-album {
-  width: 150px;
-  margin: 10px;
-}

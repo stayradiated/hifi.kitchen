@@ -3,6 +3,7 @@
   overflow: hidden;
   display: flex;
   padding: 50px;
+  background: #333;
 }
 
 .AlbumInfo-image {
@@ -52,18 +53,4 @@
   margin: 0;
   text-align: right;
   line-height: 3em;
-}
-
-.AlbumInfo-background {
-  z-index: -1;
-
-  position: absolute;
-  top: -30px;
-  left: -30px;
-  right: -30px;
-  bottom: -29px;
-
-  background-repeat: no-repeat;
-  background-size: cover;
-  filter: blur(50px) saturate(200%) brightness(80%) contrast(60%);
 }

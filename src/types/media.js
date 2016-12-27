@@ -11,7 +11,7 @@ export default function parseMedia (data) {
   media.container = data.container
 
   media.part = data.Part.map((part) => {
-    return parsePart(part)
+    return  parsePart(part)
   })
 
   return media

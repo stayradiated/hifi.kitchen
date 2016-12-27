@@ -4,20 +4,12 @@ import './styles.css'
 
 import TrackList from '../TrackList'
 import SquareImage from '../SquareImage'
-import Image from '../Image'
 
 export default function AlbumInfo (props) {
-  const {album, albumTracks} = props
+  const {album, albumTracks, onSelectTrack, onRateTrack} = props
 
   return (
     <div className='AlbumInfo' >
-      <Image
-        className='AlbumInfo-background'
-        src={album.thumb}
-        width={150}
-        height={150}
-      />
-
       <SquareImage
         className='AlbumInfo-image'
         src={album.thumb}
@@ -32,7 +24,11 @@ export default function AlbumInfo (props) {
           <h2 className='AlbumInfo-year'>{album.year}</h2>
         </div>
         <p className='AlbumInfo-genre'>{album.genre}</p>
-        <TrackList tracks={albumTracks} />
+        <TrackList
+          tracks={albumTracks}
+          onSelect={onSelectTrack}
+          onRate={onRateTrack}
+        />
       </div>
     </div>
   )
@@ -41,4 +37,6 @@ export default function AlbumInfo (props) {
 AlbumInfo.propTypes = {
   album: PropTypes.shape({}).isRequired,
   albumTracks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onSelectTrack: PropTypes.func,
+  onRateTrack: PropTypes.func,
 }

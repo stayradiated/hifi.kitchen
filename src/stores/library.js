@@ -8,7 +8,7 @@ export const FETCH_LIBRARY_ALBUMS = c`FETCH_LIBRARY_ALBUMS`
 
 export const selectors = createValueSelector((state) => state.library)
 
-export function fetchLibraryAlbums (size) {
+export function fetchLibraryAlbums (section, size) {
   return (dispatch, getState) => {
     const start = selectors.value(getState()).length
 
@@ -16,7 +16,7 @@ export function fetchLibraryAlbums (size) {
       types: FETCH_LIBRARY_ALBUMS,
       payload: {start, size},
       meta: {
-        async: plex.albums(start, size),
+        async: plex.albums(section, start, size),
       },
     })
   }
@@ -24,7 +24,7 @@ export function fetchLibraryAlbums (size) {
 
 const reducer = new AsyncValueReducer({
   defaultValue: [],
-  getValue: (action) => action.value.result.metadata,
+  getValue: (action) => action.value.result.items,
   updateValue: (newValue, oldValue) => {
     return oldValue.concat(newValue)
   },

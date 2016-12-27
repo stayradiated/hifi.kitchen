@@ -1,15 +1,14 @@
 import {schema} from 'normalizr'
 
-export const ALBUM_TYPE = 'album'
+import parseMediaContainer from './mediaContainer'
 
 export const albumSchema = new schema.Entity('albums')
+export const albumContainerSchema = new schema.Object({
+  items: new schema.Array(albumSchema),
+})
 
-export default function parseAlbum (data) {
+export function parseAlbum (data) {
   const album  = {}
-
-  if (data.type !== ALBUM_TYPE) {
-    throw new Error(`Expected type "${ALBUM_TYPE}", but got type "${data.type}"`)
-  }
 
   album.allowSync             = data.allowSync
   album.librarySectionID      = data.librarySectionID
@@ -42,4 +41,29 @@ export default function parseAlbum (data) {
     .join(', ')
 
   return album
+}
+
+export function parseAlbumContainer (data) {
+  if (data.MediaContainer != null) {
+    data = data.MediaContainer
+  }
+
+  const albumContainer = {
+    ...parseMediaContainer(data),
+  }
+
+  albumContainer.allowSync    = data.allowSync
+  albumContainer.art          = data.art
+  albumContainer.mixedParents = data.mixedParents
+  albumContainer.nocache      = data.nocache
+  albumContainer.offset       = data.offset
+  albumContainer.thumb        = data.thumb
+  albumContainer.title1       = data.title1
+  albumContainer.title2       = data.title2
+  albumContainer.viewGroup    = data.viewGroup
+  albumContainer.viewMode     = data.viewMode
+
+  albumContainer.items = data.Metadata.map(parseAlbum)
+
+  return albumContainer
 }

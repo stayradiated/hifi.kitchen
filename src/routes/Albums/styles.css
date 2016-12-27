@@ -2,20 +2,6 @@
   text-align: center;
 }
 
-.AlbumsRoute-header {
-  background-color: #222;
-  line-height: 40px;
-  color: white;
-  margin: 0;
-  padding: 0 50px;
-  text-align: left;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
-
 .AlbumsRoute-contents {
-  padding-top: 40px;
+  padding: 40px 0 80px;
 }
