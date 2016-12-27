@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react'
-import Rating from 'react-rating'
 
 import './styles.css'
 
 import Time from '../Time'
+import TrackRating from '../TrackRating'
 
 export default function Track (props) {
   const {track, onSelect, onRate} = props
@@ -13,15 +13,7 @@ export default function Track (props) {
       <div className='Track-index'>{track.index}</div>
       <div className='Track-title' onClick={() => onSelect(track)}>{track.title}</div>
       <Time className='Track-duration' duration={track.duration} />
-      <Rating
-        start={0}
-        stop={5}
-        initialRate={track.userRating / 2}
-        fractions={2}
-        onChange={(rating) => onRate(track, rating * 2)}
-        empty={<span className='icon icon-star Track-ratingEmpty' />}
-        full={<span className='icon icon-star Track-ratingFull' />}
-      />
+      <TrackRating track={track} onRate={onRate} />
     </div>
   )
 }

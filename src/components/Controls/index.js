@@ -5,12 +5,14 @@ import plex from '../../plex'
 import './styles.css'
 
 import TrackBar from '../TrackBar'
+import TrackRating from '../TrackRating'
 
 export default class Controls extends Component {
   static propTypes = {
     track: PropTypes.shape({}).isRequired,
     onNextTrack: PropTypes.func.isRequired,
     onPrevTrack: PropTypes.func.isRequired,
+    onRateTrack: PropTypes.func.isRequired,
   }
 
   constructor (props) {
@@ -119,7 +121,7 @@ export default class Controls extends Component {
   }
 
   render () {
-    const {track, onNextTrack, onPrevTrack} = this.props
+    const {track, onNextTrack, onPrevTrack, onRateTrack} = this.props
     const {buffered, currentTime, duration, playing} = this.state
 
     if (track == null) {
@@ -163,6 +165,12 @@ export default class Controls extends Component {
           buffered={buffered}
           currentTime={currentTime}
           duration={duration}
+        />
+
+        <TrackRating
+          className='Controls-trackRating'
+          track={track}
+          onRate={onRateTrack}
         />
       </div>
     )

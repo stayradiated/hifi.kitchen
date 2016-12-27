@@ -41,6 +41,16 @@ export const selectors = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case CREATE_QUEUE.REQUEST:
+      const {track} = action.payload
+      return {
+        ...state,
+        selectedItemOffset: 0,
+        items: [{
+          track: track.id,
+        }],
+      }
+
     case CREATE_QUEUE.SUCCESS:
       return {
         ...state,

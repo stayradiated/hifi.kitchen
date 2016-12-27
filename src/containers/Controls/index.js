@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import {selectors as getQueue} from '../../stores/queue'
 import {
+  rateTrack,
   playNextTrack,
   playPrevTrack,
 } from '../../stores/actions'
@@ -20,6 +21,7 @@ class ControlsContainer extends Component {
 
     this.handlePrevTrack = this.handlePrevTrack.bind(this)
     this.handleNextTrack = this.handleNextTrack.bind(this)
+    this.handleRateTrack = this.handleRateTrack.bind(this)
   }
 
   handleNextTrack () {
@@ -30,6 +32,11 @@ class ControlsContainer extends Component {
   handlePrevTrack () {
     const {dispatch} = this.props
     dispatch(playPrevTrack())
+  }
+
+  handleRateTrack (track, rating) {
+    const {dispatch} = this.props
+    dispatch(rateTrack(track, rating))
   }
 
   render () {
@@ -44,6 +51,7 @@ class ControlsContainer extends Component {
         track={track}
         onNextTrack={this.handleNextTrack}
         onPrevTrack={this.handlePrevTrack}
+        onRateTrack={this.handleRateTrack}
       />
     )
   }

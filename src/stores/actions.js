@@ -28,7 +28,7 @@ export const createQueueFromAlbum = (sectionId, album, track) => {
 
     return dispatch({
       types: CREATE_QUEUE,
-      payload: {uri},
+      payload: {uri, sectionId, album, track},
       meta: {
         async: plex.createQueue({
           uri,

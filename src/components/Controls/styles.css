@@ -77,3 +77,9 @@
   background-size: cover;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+
+.Controls-trackRating {
+  position: absolute;
+  top: calc((80px - 20px) / 2);
+  right: calc((80px - 20px) / 2);
+}

@@ -29,11 +29,3 @@
   width: 30px;
   margin-right: 1em;
 }
-
-.Track-ratingEmpty {
-  color: rgba(255, 255, 255, 0.2);
-}
-
-.Track-ratingFull {
-  color: #f9be03;
-}
