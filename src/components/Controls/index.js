@@ -9,7 +9,9 @@ import TrackRating from '../TrackRating'
 
 export default class Controls extends Component {
   static propTypes = {
-    track: PropTypes.shape({}).isRequired,
+    track: PropTypes.shape({
+      id: PropTypes.number,
+    }).isRequired,
     onNextTrack: PropTypes.func.isRequired,
     onPrevTrack: PropTypes.func.isRequired,
     onRateTrack: PropTypes.func.isRequired,
@@ -51,7 +53,9 @@ export default class Controls extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    this.updateAudioSource(nextProps.track)
+    if (nextProps.track.id !== this.props.track.id) {
+      this.updateAudioSource(nextProps.track)
+    }
   }
 
   componentWillUnmount () {

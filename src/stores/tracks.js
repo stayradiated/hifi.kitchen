@@ -28,7 +28,7 @@ export default function (state = reducer.initialState, action) {
         values: mergeTracks(state.values, action.value.entities.tracks),
       }
 
-    case RATE_TRACK.SUCCESS:
+    case RATE_TRACK.REQUEST:
       const {trackId, rating} = action.payload
       const valueMap = new Map(state.values)
       valueMap.set(trackId, {
