@@ -6,6 +6,7 @@ import {selectors as getAlbumTracks} from './albumTracks'
 import {selectors as getAlbums} from './albums'
 import {selectors as getLibrarySections} from './librarySections'
 import {selectors as getLibrary} from './library'
+import {selectors as getQueue} from './queue'
 
 export const CREATE_QUEUE = c`CREATE_QUEUE`
 export const FETCH_ALBUM = c`FETCH_ALBUM`
@@ -13,6 +14,8 @@ export const FETCH_ALBUM_TRACKS = c`FETCH_ALBUM_TRACKS`
 export const FETCH_LIBRARY_ALBUMS = c`FETCH_LIBRARY_ALBUMS`
 export const FETCH_LIBRARY_SECTIONS = c`FETCH_LIBRARY_SECTIONS`
 export const RATE_TRACK = c`RATE_TRACK`
+
+export const SELECT_QUEUE_ITEM = 'SELECT_QUEUE_ITEM'
 
 export const createQueueFromAlbum = (sectionId, album, track) => {
   return (dispatch, getState) => {
@@ -107,3 +110,30 @@ export const rateTrack = (track, rating) => ({
   },
 })
 
+export const playNextTrack = () => {
+  return (dispatch, getState) => {
+    const state = getState()
+    const selectedItemOffset = getQueue.selectedItemOffset(state) + 1
+
+    return dispatch({
+      type: SELECT_QUEUE_ITEM,
+      payload: {
+        selectedItemOffset,
+      },
+    })
+  }
+}
+
+export const playPrevTrack = () => {
+  return (dispatch, getState) => {
+    const state = getState()
+    const selectedItemOffset = getQueue.selectedItemOffset(state) - 1
+
+    return dispatch({
+      type: SELECT_QUEUE_ITEM,
+      payload: {
+        selectedItemOffset,
+      },
+    })
+  }
+}

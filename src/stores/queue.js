@@ -1,13 +1,13 @@
 import {createSelector} from 'reselect'
 
-import {CREATE_QUEUE} from './actions'
+import {CREATE_QUEUE, SELECT_QUEUE_ITEM} from './actions'
 import {selectors as getTracks} from './tracks'
 
 const initialState = {
   id: null,
-  selectedItemId: null,
+  // selectedItemId: null,
   selectedItemOffset: null,
-  selectedMetadataItemId: null,
+  // selectedMetadataItemId: null,
   items: [],
   size: 0,
   totalCount: 0,
@@ -22,9 +22,16 @@ export const selectors = {
   track: createSelector(
     rootSelector, getTracks.values,
     (root, allTracks) => {
-      const trackId = root.selectedMetadataItemId
-      return allTracks.get(trackId)
+      const queueItem = root.items[root.selectedItemOffset]
+      if (queueItem == null) {
+        return null
+      }
+      return allTracks.get(queueItem.track)
     }),
+  selectedItemOffset: createSelector(
+    rootSelector,
+    (root) => root.selectedItemOffset,
+  )
 }
 
 export default function (state = initialState, action) {
@@ -33,6 +40,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         ...action.value.result,
+      }
+
+    case SELECT_QUEUE_ITEM:
+      return {
+        ...state,
+        ...action.payload,
       }
 
     default:

@@ -82,7 +82,6 @@ export default class Controls extends Component {
     if (track == null) {
       return
     }
-    console.log('Starting to load audio!')
   }
 
   audioPause () {

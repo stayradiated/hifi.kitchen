@@ -102,4 +102,23 @@ export default class Client {
       .then((res) => parsePlayQueue(res))
       .then((res) => normalize(res, playQueueSchema))
   }
+
+  timeline () {
+    // hasMDE: 1
+    // ratingKey: 41417
+    // key: '/library/metadata/41417',
+    // state: 'stopped',
+    // continuing: 1,
+    // playQueueItemID: 184671,
+    // time: 95203,
+    // duration: 152973,
+    //
+    // hasMDE: 1,
+    // ratingKey: 41418,
+    // key: '/library/metadata/41418',
+    // state: 'playing',
+    // playQueueItemID: 184672,
+    // time: 0,
+    // duration: 209607,
+  }
 }
