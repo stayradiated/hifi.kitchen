@@ -12,4 +12,26 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+}
+
+.AlbumsRoute-loadMore {
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.AlbumsRoute-loadMoreButton {
+  background: #2c3e50;
+  border-radius: 2px;
+  border: 0;
+  outline: 0;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  color: #fff;
+}
+
+.AlbumsRoute-loadMoreButton:hover {
+  background: #34495e;
 }

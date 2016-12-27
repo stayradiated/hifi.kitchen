@@ -64,12 +64,20 @@ export default class MagicGrid extends Component {
       }
       rows[rows.length - 1].push(item)
       return rows
-    }, [[]])
+    }, [])
+  }
+
+  calcRowOffset () {
+    const {itemWidth} = this.props
+    const {containerWidth} = this.state
+    return (containerWidth % itemWidth) / 2
   }
 
   render () {
     const {itemWidth, component, propName, currentId} = this.props
     const {previousId} = this.state
+
+    const rowOffset = this.calcRowOffset()
 
     return (
       <div
@@ -80,6 +88,7 @@ export default class MagicGrid extends Component {
           <Row
             key={i}
             index={i}
+            rowOffset={rowOffset}
             itemWidth={itemWidth}
             row={row}
             component={component}

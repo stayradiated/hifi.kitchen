@@ -16,8 +16,10 @@ export default function Album (props) {
         alt={album.title}
         size={140}
       />
-      <h2 className='Album-title'>{album.title}</h2>
-      <h3 className='Album-artist'>{album.parentTitle}</h3>
+      <div className='Album-text'>
+        <h2 className='Album-title'>{album.title}</h2>
+        <h3 className='Album-artist'>{album.parentTitle}</h3>
+      </div>
     </Link>
   )
 }

@@ -57,9 +57,11 @@ class AlbumsRoute extends Component {
             albumId={albumId}
             librarySectionId={librarySectionId}
           />
-          {loadingAlbums
-            ? <ScaleLoader color='rgba(255, 255, 255, 0.5)' />
-            : <button onClick={this.fetchAlbums}>Fetch Albums</button>}
+          <div className='AlbumsRoute-loadMore'>
+            {loadingAlbums
+              ? <ScaleLoader color='rgba(255, 255, 255, 0.5)' />
+              : <button className='AlbumsRoute-loadMoreButton' onClick={this.fetchAlbums}>Fetch Albums</button>}
+          </div>
         </div>
         <ControlsContainer />
         <PlayQueueContainer />
