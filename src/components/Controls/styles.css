@@ -1,10 +1,7 @@
 .Controls-container {
-  height: 80px;
+  position: relative;
+  min-height: 80px;
   overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   background: #333;
   border-top: 1px solid #222;
 }

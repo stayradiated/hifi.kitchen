@@ -19,6 +19,11 @@ const initialState = {
 const rootSelector = (state) => state.queue
 
 export const selectors = {
+  tracks: createSelector(
+    rootSelector, getTracks.values,
+    (root, allTracks) =>
+      root.items.map((item) => allTracks.get(item.track)),
+  ),
   track: createSelector(
     rootSelector, getTracks.values,
     (root, allTracks) => {
@@ -31,7 +36,7 @@ export const selectors = {
   selectedItemOffset: createSelector(
     rootSelector,
     (root) => root.selectedItemOffset,
-  )
+  ),
 }
 
 export default function (state = initialState, action) {

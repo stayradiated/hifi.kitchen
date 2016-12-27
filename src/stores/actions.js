@@ -110,30 +110,25 @@ export const rateTrack = (track, rating) => ({
   },
 })
 
+export const selectQueueItem = (index) => ({
+  type: SELECT_QUEUE_ITEM,
+  payload: {
+    selectedItemOffset: index,
+  },
+})
+
 export const playNextTrack = () => {
   return (dispatch, getState) => {
     const state = getState()
-    const selectedItemOffset = getQueue.selectedItemOffset(state) + 1
-
-    return dispatch({
-      type: SELECT_QUEUE_ITEM,
-      payload: {
-        selectedItemOffset,
-      },
-    })
+    const index = getQueue.selectedItemOffset(state) + 1
+    return dispatch(selectQueueItem(index))
   }
 }
 
 export const playPrevTrack = () => {
   return (dispatch, getState) => {
     const state = getState()
-    const selectedItemOffset = getQueue.selectedItemOffset(state) - 1
-
-    return dispatch({
-      type: SELECT_QUEUE_ITEM,
-      payload: {
-        selectedItemOffset,
-      },
-    })
+    const index = getQueue.selectedItemOffset(state) - 1
+    return dispatch(selectQueueItem(index))
   }
 }

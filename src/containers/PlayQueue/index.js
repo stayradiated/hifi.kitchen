@@ -4,28 +4,44 @@ import {connect} from 'react-redux'
 import PlayQueue from '../../components/PlayQueue'
 
 import {selectors as getQueue} from '../../stores/queue'
-import {selectors as getTracks} from '../../stores/tracks'
+import {selectQueueItem} from '../../stores/actions'
 
 class PlayQueueContainer extends Component {
   static propTypes = {
-    queue: PropTypes.shape({}),
     tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
+    selectedIndex: PropTypes.number,
+    dispatch: PropTypes.func.isRequired,
+  }
+
+  constructor () {
+    super()
+
+    this.handleSelectTrack = this.handleSelectTrack.bind(this)
+  }
+
+  handleSelectTrack (track, i) {
+    const {dispatch} = this.props
+    dispatch(selectQueueItem(i))
   }
 
   render () {
-    const {queue, tracks} = this.props
+    const {selectedIndex, tracks} = this.props
 
-    if (queue == null) {
+    if (tracks.length === 0) {
       return null
     }
 
     return (
-      <PlayQueue queue={queue} tracks={tracks} />
+      <PlayQueue
+        tracks={tracks}
+        selectedIndex={selectedIndex}
+        onSelectTrack={this.handleSelectTrack}
+      />
     )
   }
 }
 
 export default connect((state) => ({
-  queue: getQueue.value(state),
-  tracks: getTracks.values(state),
+  tracks: getQueue.tracks(state),
+  selectedIndex: getQueue.selectedItemOffset(state),
 }))(PlayQueueContainer)

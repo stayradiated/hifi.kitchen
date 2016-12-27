@@ -7,6 +7,7 @@ import './styles.css'
 import AlbumGrid from '../../components/AlbumGrid'
 import ControlsContainer from '../../containers/Controls'
 import HeaderContainer from '../../containers/Header'
+import PlayQueueContainer from '../../containers/PlayQueue'
 
 import {
   selectors as getAlbums,
@@ -61,6 +62,7 @@ class AlbumsRoute extends Component {
             : <button onClick={this.fetchAlbums}>Fetch Albums</button>}
         </div>
         <ControlsContainer />
+        <PlayQueueContainer />
       </div>
     )
   }

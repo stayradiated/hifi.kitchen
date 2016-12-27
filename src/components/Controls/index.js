@@ -131,8 +131,6 @@ export default class Controls extends Component {
 
     return (
       <div className='Controls-container'>
-        <div className='Controls-gradient' />
-
         {track != null &&
           <div className='Controls-trackDetails'>
             <span className='Controls-trackTitle'>
