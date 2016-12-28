@@ -1,5 +1,7 @@
 import plex from '../../plex'
+
 import {CREATE_QUEUE, SELECT_QUEUE_ITEM} from '../constants'
+
 import {value as getLibrarySections} from '../library/sections/selectors'
 import * as selectors from './selectors'
 

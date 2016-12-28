@@ -10,6 +10,7 @@
     "classnames": "^2.2.5",
     "cls-bluebird": "^2.0.1",
     "halogen": "^0.2.0",
+    "lodash.throttle": "^4.1.1",
     "moment": "^2.17.1",
     "normalizr": "^3.0.0-beta",
     "plex-api": "^5.0.2",

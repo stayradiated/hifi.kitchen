@@ -10,14 +10,17 @@ export const tracks = createSelector(
     _root.items.map((item) => allTracks.get(item.track)),
 )
 
-export const track = createSelector(
+export const queueItem = createSelector(
   root, getAllTracks,
   (_root, allTracks) => {
-    const queueItem = _root.items[_root.selectedItemOffset]
-    if (queueItem == null) {
+    const item = _root.items[_root.selectedItemOffset]
+    if (item == null) {
       return null
     }
-    return allTracks.get(queueItem.track)
+    return {
+      ...item,
+      track: allTracks.get(item.track),
+    }
   },
 )
 

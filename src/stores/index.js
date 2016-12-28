@@ -7,14 +7,16 @@ import {routerReducer} from 'react-router-redux'
 
 import albums from './albums'
 import library from './library'
-import tracks from './tracks'
 import queue from './queue'
+import timeline from './timeline'
+import tracks from './tracks'
 
 const rootReducer = combineReducers({
   albums,
   library,
-  tracks,
   queue,
+  timeline,
+  tracks,
   routing: routerReducer,
 })
 

@@ -15,6 +15,10 @@ export default class Controls extends Component {
     onNextTrack: PropTypes.func.isRequired,
     onPrevTrack: PropTypes.func.isRequired,
     onRateTrack: PropTypes.func.isRequired,
+    onPlay: PropTypes.func.isRequired,
+    onPause: PropTypes.func.isRequired,
+    onEnd: PropTypes.func.isRequired,
+    onTimeUpdate: PropTypes.func.isRequired,
   }
 
   constructor (props) {
@@ -27,9 +31,10 @@ export default class Controls extends Component {
       playing: false,
     }
 
+    this.timer = null
+
     this.audioDurationChange = this.audioDurationChange.bind(this)
     this.audioEnded = this.audioEnded.bind(this)
-    this.audioLoadStart = this.audioLoadStart.bind(this)
     this.audioPause = this.audioPause.bind(this)
     this.audioPlay = this.audioPlay.bind(this)
     this.audioProgress = this.audioProgress.bind(this)
@@ -43,7 +48,6 @@ export default class Controls extends Component {
 
     this.audio.addEventListener('durationchange', this.audioDurationChange)
     this.audio.addEventListener('ended', this.audioEnded)
-    this.audio.addEventListener('loadstart', this.audioLoadStart)
     this.audio.addEventListener('pause', this.audioPause)
     this.audio.addEventListener('play', this.audioPlay)
     this.audio.addEventListener('progress', this.audioProgress)
@@ -61,7 +65,6 @@ export default class Controls extends Component {
   componentWillUnmount () {
     this.audio.removeEventListener('durationchange')
     this.audio.removeEventListener('ended')
-    this.audio.removeEventListener('loadstart')
     this.audio.removeEventListener('pause')
     this.audio.removeEventListener('play')
     this.audio.removeEventListener('progress')
@@ -79,27 +82,20 @@ export default class Controls extends Component {
   }
 
   audioEnded () {
-    const {onNextTrack} = this.props
-    onNextTrack()
-  }
-
-  audioLoadStart () {
-    const {track} = this.props
-    if (track == null) {
-      return
-    }
+    const {onEnd} = this.props
+    onEnd()
   }
 
   audioPause () {
-    this.setState({
-      playing: false,
-    })
+    const {onPause} = this.props
+    this.setState({playing: false})
+    onPause()
   }
 
   audioPlay () {
-    this.setState({
-      playing: true,
-    })
+    const {onPlay} = this.props
+    this.setState({playing: true})
+    onPlay()
   }
 
   audioProgress () {
@@ -111,9 +107,10 @@ export default class Controls extends Component {
   }
 
   audioTimeUpdate () {
-    this.setState({
-      currentTime: this.audio.currentTime,
-    })
+    const {onTimeUpdate} = this.props
+    const {currentTime} = this.audio
+    this.setState({currentTime})
+    onTimeUpdate(currentTime)
   }
 
   handleToggleAudio () {

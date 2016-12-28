@@ -106,22 +106,17 @@ export default class Client {
       .then((res) => normalize(res, playQueueSchema))
   }
 
-  timeline () {
-    // hasMDE: 1
-    // ratingKey: 41417
-    // key: '/library/metadata/41417',
-    // state: 'stopped',
-    // continuing: 1,
-    // playQueueItemID: 184671,
-    // time: 95203,
-    // duration: 152973,
-    //
-    // hasMDE: 1,
-    // ratingKey: 41418,
-    // key: '/library/metadata/41418',
-    // state: 'playing',
-    // playQueueItemID: 184672,
-    // time: 0,
-    // duration: 209607,
+  timeline (options) {
+    const {currentTime, queueItem, playerState} = options
+    const params = qs.stringify({
+      hasMDE: 1,
+      ratingKey: queueItem.track.ratingKey,
+      key: queueItem.track.key,
+      playQueueItemID: queueItem.id,
+      state: playerState,
+      time: currentTime,
+      duration: queueItem.track.duration,
+    })
+    return this.api.query(`/:/timeline?${params}`)
   }
 }
