@@ -3,8 +3,9 @@ import {connect} from 'react-redux'
 
 import PlayQueue from '../../components/PlayQueue'
 
-import {selectors as getQueue} from '../../stores/queue'
-import {selectQueueItem} from '../../stores/actions'
+import {selectQueueItem} from '../../stores/queue/actions'
+
+import * as selectQueue from '../../stores/queue/selectors'
 
 class PlayQueueContainer extends Component {
   static propTypes = {
@@ -42,6 +43,6 @@ class PlayQueueContainer extends Component {
 }
 
 export default connect((state) => ({
-  tracks: getQueue.tracks(state),
-  selectedIndex: getQueue.selectedItemOffset(state),
+  tracks: selectQueue.tracks(state),
+  selectedIndex: selectQueue.selectedItemOffset(state),
 }))(PlayQueueContainer)

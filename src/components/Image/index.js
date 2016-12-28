@@ -5,12 +5,14 @@ import plex from '../../plex'
 export default function Image (props) {
   const {src, width, height, ...otherProps} = props
 
-  const transcodeSrc = plex.transcode({
-    url: src,
-    width,
-    height,
-    minSize: 1,
-  })
+  const transcodeSrc = src
+    ? plex.transcode({
+      url: src,
+      width,
+      height,
+      minSize: 1,
+    })
+    : ''
 
   return (
     <div
@@ -24,7 +26,7 @@ export default function Image (props) {
 
 Image.propTypes = {
   className: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
 }

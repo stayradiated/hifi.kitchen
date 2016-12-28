@@ -1,10 +1,9 @@
 import {
-  AsyncMapReducer, createMapSelector, createObjectMergeFunction,
+  AsyncMapReducer,
+  createObjectMergeFunction,
 } from '@stayradiated/mandarin'
 
-import {FETCH_ALBUM, FETCH_LIBRARY_ALBUMS} from './actions'
-
-export const selectors = createMapSelector((state) => state.albums)
+import {FETCH_ALBUM, FETCH_LIBRARY_ALBUMS} from '../../constants'
 
 const reducer = new AsyncMapReducer({
   getValue: (action) => action.value,

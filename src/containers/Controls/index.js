@@ -1,14 +1,12 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 
-import {selectors as getQueue} from '../../stores/queue'
-import {
-  rateTrack,
-  playNextTrack,
-  playPrevTrack,
-} from '../../stores/actions'
-
 import Controls from '../../components/Controls'
+
+import {rateTrack} from '../../stores/tracks/all/actions'
+import {playNextTrack, playPrevTrack} from '../../stores/queue/actions'
+
+import {track as getSelectedTrack} from '../../stores/queue/selectors'
 
 class ControlsContainer extends Component {
   static propTypes = {
@@ -58,5 +56,5 @@ class ControlsContainer extends Component {
 }
 
 export default connect((state) => ({
-  track: getQueue.track(state),
+  track: getSelectedTrack(state),
 }))(ControlsContainer)

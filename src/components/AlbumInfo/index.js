@@ -6,7 +6,9 @@ import TrackList from '../TrackList'
 import SquareImage from '../SquareImage'
 
 export default function AlbumInfo (props) {
-  const {album, albumTracks, onSelectTrack, onRateTrack} = props
+  const {
+    album, albumTracks, onSelectTrack, onPlexMix, onRateTrack,
+  } = props
 
   return (
     <div className='AlbumInfo' >
@@ -27,6 +29,7 @@ export default function AlbumInfo (props) {
         <TrackList
           tracks={albumTracks}
           onSelect={onSelectTrack}
+          onPlexMix={onPlexMix}
           onRate={onRateTrack}
         />
       </div>
@@ -38,5 +41,6 @@ AlbumInfo.propTypes = {
   album: PropTypes.shape({}).isRequired,
   albumTracks: PropTypes.arrayOf(PropTypes.object).isRequired,
   onSelectTrack: PropTypes.func,
+  onPlexMix: PropTypes.func,
   onRateTrack: PropTypes.func,
 }

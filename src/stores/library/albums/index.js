@@ -1,8 +1,6 @@
-import {AsyncValueReducer, createValueSelector} from '@stayradiated/mandarin'
+import {AsyncValueReducer} from '@stayradiated/mandarin'
 
-import {FETCH_LIBRARY_ALBUMS} from './actions'
-
-export const selectors = createValueSelector((state) => state.library)
+import {FETCH_LIBRARY_ALBUMS} from '../../constants'
 
 const reducer = new AsyncValueReducer({
   defaultValue: [],

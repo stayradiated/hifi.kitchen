@@ -5,7 +5,7 @@ import './styles.css'
 import Track from '../Track'
 
 export default function TrackList (props) {
-  const {tracks, onSelect, onRate} = props
+  const {tracks, onSelect, onPlexMix, onRate} = props
 
   return (
     <div className='TrackList'>
@@ -14,6 +14,7 @@ export default function TrackList (props) {
           <Track
             track={track}
             onSelect={onSelect}
+            onPlexMix={onPlexMix}
             onRate={onRate}
           />
         </div>
@@ -25,5 +26,6 @@ export default function TrackList (props) {
 TrackList.propTypes = {
   tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
   onSelect: PropTypes.func,
+  onPlexMix: PropTypes.func,
   onRate: PropTypes.func,
 }

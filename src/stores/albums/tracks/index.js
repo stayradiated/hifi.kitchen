@@ -1,8 +1,6 @@
-import {AsyncMapReducer, createMapSelector} from '@stayradiated/mandarin'
+import {AsyncMapReducer} from '@stayradiated/mandarin'
 
-import {FETCH_ALBUM_TRACKS} from './actions'
-
-export const selectors = createMapSelector((state) => state.albumTracks)
+import {FETCH_ALBUM_TRACKS} from '../../constants'
 
 const fetchAlbumTracksReducer = new AsyncMapReducer({
   defaultMap: [],

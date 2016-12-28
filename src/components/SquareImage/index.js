@@ -24,6 +24,6 @@ export default function SquareImage (props) {
 
 SquareImage.propTypes = {
   className: PropTypes.string,
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   size: PropTypes.number.isRequired,
 }

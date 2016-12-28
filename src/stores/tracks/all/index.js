@@ -1,10 +1,9 @@
 import {
-  AsyncMapReducer, createMapSelector, createObjectMergeFunction,
+  AsyncMapReducer,
+  createObjectMergeFunction,
 } from '@stayradiated/mandarin'
 
-import {CREATE_QUEUE, FETCH_ALBUM_TRACKS, RATE_TRACK} from './actions'
-
-export const selectors = createMapSelector((state) => state.tracks)
+import {CREATE_QUEUE, FETCH_ALBUM_TRACKS, RATE_TRACK} from '../../constants'
 
 const reducer = new AsyncMapReducer({
   getValue: (action) => action.value,

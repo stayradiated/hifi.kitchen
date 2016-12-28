@@ -47,8 +47,11 @@ export default class Client {
       .then((res) => normalize(res, albumContainerSchema))
   }
 
-  albumTracks (albumId) {
-    const uri = `/library/metadata/${albumId}/children`
+  albumTracks (albumId, options = {}) {
+    const params = qs.stringify({
+      includeRelated: options.includeRelated ? 1 : 0,
+    })
+    const uri = `/library/metadata/${albumId}/children?${params}`
 
     return this.api.query({uri})
       .then((res) => parseTrackContainer(res))

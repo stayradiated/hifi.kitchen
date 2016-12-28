@@ -3,15 +3,16 @@ import {connect} from 'react-redux'
 
 import AlbumInfo from '../../components/AlbumInfo'
 
-import {selectors as getAlbums} from '../../stores/albums'
-import {selectors as getAlbumTracks} from '../../stores/albumTracks'
-import {selectors as getTracks} from '../../stores/tracks'
-
+import {rateTrack} from '../../stores/tracks/all/actions'
+import {fetchAlbumTracks} from '../../stores/albums/tracks/actions'
 import {
-  rateTrack,
-  fetchAlbumTracks,
   createQueueFromAlbum,
-} from '../../stores/actions'
+  createQueueFromPlexMix,
+} from '../../stores/queue/actions'
+
+import {values as getAllAlbums} from '../../stores/albums/all/selectors'
+import {values as getAllAlbumTracks} from '../../stores/albums/tracks/selectors'
+import {values as getAllTracks} from '../../stores/tracks/all/selectors'
 
 class AlbumContainer extends Component {
   static propTypes = {
@@ -27,6 +28,7 @@ class AlbumContainer extends Component {
 
     this.handleSelectTrack = this.handleSelectTrack.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
+    this.handlePlexMix = this.handlePlexMix.bind(this)
   }
 
   componentWillMount () {
@@ -49,6 +51,11 @@ class AlbumContainer extends Component {
     dispatch(createQueueFromAlbum(librarySectionId, album, track))
   }
 
+  handlePlexMix (track) {
+    const {librarySectionId, dispatch} = this.props
+    dispatch(createQueueFromPlexMix(librarySectionId, track))
+  }
+
   handleRateTrack (track, rating) {
     const {dispatch} = this.props
     dispatch(rateTrack(track, rating))
@@ -66,6 +73,7 @@ class AlbumContainer extends Component {
         album={album}
         albumTracks={albumTracks}
         onSelectTrack={this.handleSelectTrack}
+        onPlexMix={this.handlePlexMix}
         onRateTrack={this.handleRateTrack}
       />
     )
@@ -75,18 +83,19 @@ class AlbumContainer extends Component {
 export default connect((state, props) => {
   const {albumId} = props
 
-  // combine tracks and albumTracks stores
-  const allTracks = getTracks.values(state)
-  const allAlbumTracks = getAlbumTracks.values(state)
+  // select state
+  const allTracks = getAllTracks(state)
+  const allAlbumTracks = getAllAlbumTracks(state)
+  const allAlbums = getAllAlbums(state)
+
+  // get albumTracks
   const albumTrackIds = allAlbumTracks.get(albumId) || []
   const albumTracks = albumTrackIds.map((id) => allTracks.get(id))
 
   // get album
-  const allAlbums = getAlbums.values(state)
   const album = allAlbums.get(albumId)
 
   return {
-    albumId,
     album,
     albumTracks,
   }

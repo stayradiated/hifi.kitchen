@@ -29,3 +29,31 @@
   width: 30px;
   margin-right: 1em;
 }
+
+.Track-plexMix {
+  color: #9b59b6;
+  background: #2c3e50;
+  border-radius: 100%;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  border: none;
+  outline: none;
+  text-align: center;
+  font-size: 0.6em;
+  padding: 0;
+  cursor: pointer;
+  margin-top: 0.5em;
+  margin-left: 0.5em;
+}
+
+.Track-plexMix:hover {
+  color: #fff;
+  background: #2ecc71;
+}
+
+.Track-plexMixDisabled {
+  opacity: 0.1;
+  pointer-events: Trackone;
+  cursor: default;
+}

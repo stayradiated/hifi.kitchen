@@ -9,17 +9,10 @@ import ControlsContainer from '../../containers/Controls'
 import HeaderContainer from '../../containers/Header'
 import PlayQueueContainer from '../../containers/PlayQueue'
 
-import {
-  selectors as getAlbums,
-} from '../../stores/albums'
+import {fetchLibraryAlbums} from '../../stores/library/albums/actions'
 
-import {
-  selectors as getLibrary,
-} from '../../stores/library'
-
-import {
-  fetchLibraryAlbums,
-} from '../../stores/actions'
+import {values as getAllAlbums} from '../../stores/albums/all/selectors'
+import * as selectLibraryAlbums from '../../stores/library/albums/selectors'
 
 class AlbumsRoute extends Component {
   static propTypes = {
@@ -74,11 +67,11 @@ export default connect((state, props) => {
   const {params} = props
   const {section, id: albumId} = params
 
-  const allAlbums = getAlbums.values(state)
+  const allAlbums = getAllAlbums(state)
 
   return {
-    albums: getLibrary.value(state).map((id) => allAlbums.get(id)),
-    loadingAlbums: !!getLibrary.promise(state),
+    albums: selectLibraryAlbums.value(state).map((id) => allAlbums.get(id)),
+    loadingAlbums: !!selectLibraryAlbums.promise(state),
     librarySectionId: section ? parseInt(section, 10) : null,
     albumId: albumId ? parseInt(albumId, 10) : null,
   }

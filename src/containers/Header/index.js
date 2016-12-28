@@ -4,11 +4,9 @@ import {connect} from 'react-redux'
 
 import './styles.css'
 
-import {
-  selectors as getLibrarySections,
-} from '../../stores/librarySections'
+import {fetchLibrarySections} from '../../stores/library/sections/actions'
 
-import {fetchLibrarySections} from '../../stores/actions'
+import {value as getAllLibrarySections} from '../../stores/library/sections/selectors'
 
 class HeaderContainer extends Component {
   static propTypes = {
@@ -45,5 +43,5 @@ class HeaderContainer extends Component {
 }
 
 export default connect((state) => ({
-  librarySections: getLibrarySections.value(state),
+  librarySections: getAllLibrarySections(state),
 }))(HeaderContainer)

@@ -40,6 +40,10 @@ export function parseTrack (data) {
 
   track.media = data.Media.map(parseMedia)
 
+  if (data.Related != null) {
+    track.plexMix = data.Related.Directory
+  }
+
   return track
 }
 
