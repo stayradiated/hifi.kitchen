@@ -6,7 +6,13 @@ import {
 import {FETCH_ALBUM, FETCH_LIBRARY_ALBUMS} from '../../constants'
 
 const reducer = new AsyncMapReducer({
-  getValue: (action) => action.value,
+  getId: (action) => action.payload.albumId,
+  getValue: (action) => {
+    console.log(action)
+    const {albumId} = action.payload
+    const {entities} = action.value
+    return entities.albums[albumId]
+  },
 })
 
 const mergeAlbums = createObjectMergeFunction({

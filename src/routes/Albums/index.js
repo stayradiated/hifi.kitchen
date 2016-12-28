@@ -5,9 +5,6 @@ import ScaleLoader from 'halogen/ScaleLoader'
 import './styles.css'
 
 import AlbumGrid from '../../components/AlbumGrid'
-import ControlsContainer from '../../containers/Controls'
-import HeaderContainer from '../../containers/Header'
-import PlayQueueContainer from '../../containers/PlayQueue'
 
 import {fetchLibraryAlbums} from '../../stores/library/albums/actions'
 
@@ -43,21 +40,16 @@ class AlbumsRoute extends Component {
 
     return (
       <div className='AlbumsRoute'>
-        <HeaderContainer />
-        <div className='AlbumsRoute-contents'>
-          <AlbumGrid
-            albums={albums}
-            albumId={albumId}
-            librarySectionId={librarySectionId}
-          />
-          <div className='AlbumsRoute-loadMore'>
-            {loadingAlbums
+        <AlbumGrid
+          albums={albums}
+          albumId={albumId}
+          librarySectionId={librarySectionId}
+        />
+        <div className='AlbumsRoute-loadMore'>
+          {loadingAlbums
               ? <ScaleLoader color='rgba(255, 255, 255, 0.5)' />
               : <button className='AlbumsRoute-loadMoreButton' onClick={this.fetchAlbums}>Fetch Albums</button>}
-          </div>
         </div>
-        <ControlsContainer />
-        <PlayQueueContainer />
       </div>
     )
   }

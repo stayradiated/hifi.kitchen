@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react'
+import {Link} from 'react-router'
 
 import './styles.css'
 
@@ -25,7 +26,19 @@ export default function AlbumInfo (props) {
           <h2 className='AlbumInfo-artist'>{album.parentTitle}</h2>
           <h2 className='AlbumInfo-year'>{album.year}</h2>
         </div>
-        <p className='AlbumInfo-genre'>{album.genre}</p>
+        <ul className='AlbumInfo-genreList'>
+          {album.genre.map((genre, i) => (
+            <li className='AlbumInfo-genreItem' key={i}>
+              {!!i && ', '}
+              <Link
+                className='AlbumInfo-genreLink'
+                to={`/genre/${genre}`}
+              >
+                {genre}
+              </Link>
+            </li>
+          ))}
+        </ul>
         <TrackList
           tracks={albumTracks}
           onSelect={onSelectTrack}

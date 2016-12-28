@@ -8,6 +8,7 @@ import './index.css'
 import './css/fontello.css'
 
 import Albums from './routes/Albums'
+import App from './routes/App'
 
 import createStore from './stores'
 
@@ -17,7 +18,9 @@ const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path='/library/:section(/albums/:id)' component={Albums} />
+      <Route path='/' component={App}>
+        <Route path='/library/:section(/albums/:id)' component={Albums} />
+      </Route>
     </Router>
   </Provider>
 , document.getElementById('root'))

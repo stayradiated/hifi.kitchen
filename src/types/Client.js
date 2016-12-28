@@ -47,6 +47,13 @@ export default class Client {
       .then((res) => normalize(res, albumContainerSchema))
   }
 
+  album (albumId) {
+    const uri = `/library/metadata/${albumId}`
+    return this.api.query({uri})
+      .then((res) => parseAlbumContainer(res))
+      .then((res) => normalize(res, albumContainerSchema))
+  }
+
   albumTracks (albumId, options = {}) {
     const params = qs.stringify({
       includeRelated: options.includeRelated ? 1 : 0,
@@ -118,5 +125,17 @@ export default class Client {
       duration: queueItem.track.duration,
     })
     return this.api.query(`/:/timeline?${params}`)
+  }
+
+  updateAlbumTags () {
+    this.api.putQuery('/library/sections/1/all', {
+      type: 9,
+      id: 41434,
+      'genre[0].tag.tag': 'Pop',
+      'genre[1].tag.tag': 'Rock',
+      'genre[2].tag.tag': 'Post-Punk',
+      'genre[].tag.tag-': 'Pop, Rock, Post-Punk',
+      'genre.locked': 1,
+    })
   }
 }

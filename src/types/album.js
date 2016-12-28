@@ -38,7 +38,6 @@ export function parseAlbum (data) {
 
   album.genre = (data.Genre || [])
     .map((genre) => genre.tag)
-    .join(', ')
 
   return album
 }

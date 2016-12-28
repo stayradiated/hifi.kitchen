@@ -8,7 +8,7 @@ export const forceFetchAlbum = (albumId) => ({
   types: FETCH_ALBUM,
   payload: {albumId},
   meta: {
-    async: plex.fetchAlbum(albumId),
+    async: plex.album(albumId),
   },
 })
 

@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import AlbumInfo from '../../components/AlbumInfo'
 
 import {rateTrack} from '../../stores/tracks/all/actions'
+import {fetchAlbum} from '../../stores/albums/all/actions'
 import {fetchAlbumTracks} from '../../stores/albums/tracks/actions'
 import {
   createQueueFromAlbum,
@@ -43,6 +44,7 @@ class AlbumContainer extends Component {
 
   fetchAlbum (albumId) {
     const {dispatch} = this.props
+    dispatch(fetchAlbum(albumId))
     dispatch(fetchAlbumTracks(albumId))
   }
 
