@@ -6,14 +6,14 @@
     "react-scripts": "0.8.4"
   },
   "dependencies": {
-    "@stayradiated/mandarin": "^1.5.1",
+    "@stayradiated/mandarin": "^1.5.2",
     "classnames": "^2.2.5",
     "cls-bluebird": "^2.0.1",
     "halogen": "^0.2.0",
     "lodash.throttle": "^4.1.1",
     "moment": "^2.17.1",
     "normalizr": "^3.0.0-beta",
-    "perplexed": "^0.1.0",
+    "perplexed": "^0.2.0",
     "plex-api": "^5.0.2",
     "qs": "^6.3.0",
     "react": "^15.4.1",
