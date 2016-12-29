@@ -11,7 +11,7 @@ export function fetchLibraryAlbums (section, size) {
       types: FETCH_LIBRARY_ALBUMS,
       payload: {start, size},
       meta: {
-        async: plex.albums(section, start, size),
+        async: plex.albums(section, {start, size}),
       },
     })
   }

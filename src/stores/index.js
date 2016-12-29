@@ -1,9 +1,12 @@
-import {createStore, applyMiddleware, combineReducers} from 'redux'
+import {compose, createStore, applyMiddleware, combineReducers} from 'redux'
 import ReduxPromise from 'redux-promise'
 import ReduxThunk from 'redux-thunk'
 import ReduxAsync from '@stayradiated/mandarin'
 import createReduxLogger from 'redux-logger'
 import {routerReducer} from 'react-router-redux'
+import persistState from 'redux-localstorage'
+import adapter from 'redux-localstorage/lib/adapters/localStorage'
+import filter from 'redux-localstorage-filter'
 
 import albums from './albums'
 import library from './library'
@@ -21,12 +24,24 @@ const rootReducer = combineReducers({
 })
 
 export default function store () {
-  return createStore(rootReducer, applyMiddleware(
+  const middleware = applyMiddleware(
     ReduxPromise,
     ReduxThunk,
     ReduxAsync,
     createReduxLogger({
       collapsed: true,
     }),
+  )
+
+  const storage = filter([
+    'albums',
+    'library',
+    'queue',
+    'tracks',
+  ])(adapter(window.localStorage))
+
+  return createStore(rootReducer, compose(
+    middleware,
+    persistState(storage, 'plex'),
   ))
 }

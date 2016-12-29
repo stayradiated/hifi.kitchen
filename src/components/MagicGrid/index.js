@@ -64,7 +64,7 @@ export default class MagicGrid extends Component {
       }
       rows[rows.length - 1].push(item)
       return rows
-    }, [])
+    }, [[]])
   }
 
   calcRowOffset () {

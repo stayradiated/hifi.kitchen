@@ -1,14 +1,15 @@
+import {actionTypes} from 'redux-localstorage'
 import {
   AsyncMapReducer,
   createObjectMergeFunction,
 } from '@stayradiated/mandarin'
 
+import {rehydateMapReducer} from '../../../utils'
 import {FETCH_ALBUM, FETCH_LIBRARY_ALBUMS} from '../../constants'
 
 const reducer = new AsyncMapReducer({
   getId: (action) => action.payload.albumId,
   getValue: (action) => {
-    console.log(action)
     const {albumId} = action.payload
     const {entities} = action.value
     return entities.albums[albumId]
@@ -21,6 +22,9 @@ const mergeAlbums = createObjectMergeFunction({
 
 export default function (state = reducer.initialState, action) {
   switch (action.type) {
+    case actionTypes.INIT:
+      return rehydateMapReducer(action.payload.albums.all)
+
     case FETCH_ALBUM.REQUEST:
       return reducer.handleRequest(state, action)
 

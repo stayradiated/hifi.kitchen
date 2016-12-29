@@ -6,7 +6,7 @@ export default function Image (props) {
   const {src, width, height, ...otherProps} = props
 
   const transcodeSrc = src
-    ? plex.transcode({
+    ? plex.resizePhoto({
       url: src,
       width,
       height,

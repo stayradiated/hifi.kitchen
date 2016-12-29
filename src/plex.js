@@ -1,4 +1,4 @@
-import Plex from './types/Client'
+import Plex from 'perplexed'
 import config from '../config.json'
 
 // TODO: remove this singleton

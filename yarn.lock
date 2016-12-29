@@ -3827,6 +3827,14 @@ pbkdf2-compat@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pbkdf2-compat/-/pbkdf2-compat-2.0.1.tgz#b6e0c8fa99494d94e0511575802a59a5c142f288"
 
+perplexed@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/perplexed/-/perplexed-0.1.0.tgz#25142c70e4ba8122d6fac2b34533d1ff1461e5fe"
+  dependencies:
+    normalizr "^3.0.0-beta"
+    plex-api "^5.0.2"
+    qs "^6.3.0"
+
 pify@^2.0.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
@@ -4461,6 +4469,14 @@ reduce-function-call@^1.0.1:
   resolved "https://registry.yarnpkg.com/reduce-function-call/-/reduce-function-call-1.0.2.tgz#5a200bf92e0e37751752fe45b0ab330fd4b6be99"
   dependencies:
     balanced-match "^0.4.2"
+
+redux-localstorage-filter@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/redux-localstorage-filter/-/redux-localstorage-filter-0.1.1.tgz#94c5ab68d8cda479bb3cc6cdf03569f8f63a188d"
+
+redux-localstorage@1.0.0-rc4:
+  version "1.0.0-rc4"
+  resolved "https://registry.yarnpkg.com/redux-localstorage/-/redux-localstorage-1.0.0-rc4.tgz#ceba882693298df2014af3ae8bc1b58dd4272a83"
 
 redux-logger@^2.7.4:
   version "2.7.4"

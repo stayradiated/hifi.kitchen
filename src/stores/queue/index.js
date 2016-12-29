@@ -1,3 +1,4 @@
+import {actionTypes} from 'redux-localstorage'
 import {CREATE_QUEUE, SELECT_QUEUE_ITEM} from '../constants'
 
 const initialState = {
@@ -9,6 +10,9 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
+    case actionTypes.INIT:
+      return action.payload.queue
+
     case CREATE_QUEUE.REQUEST:
       const {initialTrack} = action.payload
       return {

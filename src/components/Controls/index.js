@@ -130,7 +130,7 @@ export default class Controls extends Component {
     }
 
     const title = track.title
-    const artist = track.grandparentTitle
+    const artist = track.originalTitle || track.grandparentTitle
 
     return (
       <div className='Controls-container'>
