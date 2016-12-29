@@ -1,11 +1,14 @@
 import React, {Component, PropTypes} from 'react'
+import ClickOutside from 'react-click-outside'
 
 import plex from '../../plex'
 
 import './styles.css'
 
+import Icon from '../Icon'
 import TrackBar from '../TrackBar'
 import TrackRating from '../TrackRating'
+import PlayQueueContainer from '../../containers/PlayQueue'
 
 export default class Controls extends Component {
   static propTypes = {
@@ -29,6 +32,8 @@ export default class Controls extends Component {
       currentTime: 0,
       duration: 0,
       playing: false,
+
+      playQueueOpen: false,
     }
 
     this.timer = null
@@ -40,6 +45,9 @@ export default class Controls extends Component {
     this.audioProgress = this.audioProgress.bind(this)
     this.audioTimeUpdate = this.audioTimeUpdate.bind(this)
     this.handleToggleAudio = this.handleToggleAudio.bind(this)
+
+    this.openPlayQueue = this.openPlayQueue.bind(this)
+    this.closePlayQueue = this.closePlayQueue.bind(this)
   }
 
   componentDidMount () {
@@ -121,9 +129,17 @@ export default class Controls extends Component {
     }
   }
 
+  openPlayQueue () {
+    this.setState({playQueueOpen: true})
+  }
+
+  closePlayQueue () {
+    this.setState({playQueueOpen: false})
+  }
+
   render () {
     const {track, onNextTrack, onPrevTrack, onRateTrack} = this.props
-    const {buffered, currentTime, duration, playing} = this.state
+    const {buffered, currentTime, duration, playing, playQueueOpen} = this.state
 
     if (track == null) {
       return null
@@ -144,20 +160,21 @@ export default class Controls extends Component {
           </div>}
 
         <div className='Controls-navigationBtns'>
-          <button
-            className='Controls-navigationBtn Controls-prevNextBtn icon icon-to-start'
+          <Icon
+            icon='to-start'
+            className='Controls-navigationBtn Controls-prevNextBtn'
             onClick={onPrevTrack}
           />
 
-          <button
-            className={playing
-              ? 'Controls-navigationBtn Controls-playPauseBtn icon icon-pause'
-              : 'Controls-navigationBtn Controls-playPauseBtn icon icon-play'}
+          <Icon
+            icon={playing ? 'pause' : 'play'}
+            className='Controls-navigationBtn Controls-playPauseBtn'
             onClick={this.handleToggleAudio}
           />
 
-          <button
-            className='Controls-navigationBtn Controls-prevNextBtn icon icon-to-end'
+          <Icon
+            icon='to-end'
+            className='Controls-navigationBtn Controls-prevNextBtn'
             onClick={onNextTrack}
           />
         </div>
@@ -167,6 +184,18 @@ export default class Controls extends Component {
           currentTime={currentTime}
           duration={duration}
         />
+
+        <Icon
+          className='Controls-showPlaylist'
+          icon='list-numbered'
+          onClick={this.openPlayQueue}
+        />
+
+        {playQueueOpen &&
+          <ClickOutside onClickOutside={this.closePlayQueue}>
+            <PlayQueueContainer />
+          </ClickOutside>
+        }
 
         <TrackRating
           className='Controls-trackRating'

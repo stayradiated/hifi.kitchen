@@ -1,10 +1,11 @@
 import React, {PropTypes} from 'react'
+import pure from 'recompose/pure'
 
 import Arrow from './Arrow'
 import Box from './Box'
 import {IdType, ItemsType} from './types'
 
-export default function MagicGridRow (props) {
+function MagicGridRow (props) {
   const {
     itemWidth, row, index, currentId, previousId, component, propName,
     rowOffset,
@@ -55,3 +56,5 @@ MagicGridRow.propTypes = {
   component: PropTypes.element.isRequired,
   propName: PropTypes.string.isRequired,
 }
+
+export default pure(MagicGridRow)

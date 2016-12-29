@@ -15,7 +15,7 @@ const reducer = new AsyncValueReducer({
 export default function (state = reducer.initialState, action) {
   switch (action.type) {
     case actionTypes.INIT:
-      return rehydrateValueReducer(state, action.payload.library.albums)
+      return rehydrateValueReducer(state, action.payload, ['library', 'albums'])
 
     case FETCH_LIBRARY_ALBUMS.REQUEST:
       return reducer.handleRequest(state, action)

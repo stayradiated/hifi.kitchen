@@ -19,7 +19,8 @@ class ControlsContainer extends Component {
   static propTypes = {
     queueItem: PropTypes.shape({
       id: PropTypes.number,
-      track: PropTypes.object,
+    }),
+    track: PropTypes.shape({
     }),
     dispatch: PropTypes.func.isRequired,
   }
@@ -38,14 +39,14 @@ class ControlsContainer extends Component {
   componentWillReceiveProps (nextProps) {
     const {dispatch} = nextProps
 
-    const nextQueueItem = nextProps.queueItem
-    const thisQueueItem = this.props.queueItem
+    const nextTrack = nextProps.track
+    const thisTrack = this.props.track
 
-    const nextTrackId = nextQueueItem && nextQueueItem.track.id
-    const thisTrackId = thisQueueItem && thisQueueItem.track.id
+    const nextTrackId = nextTrack && nextTrack.id
+    const thisTrackId = thisTrack && thisTrack.id
 
     if (thisTrackId != null && nextTrackId !== thisTrackId) {
-      dispatch(sendTimelineStop(thisQueueItem))
+      dispatch(sendTimelineStop(this.props.queueItem))
     }
   }
 
@@ -80,15 +81,15 @@ class ControlsContainer extends Component {
   }
 
   render () {
-    const {queueItem} = this.props
+    const {track} = this.props
 
-    if (queueItem == null) {
+    if (track == null) {
       return null
     }
 
     return (
       <Controls
-        track={queueItem.track}
+        track={track}
         onNextTrack={this.handleNextTrack}
         onPrevTrack={this.handlePrevTrack}
         onRateTrack={this.handleRateTrack}
@@ -103,4 +104,5 @@ class ControlsContainer extends Component {
 
 export default connect((state) => ({
   queueItem: getQueue.queueItem(state),
+  track: getQueue.track(state),
 }))(ControlsContainer)

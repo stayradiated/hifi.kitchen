@@ -3,6 +3,7 @@ import Rating from 'react-rating'
 import classNames from 'classnames'
 
 import './styles.css'
+import Icon from '../Icon'
 
 export default function TrackRating (props) {
   const {className, track, onRate} = props
@@ -15,8 +16,8 @@ export default function TrackRating (props) {
       initialRate={track.userRating / 2}
       fractions={2}
       onChange={(rating) => onRate(track, rating * 2)}
-      empty={<span className='icon icon-star TrackRating-empty' />}
-      full={<span className='icon icon-star TrackRating-full' />}
+      empty={<Icon icon='star' className='TrackRating-empty' />}
+      full={<Icon icon='star' className='TrackRating-full' />}
     />
   )
 }

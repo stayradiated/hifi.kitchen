@@ -1,7 +1,6 @@
 .Controls-container {
   position: relative;
   min-height: 80px;
-  overflow: hidden;
   background: #333;
   border-top: 1px solid #222;
 }
@@ -81,5 +80,17 @@
 .Controls-trackRating {
   position: absolute;
   top: calc((80px - 20px) / 2);
+  right: calc(40px + (80px - 20px) / 2);
+}
+
+.Controls-showPlaylist {
+  position: absolute;
+  top: calc((80px - 20px) / 2);
   right: calc((80px - 20px) / 2);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.Controls-showPlaylist:hover {
+  color: rgba(255, 255, 255, 0.95);
 }

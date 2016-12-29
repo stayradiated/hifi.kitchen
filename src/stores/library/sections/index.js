@@ -12,7 +12,7 @@ const reducer = new AsyncValueReducer({
 export default function (state = reducer.initialState, action) {
   switch (action.type) {
     case actionTypes.INIT:
-      return rehydrateValueReducer(state, action.payload.library.sections)
+      return rehydrateValueReducer(state, action.payload, ['library', 'sections'])
 
     case FETCH_LIBRARY_SECTIONS.REQUEST:
       return reducer.handleRequest(state, action)

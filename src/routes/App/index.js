@@ -4,7 +4,6 @@ import './styles.css'
 
 import ControlsContainer from '../../containers/Controls'
 import HeaderContainer from '../../containers/Header'
-import PlayQueueContainer from '../../containers/PlayQueue'
 
 export default function AppRoute (props) {
   const {children} = props
@@ -16,7 +15,6 @@ export default function AppRoute (props) {
         {children}
       </div>
       <ControlsContainer />
-      <PlayQueueContainer />
     </div>
   )
 }

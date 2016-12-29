@@ -34,10 +34,10 @@ export default function store () {
   )
 
   const storage = filter([
-    'albums',
-    'library',
+    // 'albums',
+    // 'library',
     'queue',
-    'tracks',
+    // 'tracks',
   ])(adapter(window.localStorage))
 
   return createStore(rootReducer, compose(

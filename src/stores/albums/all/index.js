@@ -4,7 +4,7 @@ import {
   createObjectMergeFunction,
 } from '@stayradiated/mandarin'
 
-import {rehydateMapReducer} from '../../../utils'
+import {rehydrateMapReducer} from '../../../utils'
 import {FETCH_ALBUM, FETCH_LIBRARY_ALBUMS} from '../../constants'
 
 const reducer = new AsyncMapReducer({
@@ -23,7 +23,7 @@ const mergeAlbums = createObjectMergeFunction({
 export default function (state = reducer.initialState, action) {
   switch (action.type) {
     case actionTypes.INIT:
-      return rehydateMapReducer(action.payload.albums.all)
+      return rehydrateMapReducer(state, action.payload, ['albums', 'all'])
 
     case FETCH_ALBUM.REQUEST:
       return reducer.handleRequest(state, action)
