@@ -18,15 +18,36 @@
   padding: 0;
 }
 
+.Header-routes {
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.Header-routeItem {
+  margin: 0;
+  padding: 0 0.5em;
+  list-style-type: none;
+}
+
+.Header-routeLink {
+  color: #fff;
+  text-decoration: none;
+}
+
+.Header-routeLink:hover {
+  text-decoration: underline;
+}
+
 .Header-sections {
   margin: 0;
   padding: 0;
-  list-style-type: none;
 }
 
 .Header-sectionItem {
   margin: 0;
   padding: 0;
+  list-style-type: none;
 }
 
 .Header-sectionLink {

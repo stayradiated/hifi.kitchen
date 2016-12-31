@@ -6,10 +6,11 @@ import {
 
 import {rehydrateMapReducer} from '../../../utils'
 import {
-  CREATE_QUEUE, 
+  CREATE_QUEUE,
   FETCH_PLAYLIST_TRACKS,
   FETCH_ALBUM_TRACKS,
   RATE_TRACK,
+  SEARCH,
 } from '../../constants'
 
 const reducer = new AsyncMapReducer({
@@ -32,6 +33,12 @@ export default function (state = reducer.initialState, action) {
       }
 
     case FETCH_PLAYLIST_TRACKS.SUCCESS:
+      return {
+        ...state,
+        values: mergeTracks(state.values, action.value.entities.tracks),
+      }
+
+    case SEARCH.SUCCESS:
       return {
         ...state,
         values: mergeTracks(state.values, action.value.entities.tracks),

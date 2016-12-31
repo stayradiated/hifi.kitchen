@@ -11,7 +11,7 @@ export function fetchLibraryPlaylists (section, size) {
       types: FETCH_LIBRARY_PLAYLISTS,
       payload: {start, size},
       meta: {
-        async: plex.normalizedPlaylists(),
+        async: plex.normalizedPlaylists({start, size}),
       },
     })
   }

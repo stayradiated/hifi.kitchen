@@ -15,6 +15,7 @@ export const FETCH_LIBRARY_PLAYLISTS = c`FETCH_LIBRARY_PLAYLISTS`
 export const FETCH_LIBRARY_SECTIONS  = c`FETCH_LIBRARY_SECTIONS`
 export const RATE_TRACK              = c`RATE_TRACK`
 export const UPDATE_TIMELINE         = c`UPDATE_TIMELINE`
+export const SEARCH                  = c`SEARCH`
 
 export const SELECT_QUEUE_ITEM       = 'SELECT_QUEUE_ITEM'
 export const SET_PLAYER_CURRENT_TIME = 'SET_PLAYER_CURRENT_TIME'

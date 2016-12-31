@@ -11,6 +11,7 @@ import Albums from './routes/Albums'
 import App from './routes/App'
 import Artists from './routes/Artists'
 import Playlists from './routes/Playlists'
+import Search from './routes/Search'
 
 import createStore from './stores'
 
@@ -24,6 +25,7 @@ ReactDOM.render(
         <Route path='albums(/:id)' component={Albums} />
         <Route path='artists(/:id)' component={Artists} />
         <Route path='playlists(/:id)' component={Playlists} />
+        <Route path='search(/:query)' component={Search} />
       </Route>
     </Router>
   </Provider>

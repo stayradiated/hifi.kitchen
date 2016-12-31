@@ -26,9 +26,20 @@ class HeaderContainer extends Component {
       <div className='Header'>
         <h2 className='Header-title'>Plex</h2>
 
-        <Link to='/library/1/albums'>Albums</Link>
-        <Link to='/library/1/artists'>Artists</Link>
-        <Link to='/library/1/playlists'>Playlists</Link>
+        <ul className='Header-routes'>
+          <li className='Header-routeItem'>
+            <Link className='Header-routeLink' to='/library/1/albums'>Albums</Link>
+          </li>
+          <li className='Header-routeItem'>
+            <Link className='Header-routeLink' to='/library/1/artists'>Artists</Link>
+          </li>
+          <li className='Header-routeItem'>
+            <Link className='Header-routeLink' to='/library/1/playlists'>Playlists</Link>
+          </li>
+          <li className='Header-routeItem'>
+            <Link className='Header-routeLink' to='/library/1/search'>Search</Link>
+          </li>
+        </ul>
 
         <ul className='Header-sections'>
           {librarySections.map((section, i) => (

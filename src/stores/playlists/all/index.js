@@ -5,7 +5,7 @@ import {
 } from '@stayradiated/mandarin'
 
 import {rehydrateMapReducer} from '../../../utils'
-import {FETCH_PLAYLIST, FETCH_LIBRARY_PLAYLISTS} from '../../constants'
+import {SEARCH, FETCH_PLAYLIST, FETCH_LIBRARY_PLAYLISTS} from '../../constants'
 
 const reducer = new AsyncMapReducer({
   getId: (action) => action.payload.playlistId,
@@ -35,6 +35,12 @@ export default function (state = reducer.initialState, action) {
       return reducer.handleSuccess(state, action)
 
     case FETCH_LIBRARY_PLAYLISTS.SUCCESS:
+      return {
+        ...state,
+        values: mergePlaylists(state.values, action.value.entities.playlists),
+      }
+
+    case SEARCH.SUCCESS:
       return {
         ...state,
         values: mergePlaylists(state.values, action.value.entities.playlists),

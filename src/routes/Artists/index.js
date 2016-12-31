@@ -27,7 +27,10 @@ class ArtistsRoute extends Component {
   }
 
   componentWillMount () {
-    this.fetchArtists()
+    const {artists} = this.props
+    if (artists.length === 0) {
+      this.fetchArtists()
+    }
   }
 
   fetchArtists () {

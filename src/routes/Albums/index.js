@@ -27,7 +27,10 @@ class AlbumsRoute extends Component {
   }
 
   componentWillMount () {
-    this.fetchAlbums()
+    const {albums} = this.props
+    if (albums.length === 0) {
+      this.fetchAlbums()
+    }
   }
 
   fetchAlbums () {

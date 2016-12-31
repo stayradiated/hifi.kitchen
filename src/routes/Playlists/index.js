@@ -27,7 +27,10 @@ class PlaylistsRoute extends Component {
   }
 
   componentWillMount () {
-    this.fetchPlaylists()
+    const {playlists} = this.props
+    if (playlists.length === 0) {
+      this.fetchPlaylists()
+    }
   }
 
   fetchPlaylists () {

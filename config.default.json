@@ -1,15 +1,14 @@
 {
-  "server": {
-    "hostname": "localhost",
-    "port": 32400,
-    "username": "username",
-    "password": "password",
-    "options": {
-      "identifier": "generate-a-random-uuid-v4",
-      "product": "Simplex",
-      "version": "1.0.0",
-      "deviceName": "My Computer",
-      "platform": "Chrome",
-      "device": "Linux"
+  "hostname": "localhost",
+  "port": 32400,
+  "username": "username",
+  "password": "password",
+  "options": {
+    "identifier": "generate-a-random-uuid-v4",
+    "product": "Simplex",
+    "version": "1.0.0",
+    "deviceName": "My Computer",
+    "platform": "Chrome",
+    "device": "Linux"
   }
 }

@@ -13,6 +13,7 @@ import artists from './artists'
 import library from './library'
 import playlists from './playlists'
 import queue from './queue'
+import search from './search'
 import timeline from './timeline'
 import tracks from './tracks'
 
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   library,
   playlists,
   queue,
+  search,
   timeline,
   tracks,
   routing: routerReducer,
