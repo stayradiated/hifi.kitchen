@@ -1,3 +1,5 @@
+import {normalizeType, QUEUE} from 'perplexed'
+
 import plex from '../../plex'
 
 import {CREATE_QUEUE, SELECT_QUEUE_ITEM} from '../constants'
@@ -5,7 +7,16 @@ import {CREATE_QUEUE, SELECT_QUEUE_ITEM} from '../constants'
 import {value as getLibrarySections} from '../library/sections/selectors'
 import * as selectors from './selectors'
 
-export const createQueue = (options) => {
+export const createQueue = (options, initialTrack) => ({
+  types: CREATE_QUEUE,
+  payload: {...options, initialTrack},
+  meta: {
+    async: plex.createQueue(options)
+      .then((res) => normalizeType(QUEUE, res)),
+  },
+})
+
+export const createQueueFromURI = (options, initialTrack) => {
   const {sectionId, source, key} = options
 
   return (dispatch, getState) => {
@@ -16,33 +27,28 @@ export const createQueue = (options) => {
     const path = encodeURIComponent(source)
     const uri = `library://${section.uuid}/directory/${path}`
 
-    return dispatch({
-      types: CREATE_QUEUE,
-      payload: options,
-      meta: {
-        async: plex.createQueue({
-          uri,
-          key,
-        }),
-      },
-    })
+    return dispatch(createQueue({uri, key}, initialTrack))
   }
 }
 
 export const createQueueFromPlexMix = (sectionId, track) =>
-  createQueue({
+  createQueueFromURI({
     sectionId,
     source: track.plexMix.key,
-    initialTrack: track,
-  })
+  }, track)
 
 export const createQueueFromAlbum = (sectionId, album, track) =>
-  createQueue({
+  createQueueFromURI({
     sectionId,
     source: album.key,
     key: track.key,
-    initialTrack: track,
-  })
+  }, track)
+
+export const createQueueFromPlaylist = (playlistId, track) =>
+  createQueue({
+    playlistId,
+    key: track.key,
+  }, track)
 
 export const selectQueueItem = (index) => ({
   type: SELECT_QUEUE_ITEM,

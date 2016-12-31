@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 
 import Album from '../Album'
-import AlbumContainer from '../../containers/Album'
+import AlbumContainer from '../../containers/AlbumInfo'
 import MagicGrid from '../MagicGrid'
 
 export default function AlbumGrid (props) {

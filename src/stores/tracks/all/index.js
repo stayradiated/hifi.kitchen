@@ -5,7 +5,12 @@ import {
 } from '@stayradiated/mandarin'
 
 import {rehydrateMapReducer} from '../../../utils'
-import {CREATE_QUEUE, FETCH_ALBUM_TRACKS, RATE_TRACK} from '../../constants'
+import {
+  CREATE_QUEUE, 
+  FETCH_PLAYLIST_TRACKS,
+  FETCH_ALBUM_TRACKS,
+  RATE_TRACK,
+} from '../../constants'
 
 const reducer = new AsyncMapReducer({
   getValue: (action) => action.value,
@@ -21,6 +26,12 @@ export default function (state = reducer.initialState, action) {
       return rehydrateMapReducer(state, action.payload, ['tracks', 'all'])
 
     case FETCH_ALBUM_TRACKS.SUCCESS:
+      return {
+        ...state,
+        values: mergeTracks(state.values, action.value.entities.tracks),
+      }
+
+    case FETCH_PLAYLIST_TRACKS.SUCCESS:
       return {
         ...state,
         values: mergeTracks(state.values, action.value.entities.tracks),

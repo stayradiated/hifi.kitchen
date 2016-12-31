@@ -11,7 +11,9 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case actionTypes.INIT:
-      return action.payload.queue
+      return (action.payload && action.payload.queue)
+        ? action.payload.queue
+        : state
 
     case CREATE_QUEUE.REQUEST:
       const {initialTrack} = action.payload

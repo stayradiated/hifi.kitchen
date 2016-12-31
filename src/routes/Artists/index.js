@@ -1,33 +1,55 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import ScaleLoader from 'halogen/ScaleLoader'
 
-import {fetchArtist} from '../../stores/artists/all/actions'
+import './styles.css'
+
+import ArtistGrid from '../../components/ArtistGrid'
+
+import {fetchLibraryArtists} from '../../stores/library/artists/actions'
+
+import {values as getAllArtists} from '../../stores/artists/all/selectors'
+import * as selectLibraryArtists from '../../stores/library/artists/selectors'
 
 class ArtistsRoute extends Component {
   static propTypes = {
-    artist: PropTypes.shape({}),
-    loading: PropTypes.bool.isRequired,
+    artists: PropTypes.arrayOf(PropTypes.object).isRequired,
+    loadingArtists: PropTypes.bool.isRequired,
     librarySectionId: PropTypes.number.isRequired,
+    artistId: PropTypes.number,
     dispatch: PropTypes.func.isRequired,
   }
 
+  constructor () {
+    super()
+
+    this.fetchArtists = this.fetchArtists.bind(this)
+  }
+
   componentWillMount () {
-    this.fetchArtist(this.props.artistId)
+    this.fetchArtists()
   }
 
-  componentWillReceiveProps (nextProps) {
-    this.fetchArtist(nextProps.artistId)
-  }
-
-  fetchArtist () {
-    const {dispatch} = this.props
-    dispatch()
+  fetchArtists () {
+    const {librarySectionId, dispatch} = this.props
+    dispatch(fetchLibraryArtists(librarySectionId, 50))
   }
 
   render () {
+    const {librarySectionId, artistId, artists, loadingArtists} = this.props
+
     return (
       <div className='ArtistsRoute'>
-        Artists Route
+        <ArtistGrid
+          artists={artists}
+          artistId={artistId}
+          librarySectionId={librarySectionId}
+        />
+        <div className='ArtistsRoute-loadMore'>
+          {loadingArtists
+              ? <ScaleLoader color='rgba(255, 255, 255, 0.5)' />
+              : <button className='ArtistsRoute-loadMoreButton' onClick={this.fetchArtists}>Fetch Artists</button>}
+        </div>
       </div>
     )
   }
@@ -35,15 +57,14 @@ class ArtistsRoute extends Component {
 
 export default connect((state, props) => {
   const {params} = props
-  const {section, id} = params
-
-  const artistId = id ? parseInt(id, 10) : null,
-  const librarySectionId = section ? parseInt(section, 10) : null
+  const {section, id: artistId} = params
 
   const allArtists = getAllArtists(state)
 
   return {
-    artist: selectLibraryArtists.value(state).map((id) => allArtists.get(id)),
-    loading: !!selectLibraryArtists.promise(state),
+    artists: selectLibraryArtists.value(state).map((id) => allArtists.get(id)),
+    loadingArtists: !!selectLibraryArtists.promise(state),
+    librarySectionId: section ? parseInt(section, 10) : null,
+    artistId: artistId ? parseInt(artistId, 10) : null,
   }
 })(ArtistsRoute)

@@ -5,8 +5,8 @@ function pad (number) {
 }
 
 export default function Duration (props) {
-  const {minutesOnly} = props
-  const time = props.time || 0
+  const {ms, minutesOnly} = props
+  const time = (props.time || 0) / (ms ? 1000 : 1)
 
   const minutes = Math.floor(time / 60)
   if (minutesOnly) {
@@ -20,4 +20,5 @@ export default function Duration (props) {
 Duration.propTypes = {
   time: PropTypes.number,
   minutesOnly: PropTypes.bool,
+  ms: PropTypes.bool,
 }

@@ -71,12 +71,12 @@ export default class Controls extends Component {
   }
 
   componentWillUnmount () {
-    this.audio.removeEventListener('durationchange')
-    this.audio.removeEventListener('ended')
-    this.audio.removeEventListener('pause')
-    this.audio.removeEventListener('play')
-    this.audio.removeEventListener('progress')
-    this.audio.removeEventListener('timeupdate')
+    this.audio.removeEventListener('durationchange', this.audioDurationChange)
+    this.audio.removeEventListener('ended', this.audioEnded)
+    this.audio.removeEventListener('pause', this.audioPause)
+    this.audio.removeEventListener('play', this.audioPlay)
+    this.audio.removeEventListener('progress', this.audioProgress)
+    this.audio.removeEventListener('timeupdate', this.audioTimeUpdate)
   }
 
   updateAudioSource (track) {

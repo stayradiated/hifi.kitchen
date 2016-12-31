@@ -7,7 +7,7 @@ import Time from '../Time'
 import TrackRating from '../TrackRating'
 
 export default function Track (props) {
-  const {track, onSelect, onPlexMix, onRate} = props
+  const {track, displayArtist, onSelect, onPlexMix, onRate} = props
 
   return (
     <div className='Track'>
@@ -18,6 +18,10 @@ export default function Track (props) {
       >
         {track.title}
       </div>
+      {displayArtist &&
+        <div className='Track-artist'>
+          {track.originalTitle || track.grandparentTitle}
+        </div>}
       <Time className='Track-duration' duration={track.duration} />
       <TrackRating track={track} onRate={onRate} />
       <button
@@ -41,4 +45,5 @@ Track.propTypes = {
   onRate: PropTypes.func,
   onSelect: PropTypes.func,
   onPlexMix: PropTypes.func,
+  displayArtist: PropTypes.bool,
 }

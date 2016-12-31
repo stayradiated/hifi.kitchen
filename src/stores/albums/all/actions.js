@@ -1,3 +1,4 @@
+import {normalizeType, ALBUM} from 'perplexed'
 import {cacheMap} from '@stayradiated/mandarin'
 
 import plex from '../../../plex'
@@ -8,7 +9,8 @@ export const forceFetchAlbum = (albumId) => ({
   types: FETCH_ALBUM,
   payload: {albumId},
   meta: {
-    async: plex.album(albumId),
+    async: plex.album(albumId)
+      .then((res) => normalizeType(ALBUM, res)),
   },
 })
 

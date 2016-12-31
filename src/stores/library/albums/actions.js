@@ -1,3 +1,5 @@
+import {normalizeType, ALBUM} from 'perplexed'
+
 import plex from '../../../plex'
 import {FETCH_LIBRARY_ALBUMS} from '../../constants'
 import * as selectors from './selectors'
@@ -11,7 +13,8 @@ export function fetchLibraryAlbums (section, size) {
       types: FETCH_LIBRARY_ALBUMS,
       payload: {start, size},
       meta: {
-        async: plex.albums(section, {start, size}),
+        async: plex.albums(section, {start, size})
+          .then((res) => normalizeType(ALBUM, res)),
       },
     })
   }

@@ -9,14 +9,18 @@ import adapter from 'redux-localstorage/lib/adapters/localStorage'
 import filter from 'redux-localstorage-filter'
 
 import albums from './albums'
+import artists from './artists'
 import library from './library'
+import playlists from './playlists'
 import queue from './queue'
 import timeline from './timeline'
 import tracks from './tracks'
 
 const rootReducer = combineReducers({
   albums,
+  artists,
   library,
+  playlists,
   queue,
   timeline,
   tracks,
@@ -34,10 +38,10 @@ export default function store () {
   )
 
   const storage = filter([
-    // 'albums',
+    'albums.tracks',
     // 'library',
     'queue',
-    // 'tracks',
+    'tracks',
   ])(adapter(window.localStorage))
 
   return createStore(rootReducer, compose(

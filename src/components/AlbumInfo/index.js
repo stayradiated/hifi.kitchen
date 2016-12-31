@@ -23,7 +23,7 @@ export default function AlbumInfo (props) {
       <div className='AlbumInfo-details'>
         <h2 className='AlbumInfo-title'>{album.title}</h2>
         <div className='AlbumInfo-row2'>
-          <h2 className='AlbumInfo-artist'>{album.parentTitle}</h2>
+          <Link to={`/library/1/artists/${album.parentKey.match(/\d+/)[0]}`} className='AlbumInfo-artist'>{album.parentTitle}</Link>
           <h2 className='AlbumInfo-year'>{album.year}</h2>
         </div>
         <ul className='AlbumInfo-genreList'>
@@ -44,6 +44,7 @@ export default function AlbumInfo (props) {
           onSelect={onSelectTrack}
           onPlexMix={onPlexMix}
           onRate={onRateTrack}
+          displayArtist={album.parentTitle === 'Various Artists'}
         />
       </div>
     </div>

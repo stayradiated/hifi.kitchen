@@ -21,6 +21,10 @@ export const updateTimeline = (options) => ({
 })
 
 export const updatePlayerState = (playerState, queueItem) => {
+  if (queueItem == null) {
+    throw new Error('queueItem cannot be null')
+  }
+
   return (dispatch, getState) => {
     const state = getState()
     const currentTime = selectTimeline.currentTime(state)

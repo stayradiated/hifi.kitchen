@@ -21,6 +21,10 @@
 }
 
 .Track-artist {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.Track-artist {
   flex: 1;
 }
 
