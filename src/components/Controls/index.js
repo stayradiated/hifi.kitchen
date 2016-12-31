@@ -20,6 +20,7 @@ export default class Controls extends Component {
     onRateTrack: PropTypes.func.isRequired,
     onPlay: PropTypes.func.isRequired,
     onPause: PropTypes.func.isRequired,
+    onStop: PropTypes.func.isRequired,
     onEnd: PropTypes.func.isRequired,
     onTimeUpdate: PropTypes.func.isRequired,
   }
@@ -45,6 +46,7 @@ export default class Controls extends Component {
     this.audioProgress = this.audioProgress.bind(this)
     this.audioTimeUpdate = this.audioTimeUpdate.bind(this)
     this.handleToggleAudio = this.handleToggleAudio.bind(this)
+    this.handleStopAudio = this.handleStopAudio.bind(this)
 
     this.openPlayQueue = this.openPlayQueue.bind(this)
     this.closePlayQueue = this.closePlayQueue.bind(this)
@@ -129,6 +131,12 @@ export default class Controls extends Component {
     }
   }
 
+  handleStopAudio () {
+    const {onStop} = this.props
+    this.audio.src = ''
+    onStop()
+  }
+
   openPlayQueue () {
     this.setState({playQueueOpen: true})
   }
@@ -170,6 +178,12 @@ export default class Controls extends Component {
             icon={playing ? 'pause' : 'play'}
             className='Controls-navigationBtn Controls-playPauseBtn'
             onClick={this.handleToggleAudio}
+          />
+
+          <Icon
+            icon='stop'
+            className='Controls-navigationBtn Controls-stopBtn'
+            onClick={this.handleStopAudio}
           />
 
           <Icon

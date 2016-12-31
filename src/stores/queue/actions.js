@@ -2,7 +2,7 @@ import {normalizeType, QUEUE} from 'perplexed'
 
 import plex from '../../plex'
 
-import {CREATE_QUEUE, SELECT_QUEUE_ITEM} from '../constants'
+import {CREATE_QUEUE, SELECT_QUEUE_ITEM, STOP_QUEUE} from '../constants'
 
 import {value as getLibrarySections} from '../library/sections/selectors'
 import * as selectors from './selectors'
@@ -72,3 +72,7 @@ export const playPrevTrack = () => {
     return dispatch(selectQueueItem(index))
   }
 }
+
+export const stopQueue = () => ({
+  type: STOP_QUEUE,
+})

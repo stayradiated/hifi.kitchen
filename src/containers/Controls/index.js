@@ -5,7 +5,11 @@ import throttle from 'lodash.throttle'
 import Controls from '../../components/Controls'
 
 import {rateTrack} from '../../stores/tracks/all/actions'
-import {playNextTrack, playPrevTrack} from '../../stores/queue/actions'
+import {
+  playNextTrack,
+  playPrevTrack,
+  stopQueue,
+} from '../../stores/queue/actions'
 import {
   sendTimelinePlay,
   sendTimelinePause,
@@ -30,6 +34,7 @@ class ControlsContainer extends Component {
 
     this.handlePlay = this.handlePlay.bind(this)
     this.handlePause = this.handlePause.bind(this)
+    this.handleStop = this.handleStop.bind(this)
     this.handlePrevTrack = this.handlePrevTrack.bind(this)
     this.handleNextTrack = this.handleNextTrack.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
@@ -75,6 +80,11 @@ class ControlsContainer extends Component {
     dispatch(sendTimelinePause(queueItem))
   }
 
+  handleStop () {
+    const {dispatch} = this.props
+    dispatch(stopQueue())
+  }
+
   handleTimeUpdate (currentTime) {
     const {dispatch} = this.props
     dispatch(setPlayerCurrentTime(Math.round(currentTime * 1000)))
@@ -96,6 +106,7 @@ class ControlsContainer extends Component {
         onEnd={this.handleNextTrack}
         onPlay={this.handlePlay}
         onPause={this.handlePause}
+        onStop={this.handleStop}
         onTimeUpdate={this.handleTimeUpdate}
       />
     )
