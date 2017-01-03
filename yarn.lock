@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@stayradiated/mandarin@^1.7.1":
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/@stayradiated/mandarin/-/mandarin-1.7.1.tgz#db581971e64f3713b5965af45ae93e09d40507c0"
+"@stayradiated/mandarin@^1.7.4":
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/@stayradiated/mandarin/-/mandarin-1.7.4.tgz#95784750af912da3c932009993230577e1c21e8e"
   dependencies:
     piratemap "^1.0.1"
     reselect "2.5.4"
@@ -3672,9 +3672,13 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
-normalizr@^3.0.0, normalizr@^3.0.0-beta:
+normalizr@^3.0.0-beta:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.0.0.tgz#43099e099c102762f9b270fad02a7ca69620310e"
+
+normalizr@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.0.1.tgz#45c8fffa4e253f10f9d2c44e2d94290c3c08e2c5"
 
 npmlog@^4.0.1:
   version "4.0.2"

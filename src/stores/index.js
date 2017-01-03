@@ -35,6 +35,7 @@ export default function store () {
     ReduxThunk,
     ReduxAsync,
     createReduxLogger({
+      predicate: () => false,
       collapsed: true,
     }),
   )

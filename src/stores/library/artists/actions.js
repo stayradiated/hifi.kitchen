@@ -15,9 +15,9 @@ export const forceFetchLibraryArtists = (section, start, end) => ({
 })
 
 export const fetchLibraryArtistsRange = cacheList(
-  forceFetchLibraryArtists,
   (section, start, end) => ({
     range: [start, end],
     selectors,
+    dispatch: (range) => forceFetchLibraryArtists(section, range[0], range[1]),
   }),
 )

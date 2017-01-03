@@ -13,9 +13,9 @@ export const forceFetchLibraryPlaylistsRange = (start, end) => ({
 })
 
 export const fetchLibraryPlaylistsRange = cacheList(
-  forceFetchLibraryPlaylistsRange,
   (start, end) => ({
     range: [start, end],
     selectors,
+    dispatch: (range) => forceFetchLibraryPlaylistsRange(range[0], range[1]),
   }),
 )

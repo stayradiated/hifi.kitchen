@@ -26,7 +26,7 @@ class AlbumsRoute extends Component {
   componentWillMount () {
     const {albums} = this.props
     if (albums.length === 0) {
-      this.fetchAlbums(0, 20)
+      this.fetchAlbums(0, 50)
     }
   }
 
