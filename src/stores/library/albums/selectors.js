@@ -1,5 +1,6 @@
-import {createValueSelector} from '@stayradiated/mandarin'
+import {createListSelector} from '@stayradiated/mandarin'
+
 
 module.exports = {
-  ...createValueSelector((state) => state.library.albums),
+  ...createListSelector((state) => state.library.albums),
 }

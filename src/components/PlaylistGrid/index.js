@@ -1,24 +1,20 @@
 import React, {PropTypes} from 'react'
 
-import Playlist from '../Playlist'
+import PlaylistItem from '../PlaylistItem'
 import PlaylistContainer from '../../containers/PlaylistInfo'
-import MagicGrid from '../MagicGrid'
+import MuggleGrid from '../MuggleGrid'
 
 export default function PlaylistGrid (props) {
-  const {playlists, playlistId, librarySectionId} = props
-
-  const items = playlists.map((playlist) => ({
-    id: playlist.id,
-    element: <Playlist playlist={playlist} />,
-  }))
+  const {playlists, playlistId, ...otherProps} = props
 
   return (
-    <MagicGrid
-      items={items}
-      itemWidth={150}
-      component={<PlaylistContainer librarySectionId={librarySectionId} />}
-      propName='playlistId'
+    <MuggleGrid
+      {...otherProps}
+      items={playlists}
       currentId={playlistId}
+      getElement={(playlist) => <PlaylistItem playlist={playlist} />}
+      component={<PlaylistContainer />}
+      propName='playlistId'
     />
   )
 }
@@ -26,5 +22,4 @@ export default function PlaylistGrid (props) {
 PlaylistGrid.propTypes = {
   playlists: PropTypes.arrayOf(PropTypes.object).isRequired,
   playlistId: PropTypes.number,
-  librarySectionId: PropTypes.number,
 }

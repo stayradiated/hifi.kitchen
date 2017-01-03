@@ -1,24 +1,20 @@
 import React, {PropTypes} from 'react'
 
-import Artist from '../Artist'
+import ArtistItem from '../ArtistItem'
 import ArtistContainer from '../../containers/ArtistInfo'
-import MagicGrid from '../MagicGrid'
+import MuggleGrid from '../MuggleGrid'
 
 export default function ArtistGrid (props) {
-  const {artists, artistId, librarySectionId} = props
-
-  const items = artists.map((artist) => ({
-    id: artist.id,
-    element: <Artist artist={artist} />,
-  }))
+  const {artists, artistId, librarySectionId, ...otherProps} = props
 
   return (
-    <MagicGrid
-      items={items}
-      itemWidth={150}
+    <MuggleGrid
+      {...otherProps}
       component={<ArtistContainer librarySectionId={librarySectionId} />}
-      propName='artistId'
       currentId={artistId}
+      getElement={(artist) => <ArtistItem artist={artist} />}
+      items={artists}
+      propName='artistId'
     />
   )
 }

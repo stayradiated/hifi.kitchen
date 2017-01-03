@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react'
 import {Link} from 'react-router'
+import nl2br from 'react-nl2br'
 
 import './styles.css'
 
@@ -37,7 +38,7 @@ export default function ArtistInfo (props) {
             ))}
           </ul>
         </div>
-        <p className='ArtistInfo-summary'>{artist.summary}</p>
+        <p className='ArtistInfo-summary'>{nl2br(artist.summary)}</p>
       </div>
     </div>
   )

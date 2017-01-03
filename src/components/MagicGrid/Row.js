@@ -7,8 +7,8 @@ import {IdType, ItemsType} from './types'
 
 function MagicGridRow (props) {
   const {
-    itemWidth, row, index, currentId, previousId, component, propName,
-    rowOffset,
+    itemWidth, row, currentId, previousId, component,
+    propName, style, rowOffset,
   } = props
 
   const rowCurrentIndex = row.findIndex((release) => release.id === currentId)
@@ -20,13 +20,16 @@ function MagicGridRow (props) {
     rowOffset + ((itemWidth * (rowCurrentIndex + 1)) - (itemWidth / 2)))
 
   return (
-    <div key={index} className='MagicGrid-row'>
+    <div className='MagicGrid-row' style={style}>
       <div className='MagicGrid-rowItems' style={{marginLeft: `${rowOffset}px`}}>
         {row.map((items, i) => (
           <div
             key={i}
             className='MagicGrid-item'
-            style={{width: `${itemWidth}px`}}
+            style={{
+              width: `${itemWidth}px`,
+              minWidth: `${itemWidth}px`,
+            }}
           >
             {items.element}
           </div>
@@ -50,11 +53,11 @@ MagicGridRow.propTypes = {
   rowOffset: PropTypes.number.isRequired,
   itemWidth: PropTypes.number.isRequired,
   row: ItemsType.isRequired,
-  index: PropTypes.number.isRequired,
   currentId: IdType,
   previousId: IdType,
   component: PropTypes.element.isRequired,
   propName: PropTypes.string.isRequired,
+  style: PropTypes.shape({}),
 }
 
 export default pure(MagicGridRow)

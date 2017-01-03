@@ -1,22 +1,23 @@
+import {cacheList} from '@stayradiated/mandarin'
 import {normalizeType, ALBUM} from 'perplexed'
 
 import plex from '../../../plex'
 import {FETCH_LIBRARY_ALBUMS} from '../../constants'
 import * as selectors from './selectors'
 
-export function fetchLibraryAlbums (section, size) {
-  return (dispatch, getState) => {
-    const state = getState()
-    const start = selectors.value(state).length
+export const forceFetchLibraryAlbums = (section, start, end) => ({
+  types: FETCH_LIBRARY_ALBUMS,
+  payload: {start, end},
+  meta: {
+    async: plex.albums(section, {start, size: end - start})
+      .then((res) => normalizeType(ALBUM, res)),
+  },
+})
 
-    return dispatch({
-      types: FETCH_LIBRARY_ALBUMS,
-      payload: {start, size},
-      meta: {
-        async: plex.albums(section, {start, size})
-          .then((res) => normalizeType(ALBUM, res)),
-      },
-    })
-  }
-}
-
+export const fetchLibraryAlbumsRange = cacheList(
+  forceFetchLibraryAlbums,
+  (section, start, end) => ({
+    range: [start, end],
+    selectors,
+  }),
+)

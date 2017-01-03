@@ -10,8 +10,9 @@
   left: 30px;
   top: 0;
   bottom: 0;
+  width: 140px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -31,12 +32,9 @@
 
 .Controls-playPauseBtn {
   font-size: 30px;
-  margin: 0 0.1em 0 0.5em;
 }
 
 .Controls-stopBtn {
-  font-size: 30px;
-  margin: 0 0.5em 0 0.1em;
 }
 
 .Controls-prevNextBtn {

@@ -9,7 +9,7 @@ export function forceFetchPlaylistTracks (playlistId) {
     types: FETCH_PLAYLIST_TRACKS,
     payload: {playlistId},
     meta: {
-      async: plex.normalizedPlaylistTracks(playlistId),
+      async: plex.normalizedPlaylistTracks(playlistId, {size: 50}),
     },
   }
 }

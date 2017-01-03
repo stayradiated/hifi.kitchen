@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 import './styles.css'
 
+import TrackList from '../../components/TrackList'
 import AlbumGrid from '../../components/AlbumGrid'
 import ArtistGrid from '../../components/ArtistGrid'
 import PlaylistGrid from '../../components/PlaylistGrid'
@@ -43,7 +44,7 @@ class SearchRoute extends Component {
   }
 
   render () {
-    const {params, albums, artists, playlists} = this.props
+    const {params, albums, artists, playlists, tracks} = this.props
     const {query} = params
 
     return (
@@ -63,6 +64,18 @@ class SearchRoute extends Component {
         </div>
 
         <h2>Search: {query}</h2>
+
+        {tracks.length > 0 &&
+          <div>
+            <h3>Tracks</h3>
+            <TrackList
+              tracks={tracks}
+              displayArtist
+              onSelect={() => null}
+              onRate={() => null}
+              onPlexMix={() => null}
+            />
+          </div>}
 
         {albums.length > 0 &&
           <div>

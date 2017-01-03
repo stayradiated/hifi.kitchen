@@ -12,6 +12,7 @@ import App from './routes/App'
 import Artists from './routes/Artists'
 import Playlists from './routes/Playlists'
 import Search from './routes/Search'
+import InfiniteList from './routes/InfiniteList'
 
 import createStore from './stores'
 
@@ -22,6 +23,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route path='/library/:section' component={App}>
+        <Route path='test' component={InfiniteList} />
         <Route path='albums(/:id)' component={Albums} />
         <Route path='artists(/:id)' component={Artists} />
         <Route path='playlists(/:id)' component={Playlists} />

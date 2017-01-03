@@ -1,24 +1,20 @@
 import React, {PropTypes} from 'react'
 
-import Album from '../Album'
+import AlbumItem from '../AlbumItem'
 import AlbumContainer from '../../containers/AlbumInfo'
-import MagicGrid from '../MagicGrid'
+import MuggleGrid from '../MuggleGrid'
 
 export default function AlbumGrid (props) {
-  const {albums, albumId, librarySectionId} = props
-
-  const items = albums.map((album) => ({
-    id: album.id,
-    element: <Album album={album} />,
-  }))
+  const {albums, albumId, librarySectionId, ...otherProps} = props
 
   return (
-    <MagicGrid
-      items={items}
-      itemWidth={150}
+    <MuggleGrid
+      {...otherProps}
       component={<AlbumContainer librarySectionId={librarySectionId} />}
-      propName='albumId'
       currentId={albumId}
+      getElement={(album) => <AlbumItem album={album} />}
+      items={albums}
+      propName='albumId'
     />
   )
 }

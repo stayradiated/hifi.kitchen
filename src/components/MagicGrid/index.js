@@ -1,4 +1,6 @@
 import React, {Component, PropTypes} from 'react'
+import {InfiniteLoader, List} from 'react-virtualized'
+import classNames from 'classnames'
 
 import './styles.css'
 
@@ -7,27 +9,27 @@ import Row from './Row'
 
 export default class MagicGrid extends Component {
   static propTypes = {
+    className: PropTypes.string,
+    component: PropTypes.element.isRequired,
+    currentId: IdType,
+    height: PropTypes.number.isRequired,
+    itemHeight: PropTypes.number.isRequired,
     itemWidth: PropTypes.number.isRequired,
     items: ItemsType.isRequired,
-    component: PropTypes.element.isRequired,
+    onLoad: PropTypes.func,
     propName: PropTypes.string.isRequired,
-    currentId: IdType,
+    total: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
   }
 
   constructor () {
     super()
 
     this.state = {
-      containerWidth: 0,
       previousId: null,
     }
 
-    this.handleResize = this.handleResize.bind(this)
-  }
-
-  componentDidMount () {
-    window.addEventListener('resize', this.handleResize)
-    this.handleResize()
+    this.handleLoadMoreRows = this.handleLoadMoreRows.bind(this)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -35,68 +37,119 @@ export default class MagicGrid extends Component {
       this.setState({
         previousId: this.props.currentId,
       })
+      this.list && this.list.recomputeRowHeights(0)
     }
   }
 
-  componentWillUnmount () {
-    window.removeEventListener('resize', this.handleResize)
+  calcItemsPerRow () {
+    const {width, itemWidth} = this.props
+    return Math.floor(width / itemWidth)
   }
 
-  handleResize () {
-    this.setState({
-      containerWidth: this.container.offsetWidth,
-    })
-  }
-
-  calcAlbumsPerRow () {
-    const {itemWidth} = this.props
-    const {containerWidth} = this.state
-    return Math.floor(containerWidth / itemWidth)
-  }
-
-  calcRows () {
+  calcRows (itemsPerRow) {
     const {items} = this.props
-    const albumsPerRow = this.calcAlbumsPerRow()
+
+    if (itemsPerRow === 0) {
+      return []
+    }
 
     return items.reduce((rows, item, index) => {
-      if (index % albumsPerRow === 0) {
+      if (index % itemsPerRow === 0) {
         rows.push([])
       }
       rows[rows.length - 1].push(item)
       return rows
-    }, [[]])
+    }, [])
   }
 
   calcRowOffset () {
-    const {itemWidth} = this.props
-    const {containerWidth} = this.state
-    return (containerWidth % itemWidth) / 2
+    const {width, itemWidth} = this.props
+    return (width % itemWidth) / 2
+  }
+
+  handleLoadMoreRows ({startIndex, stopIndex}) {
+    const {onLoad} = this.props
+    const itemsPerRow = this.calcItemsPerRow()
+    return onLoad(startIndex * itemsPerRow, (stopIndex * itemsPerRow) + 1)
   }
 
   render () {
-    const {itemWidth, component, propName, currentId} = this.props
+    const {
+      width, height,
+      className, itemHeight, itemWidth,
+      component, propName, currentId, total,
+    } = this.props
     const {previousId} = this.state
 
+    const itemsPerRow = this.calcItemsPerRow()
     const rowOffset = this.calcRowOffset()
+    const rows = this.calcRows(itemsPerRow)
+    const rowCount = Math.ceil(total / itemsPerRow)
+
+    const isRowLoaded = ({index}) => {
+      const row = rows[index]
+      if (row == null) {
+        return false
+      }
+      return row.every((item) => item != null)
+    }
+
+    const rowRenderer = (props) => {
+      const {index, key, style} = props
+      const row = rows[index]
+        
+      if (row == null) {
+        return <div key={key} style={style} />
+      }
+
+      return (
+        <Row
+          key={key}
+          style={style}
+          rowOffset={rowOffset}
+          itemWidth={itemWidth}
+          row={row.filter((item) => item != null)}
+          component={component}
+          propName={propName}
+          currentId={currentId}
+          previousId={previousId}
+        />
+      )
+    }
+
+    const calcRowHeight = ({index}) => {
+      const row = rows[index]
+      if (row && row.some((item) => item && item.id === currentId)) {
+        return itemHeight * 3
+      }
+      return itemHeight
+    }
 
     return (
-      <div
-        className='MagicGrid'
-        ref={(el) => { this.container = el }}
-      >
-        {this.calcRows().map((row, i) => (
-          <Row
-            key={i}
-            index={i}
-            rowOffset={rowOffset}
-            itemWidth={itemWidth}
-            row={row}
-            component={component}
-            propName={propName}
-            currentId={currentId}
-            previousId={previousId}
-          />
-        ))}
+      <div className={classNames(className, 'MagicGrid')}>
+        <InfiniteLoader
+          isRowLoaded={isRowLoaded}
+          loadMoreRows={this.handleLoadMoreRows}
+          rowCount={rowCount}
+        >
+          {({onRowsRendered, registerChild}) => (
+            <List
+              width={width}
+              height={height}
+              onRowsRendered={onRowsRendered}
+              ref={(el) => {
+                this.list = el
+                registerChild(el)
+              }}
+              rowCount={rowCount}
+              rowHeight={calcRowHeight}
+              rowRenderer={rowRenderer}
+              style={{
+                overflowX: 'hidden',
+              }}
+            />
+          )}
+        </InfiniteLoader>
       </div>
     )
   }

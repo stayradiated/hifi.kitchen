@@ -1,19 +1,21 @@
+import {cacheList} from '@stayradiated/mandarin'
+
 import plex from '../../../plex'
 import {FETCH_LIBRARY_PLAYLISTS} from '../../constants'
 import * as selectors from './selectors'
 
-export function fetchLibraryPlaylists (section, size) {
-  return (dispatch, getState) => {
-    const state = getState()
-    const start = selectors.value(state).length
+export const forceFetchLibraryPlaylistsRange = (start, end) => ({
+  types: FETCH_LIBRARY_PLAYLISTS,
+  payload: {start, end},
+  meta: {
+    async: plex.normalizedPlaylists({start, size: end - start}),
+  },
+})
 
-    return dispatch({
-      types: FETCH_LIBRARY_PLAYLISTS,
-      payload: {start, size},
-      meta: {
-        async: plex.normalizedPlaylists({start, size}),
-      },
-    })
-  }
-}
-
+export const fetchLibraryPlaylistsRange = cacheList(
+  forceFetchLibraryPlaylistsRange,
+  (start, end) => ({
+    range: [start, end],
+    selectors,
+  }),
+)

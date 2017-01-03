@@ -1,12 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import ScaleLoader from 'halogen/ScaleLoader'
-
-import './styles.css'
 
 import ArtistGrid from '../../components/ArtistGrid'
 
-import {fetchLibraryArtists} from '../../stores/library/artists/actions'
+import {fetchLibraryArtistsRange} from '../../stores/library/artists/actions'
 
 import {values as getAllArtists} from '../../stores/artists/all/selectors'
 import * as selectLibraryArtists from '../../stores/library/artists/selectors'
@@ -14,7 +11,7 @@ import * as selectLibraryArtists from '../../stores/library/artists/selectors'
 class ArtistsRoute extends Component {
   static propTypes = {
     artists: PropTypes.arrayOf(PropTypes.object).isRequired,
-    loadingArtists: PropTypes.bool.isRequired,
+    totalArtists: PropTypes.number.isRequired,
     librarySectionId: PropTypes.number.isRequired,
     artistId: PropTypes.number,
     dispatch: PropTypes.func.isRequired,
@@ -29,31 +26,26 @@ class ArtistsRoute extends Component {
   componentWillMount () {
     const {artists} = this.props
     if (artists.length === 0) {
-      this.fetchArtists()
+      this.fetchArtists(0, 20)
     }
   }
 
-  fetchArtists () {
+  fetchArtists (start, end) {
     const {librarySectionId, dispatch} = this.props
-    dispatch(fetchLibraryArtists(librarySectionId, 50))
+    dispatch(fetchLibraryArtistsRange(librarySectionId, start, end))
   }
 
   render () {
-    const {librarySectionId, artistId, artists, loadingArtists} = this.props
+    const {librarySectionId, artistId, artists, totalArtists} = this.props
 
     return (
-      <div className='ArtistsRoute'>
-        <ArtistGrid
-          artists={artists}
-          artistId={artistId}
-          librarySectionId={librarySectionId}
-        />
-        <div className='ArtistsRoute-loadMore'>
-          {loadingArtists
-              ? <ScaleLoader color='rgba(255, 255, 255, 0.5)' />
-              : <button className='ArtistsRoute-loadMoreButton' onClick={this.fetchArtists}>Fetch Artists</button>}
-        </div>
-      </div>
+      <ArtistGrid
+        artists={artists}
+        artistId={artistId}
+        librarySectionId={librarySectionId}
+        onLoad={this.fetchArtists}
+        total={totalArtists}
+      />
     )
   }
 }
@@ -65,8 +57,8 @@ export default connect((state, props) => {
   const allArtists = getAllArtists(state)
 
   return {
-    artists: selectLibraryArtists.value(state).map((id) => allArtists.get(id)),
-    loadingArtists: !!selectLibraryArtists.promise(state),
+    artists: selectLibraryArtists.values(state).map((id) => allArtists.get(id)),
+    totalArtists: selectLibraryArtists.total(state),
     librarySectionId: section ? parseInt(section, 10) : null,
     artistId: artistId ? parseInt(artistId, 10) : null,
   }

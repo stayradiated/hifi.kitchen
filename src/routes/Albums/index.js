@@ -1,12 +1,9 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import ScaleLoader from 'halogen/ScaleLoader'
-
-import './styles.css'
 
 import AlbumGrid from '../../components/AlbumGrid'
 
-import {fetchLibraryAlbums} from '../../stores/library/albums/actions'
+import {fetchLibraryAlbumsRange} from '../../stores/library/albums/actions'
 
 import {values as getAllAlbums} from '../../stores/albums/all/selectors'
 import * as selectLibraryAlbums from '../../stores/library/albums/selectors'
@@ -14,7 +11,7 @@ import * as selectLibraryAlbums from '../../stores/library/albums/selectors'
 class AlbumsRoute extends Component {
   static propTypes = {
     albums: PropTypes.arrayOf(PropTypes.object).isRequired,
-    loadingAlbums: PropTypes.bool.isRequired,
+    totalAlbums: PropTypes.number.isRequired,
     librarySectionId: PropTypes.number.isRequired,
     albumId: PropTypes.number,
     dispatch: PropTypes.func.isRequired,
@@ -29,31 +26,26 @@ class AlbumsRoute extends Component {
   componentWillMount () {
     const {albums} = this.props
     if (albums.length === 0) {
-      this.fetchAlbums()
+      this.fetchAlbums(0, 20)
     }
   }
 
-  fetchAlbums () {
+  fetchAlbums (start, end) {
     const {librarySectionId, dispatch} = this.props
-    dispatch(fetchLibraryAlbums(librarySectionId, 50))
+    dispatch(fetchLibraryAlbumsRange(librarySectionId, start, end))
   }
 
   render () {
-    const {librarySectionId, albumId, albums, loadingAlbums} = this.props
+    const {librarySectionId, albumId, albums, totalAlbums} = this.props
 
     return (
-      <div className='AlbumsRoute'>
-        <AlbumGrid
-          albums={albums}
-          albumId={albumId}
-          librarySectionId={librarySectionId}
-        />
-        <div className='AlbumsRoute-loadMore'>
-          {loadingAlbums
-              ? <ScaleLoader color='rgba(255, 255, 255, 0.5)' />
-              : <button className='AlbumsRoute-loadMoreButton' onClick={this.fetchAlbums}>Fetch Albums</button>}
-        </div>
-      </div>
+      <AlbumGrid
+        albums={albums}
+        albumId={albumId}
+        librarySectionId={librarySectionId}
+        onLoad={this.fetchAlbums}
+        total={totalAlbums}
+      />
     )
   }
 }
@@ -65,8 +57,8 @@ export default connect((state, props) => {
   const allAlbums = getAllAlbums(state)
 
   return {
-    albums: selectLibraryAlbums.value(state).map((id) => allAlbums.get(id)),
-    loadingAlbums: !!selectLibraryAlbums.promise(state),
+    albums: selectLibraryAlbums.values(state).map((id) => allAlbums.get(id)),
+    totalAlbums: selectLibraryAlbums.total(state),
     librarySectionId: section ? parseInt(section, 10) : null,
     albumId: albumId ? parseInt(albumId, 10) : null,
   }

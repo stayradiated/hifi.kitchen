@@ -1,0 +1,41 @@
+.GridItem {
+  display: block;
+  text-align: left;
+  text-decoration: none;
+  color: #fff;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.GridItem-image {
+  width: 100%;
+  height: auto;
+}
+
+.GridItem-text {
+  margin: 10px 0 20px;
+  line-height: 21px;
+}
+
+.GridItem-title {
+  font-size: 14px;
+
+  margin: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.GridItem-subtitle {
+  font-size: 12px;
+
+  color: #ccc;
+  margin: 0;
+  padding: 0;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
