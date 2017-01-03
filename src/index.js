@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Router, Route, browserHistory} from 'react-router'
+import {Router, Route, Redirect, browserHistory} from 'react-router'
 import {Provider} from 'react-redux'
 import {syncHistoryWithStore} from 'react-router-redux'
 
@@ -22,7 +22,8 @@ const history = syncHistoryWithStore(browserHistory, store)
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path='/library/:section' component={App}>
+      <Redirect from='/' to='/library' />
+      <Route path='/library(/:section)' component={App}>
         <Route path='test' component={InfiniteList} />
         <Route path='albums(/:id)' component={Albums} />
         <Route path='artists(/:id)' component={Artists} />

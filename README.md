@@ -17,6 +17,8 @@ yarn
 yarn start
 ```
 
+Then open http://localhost:3000/library in your browser. Select a music library from the top right, and then select 'albums' in the top center.
+
 ## Screenshots
 
 **Note: My main focus at the moment is on getting the underlying API working,
