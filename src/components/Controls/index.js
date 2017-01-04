@@ -82,6 +82,7 @@ export default class Controls extends Component {
   }
 
   updateAudioSource (track) {
+    this.audio.currentTime = 0
     this.audio.src = plex.signUrl(track.media[0].part[0].key)
   }
 

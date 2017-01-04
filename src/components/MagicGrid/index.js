@@ -7,6 +7,8 @@ import './styles.css'
 import {IdType, ItemsType} from './types'
 import Row from './Row'
 
+const SCROLLBAR = 15
+
 export default class MagicGrid extends Component {
   static propTypes = {
     className: PropTypes.string,
@@ -43,7 +45,7 @@ export default class MagicGrid extends Component {
 
   calcItemsPerRow () {
     const {width, itemWidth} = this.props
-    return Math.floor(width / itemWidth)
+    return Math.floor((width - SCROLLBAR) / itemWidth)
   }
 
   calcRows (itemsPerRow) {
@@ -64,13 +66,13 @@ export default class MagicGrid extends Component {
 
   calcRowOffset () {
     const {width, itemWidth} = this.props
-    return (width % itemWidth) / 2
+    return ((width - SCROLLBAR) % itemWidth) / 2
   }
 
   handleLoadMoreRows ({startIndex, stopIndex}) {
     const {onLoad} = this.props
     const itemsPerRow = this.calcItemsPerRow()
-    return onLoad(startIndex * itemsPerRow, (stopIndex * itemsPerRow) + 1)
+    return onLoad(startIndex * itemsPerRow, (stopIndex + 1) * itemsPerRow)
   }
 
   render () {
