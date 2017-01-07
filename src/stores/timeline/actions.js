@@ -10,7 +10,7 @@ import {
 } from '../constants'
 
 import * as selectTimeline from './selectors'
-import {values as getAllTracks} from '../tracks/all/selectors'
+import {selectAllTracks} from '../tracks/all'
 
 export const updateTimeline = (options) => ({
   types: UPDATE_TIMELINE,
@@ -28,7 +28,7 @@ export const updatePlayerState = (playerState, queueItem) => {
   return (dispatch, getState) => {
     const state = getState()
     const currentTime = selectTimeline.currentTime(state)
-    const allTracks = getAllTracks(state)
+    const allTracks = selectAllTracks.values(state)
     const track = allTracks.get(queueItem.track)
 
     const timeout = setTimeout(() => {

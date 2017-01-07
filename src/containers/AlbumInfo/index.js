@@ -3,17 +3,15 @@ import {connect} from 'react-redux'
 
 import AlbumInfo from '../../components/AlbumInfo'
 
-import {rateTrack} from '../../stores/tracks/all/actions'
-import {fetchAlbum} from '../../stores/albums/all/actions'
+import {rateTrack, selectAllTracks} from '../../stores/tracks/all'
+import {fetchAlbum, selectAllAlbums} from '../../stores/albums/all'
 import {fetchAlbumTracks} from '../../stores/albums/tracks/actions'
 import {
   createQueueFromAlbum,
   createQueueFromPlexMix,
 } from '../../stores/queue/actions'
 
-import {values as getAllAlbums} from '../../stores/albums/all/selectors'
 import {values as getAllAlbumTracks} from '../../stores/albums/tracks/selectors'
-import {values as getAllTracks} from '../../stores/tracks/all/selectors'
 
 class AlbumContainer extends Component {
   static propTypes = {
@@ -86,9 +84,9 @@ export default connect((state, props) => {
   const {albumId} = props
 
   // select state
-  const allTracks = getAllTracks(state)
+  const allTracks = selectAllTracks.values(state)
   const allAlbumTracks = getAllAlbumTracks(state)
-  const allAlbums = getAllAlbums(state)
+  const allAlbums = selectAllAlbums.values(state)
 
   // get albumTracks
   const albumTrackIds = allAlbumTracks.get(albumId) || []

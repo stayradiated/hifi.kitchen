@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 
-import all from './all'
+import {reducer as all} from './all'
 import albums from './albums'
 
 export default combineReducers({

@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 
-import albums from './albums'
-import artists from './artists'
+import {reducer as albums} from './albums'
+import {reducer as artists} from './artists'
 import sections from './sections'
 import playlists from './playlists'
 

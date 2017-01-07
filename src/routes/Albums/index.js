@@ -3,10 +3,14 @@ import {connect} from 'react-redux'
 
 import AlbumGrid from '../../components/AlbumGrid'
 
-import {fetchLibraryAlbumsRange} from '../../stores/library/albums/actions'
+import {
+  fetchLibraryAlbumsRange,
+  selectLibraryAlbums,
+} from '../../stores/library/albums'
 
-import {values as getAllAlbums} from '../../stores/albums/all/selectors'
-import * as selectLibraryAlbums from '../../stores/library/albums/selectors'
+import {
+  selectAllAlbums,
+} from '../../stores/albums/all'
 
 class AlbumsRoute extends Component {
   static propTypes = {
@@ -52,14 +56,21 @@ class AlbumsRoute extends Component {
 
 export default connect((state, props) => {
   const {params} = props
-  const {section, id: albumId} = params
+  const {section, id} = params
 
-  const allAlbums = getAllAlbums(state)
+  const librarySectionId = section ? parseInt(section, 10) : null
+
+  const allAlbums = selectAllAlbums.values(state)
+  const albums = (selectLibraryAlbums.values(state).get(librarySectionId) || [])
+    .map((albumId) => allAlbums.get(albumId))
+
+  const albumId = id ? parseInt(id, 10) : null
+  const totalAlbums = selectLibraryAlbums.total(state)
 
   return {
-    albums: selectLibraryAlbums.values(state).map((id) => allAlbums.get(id)),
-    totalAlbums: selectLibraryAlbums.total(state),
-    librarySectionId: section ? parseInt(section, 10) : null,
-    albumId: albumId ? parseInt(albumId, 10) : null,
+    librarySectionId,
+    albumId,
+    albums,
+    totalAlbums,
   }
 })(AlbumsRoute)

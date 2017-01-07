@@ -3,10 +3,14 @@ import {connect} from 'react-redux'
 
 import ArtistGrid from '../../components/ArtistGrid'
 
-import {fetchLibraryArtistsRange} from '../../stores/library/artists/actions'
+import {
+  fetchLibraryArtistsRange,
+  selectLibraryArtists,
+} from '../../stores/library/artists'
 
-import {values as getAllArtists} from '../../stores/artists/all/selectors'
-import * as selectLibraryArtists from '../../stores/library/artists/selectors'
+import {
+  selectAllArtists,
+} from '../../stores/artists/all'
 
 class ArtistsRoute extends Component {
   static propTypes = {
@@ -52,14 +56,21 @@ class ArtistsRoute extends Component {
 
 export default connect((state, props) => {
   const {params} = props
-  const {section, id: artistId} = params
+  const {section, id} = params
 
-  const allArtists = getAllArtists(state)
+  const librarySectionId = section ? parseInt(section, 10) : null
+
+  const allArtists = selectAllArtists.values(state)
+  const artists = (selectLibraryArtists.values(state).get(librarySectionId) || [])
+    .map((artistId) => allArtists.get(artistId))
+
+  const artistId = id ? parseInt(id, 10) : null
+  const totalArtists = selectLibraryArtists.total(state)
 
   return {
-    artists: selectLibraryArtists.values(state).map((id) => allArtists.get(id)),
-    totalArtists: selectLibraryArtists.total(state),
-    librarySectionId: section ? parseInt(section, 10) : null,
-    artistId: artistId ? parseInt(artistId, 10) : null,
+    librarySectionId,
+    artistId,
+    artists,
+    totalArtists,
   }
 })(ArtistsRoute)

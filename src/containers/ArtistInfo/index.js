@@ -3,9 +3,10 @@ import {connect} from 'react-redux'
 
 import ArtistInfo from '../../components/ArtistInfo'
 
-import {fetchArtist} from '../../stores/artists/all/actions'
-
-import {values as getAllArtists} from '../../stores/artists/all/selectors'
+import {
+  fetchArtist,
+  selectAllArtists,
+} from '../../stores/artists/all'
 
 class ArtistContainer extends Component {
   static propTypes = {
@@ -49,7 +50,7 @@ export default connect((state, props) => {
   const {artistId} = props
 
   // get artist
-  const allArtists = getAllArtists(state)
+  const allArtists = selectAllArtists.values(state)
   const artist = allArtists.get(artistId)
 
   return {

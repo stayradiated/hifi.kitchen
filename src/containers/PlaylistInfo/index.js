@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import PlaylistInfo from '../../components/PlaylistInfo'
 
-import {rateTrack} from '../../stores/tracks/all/actions'
+import {rateTrack, selectAllTracks} from '../../stores/tracks/all'
 import {fetchPlaylist} from '../../stores/playlists/all/actions'
 import {fetchPlaylistTracks} from '../../stores/playlists/tracks/actions'
 import {
@@ -13,7 +13,6 @@ import {
 
 import {values as getAllPlaylists} from '../../stores/playlists/all/selectors'
 import {values as getAllPlaylistTracks} from '../../stores/playlists/tracks/selectors'
-import {values as getAllTracks} from '../../stores/tracks/all/selectors'
 
 class PlaylistContainer extends Component {
   static propTypes = {
@@ -86,7 +85,7 @@ export default connect((state, props) => {
   const {playlistId} = props
 
   // select state
-  const allTracks = getAllTracks(state)
+  const allTracks = selectAllTracks.values(state)
   const allPlaylistTracks = getAllPlaylistTracks(state)
   const allPlaylists = getAllPlaylists(state)
 

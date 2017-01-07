@@ -1,9 +1,9 @@
 import {createSelector} from 'reselect'
 import {createValueSelector, exportValue} from '@stayradiated/mandarin'
 
-import {values as getAllArtists} from '../artists/all/selectors'
-import {values as getAllAlbums} from '../albums/all/selectors'
-import {values as getAllTracks} from '../tracks/all/selectors'
+import {selectAllArtists} from '../artists/all'
+import {selectAllAlbums} from '../albums/all'
+import {selectAllTracks} from '../tracks/all'
 import {values as getAllPlaylists} from '../playlists/all/selectors'
 
 const selectors = createValueSelector((state) => state.search)
@@ -19,8 +19,8 @@ const resolve = (hub, allItems) =>
 module.exports = {
   ...selectors,
 
-  artists: createSelector(artistHub, getAllArtists, resolve),
-  albums: createSelector(albumHub, getAllAlbums, resolve),
-  tracks: createSelector(trackHub, getAllTracks, resolve),
+  artists: createSelector(artistHub, selectAllArtists.values, resolve),
+  albums: createSelector(albumHub, selectAllAlbums.values, resolve),
+  tracks: createSelector(trackHub, selectAllTracks.values, resolve),
   playlists: createSelector(playlistHub, getAllPlaylists, resolve),
 }

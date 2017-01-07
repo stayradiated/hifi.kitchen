@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@stayradiated/mandarin@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@stayradiated/mandarin/-/mandarin-1.8.0.tgz#9d0905615e1b793e607098fa07601cc1d24ce92f"
+"@stayradiated/mandarin@^1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@stayradiated/mandarin/-/mandarin-1.9.0.tgz#c765c44a49648a693595cad6f8ca0f22f50c6125"
   dependencies:
     piratemap "^1.0.1"
     reselect "2.5.4"
@@ -3672,11 +3672,7 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
-normalizr@^3.0.0-beta:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.0.0.tgz#43099e099c102762f9b270fad02a7ca69620310e"
-
-normalizr@^3.0.2:
+normalizr@^3.0.0-beta, normalizr@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.0.2.tgz#ac51ab65af807e9022b9f16a767fb1449c0dae6a"
 
@@ -4340,9 +4336,12 @@ rc@~1.1.6:
     minimist "^1.2.0"
     strip-json-comments "~1.0.4"
 
-react-addons-shallow-compare@^15.4.1:
-  version "15.4.1"
-  resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.4.1.tgz#b68103dd4d13144cb221065f6021de1822bd435a"
+react-addons-shallow-compare@^15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/react-addons-shallow-compare/-/react-addons-shallow-compare-15.4.2.tgz#027ffd9720e3a1e0b328dcd8fc62e214a0d174a5"
+  dependencies:
+    fbjs "^0.8.4"
+    object-assign "^4.1.0"
 
 react-click-outside@tj/react-click-outside:
   version "1.1.0"
@@ -4360,9 +4359,9 @@ react-dev-utils@^0.4.2:
     sockjs-client "1.0.3"
     strip-ansi "3.0.1"
 
-react-dom@^15.4.1:
-  version "15.4.1"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.1.tgz#d54c913261aaedb17adc20410d029dcc18a1344a"
+react-dom@^15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-15.4.2.tgz#015363f05b0a1fd52ae9efdd3a0060d90695208f"
   dependencies:
     fbjs "^0.8.1"
     loose-envify "^1.1.0"
@@ -4459,9 +4458,17 @@ react-virtualized@^8.8.1:
     classnames "^2.2.3"
     dom-helpers "^2.4.0"
 
-"react@^0.14.0 || ^15.0.0", react@^15.4.1:
+"react@^0.14.0 || ^15.0.0":
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
+  dependencies:
+    fbjs "^0.8.4"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
+
+react@^15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
   dependencies:
     fbjs "^0.8.4"
     loose-envify "^1.1.0"

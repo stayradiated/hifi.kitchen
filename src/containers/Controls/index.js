@@ -4,7 +4,9 @@ import throttle from 'lodash.throttle'
 
 import Controls from '../../components/Controls'
 
-import {rateTrack} from '../../stores/tracks/all/actions'
+import {
+  rateTrack,
+} from '../../stores/tracks/all'
 import {
   playNextTrack,
   playPrevTrack,

@@ -1,11 +1,11 @@
 import {createSelector} from 'reselect'
 
-import {values as getAllTracks} from '../tracks/all/selectors'
+import {selectAllTracks} from '../tracks/all'
 
 export const root = (state) => state.queue
 
 export const tracks = createSelector(
-  root, getAllTracks,
+  root, selectAllTracks.values,
   (_root, allTracks) =>
   _root.items
     .filter((item) => allTracks.has(item.track))
@@ -29,7 +29,7 @@ export const queueItem = createSelector(
 )
 
 export const track = createSelector(
-  queueItem, getAllTracks,
+  queueItem, selectAllTracks.values,
   (_item, allTracks) => {
     if (_item == null) {
       return null
