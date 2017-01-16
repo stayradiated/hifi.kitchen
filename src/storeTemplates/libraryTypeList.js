@@ -1,12 +1,18 @@
-import {c, AsyncMapListReducer, cacheMapList, createListSelector} from '@stayradiated/mandarin'
-import {normalizeType} from 'perplexed'
-
-import plex from '../plex'
+import {normalize} from 'perplexed'
+import {
+  AsyncMapListReducer,
+  cacheMapList,
+  createListSelector,
+} from '@stayradiated/mandarin'
 
 export default function createLibraryTypeList (options) {
-  const {type: TYPE, name, rootSelector} = options
-
-  const FETCH_LIBRARY_TYPE = c(`FETCH_LIBRARY_${name.toUpperCase()}`)
+  const {
+    name,
+    type: TYPE,
+    constant: FETCH_LIBRARY_TYPE,
+    rootSelector,
+    reducerOptions = {},
+  } = options
 
   const selectors = createListSelector(rootSelector)
 
@@ -14,8 +20,8 @@ export default function createLibraryTypeList (options) {
     types: FETCH_LIBRARY_TYPE,
     payload: {section, start, end},
     meta: {
-      async: plex.sectionItems(section, TYPE, {start, size: end - start})
-        .then((res) => normalizeType(TYPE, res)),
+      plex: ({library}) => normalize(library.sectionItems(
+        section, TYPE, {start, size: end - start})),
     },
   })
 
@@ -31,8 +37,8 @@ export default function createLibraryTypeList (options) {
 
   const asyncReducer = new AsyncMapListReducer({
     getId: (action) => action.payload.section,
-    getValues: (action) => action.value.result.items,
-    getTotal: (action) => action.value.result.totalSize,
+    getTotal: (action) => action.value.result.id.totalSize,
+    ...reducerOptions,
   })
 
   const reducer = (state = asyncReducer.initialState, action) => {
@@ -53,7 +59,6 @@ export default function createLibraryTypeList (options) {
 
   return {
     reducer,
-    [`FETCH_LIBRARY_${name.toUpperCase()}`]: FETCH_LIBRARY_TYPE,
     [`fetchLibrary${name}Range`]: fetchLibraryTypeRange,
     [`forceFetchLibrary${name}Range`]:forceFetchLibraryTypeRange,
     [`selectLibrary${name}`]: selectors,

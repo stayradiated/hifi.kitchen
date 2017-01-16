@@ -2,8 +2,10 @@ import {ARTIST} from 'perplexed'
 
 import {createLibraryTypeStore} from '../../storeTemplates'
 
-import {SEARCH} from '../constants'
-import {FETCH_LIBRARY_ARTISTS} from '../library/artists'
+import {
+  SEARCH,
+  FETCH_LIBRARY_ARTISTS,
+} from '../constants'
 
 module.exports = createLibraryTypeStore({
   type: ARTIST,

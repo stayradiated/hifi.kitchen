@@ -1,5 +1,3 @@
-import plex from '../../plex'
-
 import {
   SET_PLAYER_CURRENT_TIME,
   UPDATE_TIMELINE,
@@ -16,7 +14,7 @@ export const updateTimeline = (options) => ({
   types: UPDATE_TIMELINE,
   payload: options,
   meta: {
-    async: plex.timeline(options),
+    plex: ({library}) => library.timeline(options),
   },
 })
 

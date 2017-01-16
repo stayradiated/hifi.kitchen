@@ -5,13 +5,12 @@ import AlbumInfo from '../../components/AlbumInfo'
 
 import {rateTrack, selectAllTracks} from '../../stores/tracks/all'
 import {fetchAlbum, selectAllAlbums} from '../../stores/albums/all'
-import {fetchAlbumTracks} from '../../stores/albums/tracks/actions'
+import {fetchAlbumTracks, selectAllAlbumTracks} from '../../stores/albums/tracks'
+
 import {
   createQueueFromAlbum,
   createQueueFromPlexMix,
 } from '../../stores/queue/actions'
-
-import {values as getAllAlbumTracks} from '../../stores/albums/tracks/selectors'
 
 class AlbumContainer extends Component {
   static propTypes = {
@@ -19,7 +18,6 @@ class AlbumContainer extends Component {
     album: PropTypes.shape({}),
     albumTracks: PropTypes.arrayOf(PropTypes.object),
     dispatch: PropTypes.func.isRequired,
-    librarySectionId: PropTypes.number.isRequired,
   }
 
   constructor () {
@@ -31,7 +29,7 @@ class AlbumContainer extends Component {
   }
 
   componentWillMount () {
-    this.fetchAlbum(this.props.albumId)
+    this.fetchAlbum(this.props.albumId, ['librarySectionID'])
   }
 
   componentWillReceiveProps (nextProps) {
@@ -47,13 +45,13 @@ class AlbumContainer extends Component {
   }
 
   handleSelectTrack (track) {
-    const {album, librarySectionId, dispatch} = this.props
-    dispatch(createQueueFromAlbum(librarySectionId, album, track))
+    const {album, dispatch} = this.props
+    dispatch(createQueueFromAlbum(album, track))
   }
 
   handlePlexMix (track) {
-    const {librarySectionId, dispatch} = this.props
-    dispatch(createQueueFromPlexMix(librarySectionId, track))
+    const {dispatch} = this.props
+    dispatch(createQueueFromPlexMix(track))
   }
 
   handleRateTrack (track, rating) {
@@ -85,7 +83,7 @@ export default connect((state, props) => {
 
   // select state
   const allTracks = selectAllTracks.values(state)
-  const allAlbumTracks = getAllAlbumTracks(state)
+  const allAlbumTracks = selectAllAlbumTracks.values(state)
   const allAlbums = selectAllAlbums.values(state)
 
   // get albumTracks

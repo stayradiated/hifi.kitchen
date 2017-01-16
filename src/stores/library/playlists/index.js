@@ -2,10 +2,9 @@ import {AsyncListReducer} from '@stayradiated/mandarin'
 
 import {FETCH_LIBRARY_PLAYLISTS} from '../../constants'
 
-// TODO: update plex api to return a proper playlist container...
 const reducer = new AsyncListReducer({
-  getValues: (action) => action.value.result,
-  getTotal: (action) => action.value.result.length,
+  getValues: (action) => action.value.result.id.playlists,
+  getTotal: (action) => action.value.result.id.totalSize,
 })
 
 export default function (state = reducer.initialState, action) {

@@ -1,6 +1,4 @@
-import {normalizeType, QUEUE} from 'perplexed'
-
-import plex from '../../plex'
+import {normalize} from 'perplexed'
 
 import {CREATE_QUEUE, SELECT_QUEUE_ITEM, STOP_QUEUE} from '../constants'
 
@@ -11,8 +9,7 @@ export const createQueue = (options, initialTrack) => ({
   types: CREATE_QUEUE,
   payload: {...options, initialTrack},
   meta: {
-    async: plex.createQueue(options)
-      .then((res) => normalizeType(QUEUE, res)),
+    plex: ({library}) => normalize(library.createQueue(options)),
   },
 })
 
@@ -31,15 +28,15 @@ export const createQueueFromURI = (options, initialTrack) => {
   }
 }
 
-export const createQueueFromPlexMix = (sectionId, track) =>
+export const createQueueFromPlexMix = (track) =>
   createQueueFromURI({
-    sectionId,
+    sectionId: track.librarySectionID,
     source: track.plexMix.key,
   }, track)
 
-export const createQueueFromAlbum = (sectionId, album, track) =>
+export const createQueueFromAlbum = (album, track) =>
   createQueueFromURI({
-    sectionId,
+    sectionId: album.librarySectionID,
     source: album.key,
     key: track.key,
   }, track)

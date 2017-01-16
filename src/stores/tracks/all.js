@@ -1,13 +1,12 @@
 import {TRACK} from 'perplexed'
 import {c} from '@stayradiated/mandarin'
 
-import plex from '../../plex'
 import {createLibraryTypeStore} from '../../storeTemplates'
 
 import {
   CREATE_QUEUE,
-  FETCH_PLAYLIST_TRACKS,
   FETCH_ALBUM_TRACKS,
+  FETCH_PLAYLIST_TRACKS,
   SEARCH,
 } from '../constants'
 
@@ -44,6 +43,6 @@ module.exports.rateTrack = (track, rating) => ({
   types: RATE_TRACK,
   payload: {trackId: track.id, rating},
   meta: {
-    async: plex.rate(track.id, rating),
+    plex: ({library}) => library.rate(track.id, rating),
   },
 })

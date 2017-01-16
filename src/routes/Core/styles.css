@@ -1,0 +1,10 @@
+.CoreRoute {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.CoreRoute-contents {
+  display: flex;
+  flex: 1;
+}

@@ -1,5 +1,9 @@
 .SearchRoute {
+  flex: 1;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 .SearchRoute-query {
@@ -9,4 +13,8 @@
 }
 
 .SearchRoute-searchBtn {
+}
+
+.SearchRoute-grid {
+  min-height: 200px;
 }

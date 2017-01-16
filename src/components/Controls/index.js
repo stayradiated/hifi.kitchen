@@ -1,8 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import ClickOutside from 'react-click-outside'
 
-import plex from '../../plex'
-
 import './styles.css'
 
 import Icon from '../Icon'
@@ -23,6 +21,12 @@ export default class Controls extends Component {
     onStop: PropTypes.func.isRequired,
     onEnd: PropTypes.func.isRequired,
     onTimeUpdate: PropTypes.func.isRequired,
+  }
+
+  static contextTypes = {
+    library: PropTypes.shape({
+      trackSrc: PropTypes.func,
+    }).isRequired,
   }
 
   constructor (props) {
@@ -82,8 +86,9 @@ export default class Controls extends Component {
   }
 
   updateAudioSource (track) {
+    const {library} = this.context
     this.audio.currentTime = 0
-    this.audio.src = plex.signUrl(track.media[0].part[0].key)
+    this.audio.src = library.trackSrc(track)
   }
 
   audioDurationChange () {

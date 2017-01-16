@@ -1,12 +1,11 @@
 import React, {PropTypes} from 'react'
 
-import plex from '../../plex'
-
-export default function Image (props) {
+export default function Image (props, context) {
   const {src, width, height, ...otherProps} = props
+  const {library} = context
 
-  const transcodeSrc = src
-    ? plex.resizePhoto({
+  const transcodeSrc = (src != null)
+    ? library.resizePhoto({
       url: src,
       width,
       height,
@@ -29,4 +28,8 @@ Image.propTypes = {
   src: PropTypes.string,
   width: PropTypes.number.isRequired,
   height: PropTypes.number.isRequired,
+}
+
+Image.contextTypes = {
+  library: PropTypes.shape({}).isRequired,
 }

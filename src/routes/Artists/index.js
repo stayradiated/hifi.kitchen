@@ -14,11 +14,11 @@ import {
 
 class ArtistsRoute extends Component {
   static propTypes = {
-    artists: PropTypes.arrayOf(PropTypes.object).isRequired,
-    totalArtists: PropTypes.number.isRequired,
-    librarySectionId: PropTypes.number.isRequired,
     artistId: PropTypes.number,
+    artists: PropTypes.arrayOf(PropTypes.object).isRequired,
     dispatch: PropTypes.func.isRequired,
+    sectionId: PropTypes.number.isRequired,
+    totalArtists: PropTypes.number.isRequired,
   }
 
   constructor () {
@@ -35,20 +35,21 @@ class ArtistsRoute extends Component {
   }
 
   fetchArtists (start, end) {
-    const {librarySectionId, dispatch} = this.props
-    dispatch(fetchLibraryArtistsRange(librarySectionId, start, end))
+    const {sectionId, dispatch} = this.props
+    dispatch(fetchLibraryArtistsRange(sectionId, start, end))
   }
 
   render () {
-    const {librarySectionId, artistId, artists, totalArtists} = this.props
+    const {artistId, artists, totalArtists} = this.props
 
     return (
-      <ArtistGrid
-        artists={artists}
-        artistId={artistId}
-        librarySectionId={librarySectionId}
+      <ArtistGrid.withRouter
+        items={artists}
+        currentId={artistId}
         onLoad={this.fetchArtists}
         total={totalArtists}
+        itemPath={(id, {serverId, sectionId}) =>
+          `/server/${serverId}/sections/${sectionId}/artists/${id}`}
       />
     )
   }
@@ -56,21 +57,20 @@ class ArtistsRoute extends Component {
 
 export default connect((state, props) => {
   const {params} = props
-  const {section, id} = params
 
-  const librarySectionId = section ? parseInt(section, 10) : null
+  const sectionId = parseInt(params.sectionId, 10) || null
+  const artistId = parseInt(params.artistId, 10) || null
 
   const allArtists = selectAllArtists.values(state)
-  const artists = (selectLibraryArtists.values(state).get(librarySectionId) || [])
-    .map((artistId) => allArtists.get(artistId))
-
-  const artistId = id ? parseInt(id, 10) : null
   const totalArtists = selectLibraryArtists.total(state)
+  const artists = (selectLibraryArtists.values(state).get(sectionId) || [])
+    .map((id) => allArtists.get(id))
+
 
   return {
-    librarySectionId,
     artistId,
     artists,
+    sectionId,
     totalArtists,
   }
 })(ArtistsRoute)

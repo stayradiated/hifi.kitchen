@@ -1,15 +1,18 @@
 import React, {PropTypes} from 'react'
-import {Link} from 'react-router'
 
 import './styles.css'
 
 import SquareImage from '../SquareImage'
 
 export default function GridItem (props) {
-  const {link, image, title, subtitle, ...otherProps} = props
+  const {id, onSelect, image, title, subtitle, ...otherProps} = props
 
   return (
-    <Link {...otherProps} to={link} className='GridItem'>
+    <button
+      {...otherProps}
+      className='GridItem'
+      onClick={() => onSelect && onSelect(id)}
+    >
       <SquareImage
         className='GridItem-image'
         src={image}
@@ -20,13 +23,14 @@ export default function GridItem (props) {
         <h2 className='GridItem-title'>{title}</h2>
         <h3 className='GridItem-subtitle'>{subtitle}</h3>
       </div>
-    </Link>
+    </button>
   )
 }
 
 GridItem.propTypes = {
-  link: PropTypes.string,
+  id: PropTypes.number,
   image: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  onSelect: PropTypes.func,
 }

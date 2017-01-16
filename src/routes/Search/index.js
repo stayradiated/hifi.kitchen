@@ -78,21 +78,27 @@ class SearchRoute extends Component {
           </div>}
 
         {albums.length > 0 &&
-          <div>
+          <div className='SearchRoute-grid'>
             <h3>Albums</h3>
-            <AlbumGrid albums={albums} />
+            <AlbumGrid.withState
+              items={albums}
+            />
           </div>}
 
         {artists.length > 0 &&
-          <div>
+          <div className='SearchRoute-grid'>
             <h3>Artists</h3>
-            <ArtistGrid artists={artists} />
+            <ArtistGrid.withState
+              items={artists}
+            />
           </div>}
 
         {playlists.length > 0 &&
-          <div>
+          <div className='SearchRoute-grid'>
             <h3>Playlists</h3>
-            <PlaylistGrid playlists={playlists} />
+            <PlaylistGrid.withState
+              items={playlists}
+            />
           </div>}
       </div>
     )

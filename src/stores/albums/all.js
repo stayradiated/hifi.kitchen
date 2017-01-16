@@ -2,8 +2,11 @@ import {ALBUM} from 'perplexed'
 
 import {createLibraryTypeStore} from '../../storeTemplates'
 
-import {SEARCH} from '../constants'
-import {FETCH_LIBRARY_ALBUMS} from '../library/albums'
+import {
+  SEARCH,
+  FETCH_LIBRARY_ALBUMS,
+  FETCH_ARTIST_ALBUMS,
+} from '../constants'
 
 module.exports = createLibraryTypeStore({
   type: ALBUM,
@@ -13,5 +16,6 @@ module.exports = createLibraryTypeStore({
   mergeActions: [
     SEARCH.SUCCESS,
     FETCH_LIBRARY_ALBUMS.SUCCESS,
+    FETCH_ARTIST_ALBUMS.SUCCESS,
   ],
 })

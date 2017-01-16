@@ -1,4 +1,4 @@
-.Header {
+.ServerMenu {
   background-color: #333;
   border-bottom: 1px solid #222;
 
@@ -13,44 +13,44 @@
   justify-content: space-between;
 }
 
-.Header-title {
+.ServerMenu-title {
   margin: 0;
   padding: 0;
 }
 
-.Header-routes {
+.ServerMenu-routes {
   margin: 0;
   padding: 0;
   display: flex;
 }
 
-.Header-routeItem {
+.ServerMenu-routeItem {
   margin: 0;
   padding: 0 0.5em;
   list-style-type: none;
 }
 
-.Header-routeLink {
+.ServerMenu-routeLink {
   color: #fff;
   text-decoration: none;
 }
 
-.Header-routeLink:hover {
+.ServerMenu-routeLink:hover {
   text-decoration: underline;
 }
 
-.Header-sections {
+.ServerMenu-sections {
   margin: 0;
   padding: 0;
 }
 
-.Header-sectionItem {
+.ServerMenu-sectionItem {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-.Header-sectionLink {
+.ServerMenu-sectionLink {
   text-decoration: none;
   color: #fff;
 }

@@ -6,7 +6,7 @@ import {FETCH_LIBRARY_SECTIONS} from '../../constants'
 
 const reducer = new AsyncValueReducer({
   defaultValue: [],
-  getValue: (action) => action.value.items,
+  getValue: (action) => action.value.sections,
 })
 
 export default function (state = reducer.initialState, action) {

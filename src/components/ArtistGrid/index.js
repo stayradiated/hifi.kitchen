@@ -1,26 +1,24 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
 
 import ArtistItem from '../ArtistItem'
 import ArtistContainer from '../../containers/ArtistInfo'
 import MuggleGrid from '../MuggleGrid'
+import withState from '../MuggleGrid/withState'
+import withRouter from '../MuggleGrid/withRouter'
 
 export default function ArtistGrid (props) {
-  const {artists, artistId, librarySectionId, ...otherProps} = props
-
   return (
     <MuggleGrid
-      {...otherProps}
-      component={<ArtistContainer librarySectionId={librarySectionId} />}
-      currentId={artistId}
-      getElement={(artist) => <ArtistItem artist={artist} />}
-      items={artists}
+      {...props}
+      component={<ArtistContainer />}
       propName='artistId'
-    />
+    >
+      {(artist, handleSelect) => (
+        <ArtistItem artist={artist} onSelect={handleSelect} />
+      )}
+    </MuggleGrid>
   )
 }
 
-ArtistGrid.propTypes = {
-  artists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  artistId: PropTypes.number,
-  librarySectionId: PropTypes.number,
-}
+ArtistGrid.withState = withState(ArtistGrid)
+ArtistGrid.withRouter = withRouter(ArtistGrid)

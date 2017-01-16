@@ -14,11 +14,11 @@ import {
 
 class AlbumsRoute extends Component {
   static propTypes = {
-    albums: PropTypes.arrayOf(PropTypes.object).isRequired,
-    totalAlbums: PropTypes.number.isRequired,
-    librarySectionId: PropTypes.number.isRequired,
     albumId: PropTypes.number,
+    albums: PropTypes.arrayOf(PropTypes.object).isRequired,
     dispatch: PropTypes.func.isRequired,
+    sectionId: PropTypes.number.isRequired,
+    totalAlbums: PropTypes.number.isRequired,
   }
 
   constructor () {
@@ -35,20 +35,21 @@ class AlbumsRoute extends Component {
   }
 
   fetchAlbums (start, end) {
-    const {librarySectionId, dispatch} = this.props
-    dispatch(fetchLibraryAlbumsRange(librarySectionId, start, end))
+    const {sectionId, dispatch} = this.props
+    dispatch(fetchLibraryAlbumsRange(sectionId, start, end))
   }
 
   render () {
-    const {librarySectionId, albumId, albums, totalAlbums} = this.props
+    const {albumId, albums, totalAlbums} = this.props
 
     return (
-      <AlbumGrid
-        albums={albums}
-        albumId={albumId}
-        librarySectionId={librarySectionId}
+      <AlbumGrid.withRouter
+        items={albums}
+        currentId={albumId}
         onLoad={this.fetchAlbums}
         total={totalAlbums}
+        itemPath={(id, {serverId, sectionId}) =>
+          `/server/${serverId}/sections/${sectionId}/albums/${id}`}
       />
     )
   }
@@ -56,21 +57,19 @@ class AlbumsRoute extends Component {
 
 export default connect((state, props) => {
   const {params} = props
-  const {section, id} = params
 
-  const librarySectionId = section ? parseInt(section, 10) : null
+  const sectionId = parseInt(params.sectionId, 10) || null
+  const albumId = parseInt(params.albumId, 10) || null
 
   const allAlbums = selectAllAlbums.values(state)
-  const albums = (selectLibraryAlbums.values(state).get(librarySectionId) || [])
-    .map((albumId) => allAlbums.get(albumId))
-
-  const albumId = id ? parseInt(id, 10) : null
   const totalAlbums = selectLibraryAlbums.total(state)
+  const albums = (selectLibraryAlbums.values(state).get(sectionId) || [])
+    .map((id) => allAlbums.get(id))
 
   return {
-    librarySectionId,
     albumId,
     albums,
+    sectionId,
     totalAlbums,
   }
 })(AlbumsRoute)

@@ -1,24 +1,32 @@
-import React, {PropTypes} from 'react'
+import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
 
 import './styles.css'
 
-import ControlsContainer from '../../containers/Controls'
-import HeaderContainer from '../../containers/Header'
+import {initializePlex} from '../../stores/plex'
 
-export default function AppRoute (props) {
-  const {children} = props
+class AppRoute extends Component {
+  static propTypes = {
+    children: PropTypes.node,
+    dispatch: PropTypes.func.isRequired,
+  }
 
-  return (
-    <div className='AppRoute'>
-      <HeaderContainer />
-      <div className='AppRoute-contents'>
-        {children}
+  componentWillMount () {
+    const {dispatch} = this.props
+    dispatch(initializePlex())
+  }
+
+  render () {
+    const {children} = this.props
+
+    return (
+      <div className='AppRoute'>
+        <div className='AppRoute-contents'>
+          {children}
+        </div>
       </div>
-      <ControlsContainer />
-    </div>
-  )
+    )
+  }
 }
 
-AppRoute.propTypes = {
-  children: PropTypes.node,
-}
+export default connect()(AppRoute)

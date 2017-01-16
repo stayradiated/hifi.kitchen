@@ -1,4 +1,4 @@
-import {normalizeType} from 'perplexed'
+import {normalize} from 'perplexed'
 import {
   c,
   AsyncMapReducer,
@@ -6,8 +6,6 @@ import {
   cacheMap,
   createMapSelector,
 } from '@stayradiated/mandarin'
-
-import plex from '../plex'
 
 export default function createLibraryTypeStore (options) {
   const {
@@ -23,14 +21,19 @@ export default function createLibraryTypeStore (options) {
     types: FETCH_TYPE,
     payload: {id},
     meta: {
-      async: plex.metadata(id, TYPE)
-        .then((res) => normalizeType(TYPE, res)),
+      plex: ({library}) => normalize(library.metadata(id, TYPE)),
     },
   })
 
-  const fetchType = cacheMap(forceFetchType, (id) => ({
+  const containsRequiredAttributes = (map, requiredAttributes = []) =>
+    requiredAttributes.every((attribute) =>
+      map.has(attribute) && map.get(attribute) != null)
+
+  const fetchType = cacheMap((id, required) => ({
     id,
     selectors,
+    dispatch: forceFetchType,
+    validate: (item) => containsRequiredAttributes(item, required),
   }))
 
   const asyncReducer = new AsyncMapReducer({

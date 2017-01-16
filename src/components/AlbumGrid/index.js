@@ -1,26 +1,24 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
 
 import AlbumItem from '../AlbumItem'
 import AlbumContainer from '../../containers/AlbumInfo'
 import MuggleGrid from '../MuggleGrid'
+import withState from '../MuggleGrid/withState'
+import withRouter from '../MuggleGrid/withRouter'
 
 export default function AlbumGrid (props) {
-  const {albums, albumId, librarySectionId, ...otherProps} = props
-
   return (
     <MuggleGrid
-      {...otherProps}
-      component={<AlbumContainer librarySectionId={librarySectionId} />}
-      currentId={albumId}
-      getElement={(album) => <AlbumItem album={album} />}
-      items={albums}
+      {...props}
+      component={<AlbumContainer />}
       propName='albumId'
-    />
+    >
+      {(album, handleSelect) => (
+        <AlbumItem album={album} onSelect={handleSelect} />
+      )}
+    </MuggleGrid>
   )
 }
 
-AlbumGrid.propTypes = {
-  albums: PropTypes.arrayOf(PropTypes.object).isRequired,
-  albumId: PropTypes.number,
-  librarySectionId: PropTypes.number,
-}
+AlbumGrid.withState = withState(AlbumGrid)
+AlbumGrid.withRouter = withRouter(AlbumGrid)

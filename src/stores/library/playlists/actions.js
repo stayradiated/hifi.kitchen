@@ -1,6 +1,6 @@
+import {normalize} from 'perplexed'
 import {cacheList} from '@stayradiated/mandarin'
 
-import plex from '../../../plex'
 import {FETCH_LIBRARY_PLAYLISTS} from '../../constants'
 import * as selectors from './selectors'
 
@@ -8,7 +8,8 @@ export const forceFetchLibraryPlaylistsRange = (start, end) => ({
   types: FETCH_LIBRARY_PLAYLISTS,
   payload: {start, end},
   meta: {
-    async: plex.normalizedPlaylists({start, size: end - start}),
+    plex: ({library}) => normalize(library.playlists(
+      {start, size: end - start})),
   },
 })
 

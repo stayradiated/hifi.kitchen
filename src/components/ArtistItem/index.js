@@ -3,11 +3,12 @@ import React, {PropTypes} from 'react'
 import GridItem from '../GridItem'
 
 export default function ArtistItem (props) {
-  const {artist} = props
+  const {artist, ...otherProps} = props
 
   return (
     <GridItem
-      link={`/library/1/artists/${artist.id}`}
+      {...otherProps}
+      id={artist.id}
       image={artist.thumb}
       title={artist.title}
       subtitle={artist.country && artist.country[0]}
