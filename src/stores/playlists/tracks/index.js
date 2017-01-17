@@ -7,7 +7,11 @@ import {FETCH_PLAYLIST_TRACKS} from '../../constants'
 const fetchPlaylistTracksReducer = new AsyncMapReducer({
   defaultMap: [],
   getId: (action) => action.payload.playlistId,
-  getValue: (action) => action.value.entities.playlists[action.payload.playlistId].items,
+  getValue: (action) => {
+    const {playlistId} = action.payload
+    const playlist = action.value.entities.playlists[playlistId]
+    return playlist.tracks
+  },
   updateMap: (newMap) => (oldMap) => {
     return oldMap.concat(newMap)
   },

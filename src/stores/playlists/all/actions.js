@@ -8,11 +8,7 @@ export const forceFetchPlaylist = (playlistId) => ({
   types: FETCH_PLAYLIST,
   payload: {playlistId},
   meta: {
-    plex: ({library}) => library.playlist(playlistId)
-    .then((res) => {
-      console.log(res)
-      return normalize(res)
-    })
+    plex: ({library}) => normalize(library.playlist(playlistId)),
   },
 })
 

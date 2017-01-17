@@ -3859,9 +3859,9 @@ pbkdf2-compat@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pbkdf2-compat/-/pbkdf2-compat-2.0.1.tgz#b6e0c8fa99494d94e0511575802a59a5c142f288"
 
-perplexed@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/perplexed/-/perplexed-1.3.1.tgz#6c5573aed9fabcfd98864992d2f55b23603ff063"
+perplexed@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/perplexed/-/perplexed-1.4.1.tgz#f3c43cd22b037452a1d0c164c40eeb8c2c3e6f92"
   dependencies:
     assert "^1.4.1"
     deep-diff "^0.3.4"
@@ -4438,9 +4438,9 @@ react-scripts@0.8.5:
   optionalDependencies:
     fsevents "1.0.14"
 
-react-virtualized@^8.10.0:
-  version "8.10.0"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-8.10.0.tgz#c2f7b74523f71f88991efbc77a0d82f64e52879e"
+react-virtualized@^8.11.0:
+  version "8.11.0"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-8.11.0.tgz#6d7a24ee56f3b31bf37721b9c57d733925af8364"
   dependencies:
     babel-runtime "^6.11.6"
     classnames "^2.2.3"

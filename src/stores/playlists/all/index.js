@@ -7,6 +7,16 @@ import {
 import {rehydrateMapReducer} from '../../../utils'
 import {SEARCH, FETCH_PLAYLIST, FETCH_LIBRARY_PLAYLISTS} from '../../constants'
 
+// Plex returns a new composite URL in every response, which causes the
+// playlist image to suddenly change when the user opens a playist.
+const preserveCompositeUrl = (newPlaylist, oldPlaylist) => {
+  const {composite} = oldPlaylist != null ? oldPlaylist : newPlaylist
+  return {
+    ...newPlaylist,
+    composite,
+  }
+}
+
 const reducer = new AsyncMapReducer({
   getId: (action) => action.payload.playlistId,
   getValue: (action) => {
@@ -14,10 +24,12 @@ const reducer = new AsyncMapReducer({
     const {entities} = action.value
     return entities.playlists[playlistId]
   },
+  updateValue: preserveCompositeUrl,
 })
 
 const mergePlaylists = createObjectMergeFunction({
   getId: (playlist) => playlist.id,
+  updateFn: preserveCompositeUrl,
 })
 
 export default function (state = reducer.initialState, action) {
