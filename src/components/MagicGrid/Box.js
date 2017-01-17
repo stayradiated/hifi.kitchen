@@ -1,12 +1,8 @@
-import React, {Component, cloneElement, PropTypes} from 'react'
-
-import {IdType} from './types'
+import React, {Component, PropTypes} from 'react'
 
 export default class MagicGridBox extends Component {
   static propTypes = {
-    id: IdType.isRequired,
-    component: PropTypes.element.isRequired,
-    propName: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
     old: PropTypes.bool,
   }
 
@@ -46,7 +42,7 @@ export default class MagicGridBox extends Component {
   }
 
   render () {
-    const {component, propName, id} = this.props
+    const {children} = this.props
     const {height} = this.state
 
     const styles = {
@@ -59,7 +55,7 @@ export default class MagicGridBox extends Component {
     return (
       <div style={styles}>
         <div ref={(el) => { this.container = el }}>
-          {cloneElement(component,  {[propName]: id})}
+          {children}
         </div>
       </div>
     )

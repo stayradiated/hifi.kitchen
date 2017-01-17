@@ -7,13 +7,13 @@ import {IdType, ItemsType} from './types'
 
 function MagicGridRow (props) {
   const {
-    itemWidth, row, currentId, previousId, component,
-    propName, style, rowOffset,
+    itemWidth, row, currentId, previousId,
+    style, rowOffset, renderSelection,
   } = props
 
-  const rowCurrentIndex = row.findIndex((release) => release.id === currentId)
+  const rowCurrentIndex = row.findIndex((item) => item.id === currentId)
   const hasCurrent = rowCurrentIndex > -1
-  const hadCurrent = row.some((release) => release.id === previousId)
+  const hadCurrent = row.some((item) => item.id === previousId)
 
   const sameRow = hasCurrent && hadCurrent
   const arrowMarginLeft = (
@@ -42,9 +42,9 @@ function MagicGridRow (props) {
           size={10}
         />}
       {hasCurrent &&
-        <Box id={currentId} component={component} propName={propName} />}
+        <Box>{renderSelection(currentId)}</Box>}
       {hadCurrent && !sameRow &&
-        <Box id={previousId} component={component} propName={propName} old />}
+        <Box old>{renderSelection(previousId)}</Box>}
     </div>
   )
 }
@@ -55,9 +55,8 @@ MagicGridRow.propTypes = {
   row: ItemsType.isRequired,
   currentId: IdType,
   previousId: IdType,
-  component: PropTypes.element.isRequired,
-  propName: PropTypes.string.isRequired,
   style: PropTypes.shape({}),
+  renderSelection: PropTypes.func,
 }
 
 export default pure(MagicGridRow)

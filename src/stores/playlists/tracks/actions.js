@@ -9,16 +9,13 @@ export function forceFetchPlaylistTracks (playlistId) {
     types: FETCH_PLAYLIST_TRACKS,
     payload: {playlistId},
     meta: {
-      plex: ({library}) => normalize(library.playlistTracks(
-        playlistId, {size: 50})),
+      plex: ({library}) => normalize(library.playlistTracks(playlistId, {size: 50})),
     },
   }
 }
 
-export const fetchPlaylistTracks = cacheMap(
-  forceFetchPlaylistTracks,
-  (playlistId) => ({
-    id: playlistId,
-    selectors,
-  }),
-)
+export const fetchPlaylistTracks = cacheMap((playlistId) => ({
+  id: playlistId,
+  selectors,
+  dispatch: forceFetchPlaylistTracks,
+}))

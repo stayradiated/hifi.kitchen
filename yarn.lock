@@ -3859,9 +3859,9 @@ pbkdf2-compat@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pbkdf2-compat/-/pbkdf2-compat-2.0.1.tgz#b6e0c8fa99494d94e0511575802a59a5c142f288"
 
-perplexed@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/perplexed/-/perplexed-1.2.0.tgz#6a2f9d82419c5b52e4f117ce2466923adb544a2e"
+perplexed@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/perplexed/-/perplexed-1.3.1.tgz#6c5573aed9fabcfd98864992d2f55b23603ff063"
   dependencies:
     assert "^1.4.1"
     deep-diff "^0.3.4"
@@ -4438,9 +4438,9 @@ react-scripts@0.8.5:
   optionalDependencies:
     fsevents "1.0.14"
 
-react-virtualized@^8.9.0:
-  version "8.9.0"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-8.9.0.tgz#b53d8dfdb43624036e3e11148bac8be4b56c21fa"
+react-virtualized@^8.10.0:
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-8.10.0.tgz#c2f7b74523f71f88991efbc77a0d82f64e52879e"
   dependencies:
     babel-runtime "^6.11.6"
     classnames "^2.2.3"
@@ -5529,14 +5529,14 @@ xml-char-classes@^1.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-2.0.1.tgz#4d8b8f1eccd3419aa362061becef515e1e559635"
 
-xml2js@0.4.16:
+xml2js@0.4.16, xml2js@^0.4.16:
   version "0.4.16"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.16.tgz#f82fccd2f9540d7e0a9b5dac163e7471195c9db3"
   dependencies:
     sax ">=0.6.0"
     xmlbuilder "^4.1.0"
 
-xml2js@^0.4.16, xml2js@^0.4.17:
+xml2js@^0.4.17:
   version "0.4.17"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.17.tgz#17be93eaae3f3b779359c795b419705a8817e868"
   dependencies:

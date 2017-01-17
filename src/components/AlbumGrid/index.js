@@ -8,14 +8,15 @@ import withRouter from '../MuggleGrid/withRouter'
 
 export default function AlbumGrid (props) {
   return (
-    <MuggleGrid
-      {...props}
-      component={<AlbumContainer />}
-      propName='albumId'
-    >
-      {(album, handleSelect) => (
-        <AlbumItem album={album} onSelect={handleSelect} />
-      )}
+    <MuggleGrid {...props}>
+      {[
+        (album, handleSelect) => (
+          <AlbumItem album={album} onSelect={handleSelect} />
+        ),
+        (albumId) => (
+          <AlbumContainer albumId={albumId} />
+        ),
+      ]}
     </MuggleGrid>
   )
 }

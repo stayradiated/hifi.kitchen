@@ -12,16 +12,18 @@ const SCROLLBAR = 15
 export default class MagicGrid extends Component {
   static propTypes = {
     className: PropTypes.string,
-    component: PropTypes.element.isRequired,
+
+    items: ItemsType.isRequired,
     currentId: IdType,
+    total: PropTypes.number.isRequired,
+
     height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
     itemHeight: PropTypes.number.isRequired,
     itemWidth: PropTypes.number.isRequired,
-    items: ItemsType.isRequired,
+
+    renderSelection: PropTypes.func,
     onLoad: PropTypes.func,
-    propName: PropTypes.string.isRequired,
-    total: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired,
   }
 
   constructor () {
@@ -39,7 +41,9 @@ export default class MagicGrid extends Component {
       this.setState({
         previousId: this.props.currentId,
       })
-      this.list && this.list.recomputeRowHeights(0)
+      if (this.list != null) {
+        this.list.recomputeRowHeights(0)
+      }
     }
   }
 
@@ -79,7 +83,7 @@ export default class MagicGrid extends Component {
     const {
       width, height,
       className, itemHeight, itemWidth,
-      component, propName, currentId, total,
+      renderSelection, currentId, total,
     } = this.props
     const {previousId} = this.state
 
@@ -96,10 +100,9 @@ export default class MagicGrid extends Component {
       return row.every((item) => item != null)
     }
 
-    const rowRenderer = (props) => {
-      const {index, key, style} = props
+    const rowRenderer = ({index, key, style}) => {
       const row = rows[index]
-        
+
       if (row == null) {
         return <div key={key} style={style} />
       }
@@ -111,8 +114,7 @@ export default class MagicGrid extends Component {
           rowOffset={rowOffset}
           itemWidth={itemWidth}
           row={row.filter((item) => item != null)}
-          component={component}
-          propName={propName}
+          renderSelection={renderSelection}
           currentId={currentId}
           previousId={previousId}
         />

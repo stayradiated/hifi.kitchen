@@ -20,7 +20,6 @@ class PlaylistContainer extends Component {
     playlist: PropTypes.shape({}),
     playlistTracks: PropTypes.arrayOf(PropTypes.object),
     dispatch: PropTypes.func.isRequired,
-    librarySectionId: PropTypes.number.isRequired,
   }
 
   constructor () {
@@ -53,8 +52,8 @@ class PlaylistContainer extends Component {
   }
 
   handlePlexMix (track) {
-    const {librarySectionId, dispatch} = this.props
-    dispatch(createQueueFromPlexMix(librarySectionId, track))
+    const {dispatch} = this.props
+    dispatch(createQueueFromPlexMix(track))
   }
 
   handleRateTrack (track, rating) {

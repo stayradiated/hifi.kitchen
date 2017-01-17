@@ -40,12 +40,13 @@ class PlaylistsRoute extends Component {
     const {playlistId, playlists, totalPlaylists} = this.props
 
     return (
-      <PlaylistGrid
-        playlists={playlists}
-        playlistId={playlistId}
+      <PlaylistGrid.withRouter
+        items={playlists}
+        currentId={playlistId}
         onLoad={this.fetchPlaylists}
         total={totalPlaylists}
-        infinite
+        itemPath={(id, {serverId}) =>
+          `/server/${serverId}/playlists/${id}`}
       />
     )
   }
@@ -53,13 +54,17 @@ class PlaylistsRoute extends Component {
 
 export default connect((state, props) => {
   const {params} = props
-  const {id: playlistId} = params
+
+  const playlistId = parseInt(params.playlistId, 10) || null
 
   const allPlaylists = getAllPlaylists(state)
+  const totalPlaylists = selectLibraryPlaylists.total(state)
+  const playlists = (selectLibraryPlaylists.values(state) || [])
+    .map((id) => allPlaylists.get(id))
 
   return {
-    playlists: selectLibraryPlaylists.values(state).map((id) => allPlaylists.get(id)),
-    totalPlaylists: selectLibraryPlaylists.total(state),
-    playlistId: playlistId ? parseInt(playlistId, 10) : null,
+    playlistId,
+    playlists,
+    totalPlaylists,
   }
 })(PlaylistsRoute)

@@ -8,14 +8,15 @@ import withRouter from '../MuggleGrid/withRouter'
 
 export default function PlaylistGrid (props) {
   return (
-    <MuggleGrid
-      {...props}
-      component={<PlaylistContainer />}
-      propName='playlistId'
-    >
-      {(playlist, handleSelect) => (
-        <PlaylistItem playlist={playlist} onSelect={handleSelect} />
-      )}
+    <MuggleGrid {...props}>
+      {[
+        (playlist, handleSelect) => (
+          <PlaylistItem playlist={playlist} onSelect={handleSelect} />
+        ),
+        (playlistId) => (
+          <PlaylistContainer playlistId={playlistId} />
+        ),
+      ]}
     </MuggleGrid>
   )
 }

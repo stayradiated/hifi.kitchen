@@ -3,11 +3,12 @@ import React, {PropTypes} from 'react'
 import GridItem from '../GridItem'
 
 export default function PlaylistItem (props) {
-  const {playlist} = props
+  const {playlist, ...otherProps} = props
 
   return (
     <GridItem
-      link={`/library/1/playlists/${playlist.id}`}
+      {...otherProps}
+      id={playlist.id}
       image={playlist.composite}
       title={playlist.title}
       subtitle={`${Math.round(playlist.duration / 1000 / 60)} mins`}

@@ -6,8 +6,10 @@ import MagicGrid from '../MagicGrid'
 export default function MuggleGrid (props) {
   const {
     className, items, currentId, onLoad, onChange, getId,
-    children, component, propName, total,
+    children, total,
   } = props
+
+  const [renderItem, renderSelection] = children
 
   const mappedItems = items.map((item) => {
     if (item == null) {
@@ -15,7 +17,7 @@ export default function MuggleGrid (props) {
     }
     return {
       id: getId(item),
-      element: children(item, onChange),
+      element: renderItem(item, onChange),
     }
   })
 
@@ -24,16 +26,18 @@ export default function MuggleGrid (props) {
       {({height, width}) => (
         <MagicGrid
           className={className}
-          component={component}
+
+          items={mappedItems}
           currentId={currentId}
+          total={total != null ? total : items.length}
+
           height={height}
+          width={width}
           itemHeight={212}
           itemWidth={150}
-          items={mappedItems}
+
+          renderSelection={renderSelection}
           onLoad={onLoad}
-          propName={propName}
-          total={total != null ? total : items.length}
-          width={width}
         />
       )}
     </AutoSizer>
@@ -41,15 +45,13 @@ export default function MuggleGrid (props) {
 }
 
 MuggleGrid.propTypes = {
-  children: PropTypes.func.isRequired,
+  children: PropTypes.arrayOf(PropTypes.func).isRequired,
   className: PropTypes.string,
-  component: PropTypes.element.isRequired,
   currentId: PropTypes.number,
   getId: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func,
   onLoad: PropTypes.func,
-  propName: PropTypes.string.isRequired,
   total: PropTypes.number,
 }
 
