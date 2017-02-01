@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react'
 import './styles.css'
 
 import SwitchServerContainer from '../../containers/SwitchServer'
-// import ControlsContainer from '../../containers/Controls'
+import ControlsContainer from '../../containers/Controls'
 // import HeaderContainer from '../../containers/Header'
 
 export default function CoreRoute (props) {
@@ -16,7 +16,7 @@ export default function CoreRoute (props) {
       <div className='CoreRoute-contents'>
         {children}
       </div>
-      {/* <ControlsContainer /> */}
+      <ControlsContainer />
     </div>
   )
 }

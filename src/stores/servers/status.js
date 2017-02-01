@@ -13,7 +13,7 @@ const TIMEOUT = 5 * 1000
 async function connect (account, server, connection) {
   const serverConnection = new ServerConnection(connection.uri, account)
   try {
-    await serverConnection.fetchJSON('/', {timeout: TIMEOUT})
+    await serverConnection.fetch('/', {timeout: TIMEOUT})
   } catch (e) {
     return {
       available: false,

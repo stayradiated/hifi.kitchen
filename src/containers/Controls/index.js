@@ -26,8 +26,8 @@ class ControlsContainer extends Component {
     queueItem: PropTypes.shape({
       id: PropTypes.number,
     }),
-    track: PropTypes.shape({
-    }),
+    track: PropTypes.shape({}),
+    trackSrc: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
   }
 
@@ -93,7 +93,7 @@ class ControlsContainer extends Component {
   }
 
   render () {
-    const {track} = this.props
+    const {track, trackSrc} = this.props
 
     if (track == null) {
       return null
@@ -102,6 +102,7 @@ class ControlsContainer extends Component {
     return (
       <Controls
         track={track}
+        trackSrc={trackSrc}
         onNextTrack={this.handleNextTrack}
         onPrevTrack={this.handlePrevTrack}
         onRateTrack={this.handleRateTrack}
@@ -118,4 +119,5 @@ class ControlsContainer extends Component {
 export default connect((state) => ({
   queueItem: getQueue.queueItem(state),
   track: getQueue.track(state),
+  trackSrc: getQueue.trackSrc(state),
 }))(ControlsContainer)

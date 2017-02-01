@@ -13,6 +13,7 @@ export default class Controls extends Component {
     track: PropTypes.shape({
       id: PropTypes.number,
     }).isRequired,
+    trackSrc: PropTypes.string,
     onNextTrack: PropTypes.func.isRequired,
     onPrevTrack: PropTypes.func.isRequired,
     onRateTrack: PropTypes.func.isRequired,
@@ -21,12 +22,6 @@ export default class Controls extends Component {
     onStop: PropTypes.func.isRequired,
     onEnd: PropTypes.func.isRequired,
     onTimeUpdate: PropTypes.func.isRequired,
-  }
-
-  static contextTypes = {
-    library: PropTypes.shape({
-      trackSrc: PropTypes.func,
-    }).isRequired,
   }
 
   constructor (props) {
@@ -67,12 +62,12 @@ export default class Controls extends Component {
     this.audio.addEventListener('progress', this.audioProgress)
     this.audio.addEventListener('timeupdate', this.audioTimeUpdate)
 
-    this.updateAudioSource(this.props.track)
+    this.updateAudioSource(this.props.trackSrc)
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.track.id !== this.props.track.id) {
-      this.updateAudioSource(nextProps.track)
+    if (nextProps.trackSrc !== this.props.trackSrc) {
+      this.updateAudioSource(nextProps.trackSrc)
     }
   }
 
@@ -85,10 +80,9 @@ export default class Controls extends Component {
     this.audio.removeEventListener('timeupdate', this.audioTimeUpdate)
   }
 
-  updateAudioSource (track) {
-    const {library} = this.context
+  updateAudioSource (trackSrc) {
     this.audio.currentTime = 0
-    this.audio.src = library.trackSrc(track)
+    this.audio.src = trackSrc
   }
 
   audioDurationChange () {

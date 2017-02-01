@@ -1,5 +1,6 @@
 import {createSelector} from 'reselect'
 
+import {selectPlex} from '../plex'
 import {selectAllTracks} from '../tracks/all'
 
 export const root = (state) => state.queue
@@ -35,5 +36,15 @@ export const track = createSelector(
       return null
     }
     return allTracks.get(_item.track)
+  },
+)
+
+export const trackSrc = createSelector(
+  track, selectPlex.library,
+  (_track, library) => {
+    if (library != null && _track != null) {
+      return library.trackSrc(_track)
+    }
+    return null
   },
 )

@@ -9,17 +9,19 @@ export default function TrackList (props) {
 
   return (
     <div className='TrackList'>
-      {tracks.map((track, i) => (
-        <div key={i} className='TrackList-track'>
-          <Track
-            track={track}
-            onSelect={onSelect}
-            onPlexMix={onPlexMix}
-            onRate={onRate}
-            displayArtist={displayArtist}
-          />
-        </div>
-      ))}
+      {tracks
+        .filter((track) => track != null)
+        .map((track, i) => (
+          <div key={i} className='TrackList-track'>
+            <Track
+              track={track}
+              onSelect={onSelect}
+              onPlexMix={onPlexMix}
+              onRate={onRate}
+              displayArtist={displayArtist}
+            />
+          </div>
+        ))}
     </div>
   )
 }
