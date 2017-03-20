@@ -1,0 +1,38 @@
+.SearchBar {
+  flex: 1;
+}
+
+.SearchBar-contents {
+  display: flex;
+  align-items: stretch;
+}
+
+.SearchBar-icon {
+}
+
+.SearchBar-inputWrapper {
+  flex: 1;
+  position: relative;
+  min-width: 200px;
+  padding-left: 0.5em;
+  transition: all 0.3s ease;
+}
+
+.SearchBar-inputWrapper_closed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  padding-left: 0;
+}
+
+.SearchBar-input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 1em;
+}

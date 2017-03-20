@@ -1,222 +1,96 @@
-import React, {Component, PropTypes} from 'react'
-import ClickOutside from 'react-click-outside'
+import React, {PropTypes} from 'react'
 
 import './styles.css'
 
 import Icon from '../Icon'
-import TrackBar from '../TrackBar'
-import TrackRating from '../TrackRating'
-import PlayQueueContainer from '../../containers/PlayQueue'
+import BlurImage from '../BlurImage'
+import Timeline from '../Timeline'
+import SquareImage from '../SquareImage'
+import RatingStars from '../RatingStars'
 
-export default class Controls extends Component {
-  static propTypes = {
-    track: PropTypes.shape({
-      id: PropTypes.number,
-    }).isRequired,
-    trackSrc: PropTypes.string,
-    onNextTrack: PropTypes.func.isRequired,
-    onPrevTrack: PropTypes.func.isRequired,
-    onRateTrack: PropTypes.func.isRequired,
-    onPlay: PropTypes.func.isRequired,
-    onPause: PropTypes.func.isRequired,
-    onStop: PropTypes.func.isRequired,
-    onEnd: PropTypes.func.isRequired,
-    onTimeUpdate: PropTypes.func.isRequired,
-  }
+export default function Controls (props) {
+  const {
+    audio, track, paused,
+    onPrev, onPlay, onPause, onNext, onQueue, onRateTrack,
+  } = props
 
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      buffered: 0,
-      currentTime: 0,
-      duration: 0,
-      playing: false,
-
-      playQueueOpen: false,
-    }
-
-    this.timer = null
-
-    this.audioDurationChange = this.audioDurationChange.bind(this)
-    this.audioEnded = this.audioEnded.bind(this)
-    this.audioPause = this.audioPause.bind(this)
-    this.audioPlay = this.audioPlay.bind(this)
-    this.audioProgress = this.audioProgress.bind(this)
-    this.audioTimeUpdate = this.audioTimeUpdate.bind(this)
-    this.handleToggleAudio = this.handleToggleAudio.bind(this)
-    this.handleStopAudio = this.handleStopAudio.bind(this)
-
-    this.openPlayQueue = this.openPlayQueue.bind(this)
-    this.closePlayQueue = this.closePlayQueue.bind(this)
-  }
-
-  componentDidMount () {
-    this.audio = new Audio()
-    this.audio.autoplay = true
-
-    this.audio.addEventListener('durationchange', this.audioDurationChange)
-    this.audio.addEventListener('ended', this.audioEnded)
-    this.audio.addEventListener('pause', this.audioPause)
-    this.audio.addEventListener('play', this.audioPlay)
-    this.audio.addEventListener('progress', this.audioProgress)
-    this.audio.addEventListener('timeupdate', this.audioTimeUpdate)
-
-    this.updateAudioSource(this.props.trackSrc)
-  }
-
-  componentWillReceiveProps (nextProps) {
-    if (nextProps.trackSrc !== this.props.trackSrc) {
-      this.updateAudioSource(nextProps.trackSrc)
-    }
-  }
-
-  componentWillUnmount () {
-    this.audio.removeEventListener('durationchange', this.audioDurationChange)
-    this.audio.removeEventListener('ended', this.audioEnded)
-    this.audio.removeEventListener('pause', this.audioPause)
-    this.audio.removeEventListener('play', this.audioPlay)
-    this.audio.removeEventListener('progress', this.audioProgress)
-    this.audio.removeEventListener('timeupdate', this.audioTimeUpdate)
-  }
-
-  updateAudioSource (trackSrc) {
-    this.audio.currentTime = 0
-    this.audio.src = trackSrc
-  }
-
-  audioDurationChange () {
-    this.setState({
-      duration: this.audio.duration,
-    })
-  }
-
-  audioEnded () {
-    const {onEnd} = this.props
-    onEnd()
-  }
-
-  audioPause () {
-    const {onPause} = this.props
-    this.setState({playing: false})
-    onPause()
-  }
-
-  audioPlay () {
-    const {onPlay} = this.props
-    this.setState({playing: true})
-    onPlay()
-  }
-
-  audioProgress () {
-    const {buffered} = this.audio
-
-    this.setState({
-      buffered: buffered.length > 0 ? buffered.end(0) : 0,
-    })
-  }
-
-  audioTimeUpdate () {
-    const {onTimeUpdate} = this.props
-    const {currentTime} = this.audio
-    this.setState({currentTime})
-    onTimeUpdate(currentTime)
-  }
-
-  handleToggleAudio () {
-    if (this.audio.paused) {
-      this.audio.play()
-    } else {
-      this.audio.pause()
-    }
-  }
-
-  handleStopAudio () {
-    const {onStop} = this.props
-    this.audio.src = ''
-    onStop()
-  }
-
-  openPlayQueue () {
-    this.setState({playQueueOpen: true})
-  }
-
-  closePlayQueue () {
-    this.setState({playQueueOpen: false})
-  }
-
-  render () {
-    const {track, onNextTrack, onPrevTrack, onRateTrack} = this.props
-    const {buffered, currentTime, duration, playing, playQueueOpen} = this.state
-
-    if (track == null) {
-      return null
-    }
-
-    const title = track.title
-    const artist = track.originalTitle || track.grandparentTitle
-
-    return (
-      <div className='Controls-container'>
-        {track != null &&
-          <div className='Controls-trackDetails'>
-            <span className='Controls-trackTitle'>
-              {title}
-            </span> &mdash; <span className='Controls-artistTitle'>
-              {artist}
-            </span>
-          </div>}
-
-        <div className='Controls-navigationBtns'>
-          <Icon
-            icon='to-start'
-            className='Controls-navigationBtn Controls-prevNextBtn'
-            onClick={onPrevTrack}
-          />
-
-          <Icon
-            icon={playing ? 'pause' : 'play'}
-            className='Controls-navigationBtn Controls-playPauseBtn'
-            onClick={this.handleToggleAudio}
-          />
-
-          <Icon
-            icon='stop'
-            className='Controls-navigationBtn Controls-stopBtn'
-            onClick={this.handleStopAudio}
-          />
-
-          <Icon
-            icon='to-end'
-            className='Controls-navigationBtn Controls-prevNextBtn'
-            onClick={onNextTrack}
-          />
+  return (
+    <div className='Controls'>
+      <BlurImage src={track.thumb} />
+      <div className='Controls-contents'>
+        <div className='Controls-playback'>
+          <button onClick={onPrev} className='Controls-playback-prev'>
+            <Icon icon='to-start' />
+          </button>
+          <button
+            onClick={paused ? onPlay : onPause}
+            className='Controls-playback-play'
+          >
+            <Icon icon={paused ? 'play' : 'pause'} />
+          </button>
+          <button onClick={onNext} className='Controls-playback-next'>
+            <Icon icon='to-end' />
+          </button>
         </div>
-
-        <TrackBar
-          buffered={buffered}
-          currentTime={currentTime}
-          duration={duration}
+        <div className='Controls-centerBlock'>
+          <div className='Controls-trackInfo'>
+            <span className='Controls-trackInfo-title'>
+              {track.title}
+            </span>
+            <span className='Controls-trackInfo-seperator'>&mdash;</span>
+            <span className='Controls-trackInfo-artist'>
+              {track.originalTitle}
+            </span>
+          </div>
+          <div className='Controls-timeline'>
+            <Icon icon='shuffle' className='Controls-shuffle' />
+            <Timeline
+              buffered={audio.buffered}
+              currentTime={audio.currentTime}
+              duration={audio.duration}
+            />
+            <Icon icon='cw' className='Controls-repeat' />
+          </div>
+        </div>
+        <RatingStars
+          className='Controls-rating'
+          value={track.userRating || 0}
+          maxValue={10}
+          onRate={(rating) => onRateTrack(track.id, rating)}
         />
-
-        <Icon
-          className='Controls-showPlaylist'
-          icon='list-numbered'
-          onClick={this.openPlayQueue}
-        />
-
-        {playQueueOpen &&
-          <ClickOutside onClickOutside={this.closePlayQueue}>
-            <PlayQueueContainer />
-          </ClickOutside>
-        }
-
-        <TrackRating
-          className='Controls-trackRating'
-          track={track}
-          onRate={onRateTrack}
+        <button
+          className='Controls-queue'
+          onClick={onQueue}
+        >
+          <Icon icon='list' />
+        </button>
+        <SquareImage
+          className='Controls-albumThumb'
+          imageClassName='Controls-albumThumbImage'
+          src={track.thumb}
         />
       </div>
-    )
-  }
+    </div>
+  )
+}
+
+Controls.propTypes = {
+  track: PropTypes.shape({
+    title: PropTypes.string,
+    originalTitle: PropTypes.string,
+    userRating: PropTypes.number,
+    thumb: PropTypes.string,
+  }).isRequired,
+  paused: PropTypes.bool,
+  audio: PropTypes.shape({
+    buffered: PropTypes.number,
+    currentTime: PropTypes.number,
+    duration: PropTypes.number,
+  }).isRequired,
+  onPrev: PropTypes.func,
+  onPlay: PropTypes.func,
+  onPause: PropTypes.func,
+  onNext: PropTypes.func,
+  onQueue: PropTypes.func,
+  onRateTrack: PropTypes.func.isRequired,
 }

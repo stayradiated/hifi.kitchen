@@ -54,6 +54,8 @@ export default function store () {
   const storage = filter([
     'queue',
     'user',
+    'plex.instance.serverId',
+    'plex.instance.librarySectionId',
   ])(adapter(window.localStorage))
 
   return createStore(rootReducer, compose(

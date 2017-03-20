@@ -1,18 +1,19 @@
 .GridItem {
-  display: block;
-  text-align: left;
-  text-decoration: none;
-  color: #fff;
-  padding: 0 5px;
-  background: none;
-  border: none;
-  width: 100%;
-  outline: none;
+  padding: 1vw;
+  transition: opacity 0.3s ease;
 }
 
-.GridItem-image {
+.GridItem:hover {
+  opacity: 0.8;
+}
+
+.GridItem-thumb {
   width: 100%;
   height: auto;
+}
+
+.GridItem-thumbImage {
+  box-shadow: inset 0 0 0 1px var(--white-10), 0 0 0 1px var(--black-10);
 }
 
 .GridItem-text {

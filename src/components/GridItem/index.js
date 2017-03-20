@@ -14,10 +14,10 @@ export default function GridItem (props) {
       onClick={() => onSelect && onSelect(id)}
     >
       <SquareImage
-        className='GridItem-image'
+        className='GridItem-thumb'
+        imageClassName='GridItem-thumbImage'
         src={image}
         alt={title}
-        size={140}
       />
       <div className='GridItem-text'>
         <h2 className='GridItem-title'>{title}</h2>

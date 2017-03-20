@@ -1,0 +1,67 @@
+body, button, input {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: var(--foreground);
+}
+
+button {
+  width: 100%;
+  display: block;
+  background: none;
+  border: none;
+  outline: none;
+  text-align: left;
+  font-size: 1rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5em;
+  cursor: pointer;
+}
+
+body {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+ :root {
+  --background: #1B1B1B;
+  --foreground: #FBFFFE;
+  --menu: #121212;
+  --primary: #FFA400;
+  --primary-hover: #E89600;
+  --secondary: #009FFD;
+
+  --error: #F15025;
+
+  --white-50: rgba(255, 255, 255, 0.5);
+  --white-30: rgba(255, 255, 255, 0.3);
+  --white-10: rgba(255, 255, 255, 0.1);
+  --white-05: rgba(255, 255, 255, 0.05);
+
+  --black-50: rgba(0, 0, 0, 0.5);
+  --black-30: rgba(0, 0, 0, 0.3);
+  --black-10: rgba(0, 0, 0, 0.1);
+  --black-05: rgba(0, 0, 0, 0.05);
+
+  --scroll-background: var(--background);
+  --scroll-thumb: #2F2F2F;
+  --scroll-thumb-hover: #444444;
+
+  --font-logo: 'Unica One', sans-serif;
+ }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--scroll-background);
+}
+
+::-webkit-scrollbar-thumb {
+  min-height: 50px;
+  background-color: var(--scroll-thumb);
+}
+
+::-webkit-scrollbar-thumb:hover { 
+  background-color: var(--scroll-thumb-hover);
+}

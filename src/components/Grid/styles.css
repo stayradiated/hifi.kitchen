@@ -1,0 +1,26 @@
+.Grid {
+  flex: 1;
+}
+
+.Grid-row {
+  position: relative;
+}
+
+.Grid-rowItems {
+  display: flex;
+}
+
+.Grid-item {
+  display: block;
+}
+
+.Grid-arrow {
+  width: 0;
+  height: 0;
+  position: absolute;
+  transition: all 350ms ease;
+}
+
+.Grid-box {
+  margin-bottom: 10px;
+}

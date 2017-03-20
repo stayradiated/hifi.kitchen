@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react'
 import classNames from 'classnames'
 
+import './fontello.css'
+
 export default function Icon (props) {
   const {className, icon, ...otherProps} = props
 

@@ -1,0 +1,38 @@
+.Settings {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  color: #FBFFFE;
+  background: #1B1B1E;
+  padding: 2em;
+  overflow: auto;
+}
+
+.Settings-contents {
+  flex: 1;
+  max-width: 600px;
+}
+
+.Settings-contents:after {
+  content: '';
+  display: block;
+  height: 5em;
+}
+
+.Settings-sectionHeader {
+  font-size: 1.5em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0;
+}
+
+.Settings-doneButton {
+  text-align: center;
+  padding: 0.5em 1em;
+  border-top: 1px solid var(--white-05);
+  margin-top: 1em;
+}
+
+.Settings-doneButton:hover {
+  background: var(--white-05);
+}

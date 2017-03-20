@@ -3,30 +3,42 @@ import {connect} from 'react-redux'
 
 import './styles.css'
 
-import {initializePlex} from '../../stores/plex'
+import {
+  selectPlex,
+} from '../../stores/plex/instance'
+
+import Loading from '../../containers/Loading'
 
 class AppRoute extends Component {
   static propTypes = {
     children: PropTypes.node,
-    dispatch: PropTypes.func.isRequired,
+    library: PropTypes.shape({}),
+    ready: PropTypes.bool,
   }
 
-  componentWillMount () {
-    const {dispatch} = this.props
-    dispatch(initializePlex())
+  static childContextTypes = {
+    library: PropTypes.shape({}),
+  }
+
+  getChildContext () {
+    const {library} = this.props
+    return {library}
   }
 
   render () {
-    const {children} = this.props
+    const {ready, children} = this.props
 
     return (
       <div className='AppRoute'>
         <div className='AppRoute-contents'>
-          {children}
+          {ready ? children : <Loading />}
         </div>
       </div>
     )
   }
 }
 
-export default connect()(AppRoute)
+export default connect((state) => ({
+  library: selectPlex.library(state),
+  ready: selectPlex.ready(state),
+}))(AppRoute)

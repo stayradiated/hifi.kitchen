@@ -1,0 +1,11 @@
+.QueueHandle {
+  color: var(--white-10);
+  font-size: 1.5em;
+  margin-left: 0.5em;
+  transition: color 0.3s ease;
+}
+
+.QueueHandle:hover,
+.QueueItem-helper .QueueHandle {
+  color: var(--white-50);
+}

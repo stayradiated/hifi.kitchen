@@ -1,0 +1,54 @@
+.NavBar {
+  height: 3em;
+  width: calc(100% - 2em);
+  padding: 0 1em;
+  display: flex;
+  justify-content: space-between;
+  background: var(--menu);
+  box-shadow: inset 0 -2px 0 var(--black-30);
+}
+
+.NavBar-section-list {
+  display: flex;
+}
+
+.NavBar-section-item {
+  padding: 0 1em;
+  line-height: 3em;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.NavBar-section-item:hover {
+  background: var(--white-05);
+  border-bottom-color: var(--white-10);
+}
+
+.NavBar-section-item-selected,
+.NavBar-section-item-selected:hover {
+  background: var(--white-05);
+  color: var(--primary);
+  border-bottom-color: var(--primary);
+}
+
+.NavBar-dropdown-button {
+  width: auto;
+  display: flex;
+  line-height: 3em;
+  color: var(--white-50);
+}
+
+.NavBar-dropdown-label {
+  color: #fff;
+  margin-left: 0.6em;
+}
+
+.NavBar-dropdown-icon {
+  margin-left: 0.3em;
+}

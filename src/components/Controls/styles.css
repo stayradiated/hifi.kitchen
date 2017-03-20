@@ -1,99 +1,103 @@
-.Controls-container {
+.Controls {
+  --height: 80px;
+
+  flex: 1;
+  height: var(--height);
+  max-height: var(--height);
   position: relative;
-  min-height: 80px;
-  background: #333;
-  border-top: 1px solid #222;
+  display: flex;
 }
 
-.Controls-navigationBtns {
-  position: absolute;
-  left: 30px;
-  top: 0;
-  bottom: 0;
-  width: 140px;
+.Controls-contents {
+  flex: 1;
   display: flex;
-  justify-content: space-between;
+  position: relative;
+  z-index: 1;
   align-items: center;
 }
 
-.Controls-navigationBtn {
-  color: #fff;
-  cursor: pointer;
-
-  transition: color 0.3s ease;
-  background: none;
-  border: none;
-  outline: none;
+.Controls-playback {
+  display: flex;
+  align-items: center;
+  margin: 0 0.5em;
 }
 
-.Controls-navigationBtn:hover {
-  color: rgba(255, 255, 255, 0.8);
+.Controls-playback-prev,
+.Controls-playback-play,
+.Controls-playback-next {
+  transition: opacity 0.3s ease;
 }
 
-.Controls-playPauseBtn {
-  font-size: 30px;
+.Controls-playback-prev:hover,
+.Controls-playback-play:hover,
+.Controls-playback-next:hover {
+  opacity: 0.8;
 }
 
-.Controls-stopBtn {
+.Controls-playback-prev,
+.Controls-playback-next {
+  font-size: 1.5em;
 }
 
-.Controls-prevNextBtn {
-  font-size: 17px;
+.Controls-playback-play {
+  font-size: 2.5em;
 }
 
-.Controls-gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+.Controls-centerBlock {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 0 2em;
 }
 
-.Controls-audio {
-  display: none;
+.Controls-trackInfo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.Controls-trackDetails {
-  color: rgba(255, 255, 255, 0.8);
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 16px;
-  text-align: center;
+.Controls-trackInfo-seperator {
+  margin: 0 0.5em;
+  color: var(--white-50);
 }
 
-.Controls-trackTitle {
+.Controls-timeline {
+  flex: 1;
+  display: flex;
+  align-items: center;;
+  margin-top: 0.5em;
 }
 
-.Controls-artistTitle {
+.Controls-shuffle,
+.Controls-repeat {
+  color: var(--white-50);
+  font-size: 0.9em;
 }
 
-.Controls-albumCover {
-  display: block;
-  position: absolute;
-  top: calc((80px - 40px) / 2);
-  right: calc((80px - 40px) / 2);
+.Controls-shuffle {
+  margin-right: 0.5em;
+}
+
+.Controls-repeat {
+  margin-left: 0.5em;
+}
+
+.Controls-queue {
+  width: auto;
+  font-size: 1.5em;
+}
+
+.Controls-rating {
+  width: 120px;
+  height: 15px;
+}
+
+.Controls-albumThumb {
   width: 40px;
-  height: 40px;
-  background-size: cover;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin: 0 calc((var(--height) - 40px) / 2);
 }
 
-.Controls-trackRating {
-  position: absolute;
-  top: calc((80px - 20px) / 2);
-  right: calc(40px + (80px - 20px) / 2);
-}
-
-.Controls-showPlaylist {
-  position: absolute;
-  top: calc((80px - 20px) / 2);
-  right: calc((80px - 20px) / 2);
-  color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-}
-
-.Controls-showPlaylist:hover {
-  color: rgba(255, 255, 255, 0.95);
+.Controls-albumThumbImage {
+  box-shadow: inset 0 0 0 1px var(--white-10), 0 0 0 1px var(--black-10);
 }

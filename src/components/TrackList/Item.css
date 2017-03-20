@@ -1,0 +1,57 @@
+.TrackListItem {
+  padding: 0 1em;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--white-05);
+  cursor: pointer;
+}
+
+.TrackListItem:hover {
+  background: var(--white-05);
+}
+
+.TrackListItem-contents {
+  display: flex;
+  align-items: center;
+}
+
+.TrackListItem-index {
+  width: 30px;
+  font-size: 0.8em;
+  color: var(--white-50);
+}
+
+.TrackListItem-nowPlayingIcon {
+  width: 12px;
+  height: 10px;
+  display: flex;
+  margin-right: 1em;
+}
+
+.TrackListItem-fulltitle {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 1em;
+}
+
+.TrackListItem-title {
+}
+
+.TrackListItem-artist {
+  padding-left: 0.5em;
+  color: var(--white-50);
+}
+
+.TrackListItem-duration {
+  width: 40px;
+  font-size: 0.8em;
+  color: var(--white-50);
+  text-align: right;
+}
+
+.TrackListItem-rating {
+  width: 40px;
+  height: 15px;
+}
+

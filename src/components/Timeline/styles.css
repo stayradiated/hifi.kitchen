@@ -1,0 +1,45 @@
+.Timeline {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.Timeline-timestamp {
+  color: var(--white-50);
+  font-size: 0.8em;
+}
+
+.Timeline-currentTime {
+  left: 0;
+  padding-right: 1em;
+}
+
+.Timeline-duration {
+  right: 0;
+  padding-left: 1em;
+}
+
+.Timeline-track {
+  flex: 1;
+  height: 3px;
+  background: var(--white-10);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.Timeline-trackBar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 3px;
+}
+
+.Timeline-trackBuffered {
+  background: var(--white-10);
+}
+
+.Timeline-trackCurrentTime {
+  background: var(--foreground);
+}

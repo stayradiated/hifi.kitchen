@@ -39,10 +39,10 @@ module.exports = createLibraryTypeStore({
   },
 })
 
-module.exports.rateTrack = (track, rating) => ({
+module.exports.rateTrack = (trackId, rating) => ({
   types: RATE_TRACK,
-  payload: {trackId: track.id, rating},
+  payload: {trackId, rating},
   meta: {
-    plex: ({library}) => library.rate(track.id, rating),
+    plex: ({library}) => library.rate(trackId, rating),
   },
 })

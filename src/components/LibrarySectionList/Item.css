@@ -1,0 +1,32 @@
+.LibrarySectionListItem {
+  display: flex;
+  align-items: center;
+  padding: 0.2em 1em;
+}
+
+.LibrarySectionListItem:hover {
+  background: var(--white-05);
+}
+
+.LibrarySectionListItem-selected .LibrarySectionListItem-title {
+  color: var(--primary);
+}
+.LibrarySectionListItem-selected .LibrarySectionListItem-icon-ok {
+  display: block;
+}
+
+.LibrarySectionListItem-title {
+  flex: 1;
+  font-size: 1em;
+  line-height: 1.2em;
+}
+
+.LibrarySectionListItem-icon {
+  font-size: 1.2em;
+  margin-left: 0.5em;
+}
+
+.LibrarySectionListItem-icon-ok {
+  display: none;
+  color: var(--primary);
+}

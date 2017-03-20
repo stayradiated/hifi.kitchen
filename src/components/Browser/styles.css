@@ -1,0 +1,22 @@
+.Browser {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+
+.Browser-grid {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+}
+
+.Browser-grid-wrapper {
+  flex: 1;
+  display: flex;
+}
+
+.Browser-selected-panel {
+  flex: 2;
+  min-width: 400px;
+  border-left: 1px solid var(--white-05);
+}

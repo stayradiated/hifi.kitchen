@@ -6,24 +6,20 @@ import './styles.css'
 import Image from '../Image'
 
 export default function SquareImage (props) {
-  const {className, src, size} = props
+  const {imageClassName, className, src} = props
 
   return (
     <div className={classNames(className, 'SquareImage')}>
-      <div className='SquareImage-container'>
-        <Image
-          className='SquareImage-image'
-          src={src}
-          width={size}
-          height={size}
-        />
-      </div>
+      <Image
+        className={classNames(imageClassName, 'SquareImage-container')}
+        src={src}
+      />
     </div>
   )
 }
 
 SquareImage.propTypes = {
   className: PropTypes.string,
+  imageClassName: PropTypes.string,
   src: PropTypes.string,
-  size: PropTypes.number.isRequired,
 }

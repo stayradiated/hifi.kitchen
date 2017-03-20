@@ -1,4 +1,3 @@
-import {any} from 'bluebird'
 import {ServerConnection} from 'perplexed'
 
 import {createFetchMapStore} from '../../storeTemplates'
@@ -28,6 +27,25 @@ async function connect (account, server, connection) {
   }
 }
 
+export function connectMultiple (account, server, connections) {
+  if (connections.length <= 0) {
+    throw new Error('Must pass at least one connection')
+  }
+
+  return new Promise((resolve, reject) => {
+    Promise.all(connections.map(async (c) => {
+      const connection = await connect(account, server, c)
+      if (connection.available) {
+        resolve(connection)
+      }
+      return connection
+    })).then((results) => {
+      // none of the connections were successful
+      resolve(results[0])
+    }).catch(reject)
+  })
+}
+
 const fetchServerStatus = (serverId) => {
   return async (dispatch, getState) => {
     // make sure all the account servers have been fetched first
@@ -43,8 +61,7 @@ const fetchServerStatus = (serverId) => {
       types: FETCH_SERVER_STATUS,
       payload: {id: serverId},
       meta: {
-        plex: ({account}) => any(
-          connections.map((c) => connect(account, server, c))),
+        plex: ({account}) => connectMultiple(account, server, connections),
       },
     })
   }

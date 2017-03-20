@@ -1,0 +1,35 @@
+.BlurImage {
+  overflow: hidden;
+
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #333;
+}
+
+.BlurImage-blur {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  filter: blur(50px) saturate(200%) brightness(80%) contrast(70%);
+}
+
+.BlurImage-image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-position: center center;
+  background-size: cover;
+}
+
+.BlurImage-shadow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+}

@@ -1,0 +1,7 @@
+.RatingStars-empty {
+  color: var(--white-10);
+}
+
+.RatingStars-full {
+  color: var(--primary);
+}

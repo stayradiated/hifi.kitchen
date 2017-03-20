@@ -1,40 +1,55 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
+import {Router, Route, browserHistory} from 'react-router'
 import {Provider} from 'react-redux'
 import {syncHistoryWithStore} from 'react-router-redux'
 
-import './index.css'
-import './css/fontello.css'
+import './styles.css'
 
-import Albums from './routes/Albums'
 import App from './routes/App'
-import Artists from './routes/Artists'
-import Core from './routes/Core'
-import Dashboard from './routes/Dashboard'
 import Login from './routes/Login'
-import Playlists from './routes/Playlists'
-import Search from './routes/Search'
-import Section from './routes/Section'
-import Server from './routes/Server'
+import Settings from './routes/Settings'
+import Library from './routes/Library'
 
 import createStore from './stores'
 
 import {selectUser} from './stores/user'
-import {selectPlex, initializePlex} from './stores/plex'
+import {selectPlex} from './stores/plex/instance'
+
+const AlbumInfo = null
+const ArtistInfo = null
+const PlaylistInfo = null
 
 const store = createStore()
 const history = syncHistoryWithStore(browserHistory, store)
 
-// make sure plex client is initialized
-// TODO: this seems wrong to have here
-if (selectPlex.client(store.getState()) == null) {
-  store.dispatch(initializePlex())
+const onEnterApp = (_, replace) => {
+  const state = store.getState()
+  if (selectUser.loggedIn(state)) {
+    replace('/library')
+  } else {
+    replace('/login')
+  }
 }
 
-const requireLogin = (nextState, replace) => {
-  if (selectUser.loggedIn(store.getState()) === false) {
+const onEnterLogin = (_, replace) => {
+  const state = store.getState()
+  if (selectUser.loggedIn(state)) {
+    replace('/settings')
+  }
+}
+
+const onEnterSettings = (_, replace) => {
+  const state = store.getState()
+  if (selectUser.loggedIn(state) === false) {
     replace('/login')
+  }
+}
+
+const onEnterLibrary = (_, replace) => {
+  const state = store.getState()
+  if (selectPlex.librarySectionId(state) == null) {
+    replace('/settings')
   }
 }
 
@@ -42,19 +57,13 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <Route component={App}>
-        <Route path='/login' component={Login} />
-        <Route path='/' component={Core} onEnter={requireLogin}>
-          <Route path='server/:serverId' component={Server}>
-            <IndexRedirect to='dashboard' />
-            <Route path='dashboard' component={Dashboard} />
-            <Route path='sections/:sectionId' component={Section}>
-              <IndexRedirect to='albums' />
-              <Route path='albums(/:albumId)' component={Albums} />
-              <Route path='artists(/:artistId)' component={Artists} />
-            </Route>
-            <Route path='playlists(/:playlistId)' component={Playlists} />
-            <Route path='search(/:query)' component={Search} />
-          </Route>
+        <Route path='/' onEnter={onEnterApp} />
+        <Route path='/login' component={Login} onEnter={onEnterLogin} />
+        <Route path='/settings' component={Settings} onEnter={onEnterSettings} />
+        <Route path='/library' component={Library} onEnter={onEnterLibrary}>
+          <Route path='albums/:albumId' component={AlbumInfo} />
+          <Route path='artists/:artistId' component={ArtistInfo} />
+          <Route path='playlists:playlistId' component={PlaylistInfo} />
         </Route>
       </Route>
     </Router>

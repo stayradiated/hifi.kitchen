@@ -1,0 +1,35 @@
+.GridList {
+  flex: 1;
+}
+
+.GridList-row {
+  position: relative;
+}
+
+.GridList-rowItems {
+  display: flex;
+}
+
+.GridList-item {
+  display: block;
+}
+
+.GridList-arrow {
+  width: 0;
+  height: 0;
+  position: absolute;
+  transition: all 350ms ease;
+}
+
+.GridList-box {
+  margin-bottom: 10px;
+}
+
+.GridListRowHeader {
+  display: flex;
+}
+
+.GridListRowHeader-content {
+  flex: 1;
+  display: flex;
+}

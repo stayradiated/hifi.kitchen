@@ -1,0 +1,15 @@
+.SearchResults {
+  flex: 1;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.SearchResults-header {
+  flex: 1;
+  text-transform: uppercase;
+  color: var(--white-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

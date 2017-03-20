@@ -21,25 +21,6 @@ Then open http://localhost:3000/library in your browser. Select a music library 
 
 ## Screenshots
 
-**Note: My main focus at the moment is on getting the underlying API working,
-so the current UI is just meant to be a prototype**.
+![](./docs/2017-03-20-234615_1366x768_scrot.png)
 
-**Album list (with player)**
-
-![](./docs/2017-01-04-115313_1366x768_scrot.png)
-
-**Selected album with track list**
-
-![](./docs/2017-01-04-115517_1366x768_scrot.png)
-
-**Selected artist with summary**
-
-![](./docs/2017-01-04-115641_1366x768_scrot.png)
-
-**Selected playlist with tracklist**
-
-![](./docs/2017-01-04-115714_1366x768_scrot.png)
-
-**Play Queue**
-
-![](./docs/2017-01-04-115757_1366x768_scrot.png)
+![](./docs/2017-03-20-234723_1366x768_scrot.png)

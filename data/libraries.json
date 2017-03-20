@@ -1,0 +1,127 @@
+[
+  {
+    "_type": "section",
+    "id": 5,
+    "allowSync": true,
+    "art": "/:/resources/movie-fanart.jpg",
+    "composite": "/library/sections/5/composite/1485843726",
+    "filters": true,
+    "refreshing": false,
+    "thumb": "/:/resources/movie.png",
+    "key": "5",
+    "type": "movie",
+    "title": "Movies",
+    "agent": "com.plexapp.agents.imdb",
+    "scanner": "Plex Movie Scanner",
+    "language": "en",
+    "uuid": "a9b1f638-3a10-414d-b358-f7cb9fc74d0a",
+    "updatedAt": 1485843726,
+    "createdAt": 1485843726,
+    "location": [
+      {
+        "id": 6,
+        "path": "/home/george/Videos"
+      }
+    ]
+  },
+  {
+    "_type": "section",
+    "id": 1,
+    "allowSync": true,
+    "art": "/:/resources/artist-fanart.jpg",
+    "composite": "/library/sections/1/composite/1465382234",
+    "filters": true,
+    "refreshing": false,
+    "thumb": "/:/resources/artist.png",
+    "key": "1",
+    "type": "artist",
+    "title": "Music",
+    "agent": "com.plexapp.agents.plexmusic",
+    "scanner": "Plex Premium Music Scanner",
+    "language": "en",
+    "uuid": "5085a855-78e9-4dd7-9d70-a4ac296e28ee",
+    "updatedAt": 1465382234,
+    "createdAt": 1465382234,
+    "location": [
+      {
+        "id": 1,
+        "path": "/mnt/data/music"
+      }
+    ]
+  },
+  {
+    "_type": "section",
+    "id": 8,
+    "allowSync": true,
+    "art": "/:/resources/movie-fanart.jpg",
+    "composite": "/library/sections/8/composite/1485851645",
+    "filters": true,
+    "refreshing": false,
+    "thumb": "/:/resources/video.png",
+    "key": "8",
+    "type": "movie",
+    "title": "Other Videos",
+    "agent": "com.plexapp.agents.none",
+    "scanner": "Plex Video Files Scanner",
+    "language": "xn",
+    "uuid": "d56643f3-31e2-44ed-b529-9ca6db9b9a11",
+    "updatedAt": 1485851645,
+    "createdAt": 1485851645,
+    "location": [
+      {
+        "id": 9,
+        "path": "/home/george/Downloads"
+      }
+    ]
+  },
+  {
+    "_type": "section",
+    "id": 7,
+    "allowSync": true,
+    "art": "/:/resources/photo-fanart.jpg",
+    "composite": "/library/sections/7/composite/1485845779",
+    "filters": true,
+    "refreshing": false,
+    "thumb": "/:/resources/photo.png",
+    "key": "7",
+    "type": "photo",
+    "title": "Photos",
+    "agent": "com.plexapp.agents.none",
+    "scanner": "Plex Photo Scanner",
+    "language": "en",
+    "uuid": "7507a902-e7d9-483d-abaa-2e4453b5a989",
+    "updatedAt": 1485845779,
+    "createdAt": 1485845779,
+    "location": [
+      {
+        "id": 8,
+        "path": "/home/george/Pictures"
+      }
+    ]
+  },
+  {
+    "_type": "section",
+    "id": 6,
+    "allowSync": true,
+    "art": "/:/resources/show-fanart.jpg",
+    "composite": "/library/sections/6/composite/1485845749",
+    "filters": true,
+    "refreshing": false,
+    "thumb": "/:/resources/show.png",
+    "key": "6",
+    "type": "show",
+    "title": "TV Shows",
+    "agent": "com.plexapp.agents.thetvdb",
+    "scanner": "Plex Series Scanner",
+    "language": "en",
+    "uuid": "5d9dd1de-d1b4-43a2-9e34-2226302b5036",
+    "updatedAt": 1485845749,
+    "createdAt": 1485845749,
+    "location": [
+      {
+        "id": 7,
+        "path": "/home/george/Public"
+      }
+    ]
+  }
+]

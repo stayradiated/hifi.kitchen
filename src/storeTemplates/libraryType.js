@@ -11,6 +11,8 @@ export default function createLibraryTypeStore (options) {
   const {
     type: TYPE, name, entity,
     rootSelector, mergeActions = [], customActions = {},
+    fetchItems = ({library}, id) =>
+      normalize(library.metadata(id, TYPE)),
   } = options
 
   const FETCH_TYPE = c(`FETCH_${name.toUpperCase()}`)
@@ -21,7 +23,7 @@ export default function createLibraryTypeStore (options) {
     types: FETCH_TYPE,
     payload: {id},
     meta: {
-      plex: ({library}) => normalize(library.metadata(id, TYPE)),
+      plex: (plex) => fetchItems(plex, id),
     },
   })
 
@@ -62,9 +64,11 @@ export default function createLibraryTypeStore (options) {
 
       default:
         if (mergeActions.includes(action.type)) {
+          const entityValues = action.value.entities[entity]
+
           return {
             ...state,
-            values: mergeItems(state.values, action.value.entities[entity]),
+            values: mergeItems(state.values, entityValues),
           }
         }
         for (const key of Object.keys(customActions)) {

@@ -1,0 +1,40 @@
+.SoundBars {
+  flex: 1;
+  --columns: 4;
+  position: relative;
+}
+
+.SoundBars-bar {
+  background: var(--primary);
+  position: absolute;
+  bottom: 0;
+  top: 98%;
+  width: calc((100% / var(--columns)) - 1px);    
+  animation: animatedSoundBars 0ms -800ms linear infinite alternate;
+}
+
+@keyframes animatedSoundBars {
+  0% {
+    top: 0;
+  }
+  100% {
+    top: 98%;
+  }
+}
+
+.SoundBars-bar:nth-child(1) {
+  left: 0;
+  animation-duration: 680ms;
+}
+.SoundBars-bar:nth-child(2) {
+  left: calc(100% / 4 * 1);
+  animation-duration: 1000ms;
+}
+.SoundBars-bar:nth-child(3) {
+  left: calc(100% / 4 * 2);
+  animation-duration: 315ms;
+}
+.SoundBars-bar:nth-child(4) {
+  left: calc(100% / 4 * 3);
+  animation-duration: 810ms;
+}

@@ -1,35 +1,44 @@
 import React, {PropTypes} from 'react'
+import getContext from 'recompose/getContext'
 
-export default function Image (props, context) {
-  const {src, width, height, ...otherProps} = props
-  const {library} = context
+function Image (props) {
+  const {width, height, library, src, ...otherProps} = props
 
-  const transcodeSrc = (src != null)
-    ? library.resizePhoto({
-      url: src,
-      width,
-      height,
-      minSize: 1,
-    })
-    : ''
+  if (src == null) {
+    return (
+      <div {...otherProps} />
+    )
+  }
+
+  const url = library.resizePhoto({
+    url: src,
+    width,
+    height,
+  })
+  const backgroundImage = `url(${url})`
 
   return (
     <div
       {...otherProps}
-      style={{
-        backgroundImage: `url(${transcodeSrc})`,
-      }}
+      style={{backgroundImage}}
     />
   )
 }
 
-Image.propTypes = {
-  className: PropTypes.string.isRequired,
-  src: PropTypes.string,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+Image.defaultProps = {
+  width: 500,
+  height: 500,
 }
 
-Image.contextTypes = {
-  library: PropTypes.shape({}).isRequired,
+Image.propTypes = {
+  src: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  library: PropTypes.shape({
+    resizePhoto: PropTypes.func.isRequired,
+  }).isRequired,
 }
+
+export default getContext({
+  library: PropTypes.shape({}),
+})(Image)

@@ -1,0 +1,14 @@
+.Hub {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.Hub-title {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.Hub-items {
+  min-height: 500px;
+}

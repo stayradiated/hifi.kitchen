@@ -1,0 +1,82 @@
+[
+  {
+    "_type": "device",
+    "id": "938b6306b41bb701b47bed9f612da15ea808f406",
+    "name": "Callisto",
+    "product": "Plex Media Server",
+    "productVersion": "1.3.3.3148-b38628e",
+    "platform": "Linux",
+    "platformVersion": "4.4.0-59-generic (#80-Ubuntu SMP Fri Jan 6 17:47:47 UTC 2017)",
+    "device": "PC",
+    "clientIdentifier": "938b6306b41bb701b47bed9f612da15ea808f406",
+    "createdAt": 1483166243000,
+    "lastSeenAt": 1485825967000,
+    "provides": [
+      "server"
+    ],
+    "owned": true,
+    "accessToken": "...",
+    "publicAddress": "19.27.5.29",
+    "publicAddressMatches": true,
+    "presence": true,
+    "connection": {
+      "_type": "connection",
+      "protocol": "http",
+      "address": "192.168.0.100",
+      "port": "32400",
+      "uri": "http://192.168.0.100",
+      "local": true
+    }
+  },
+  {
+    "_type": "device",
+    "id": "118576ea5f8d8d2d6540cfae24b3ddbcabd7bebd",
+    "name": "Benji",
+    "product": "Plex Media Server",
+    "productVersion": "1.3.3.3148-b38628e",
+    "platform": "Linux",
+    "platformVersion": "4.4.0-59-generic (#80-Ubuntu SMP Fri Jan 6 17:47:47 UTC 2017)",
+    "device": "PC",
+    "clientIdentifier": "118576ea5f8d8d2d6540cfae24b3ddbcabd7bebd",
+    "createdAt": 1483166243000,
+    "lastSeenAt": 1485825967000,
+    "provides": [
+      "server"
+    ],
+    "owned": true,
+    "accessToken": "...",
+    "publicAddress": "19.27.5.29",
+    "publicAddressMatches": true,
+    "presence": true,
+    "connection": {
+      "_type": "connection",
+      "protocol": "https",
+      "address": "19.27.5.29",
+      "port": "32400",
+      "uri": "https://19-27-5-29.5d65810fd05e4d9abddb0f60758e3559.plex.direct:32400",
+      "local": false
+    }
+  },
+  {
+    "_type": "device",
+    "id": "fbca1d58e7479a124769d58c34acb88dd0219b1b",
+    "name": "Zeus",
+    "product": "Plex Media Server",
+    "productVersion": "0.9.12.19.1537-f38ac80",
+    "platform": "MacOSX",
+    "platformVersion": "10.8.5",
+    "device": "Mac",
+    "clientIdentifier": "fbca1d58e7479a124769d58c34acb88dd0219b1b",
+    "createdAt": 1424821263000,
+    "lastSeenAt": 1485839015000,
+    "provides": [
+      "server"
+    ],
+    "owned": true,
+    "accessToken": "...",
+    "publicAddress": "26.145.l17.20",
+    "publicAddressMatches": false,
+    "presence": true,
+    "connection": null
+  }
+]

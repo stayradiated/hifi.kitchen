@@ -1,21 +1,26 @@
 import React, {PropTypes} from 'react'
 import moment from 'moment'
+import 'moment-duration-format'
 
 export default function Time (props) {
-  const {duration, format, ...otherProps} = props
+  const {value, unit, format, trim, ...otherProps} = props
 
   return (
-    <div {...otherProps}>
-      {moment.utc(duration).format(format)}
-    </div>
+    <span {...otherProps}>
+      {moment.duration(value, unit).format(format, {trim})}
+    </span>
   )
 }
 
 Time.propTypes = {
   format: PropTypes.string.isRequired,
-  duration: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+  unit: PropTypes.string.isRequired,
+  trim: PropTypes.bool.isRequired,
 }
 
 Time.defaultProps = {
   format: 'm:ss',
+  unit: 'ms',
+  trim: true,
 }
