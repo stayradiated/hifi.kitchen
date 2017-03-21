@@ -1,28 +1,44 @@
-import React, {PropTypes, cloneElement} from 'react'
-import {List} from 'react-virtualized'
+import React, {PropTypes} from 'react'
+import {InfiniteLoader, List} from 'react-virtualized'
+import withHandlers from 'recompose/withHandlers'
 
 import './styles.css'
 
-export default function ItemsList (props) {
-  const {items, ...otherProps} = props
+const handleLoad = (props) => ({startIndex, stopIndex}) => {
+  const {onLoad} = props
+  return onLoad(startIndex, stopIndex + 1)
+}
 
-  const renderItem = ({index, style}) => {
-    const item = items[index]
-    return cloneElement(item, {
-      key: index,
-      style,
-    })
-  }
+function ItemsList (props) {
+  const {items, renderItem, onLoad, ...otherProps} = props
+
+  const isRowLoaded = ({index}) => items[index] != null
 
   return (
-    <List
-      {...otherProps}
+    <InfiniteLoader
+      isRowLoaded={isRowLoaded}
+      loadMoreRows={onLoad}
       rowCount={items.length}
-      rowRenderer={renderItem}
-    />
+    >
+      {({onRowsRendered, registerChild}) => (
+        <List
+          {...otherProps}
+          rowCount={items.length}
+          rowRenderer={renderItem}
+          onRowsRendered={onRowsRendered}
+          ref={registerChild}
+        />
+      )}
+    </InfiniteLoader>
   )
 }
 
 ItemsList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.node).isRequired,
+  renderItem: PropTypes.func.isRequired,
+  onLoad: PropTypes.func.isRequired,
 }
+
+export default withHandlers({
+  onLoad: handleLoad,
+})(ItemsList)

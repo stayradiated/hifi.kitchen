@@ -16,13 +16,15 @@ function App (props) {
     libraryAlbumIds, libraryArtistIds, libraryPlaylistIds,
     allAlbums, allArtists, allPlaylists, allTracks,
     allArtistAlbums, allAlbumTracks, allPlaylistTracks,
-    item, section, onChangeItem, onChangeSection, onLoadItems,
+    item, section,
+    onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
     onRateTrack,
     displayQueue, setDisplayQueue,
-    track, onChangeTrack,
+    trackId, onChangeTrack,
     queue,
   } = props
 
+  const track = allTracks.get(trackId)
   const albums = libraryAlbumIds.map((id) => allAlbums.get(id))
   const artists = libraryArtistIds.map((id) => allArtists.get(id))
   const playlists = libraryPlaylistIds.map((id) => allPlaylists.get(id))
@@ -53,6 +55,7 @@ function App (props) {
             onChangeSection={onChangeSection}
             onChangeTrack={onChangeTrack}
             onLoadItems={onLoadItems}
+            onLoadItemChildren={onLoadItemChildren}
             onRateTrack={onRateTrack}
           />
         </div>
@@ -106,6 +109,7 @@ App.propTypes = {
   search: PropTypes.arrayOf(PropTypes.object).isRequired,
 
   onLoadItems: PropTypes.func,
+  onLoadItemChildren: PropTypes.func,
   onRateTrack: PropTypes.func.isRequired,
 
   item: PropTypes.shape({}),
@@ -114,7 +118,7 @@ App.propTypes = {
   section: PropTypes.string,
   onChangeSection: PropTypes.func,
 
-  track: PropTypes.shape({}),
+  trackId: PropTypes.number,
   onChangeTrack: PropTypes.func,
 
   queue: PropTypes.arrayOf(PropTypes.object),

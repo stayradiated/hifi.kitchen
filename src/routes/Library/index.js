@@ -36,8 +36,10 @@ import {
 import {
   selectAllPlaylists,
 } from '../../stores/playlists/all'
-import {fetchPlaylistTracks} from '../../stores/playlists/tracks/actions'
-import selectAllPlaylistTracks from '../../stores/playlists/tracks/selectors'
+import {
+  fetchPlaylistTracks,
+  selectAllPlaylistTracks,
+} from '../../stores/playlists/tracks'
 import {
   rateTrack,
   selectAllTracks,
@@ -63,6 +65,20 @@ const handleLoadItems = (props) => (section, start, end) => {
   }
 }
 
+const handleLoadItemChildren = (props) => (item, start, end) => {
+  const {dispatch} = props
+  switch (item._type) {
+    case 'album':
+      dispatch(fetchAlbumTracks(item.id, start, end))
+      break
+    case 'playlist':
+      dispatch(fetchPlaylistTracks(item.id, start, end))
+      break
+    default:
+      break
+  }
+}
+
 const handleChangeSection = (props) => (section) => {
   const {onChangeSection} = props
 
@@ -75,7 +91,7 @@ const handleChangeItem = (props) => (item) => {
   const {dispatch, onChangeItem} = props
   switch (item && item._type) {
     case 'album':
-      dispatch(fetchAlbumTracks(item.id, 0, 100))
+      dispatch(fetchAlbumTracks(item.id, 0, 15))
       break
     case 'artist':
       dispatch(fetchArtistAlbums(item.id, 0, 100)).then((getState) => {
@@ -85,7 +101,7 @@ const handleChangeItem = (props) => (item) => {
       })
       break
     case 'playlist':
-      dispatch(fetchPlaylistTracks(item.id, 0, 100))
+      dispatch(fetchPlaylistTracks(item.id, 0, 15))
       break
     default:
       break
@@ -103,8 +119,9 @@ function Library (props) {
     libraryAlbumIds, libraryArtistIds, libraryPlaylistIds,
     allAlbums, allArtists, allPlaylists, allTracks,
     allAlbumTracks, allArtistAlbums, allPlaylistTracks,
-    item, section, track, displayQueue,
-    onLoadItems, onChangeItem, onChangeSection, onChangeTrack, setDisplayQueue,
+    item, section, trackId, displayQueue,
+    onLoadItems, onLoadItemChildren, onChangeItem, onChangeSection,
+    onChangeTrack, setDisplayQueue,
     onRateTrack,
   } = props
 
@@ -124,9 +141,10 @@ function Library (props) {
       queue={[]}
       item={item}
       section={section}
-      track={track}
+      trackId={trackId}
       displayQueue={displayQueue}
       onLoadItems={onLoadItems}
+      onLoadItemChildren={onLoadItemChildren}
       onRateTrack={onRateTrack}
       onChangeItem={onChangeItem}
       onChangeSection={onChangeSection}
@@ -151,6 +169,7 @@ Library.propTypes = {
   allPlaylistTracks: PropTypes.instanceOf(Map),
 
   onLoadItems: PropTypes.func.isRequired,
+  onLoadItemChildren: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
 
   item: PropTypes.shape({}),
@@ -159,7 +178,7 @@ Library.propTypes = {
   section: PropTypes.string,
   onChangeSection: PropTypes.func,
 
-  track: PropTypes.shape({}),
+  trackId: PropTypes.number,
   onChangeTrack: PropTypes.func,
 
   displayQueue: PropTypes.bool,
@@ -181,10 +200,11 @@ export default compose(
   })),
   withState('section', 'onChangeSection', 'Albums'),
   withState('item', 'onChangeItem', null),
-  withState('track', 'onChangeTrack', null),
+  withState('trackId', 'onChangeTrack', null),
   withState('displayQueue', 'setDisplayQueue', false),
   withHandlers({
     onLoadItems: handleLoadItems,
+    onLoadItemChildren: handleLoadItemChildren,
     onChangeItem: handleChangeItem,
     onChangeSection: handleChangeSection,
     onRateTrack: handleRateTrack,

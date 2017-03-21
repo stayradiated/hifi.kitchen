@@ -5,8 +5,8 @@ import TrackList from '../TrackList'
 
 export default function AlbumPanel (props) {
   const {
-    album, values,
-    currentlyPlayingTrackId, onSelectTrack, onRateTrack,
+    album, values, currentlyPlayingTrackId,
+    onSelectTrack, onRateTrack, onLoadItems,
     ...otherProps
   } = props
 
@@ -18,16 +18,17 @@ export default function AlbumPanel (props) {
   }
 
   const albumTracks = values.albumTracks.get(album.id) || []
-  const tracks = albumTracks.map((id) => values.tracks.get(id))
 
   return (
     <Panel {...otherProps} details={details}>
       <TrackList
-        tracks={tracks}
-        currentlyPlayingTrackId={currentlyPlayingTrackId}
-        onSelectTrack={onSelectTrack}
-        onRateTrack={onRateTrack}
+        trackIds={albumTracks}
+        values={values}
         preserveTrackIndex
+        currentlyPlayingTrackId={currentlyPlayingTrackId}
+        onLoadItems={onLoadItems}
+        onRateTrack={onRateTrack}
+        onSelectTrack={onSelectTrack}
       />
     </Panel>
   )
@@ -48,4 +49,5 @@ AlbumPanel.propTypes = {
   currentlyPlayingTrackId: PropTypes.number,
   onSelectTrack: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
+  onLoadItems: PropTypes.func.isRequired,
 }

@@ -16,7 +16,7 @@ import SearchResults from '../SearchResults'
 const handleChangeItem = (props) => (item) => {
   const {onChangeTrack, onChangeItem} = props
   if (item != null && item._type === 'track') {
-    return onChangeTrack(item)
+    return onChangeTrack(item.id)
   }
   return onChangeItem(item)
 }
@@ -24,7 +24,7 @@ const handleChangeItem = (props) => (item) => {
 function Browser (props) {
   const {
     className, sections, values,
-    item, onChangeItem, onLoadItems,
+    item, onChangeItem, onLoadItems, onLoadItemChildren,
     section, onChangeSection, onRateTrack,
     searchQuery, onChangeSearchQuery,
   } = props
@@ -72,9 +72,10 @@ function Browser (props) {
           className='Browser-selected-panel'
           item={item}
           values={values}
-          onSelectTrack={onChangeItem}
-          onRateTrack={onRateTrack}
           onClose={() => onChangeItem(null)}
+          onRateTrack={onRateTrack}
+          onSelectTrack={onChangeItem}
+          onLoadItems={(start, end) => onLoadItemChildren(item, start, end)}
         />}
     </div>
   )
@@ -92,6 +93,7 @@ Browser.propTypes = {
   onChangeItem: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
   onLoadItems: PropTypes.func,
+  onLoadItemChildren: PropTypes.func,
 }
 
 Browser.defaultProps = {

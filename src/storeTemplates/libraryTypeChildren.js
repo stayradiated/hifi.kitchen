@@ -12,6 +12,9 @@ export default function createLibraryTypeChildrenStore (options) {
     constant: FETCH_TYPE_CHILDREN,
     rootSelector,
     reducerOptions = {},
+    fetchItems = ({library}, id, start, end) =>
+      normalize(library.metadataChildren(
+        id, TYPE, {start, size: end - start, includeRelated: 1})),
   } = options
 
   const selectors = createMapListSelector(rootSelector)
@@ -20,9 +23,7 @@ export default function createLibraryTypeChildrenStore (options) {
     types: FETCH_TYPE_CHILDREN,
     payload: {id, start, end},
     meta: {
-      plex: ({library}) => normalize(library.metadataChildren(id, TYPE, {
-        start, size: end - start, includeRelated: 1,
-      })),
+      plex: (plex) => fetchItems(plex, id, start, end),
     },
   })
 
