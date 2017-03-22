@@ -18,6 +18,8 @@ export default function GridItem (props) {
         imageClassName='GridItem-thumbImage'
         src={image}
         alt={title}
+        size={300}
+        quality={50}
       />
       <div className='GridItem-text'>
         <h2 className='GridItem-title'>{title}</h2>

@@ -20,6 +20,8 @@ export default function PanelHeader (props) {
         imageClassName='PanelHeader-thumbImage'
         src={thumb}
         alt={title}
+        size={150}
+        quality={90}
       />
       <div className='PanelHeader-text'>
         <div className='PanelHeader-title'>{title}</div>
