@@ -16,6 +16,9 @@ export default function AlbumListHeader (props) {
 }
 
 AlbumListHeader.propTypes = {
-  album: PropTypes.shape({}).isRequired,
+  album: PropTypes.shape({
+    thumb: PropTypes.string,
+    title: PropTypes.string,
+  }).isRequired,
   style: PropTypes.shape({}),
 }

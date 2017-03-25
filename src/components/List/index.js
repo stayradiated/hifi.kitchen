@@ -10,20 +10,18 @@ const handleLoad = (props) => ({startIndex, stopIndex}) => {
 }
 
 function ItemsList (props) {
-  const {items, renderItem, onLoad, ...otherProps} = props
-
-  const isRowLoaded = ({index}) => items[index] != null
+  const {rowCount, renderItem, isRowLoaded, onLoad, ...otherProps} = props
 
   return (
     <InfiniteLoader
       isRowLoaded={isRowLoaded}
       loadMoreRows={onLoad}
-      rowCount={items.length}
+      rowCount={rowCount}
     >
       {({onRowsRendered, registerChild}) => (
         <List
           {...otherProps}
-          rowCount={items.length}
+          rowCount={rowCount}
           rowRenderer={renderItem}
           onRowsRendered={onRowsRendered}
           ref={registerChild}
@@ -34,8 +32,9 @@ function ItemsList (props) {
 }
 
 ItemsList.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.node).isRequired,
+  rowCount: PropTypes.number.isRequired,
   renderItem: PropTypes.func.isRequired,
+  isRowLoaded: PropTypes.func.isRequired,
   onLoad: PropTypes.func.isRequired,
 }
 

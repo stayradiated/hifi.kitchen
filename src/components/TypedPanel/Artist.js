@@ -5,8 +5,8 @@ import AlbumList from '../AlbumList'
 
 export default function ArtistPanel (props) {
   const {
-    artist, values,
-    currentlyPlayingTrackId, onSelectTrack,
+    artist, values, currentlyPlayingTrackId,
+    onSelectTrack, onRateTrack, onLoadItems,
     ...otherProps
   } = props
 
@@ -17,25 +17,18 @@ export default function ArtistPanel (props) {
     meta: artist.country.join(', '),
   }
 
-  const artistAlbums = values.artistAlbums.get(artist.id) || []
-  const albums = artistAlbums.map((albumId) => {
-    const album = values.albums.get(albumId)
-    const trackIds = values.albumTracks.get(albumId) || []
-    const tracks = trackIds.map((id) => values.tracks.get(id))
-
-    return {
-      ...album,
-      tracks,
-    }
-  })
+  const albumIds = values.artistAlbums.get(artist.id) || []
 
   return (
     <Panel {...otherProps} details={details}>
       <AlbumList
-        albums={albums}
+        albumIds={albumIds}
+        values={values}
         currentlyPlayingTrackId={currentlyPlayingTrackId}
-        onSelectTrack={onSelectTrack}
         preserveTrackIndex
+        onLoadItems={onLoadItems}
+        onRateTrack={onRateTrack}
+        onSelectTrack={onSelectTrack}
       />
     </Panel>
   )
@@ -44,11 +37,12 @@ export default function ArtistPanel (props) {
 ArtistPanel.propTypes = {
   values: PropTypes.shape({
     artistAlbums: PropTypes.instanceOf(Map),
-    albums: PropTypes.instanceOf(Map),
   }).isRequired,
   artist: PropTypes.shape({
     albums: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   currentlyPlayingTrackId: PropTypes.number,
-  onSelectTrack: PropTypes.func,
+  onSelectTrack: PropTypes.func.isRequired,
+  onRateTrack: PropTypes.func.isRequired,
+  onLoadItems: PropTypes.func.isRequired,
 }

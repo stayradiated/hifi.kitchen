@@ -5,17 +5,16 @@ import setPropTypes from 'recompose/setPropTypes'
 
 import ItemsList from '../List/withAutoSizer'
 import TrackListItem from './Item'
-// import TrackListSummary from './Summary'
+import TrackListSummary from './Summary'
+import AsyncListLayout from '../AsyncListLayout'
 
 /* eslint react/prop-types: "off" */
-const handleRender = (props) => ({index, key, style}) => {
+const handleTrackItem = (props) => (trackId, index) => ({key, style}) => {
   const {
-    trackIds, values, preserveTrackIndex,
+    values, preserveTrackIndex, currentlyPlayingTrackId, displayArtist,
     onRateTrack, onSelectTrack,
-    currentlyPlayingTrackId, displayArtist,
   } = props
 
-  const trackId = trackIds[index]
   const track = values.tracks.get(trackId)
 
   if (track == null) {
@@ -30,7 +29,7 @@ const handleRender = (props) => ({index, key, style}) => {
       style={style}
       track={track}
       index={preserveTrackIndex ? track.index : index + 1}
-      currentlyPlaying={track.id === currentlyPlayingTrackId}
+      currentlyPlaying={trackId === currentlyPlayingTrackId}
       onRate={onRateTrack}
       onSelect={onSelectTrack}
       displayArtist={displayArtist}
@@ -38,23 +37,47 @@ const handleRender = (props) => ({index, key, style}) => {
   )
 }
 
-function TrackList (props) {
-  const {trackIds, onRender, onLoadItems} = props
-
-  // items.push(
-  //   <TrackListSummary
-  //     tracks={trackIds}
-  //     values={values}
-  //   />
-  // )
+const handleSummary = (props) => () => ({style, key}) => {
+  const {trackIds, values} = props
 
   return (
-    <ItemsList
-      rowHeight={40}
-      items={trackIds}
-      renderItem={onRender}
-      onLoad={onLoadItems}
+    <TrackListSummary
+      key={key}
+      style={style}
+      trackIds={trackIds}
+      values={values}
     />
+  )
+}
+
+function TrackList (props) {
+  const {trackIds, renderTrackItem, renderSummary, onLoadItems} = props
+
+  const layout = [
+    {
+      size: trackIds.length,
+      items: trackIds,
+      render: renderTrackItem,
+    },
+    {
+      size: 1,
+      items: [true],
+      render: renderSummary,
+    },
+  ]
+
+  return (
+    <AsyncListLayout layout={layout} onLoad={onLoadItems}>
+      {({rowCount, isRowLoaded, renderItem, onLoad}) => (
+        <ItemsList
+          rowHeight={40}
+          rowCount={rowCount}
+          renderItem={renderItem}
+          isRowLoaded={isRowLoaded}
+          onLoad={onLoad}
+        />
+      )}
+    </AsyncListLayout>
   )
 }
 
@@ -64,7 +87,7 @@ TrackList.propTypes = {
 }
 
 TrackList.defaultProps = {
-  tracks: [],
+  tracksIds: [],
 }
 
 export default compose(
@@ -76,6 +99,7 @@ export default compose(
     onSelectTrack: PropTypes.func.isRequired,
   }),
   withHandlers({
-    onRender: handleRender,
+    renderTrackItem: handleTrackItem,
+    renderSummary: handleSummary,
   })
 )(TrackList)

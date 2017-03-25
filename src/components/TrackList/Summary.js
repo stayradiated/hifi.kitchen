@@ -5,15 +5,16 @@ import './Summary.css'
 import Time from '../Time'
 
 export default function Summary (props) {
-  const {tracks, style} = props
+  const {trackIds, values, style} = props
 
-  const totalDuration = tracks.reduce((total, track) => {
-    return track.duration + total
-  }, 0)
+  const totalDuration = trackIds
+    .map((trackId) => values.tracks.get(trackId))
+    .filter((track) => track != null)
+    .reduce((total, track) => track.duration + total, 0)
 
   return (
     <div className='TrackListSummary' style={style}>
-      Tracks: {tracks.length}, Total Time: <Time
+      Tracks: {trackIds.length}, Total Time: <Time
         value={totalDuration}
         format='h [h] m [min] ss [sec]'
       />
@@ -22,6 +23,9 @@ export default function Summary (props) {
 }
 
 Summary.propTypes = {
+  trackIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  values: PropTypes.shape({
+    tracks: PropTypes.instanceOf(Map).isRequired,
+  }).isRequired,
   style: PropTypes.shape({}),
-  tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
 }
