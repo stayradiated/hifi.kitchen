@@ -102,6 +102,10 @@ Browser.defaultProps = {
   onChangeSearchQuery: noop,
 }
 
+export {
+  SEARCH,
+}
+
 export default compose(
   setPropTypes({
     onChangeTrack: PropTypes.func,

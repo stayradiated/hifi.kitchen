@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react'
+import {Link} from 'react-router-dom'
 
 import './styles.css'
 
@@ -7,7 +8,7 @@ import LibrarySectionList from '../LibrarySectionList'
 
 export default function Settings (props) {
   const {
-    servers, selectedServerId, onSelectServer, onDone,
+    servers, selectedServerId, onSelectServer,
     librarySections, selectedLibrarySectionId, onSelectLibrarySection,
   } = props
 
@@ -31,12 +32,9 @@ export default function Settings (props) {
         />
 
         {selectedLibrarySectionId != null &&
-          <button
-            onClick={onDone}
-            className='Settings-doneButton'
-          >
+          <Link to='/library' className='Settings-doneButton'>
             Done
-          </button>}
+          </Link>}
       </div>
     </div>
   )
@@ -49,5 +47,4 @@ Settings.propTypes = {
   librarySections: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedLibrarySectionId: PropTypes.number,
   onSelectLibrarySection: PropTypes.func,
-  onDone: PropTypes.func,
 }

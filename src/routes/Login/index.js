@@ -1,13 +1,16 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import {Redirect} from 'react-router'
 
 import LoginForm from '../../components/LoginForm'
 
 import {authenticatePlex, selectPlexAuth} from '../../stores/plex/auth'
+import {selectUser} from '../../stores/user'
 
 class LoginRoute extends Component {
   static propTypes = {
     authError: PropTypes.instanceOf(Error),
+    loggedIn: PropTypes.bool,
     dispatch: PropTypes.func.isRequired,
   }
 
@@ -24,7 +27,13 @@ class LoginRoute extends Component {
   }
 
   render () {
-    const {authError} = this.props
+    const {loggedIn, authError} = this.props
+
+    if (loggedIn) {
+      return (
+        <Redirect to='/settings' />
+      )
+    }
 
     return (
       <LoginForm
@@ -37,4 +46,5 @@ class LoginRoute extends Component {
 
 export default connect((state) => ({
   authError: selectPlexAuth.error(state),
+  loggedIn: selectUser.loggedIn(state),
 }))(LoginRoute)

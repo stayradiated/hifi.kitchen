@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import compose from 'recompose/compose'
 import lifecycle from 'recompose/lifecycle'
 import withHandlers from 'recompose/withHandlers'
-import getContext from 'recompose/getContext'
 
 import Settings from '../../components/Settings'
 
@@ -58,16 +57,11 @@ const handleSelectLibrarySectionId = (props) => (librarySectionId) => {
   dispatch(usePlexLibrarySection(librarySectionId))
 }
 
-const handleDone = (props) => () => {
-  const {router} = props
-  router.push('/library')
-}
-
 export function SettingsRoute (props) {
   const {
     accountServers, allDevices, allConnections, allStatuses,
     librarySections, librarySectionId, serverId,
-    onSelectServer, onSelectLibrarySection, onDone,
+    onSelectServer, onSelectLibrarySection,
   } = props
 
   const servers = accountServers.map((id) => {
@@ -88,7 +82,6 @@ export function SettingsRoute (props) {
       librarySections={librarySections}
       selectedLibrarySectionId={librarySectionId}
       onSelectLibrarySection={onSelectLibrarySection}
-      onDone={onDone}
     />
   )
 }
@@ -103,7 +96,6 @@ SettingsRoute.propTypes = {
   librarySectionId: PropTypes.number,
   onSelectServer: PropTypes.func.isRequired,
   onSelectLibrarySection: PropTypes.func.isRequired,
-  onDone: PropTypes.func.isRequired,
 }
 
 export default compose(
@@ -120,12 +112,8 @@ export default compose(
     componentWillMount,
     componentWillReceiveProps,
   }),
-  getContext({
-    router: PropTypes.shape({}),
-  }),
   withHandlers({
     onSelectServer: handleSelectServerId,
     onSelectLibrarySection: handleSelectLibrarySectionId,
-    onDone: handleDone,
   }),
 )(SettingsRoute)

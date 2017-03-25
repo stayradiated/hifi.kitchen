@@ -4,6 +4,7 @@ import {createSelector} from 'reselect'
 import {PLEX_AUTHENTICATE} from '../constants'
 
 const initialState = {
+  authToken: null,
 }
 
 export default function reducer (state = initialState, action) {

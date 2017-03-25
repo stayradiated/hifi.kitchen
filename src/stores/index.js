@@ -2,7 +2,7 @@ import {compose, createStore, applyMiddleware, combineReducers} from 'redux'
 import ReduxPromise from 'redux-promise'
 import ReduxThunk from 'redux-thunk'
 import ReduxAsync from '@stayradiated/mandarin'
-import createReduxLogger from 'redux-logger'
+import {createLogger} from 'redux-logger'
 import {routerReducer} from 'react-router-redux'
 import persistState from 'redux-localstorage'
 import adapter from 'redux-localstorage/lib/adapters/localStorage'
@@ -39,13 +39,14 @@ const rootReducer = combineReducers({
   user,
 })
 
-export default function store () {
+export default function store (options = {}) {
   const middleware = applyMiddleware(
+    ...options.middleware,
     ReduxPromise,
     ReduxThunk,
     plexMiddleware,
     ReduxAsync,
-    createReduxLogger({
+    createLogger({
       // predicate: () => false,
       collapsed: true,
     }),

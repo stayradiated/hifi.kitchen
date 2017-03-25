@@ -1,4 +1,4 @@
-.AppRoute {
+.Root {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@
   color: var(--foreground);
 }
 
-.AppRoute-contents {
+.Root-contents {
   flex: 1;
   display: flex;
   flex-direction: column;

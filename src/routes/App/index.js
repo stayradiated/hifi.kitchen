@@ -1,19 +1,28 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import {Route, Redirect} from 'react-router'
 
-import './styles.css'
+import {selectPlex} from '../../stores/plex/instance'
+import {selectUser} from '../../stores/user'
 
-import {
-  selectPlex,
-} from '../../stores/plex/instance'
-
+import Root from '../../components/Root'
 import Loading from '../../containers/Loading'
+import Login from '../Login'
+import Settings from '../Settings'
+import Library from '../Library'
 
 class AppRoute extends Component {
   static propTypes = {
-    children: PropTypes.node,
     library: PropTypes.shape({}),
     ready: PropTypes.bool,
+    loggedIn: PropTypes.bool,
+    librarySectionId: PropTypes.number,
+    match: PropTypes.shape({
+      isExact: PropTypes.bool,
+    }).isRequired,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }).isRequired,
   }
 
   static childContextTypes = {
@@ -26,14 +35,45 @@ class AppRoute extends Component {
   }
 
   render () {
-    const {ready, children} = this.props
+    const {ready, match, location, loggedIn, librarySectionId} = this.props
+
+    // Display loading screen while we load the app
+    if (!ready) {
+      return (
+        <Root>
+          <Loading />
+        </Root>
+      )
+    }
+
+    // Redirect if user is not logged in
+    if (location.pathname !== '/login' && !loggedIn) {
+      return (
+        <Redirect to='/login' />
+      )
+    }
+
+    // Redirect if user has not selected a server
+    if (location.pathname !== '/settings' && librarySectionId == null && loggedIn) {
+      return (
+        <Redirect to='/settings' />
+      )
+    }
+
+    // Redirect if user is on '/'
+    if (match.isExact) {
+      return (
+        <Redirect to='/library' />
+      )
+    }
+
 
     return (
-      <div className='AppRoute'>
-        <div className='AppRoute-contents'>
-          {ready ? children : <Loading />}
-        </div>
-      </div>
+      <Root>
+        <Route path='/login' component={Login} />
+        <Route path='/settings' component={Settings} />
+        <Route path='/library' component={Library} />
+      </Root>
     )
   }
 }
@@ -41,4 +81,6 @@ class AppRoute extends Component {
 export default connect((state) => ({
   library: selectPlex.library(state),
   ready: selectPlex.ready(state),
+  loggedIn: selectUser.loggedIn(state),
+  librarySectionId: selectPlex.librarySectionId(state),
 }))(AppRoute)
