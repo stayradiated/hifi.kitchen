@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Router, Route, browserHistory} from 'react-router'
+import {createHistory} from 'history'
+import {Router, Route, useRouterHistory} from 'react-router'
 import {Provider} from 'react-redux'
 import {syncHistoryWithStore} from 'react-router-redux'
 
@@ -21,6 +22,9 @@ const ArtistInfo = null
 const PlaylistInfo = null
 
 const store = createStore()
+const browserHistory = useRouterHistory(createHistory)({
+  basename: '/simplex',
+})
 const history = syncHistoryWithStore(browserHistory, store)
 
 const onEnterApp = (_, replace) => {

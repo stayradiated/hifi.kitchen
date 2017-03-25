@@ -2,7 +2,9 @@
   "name": "simplex",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://stayradiated.github.io/simplex",
   "devDependencies": {
+    "gh-pages": "^0.12.0",
     "react-scripts": "0.9.5"
   },
   "dependencies": {
@@ -49,6 +51,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "storybook": "start-storybook -p 9009 -s public"
+    "storybook": "start-storybook -p 9009 -s public",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }
