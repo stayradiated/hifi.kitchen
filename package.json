@@ -11,7 +11,7 @@
     "@kadira/storybook": "^2.35.3",
     "@stayradiated/mandarin": "^1.12.0",
     "@stayradiated/react-floating-label": "^1.0.5",
-    "@stayradiated/web-audio": "^1.1.2",
+    "@stayradiated/web-audio": "^2.0.0",
     "classnames": "^2.2.5",
     "cls-bluebird": "^2.0.1",
     "get-scrollbar-width": "^1.0.4",

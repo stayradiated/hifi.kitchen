@@ -7,7 +7,6 @@ const audioContext = new window.AudioContext()
 export default class WebAudio extends Component {
   static propTypes = {
     source: PropTypes.string,
-    duration: PropTypes.number,
     children: PropTypes.func.isRequired,
     updateInterval: PropTypes.number.isRequired,
   }
@@ -66,16 +65,16 @@ export default class WebAudio extends Component {
 
   updateState () {
     const {audio} = this
-    const {duration} = this.props
-    const {loading, paused} = audio
+    const paused = audio.paused()
     const buffered = audio.buffered()
     const currentTime = audio.currentTime()
+    const duration = audio.duration()
 
     this.setState({
       paused,
       buffered,
       currentTime,
-      duration: loading ? duration : buffered,
+      duration,
     })
   }
 
