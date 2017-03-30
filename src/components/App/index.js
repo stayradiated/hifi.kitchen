@@ -3,10 +3,10 @@ import React, {PropTypes} from 'react'
 import './styles.css'
 
 import ControlsContainer from '../../containers/Controls'
+import QueueContainer from '../../containers/Queue'
 
 import {SEARCH} from '../NavBar'
 import Browser from '../Browser'
-import Queue from '../Queue'
 
 function App (props) {
   const {
@@ -18,7 +18,6 @@ function App (props) {
     onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
     onRateTrack, displayQueue,
     trackId, onChangeTrack,
-    queue,
   } = props
 
   const albums = libraryAlbumIds.map((id) => allAlbums.get(id))
@@ -59,10 +58,7 @@ function App (props) {
         </div>
         {displayQueue &&
           <div className='App-queue'>
-            <Queue
-              tracks={queue}
-              selectedIndex={5}
-            />
+            <QueueContainer />
           </div>}
       </div>
       <ControlsContainer />
@@ -100,7 +96,6 @@ App.propTypes = {
   trackId: PropTypes.number,
   onChangeTrack: PropTypes.func,
 
-  queue: PropTypes.arrayOf(PropTypes.object),
   displayQueue: PropTypes.bool,
 }
 

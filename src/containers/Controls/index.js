@@ -60,6 +60,7 @@ class ControlsContainer extends Component {
 
     if (thisTrackId != null && nextTrackId !== thisTrackId) {
       dispatch(sendTimelineStop(this.props.queueItem))
+      dispatch(sendTimelinePlay(nextProps.queueItem))
     }
   }
 
