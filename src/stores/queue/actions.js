@@ -1,9 +1,23 @@
 import {normalize} from 'perplexed'
 
-import {CREATE_QUEUE, SELECT_QUEUE_ITEM, STOP_QUEUE} from '../constants'
+import {
+  FETCH_QUEUE,
+  CREATE_QUEUE,
+  SELECT_QUEUE_ITEM,
+  STOP_QUEUE,
+} from '../constants'
 
+import {selectPlex} from '../plex/instance'
 import {value as getLibrarySections} from '../library/sections/selectors'
 import * as selectors from './selectors'
+
+export const fetchQueue = (queueId) => ({
+  types: FETCH_QUEUE,
+  payload: {queueId},
+  meta: {
+    plex: ({library}) => normalize(library.playQueue(queueId)),
+  },
+})
 
 export const createQueue = (options, initialTrack) => ({
   types: CREATE_QUEUE,
@@ -14,11 +28,12 @@ export const createQueue = (options, initialTrack) => ({
 })
 
 export const createQueueFromURI = (options, initialTrack) => {
-  const {sectionId, source, key} = options
+  const {source, key} = options
 
   return (dispatch, getState) => {
     const state = getState()
     const sections = getLibrarySections(state)
+    const sectionId = selectPlex.librarySectionId(state)
     const section = sections.find((s) => s.id === sectionId)
 
     const path = encodeURIComponent(source)
@@ -30,13 +45,11 @@ export const createQueueFromURI = (options, initialTrack) => {
 
 export const createQueueFromPlexMix = (track) =>
   createQueueFromURI({
-    sectionId: track.librarySectionID,
     source: track.plexMix.key,
   }, track)
 
 export const createQueueFromAlbum = (album, track) =>
   createQueueFromURI({
-    sectionId: album.librarySectionID,
     source: album.key,
     key: track.key,
   }, track)

@@ -2,6 +2,7 @@ import {c} from '@stayradiated/mandarin'
 
 export const CONFIG_TIMELINE_UPDATE_TIME = 1000 * 10
 
+export const FETCH_QUEUE             = c('FETCH_QUEUE')
 export const CREATE_QUEUE            = c('CREATE_QUEUE')
 export const FETCH_LIBRARY_PLAYLISTS = c('FETCH_LIBRARY_PLAYLISTS')
 export const FETCH_LIBRARY_SECTIONS  = c('FETCH_LIBRARY_SECTIONS')

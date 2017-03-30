@@ -1,5 +1,5 @@
 import {actionTypes} from 'redux-localstorage'
-import {CREATE_QUEUE, SELECT_QUEUE_ITEM, STOP_QUEUE} from '../constants'
+import {FETCH_QUEUE, CREATE_QUEUE, SELECT_QUEUE_ITEM, STOP_QUEUE} from '../constants'
 
 const initialState = {
   id: null,
@@ -25,10 +25,11 @@ export default function (state = initialState, action) {
         }],
       }
 
+    case FETCH_QUEUE.SUCCESS:
     case CREATE_QUEUE.SUCCESS:
       return {
         ...state,
-        ...action.value.result,
+        ...action.value.result.id,
       }
 
     case SELECT_QUEUE_ITEM:

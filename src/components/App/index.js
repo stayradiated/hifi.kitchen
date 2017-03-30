@@ -1,30 +1,26 @@
 import React, {PropTypes} from 'react'
-import getContext from 'recompose/getContext'
 
 import './styles.css'
+
+import ControlsContainer from '../../containers/Controls'
 
 import {SEARCH} from '../NavBar'
 import Browser from '../Browser'
 import Queue from '../Queue'
-import WebAudio from '../WebAudio'
-import Controls from '../Controls'
 
 function App (props) {
   const {
-    library,
-    search,
+    search, onChangeSearchQuery,
     libraryAlbumIds, libraryArtistIds, libraryPlaylistIds,
     allAlbums, allArtists, allPlaylists, allTracks,
     allArtistAlbums, allAlbumTracks, allPlaylistTracks,
     item, section,
     onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
-    onRateTrack,
-    displayQueue, setDisplayQueue,
+    onRateTrack, displayQueue,
     trackId, onChangeTrack,
     queue,
   } = props
 
-  const track = allTracks.get(trackId)
   const albums = libraryAlbumIds.map((id) => allAlbums.get(id))
   const artists = libraryArtistIds.map((id) => allArtists.get(id))
   const playlists = libraryPlaylistIds.map((id) => allPlaylists.get(id))
@@ -36,6 +32,7 @@ function App (props) {
           <Browser
             item={item}
             section={section}
+            currentlyPlayingTrackId={trackId}
             values={{
               albums: allAlbums,
               artists: allArtists,
@@ -57,6 +54,7 @@ function App (props) {
             onLoadItems={onLoadItems}
             onLoadItemChildren={onLoadItemChildren}
             onRateTrack={onRateTrack}
+            onChangeSearchQuery={onChangeSearchQuery}
           />
         </div>
         {displayQueue &&
@@ -67,32 +65,12 @@ function App (props) {
             />
           </div>}
       </div>
-      {track &&
-        <WebAudio
-          source={library.trackSrc(track)}
-          duration={track.duration / 1000}
-        >
-          {(audio) => (
-            <Controls
-              track={track}
-              audio={audio}
-              paused={audio.paused}
-              onPause={audio.onPause}
-              onPlay={audio.onPlay}
-              onQueue={() => setDisplayQueue(!displayQueue)}
-              onRateTrack={onRateTrack}
-            />
-          )}
-        </WebAudio>}
+      <ControlsContainer />
     </div>
   )
 }
 
 App.propTypes = {
-  library: PropTypes.shape({
-    trackSrc: PropTypes.func.isRequired,
-  }).isRequired,
-
   libraryAlbumIds: PropTypes.arrayOf(PropTypes.number),
   libraryArtistIds: PropTypes.arrayOf(PropTypes.number),
   libraryPlaylistIds: PropTypes.arrayOf(PropTypes.number),
@@ -107,6 +85,7 @@ App.propTypes = {
   allPlaylistTracks: PropTypes.instanceOf(Map),
 
   search: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onChangeSearchQuery: PropTypes.func,
 
   onLoadItems: PropTypes.func,
   onLoadItemChildren: PropTypes.func,
@@ -123,9 +102,6 @@ App.propTypes = {
 
   queue: PropTypes.arrayOf(PropTypes.object),
   displayQueue: PropTypes.bool,
-  setDisplayQueue: PropTypes.func,
 }
 
-export default getContext({
-  library: PropTypes.shape({}),
-})(App)
+export default App

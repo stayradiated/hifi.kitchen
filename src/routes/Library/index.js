@@ -44,6 +44,17 @@ import {
   rateTrack,
   selectAllTracks,
 } from '../../stores/tracks/all'
+import {
+  createQueueFromAlbum,
+  createQueueFromPlaylist,
+} from '../../stores/queue/actions'
+import {
+  queueItem as selectQueueItem,
+} from '../../stores/queue/selectors'
+import {
+  search,
+} from '../../stores/search/actions'
+import selectSearch from '../../stores/search/selectors'
 
 function componentWillMount () {
   const {onChangeSection, section} = this.props
@@ -114,6 +125,27 @@ const handleRateTrack = (props) => (trackId, rating) => {
   dispatch(rateTrack(trackId, rating))
 }
 
+const handleCreateQueue = (props) => (parent, track) => {
+  const {dispatch} = props
+  switch (parent._type) {
+    case 'album':
+      dispatch(createQueueFromAlbum(parent, track))
+      break
+    case 'playlist':
+      dispatch(createQueueFromPlaylist(parent.id, track))
+      break
+    default:
+      console.warn('Could not create queue', {parent, track})
+      break
+
+  }
+}
+
+const handleChangeSearchQuery = (props) => (query) => {
+  const {dispatch} = props
+  dispatch(search(query, 10))
+}
+
 function Library (props) {
   const {
     libraryAlbumIds, libraryArtistIds, libraryPlaylistIds,
@@ -121,8 +153,8 @@ function Library (props) {
     allAlbumTracks, allArtistAlbums, allPlaylistTracks,
     item, section, trackId, displayQueue,
     onLoadItems, onLoadItemChildren, onChangeItem, onChangeSection,
-    onChangeTrack, setDisplayQueue,
-    onRateTrack,
+    onCreateQueue, onRateTrack,
+    searchResults, onChangeSearchQuery,
   } = props
 
   return (
@@ -137,7 +169,7 @@ function Library (props) {
       allPlaylistTracks={allPlaylistTracks}
       allTracks={allTracks}
       allAlbumTracks={allAlbumTracks}
-      search={[]}
+      search={searchResults}
       queue={[]}
       item={item}
       section={section}
@@ -148,8 +180,8 @@ function Library (props) {
       onRateTrack={onRateTrack}
       onChangeItem={onChangeItem}
       onChangeSection={onChangeSection}
-      onChangeTrack={onChangeTrack}
-      setDisplayQueue={setDisplayQueue}
+      onChangeTrack={onCreateQueue}
+      onChangeSearchQuery={onChangeSearchQuery}
     />
   )
 }
@@ -179,14 +211,17 @@ Library.propTypes = {
   onChangeSection: PropTypes.func,
 
   trackId: PropTypes.number,
-  onChangeTrack: PropTypes.func,
+  onCreateQueue: PropTypes.func,
 
   displayQueue: PropTypes.bool,
-  setDisplayQueue: PropTypes.func,
+
+  searchResults: PropTypes.arrayOf(PropTypes.object),
+  onChangeSearchQuery: PropTypes.func.isRequired,
 }
 
 export default compose(
   connect((state) => ({
+    trackId: selectQueueItem(state).track,
     libraryAlbumIds: selectLibraryAlbums.currentIds(state),
     libraryArtistIds: selectLibraryArtists.currentIds(state),
     libraryPlaylistIds: selectLibraryPlaylists.currentIds(state),
@@ -197,10 +232,15 @@ export default compose(
     allPlaylistTracks: selectAllPlaylistTracks.values(state),
     allTracks: selectAllTracks.values(state),
     allAlbumTracks: selectAllAlbumTracks.values(state),
+    searchResults: [
+      {title: 'Albums', items: selectSearch.albums(state)},
+      {title: 'Artists', items: selectSearch.artists(state)},
+      {title: 'Playlists', items: selectSearch.playlists(state)},
+      {title: 'Tracks', items: selectSearch.tracks(state)},
+    ],
   })),
   withState('section', 'onChangeSection', 'Albums'),
   withState('item', 'onChangeItem', null),
-  withState('trackId', 'onChangeTrack', null),
   withState('displayQueue', 'setDisplayQueue', false),
   withHandlers({
     onLoadItems: handleLoadItems,
@@ -208,6 +248,8 @@ export default compose(
     onChangeItem: handleChangeItem,
     onChangeSection: handleChangeSection,
     onRateTrack: handleRateTrack,
+    onCreateQueue: handleCreateQueue,
+    onChangeSearchQuery: handleChangeSearchQuery,
   }),
   lifecycle({
     componentWillMount,

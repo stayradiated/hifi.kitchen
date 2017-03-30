@@ -4,6 +4,7 @@ import {c} from '@stayradiated/mandarin'
 import {createLibraryTypeStore} from '../../storeTemplates'
 
 import {
+  FETCH_QUEUE,
   CREATE_QUEUE,
   FETCH_ALBUM_TRACKS,
   FETCH_PLAYLIST_TRACKS,
@@ -18,6 +19,7 @@ module.exports = createLibraryTypeStore({
   entity: 'tracks',
   rootSelector: (state) => state.tracks.all,
   mergeActions: [
+    FETCH_QUEUE.SUCCESS,
     CREATE_QUEUE.SUCCESS,
     FETCH_ALBUM_TRACKS.SUCCESS,
     FETCH_PLAYLIST_TRACKS.SUCCESS,

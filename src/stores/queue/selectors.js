@@ -1,9 +1,14 @@
 import {createSelector} from 'reselect'
 
-import {selectPlex} from '../plex'
+import {selectPlex} from '../plex/instance'
 import {selectAllTracks} from '../tracks/all'
 
 export const root = (state) => state.queue
+
+export const queueId = createSelector(
+  root,
+  (_root) => _root.id,
+)
 
 export const tracks = createSelector(
   root, selectAllTracks.values,

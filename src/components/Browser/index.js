@@ -13,17 +13,18 @@ import TypedPanel from '../TypedPanel'
 import NavBar, {SEARCH} from '../NavBar'
 import SearchResults from '../SearchResults'
 
-const handleChangeItem = (props) => (item) => {
-  const {onChangeTrack, onChangeItem} = props
-  if (item != null && item._type === 'track') {
-    return onChangeTrack(item.id)
+const handleChangeItem = (props) => (nextItem) => {
+  const {item, onChangeTrack, onChangeItem} = props
+  if (nextItem != null && nextItem._type === 'track') {
+    return onChangeTrack(item, nextItem)
   }
-  return onChangeItem(item)
+  return onChangeItem(nextItem)
 }
 
 function Browser (props) {
   const {
     className, sections, values,
+    currentlyPlayingTrackId,
     item, onChangeItem, onLoadItems, onLoadItemChildren,
     section, onChangeSection, onRateTrack,
     searchQuery, onChangeSearchQuery,
@@ -72,6 +73,7 @@ function Browser (props) {
           className='Browser-selected-panel'
           item={item}
           values={values}
+          currentlyPlayingTrackId={currentlyPlayingTrackId}
           onClose={() => onChangeItem(null)}
           onRateTrack={onRateTrack}
           onSelectTrack={onChangeItem}
@@ -87,6 +89,7 @@ Browser.propTypes = {
   values: PropTypes.objectOf(PropTypes.instanceOf(Map)),
   item: PropTypes.shape({}),
   section: PropTypes.string.isRequired,
+  currentlyPlayingTrackId: PropTypes.number,
   searchQuery: PropTypes.string,
   onChangeSection: PropTypes.func,
   onChangeSearchQuery: PropTypes.func,

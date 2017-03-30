@@ -1,18 +1,21 @@
+import noop from 'nop'
 import {Children, Component, PropTypes} from 'react'
 
 import WebAudioContext from '@stayradiated/web-audio'
 
-const audioContext = new window.AudioContext()
+const AUDIO_CONTEXT = new window.AudioContext()
 
 export default class WebAudio extends Component {
   static propTypes = {
     source: PropTypes.string,
+    onEnd: PropTypes.func,
+    onUpdate: PropTypes.func,
     children: PropTypes.func.isRequired,
-    updateInterval: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
-    updateInterval: 500,
+    onEnd: noop,
+    onUpdate: noop,
   }
 
   constructor () {
@@ -25,31 +28,27 @@ export default class WebAudio extends Component {
       duration: 0,
     }
 
-    this.interval = null
-
     this.audio = new WebAudioContext({
-      context: audioContext,
+      context: AUDIO_CONTEXT,
     })
 
     this.updateState = this.updateState.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
     this.handlePause = this.handlePause.bind(this)
-
-    this.audio.onProgress = this.updateState
-    this.audio.onLoad = this.updateState
-    this.audio.onPlay = this.updateState
-    this.audio.onPause = this.updateState
-    this.audio.onStop = this.updateState
+    this.handleAudioEnded = this.handleAudioEnded.bind(this)
   }
 
   componentWillMount () {
-    const {source, updateInterval} = this.props
-
-    this.interval = setInterval(() => {
-      this.updateState()
-    }, updateInterval)
+    const {source} = this.props
 
     this.updateSource(source)
+
+    this.audio.audioElement.addEventListener('durationchange', this.updateState)
+    this.audio.audioElement.addEventListener('ended', this.handleAudioEnded)
+    this.audio.audioElement.addEventListener('pause', this.updateState)
+    this.audio.audioElement.addEventListener('play', this.updateState)
+    this.audio.audioElement.addEventListener('progress', this.updateState)
+    this.audio.audioElement.addEventListener('timeupdate', this.updateState)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -59,8 +58,18 @@ export default class WebAudio extends Component {
   }
 
   componentWillUnmount () {
-    clearInterval(this.interval)
+    this.audio.audioElement.removeEventListener('durationchange', this.updateState)
+    this.audio.audioElement.removeEventListener('ended', this.handleAudioEnded)
+    this.audio.audioElement.removeEventListener('pause', this.updateState)
+    this.audio.audioElement.removeEventListener('play', this.updateState)
+    this.audio.audioElement.removeEventListener('progress', this.updateState)
+    this.audio.audioElement.removeEventListener('timeupdate', this.updateState)
+
     this.audio.stop()
+  }
+
+  handleAudioEnded () {
+    this.props.onEnd()
   }
 
   updateState () {
@@ -70,11 +79,16 @@ export default class WebAudio extends Component {
     const currentTime = audio.currentTime()
     const duration = audio.duration()
 
-    this.setState({
+    const status = {
       paused,
       buffered,
       currentTime,
       duration,
+    }
+
+    this.setState((previousStatus) => {
+      this.props.onUpdate(status, previousStatus)
+      return status
     })
   }
 

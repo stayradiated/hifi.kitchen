@@ -2,12 +2,14 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import throttle from 'lodash.throttle'
 
+import WebAudio from '../../components/WebAudio'
 import Controls from '../../components/Controls'
 
 import {
   rateTrack,
 } from '../../stores/tracks/all'
 import {
+  fetchQueue,
   playNextTrack,
   playPrevTrack,
   stopQueue,
@@ -19,12 +21,14 @@ import {
   setPlayerCurrentTime,
 } from '../../stores/timeline/actions'
 
-import * as getQueue from '../../stores/queue/selectors'
+import * as selectQueue from '../../stores/queue/selectors'
 
 class ControlsContainer extends Component {
   static propTypes = {
+    queueId: PropTypes.number,
     queueItem: PropTypes.shape({
       id: PropTypes.number,
+      track: PropTypes.number,
     }),
     track: PropTypes.shape({}),
     trackSrc: PropTypes.string,
@@ -34,13 +38,15 @@ class ControlsContainer extends Component {
   constructor () {
     super()
 
-    this.handlePlay = this.handlePlay.bind(this)
-    this.handlePause = this.handlePause.bind(this)
-    this.handleStop = this.handleStop.bind(this)
     this.handlePrevTrack = this.handlePrevTrack.bind(this)
     this.handleNextTrack = this.handleNextTrack.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
-    this.handleTimeUpdate = throttle(this.handleTimeUpdate.bind(this), 500)
+    this.handleUpdate = throttle(this.handleUpdate.bind(this), 500)
+  }
+
+  componentWillMount () {
+    const {dispatch, queueId} = this.props
+    dispatch(fetchQueue(queueId))
   }
 
   componentWillReceiveProps (nextProps) {
@@ -72,24 +78,23 @@ class ControlsContainer extends Component {
     dispatch(rateTrack(track, rating))
   }
 
-  handlePlay () {
-    const {dispatch, queueItem} = this.props
-    dispatch(sendTimelinePlay(queueItem))
-  }
-
-  handlePause () {
-    const {dispatch, queueItem} = this.props
-    dispatch(sendTimelinePause(queueItem))
-  }
-
   handleStop () {
     const {dispatch} = this.props
     dispatch(stopQueue())
   }
 
-  handleTimeUpdate (currentTime) {
-    const {dispatch} = this.props
-    dispatch(setPlayerCurrentTime(Math.round(currentTime * 1000)))
+  handleUpdate (status, previousStatus) {
+    const {dispatch, queueItem} = this.props
+
+    if (status.paused !== previousStatus.paused) {
+      if (status.paused) {
+        dispatch(sendTimelinePause(queueItem))
+      } else {
+        dispatch(sendTimelinePlay(queueItem))
+      }
+    }
+
+    dispatch(setPlayerCurrentTime(Math.round(status.currentTime * 1000)))
   }
 
   render () {
@@ -100,24 +105,33 @@ class ControlsContainer extends Component {
     }
 
     return (
-      <Controls
-        track={track}
-        trackSrc={trackSrc}
-        onNextTrack={this.handleNextTrack}
-        onPrevTrack={this.handlePrevTrack}
-        onRateTrack={this.handleRateTrack}
+      <WebAudio
+        source={trackSrc}
+        duration={track.duration / 1000}
+        onUpdate={this.handleUpdate}
         onEnd={this.handleNextTrack}
-        onPlay={this.handlePlay}
-        onPause={this.handlePause}
-        onStop={this.handleStop}
-        onTimeUpdate={this.handleTimeUpdate}
-      />
+      >
+        {(audio) => (
+          <Controls
+            track={track}
+            audio={audio}
+            paused={audio.paused}
+            onPause={audio.onPause}
+            onPlay={audio.onPlay}
+            onNext={this.handleNextTrack}
+            onPrev={this.handlePrevTrack}
+            onRateTrack={this.handleRateTrack}
+            onQueue={() => null}
+          />
+        )}
+      </WebAudio>
     )
   }
 }
 
 export default connect((state) => ({
-  queueItem: getQueue.queueItem(state),
-  track: getQueue.track(state),
-  trackSrc: getQueue.trackSrc(state),
+  queueId: selectQueue.queueId(state),
+  queueItem: selectQueue.queueItem(state),
+  track: selectQueue.track(state),
+  trackSrc: selectQueue.trackSrc(state),
 }))(ControlsContainer)
