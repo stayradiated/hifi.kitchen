@@ -1,4 +1,4 @@
-# Simplex
+# hifi.kitchen
 
 > A custom Plex web client that is built for music.
 
@@ -7,8 +7,8 @@
 ## Installation
 
 ```
-git clone https://github.com/stayradiated/simplex
-cd simplex
+git clone https://github.com/stayradiated/hifi.kitchen
+cd hifi.kitchen
 
 cp config.default.json config.json
 vim config.json

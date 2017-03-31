@@ -5,7 +5,7 @@
   "password": "password",
   "options": {
     "identifier": "generate-a-random-uuid-v4",
-    "product": "Simplex",
+    "product": "hifi.kitchen",
     "version": "1.0.0",
     "deviceName": "My Computer",
     "platform": "Chrome",

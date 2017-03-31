@@ -53,7 +53,7 @@ export default class LoginForm extends Component {
           onSubmit={this.handleFormSubmit}
         >
           <h1 className='LoginForm-logo'>
-            Plex Music
+            HiFi Kitchen
           </h1>
           <FloatingLabel
             placeholder='Username'
