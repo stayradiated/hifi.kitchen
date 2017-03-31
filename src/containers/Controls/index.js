@@ -20,6 +20,9 @@ import {
   sendTimelineStop,
   setPlayerCurrentTime,
 } from '../../stores/timeline/actions'
+import {
+  toggleDisplayQueue,
+} from '../../stores/ui'
 
 import * as selectQueue from '../../stores/queue/selectors'
 
@@ -42,6 +45,7 @@ class ControlsContainer extends Component {
     this.handleNextTrack = this.handleNextTrack.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
     this.handleUpdate = throttle(this.handleUpdate.bind(this), 500)
+    this.handleQueue = this.handleQueue.bind(this)
   }
 
   componentWillMount () {
@@ -98,6 +102,11 @@ class ControlsContainer extends Component {
     dispatch(setPlayerCurrentTime(Math.round(status.currentTime * 1000)))
   }
 
+  handleQueue () {
+    const {dispatch} = this.props
+    dispatch(toggleDisplayQueue())
+  }
+
   render () {
     const {track, trackSrc} = this.props
 
@@ -122,7 +131,7 @@ class ControlsContainer extends Component {
             onNext={this.handleNextTrack}
             onPrev={this.handlePrevTrack}
             onRateTrack={this.handleRateTrack}
-            onQueue={() => null}
+            onQueue={this.handleQueue}
           />
         )}
       </WebAudio>

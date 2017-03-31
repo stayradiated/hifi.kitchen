@@ -6,20 +6,29 @@ import SortableItemsList from '../SortableList'
 export default function Queue (props) {
   const {className, selectedIndex, tracks, onChange, onSort} = props
 
-  const items = tracks.map((track, index) => (
+  const renderItem = ({key, style, index}) => (
     <QueueItem
-      key={index}
+      key={key}
+      style={style}
       index={index}
-      track={track}
+      track={tracks[index]}
       isSelected={selectedIndex === index}
-      onClick={() => onChange && onChange(track, index)}
+      onClick={() => onChange && onChange(tracks[index], index)}
     />
-  ))
+  )
+
+  renderItem.propTypes = {
+    key: PropTypes.string,
+    style: PropTypes.shape({}),
+    index: PropTypes.number,
+  }
 
   return (
     <SortableItemsList
       className={className}
-      items={items}
+      rowCount={tracks.length}
+      renderItem={renderItem}
+      isRowLoaded={({index}) => tracks[index] != null}
       itemHeight={60}
       rowHeight={60}
       onSortEnd={onSort}

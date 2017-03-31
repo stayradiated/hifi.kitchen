@@ -18,10 +18,11 @@ import library from './library'
 import playlists from './playlists'
 import plex from './plex'
 import queue from './queue'
-import servers from './servers'
 import search from './search'
+import servers from './servers'
 import timeline from './timeline'
 import tracks from './tracks'
+import ui from './ui'
 import user from './user'
 
 const rootReducer = combineReducers({
@@ -31,11 +32,12 @@ const rootReducer = combineReducers({
   playlists,
   plex,
   queue,
-  servers,
   routing: routerReducer,
   search,
+  servers,
   timeline,
   tracks,
+  ui,
   user,
 })
 

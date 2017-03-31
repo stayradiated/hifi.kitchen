@@ -55,6 +55,9 @@ import {
   search,
 } from '../../stores/search/actions'
 import selectSearch from '../../stores/search/selectors'
+import {
+  selectDisplayQueue,
+} from '../../stores/ui'
 
 function componentWillMount () {
   const {onChangeSection, section} = this.props
@@ -225,6 +228,7 @@ export default compose(
     libraryAlbumIds: selectLibraryAlbums.currentIds(state),
     libraryArtistIds: selectLibraryArtists.currentIds(state),
     libraryPlaylistIds: selectLibraryPlaylists.currentIds(state),
+    displayQueue: selectDisplayQueue(state),
     allAlbums: selectAllAlbums.values(state),
     allArtists: selectAllArtists.values(state),
     allArtistAlbums: selectAllArtistAlbums.values(state),
@@ -241,7 +245,6 @@ export default compose(
   })),
   withState('section', 'onChangeSection', 'Albums'),
   withState('item', 'onChangeItem', null),
-  withState('displayQueue', 'setDisplayQueue', false),
   withHandlers({
     onLoadItems: handleLoadItems,
     onLoadItemChildren: handleLoadItemChildren,
