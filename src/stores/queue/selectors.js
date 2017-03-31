@@ -34,13 +34,20 @@ export const queueItem = createSelector(
   },
 )
 
-export const track = createSelector(
-  queueItem, selectAllTracks.values,
-  (_item, allTracks) => {
+export const trackId = createSelector(
+  queueItem,
+  (_item) => {
     if (_item == null) {
       return null
     }
-    return allTracks.get(_item.track)
+    return _item.track
+  }
+)
+
+export const track = createSelector(
+  trackId, selectAllTracks.values,
+  (_trackId, allTracks) => {
+    return allTracks.get(_trackId) || null
   },
 )
 

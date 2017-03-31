@@ -48,9 +48,7 @@ import {
   createQueueFromAlbum,
   createQueueFromPlaylist,
 } from '../../stores/queue/actions'
-import {
-  queueItem as selectQueueItem,
-} from '../../stores/queue/selectors'
+import * as selectQueue from '../../stores/queue/selectors'
 import {
   search,
 } from '../../stores/search/actions'
@@ -224,7 +222,7 @@ Library.propTypes = {
 
 export default compose(
   connect((state) => ({
-    trackId: selectQueueItem(state).track,
+    trackId: selectQueue.trackId(state),
     libraryAlbumIds: selectLibraryAlbums.currentIds(state),
     libraryArtistIds: selectLibraryArtists.currentIds(state),
     libraryPlaylistIds: selectLibraryPlaylists.currentIds(state),

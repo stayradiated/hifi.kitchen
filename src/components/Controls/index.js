@@ -11,7 +11,7 @@ import RatingStars from '../RatingStars'
 export default function Controls (props) {
   const {
     audio, track, paused,
-    onPrev, onPlay, onPause, onNext, onQueue, onRateTrack,
+    onStop, onPrev, onPlay, onPause, onNext, onQueue, onRateTrack,
   } = props
 
   return (
@@ -30,6 +30,9 @@ export default function Controls (props) {
           </button>
           <button onClick={onNext} className='Controls-playback-next'>
             <Icon icon='to-end' />
+          </button>
+          <button onClick={onStop} className='Controls-playback-stop'>
+            <Icon icon='stop' />
           </button>
         </div>
         <div className='Controls-centerBlock'>
@@ -87,6 +90,7 @@ Controls.propTypes = {
     currentTime: PropTypes.number,
     duration: PropTypes.number,
   }).isRequired,
+  onStop: PropTypes.func,
   onPrev: PropTypes.func,
   onPlay: PropTypes.func,
   onPause: PropTypes.func,

@@ -44,13 +44,16 @@ class ControlsContainer extends Component {
     this.handlePrevTrack = this.handlePrevTrack.bind(this)
     this.handleNextTrack = this.handleNextTrack.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
+    this.handleStop = this.handleStop.bind(this)
     this.handleUpdate = throttle(this.handleUpdate.bind(this), 500)
     this.handleQueue = this.handleQueue.bind(this)
   }
 
   componentWillMount () {
     const {dispatch, queueId} = this.props
-    dispatch(fetchQueue(queueId))
+    if (queueId != null) {
+      dispatch(fetchQueue(queueId))
+    }
   }
 
   componentWillReceiveProps (nextProps) {
@@ -62,9 +65,13 @@ class ControlsContainer extends Component {
     const nextTrackId = nextTrack && nextTrack.id
     const thisTrackId = thisTrack && thisTrack.id
 
-    if (thisTrackId != null && nextTrackId !== thisTrackId) {
-      dispatch(sendTimelineStop(this.props.queueItem))
-      dispatch(sendTimelinePlay(nextProps.queueItem))
+    if (thisTrackId !== nextTrackId) {
+      if (thisTrackId != null) {
+        dispatch(sendTimelineStop(this.props.queueItem))
+      }
+      if (nextTrackId != null) {
+        dispatch(sendTimelinePlay(nextProps.queueItem))
+      }
     }
   }
 
@@ -118,6 +125,7 @@ class ControlsContainer extends Component {
       <WebAudio
         source={trackSrc}
         duration={track.duration / 1000}
+        onStop={this.handleStop}
         onUpdate={this.handleUpdate}
         onEnd={this.handleNextTrack}
       >
@@ -128,6 +136,7 @@ class ControlsContainer extends Component {
             paused={audio.paused}
             onPause={audio.onPause}
             onPlay={audio.onPlay}
+            onStop={audio.onStop}
             onNext={this.handleNextTrack}
             onPrev={this.handlePrevTrack}
             onRateTrack={this.handleRateTrack}

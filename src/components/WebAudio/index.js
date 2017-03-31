@@ -9,6 +9,7 @@ export default class WebAudio extends Component {
   static propTypes = {
     source: PropTypes.string,
     onEnd: PropTypes.func,
+    onStop: PropTypes.func,
     onUpdate: PropTypes.func,
     children: PropTypes.func.isRequired,
   }
@@ -16,6 +17,7 @@ export default class WebAudio extends Component {
   static defaultProps = {
     onEnd: noop,
     onUpdate: noop,
+    onStop: noop,
   }
 
   constructor () {
@@ -35,6 +37,7 @@ export default class WebAudio extends Component {
     this.updateState = this.updateState.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
     this.handlePause = this.handlePause.bind(this)
+    this.handleStop = this.handleStop.bind(this)
     this.handleAudioEnded = this.handleAudioEnded.bind(this)
   }
 
@@ -105,6 +108,11 @@ export default class WebAudio extends Component {
     this.audio.pause()
   }
 
+  handleStop () {
+    this.audio.stop()
+    this.props.onStop()
+  }
+
   render () {
     const {children: getChildren} = this.props
     const {duration, paused, buffered, currentTime} = this.state
@@ -116,6 +124,7 @@ export default class WebAudio extends Component {
       paused,
       onPlay: this.handlePlay,
       onPause: this.handlePause,
+      onStop: this.handleStop,
     })
 
     return Children.only(children)
