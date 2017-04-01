@@ -3,7 +3,7 @@ import {FETCH_QUEUE, CREATE_QUEUE, SELECT_QUEUE_ITEM, STOP_QUEUE} from '../const
 
 const initialState = {
   id: null,
-  selectedItemOffset: null,
+  selectedItemId: null,
   items: [],
   shuffled: false,
 }
@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
       const {initialTrack} = action.payload
       return {
         ...state,
-        selectedItemOffset: 0,
+        selectedItemId: null,
         items: [{
           track: initialTrack.id,
         }],
@@ -33,16 +33,17 @@ export default function (state = initialState, action) {
       }
 
     case SELECT_QUEUE_ITEM:
+      const {selectedItemId} = action.payload
       return {
         ...state,
-        ...action.payload,
+        selectedItemId,
       }
 
     case STOP_QUEUE:
       return {
         ...state,
         id: null,
-        selectedItemOffset: null,
+        selectedItemId: null,
         items: [],
       }
 

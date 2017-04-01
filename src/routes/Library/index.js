@@ -56,6 +56,7 @@ import selectSearch from '../../stores/search/selectors'
 import {
   selectDisplayQueue,
 } from '../../stores/ui'
+import * as selectTimeline from '../../stores/timeline/selectors' 
 
 function componentWillMount () {
   const {onChangeSection, section} = this.props
@@ -138,7 +139,6 @@ const handleCreateQueue = (props) => (parent, track) => {
     default:
       console.warn('Could not create queue', {parent, track})
       break
-
   }
 }
 
@@ -156,6 +156,7 @@ function Library (props) {
     onLoadItems, onLoadItemChildren, onChangeItem, onChangeSection,
     onCreateQueue, onRateTrack,
     searchResults, onChangeSearchQuery,
+    playerState,
   } = props
 
   return (
@@ -176,6 +177,7 @@ function Library (props) {
       section={section}
       trackId={trackId}
       displayQueue={displayQueue}
+      playerState={playerState}
       onLoadItems={onLoadItems}
       onLoadItemChildren={onLoadItemChildren}
       onRateTrack={onRateTrack}
@@ -215,6 +217,7 @@ Library.propTypes = {
   onCreateQueue: PropTypes.func,
 
   displayQueue: PropTypes.bool,
+  playerState: PropTypes.string,
 
   searchResults: PropTypes.arrayOf(PropTypes.object),
   onChangeSearchQuery: PropTypes.func.isRequired,
@@ -227,6 +230,7 @@ export default compose(
     libraryArtistIds: selectLibraryArtists.currentIds(state),
     libraryPlaylistIds: selectLibraryPlaylists.currentIds(state),
     displayQueue: selectDisplayQueue(state),
+    playerState: selectTimeline.playerState(state),
     allAlbums: selectAllAlbums.values(state),
     allArtists: selectAllArtists.values(state),
     allArtistAlbums: selectAllArtistAlbums.values(state),

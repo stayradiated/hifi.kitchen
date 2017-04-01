@@ -12,7 +12,7 @@ import AsyncListLayout from '../AsyncListLayout'
 const handleTrackItem = (props) => (trackId, index) => ({key, style}) => {
   const {
     values, preserveTrackIndex, currentlyPlayingTrackId, displayArtist,
-    onRateTrack, onSelectTrack,
+    playerState, onRateTrack, onSelectTrack,
   } = props
 
   const track = values.tracks.get(trackId)
@@ -29,6 +29,7 @@ const handleTrackItem = (props) => (trackId, index) => ({key, style}) => {
       style={style}
       track={track}
       index={preserveTrackIndex ? track.index : index + 1}
+      playerState={playerState}
       currentlyPlaying={trackId === currentlyPlayingTrackId}
       onRate={onRateTrack}
       onSelect={onSelectTrack}
@@ -92,11 +93,12 @@ TrackList.defaultProps = {
 
 export default compose(
   setPropTypes({
-    preserveTrackIndex: PropTypes.bool,
     currentlyPlayingTrackId: PropTypes.number,
     displayArtist: PropTypes.bool,
     onRateTrack: PropTypes.func.isRequired,
     onSelectTrack: PropTypes.func.isRequired,
+    playerState: PropTypes.string,
+    preserveTrackIndex: PropTypes.bool,
   }),
   withHandlers({
     renderTrackItem: handleTrackItem,

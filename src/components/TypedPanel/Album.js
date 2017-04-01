@@ -5,7 +5,7 @@ import TrackList from '../TrackList'
 
 export default function AlbumPanel (props) {
   const {
-    album, values, currentlyPlayingTrackId,
+    album, values, currentlyPlayingTrackId, playerState,
     onSelectTrack, onRateTrack, onLoadItems,
     ...otherProps
   } = props
@@ -22,23 +22,20 @@ export default function AlbumPanel (props) {
   return (
     <Panel {...otherProps} details={details}>
       <TrackList
-        trackIds={albumTracks}
-        values={values}
-        preserveTrackIndex
         currentlyPlayingTrackId={currentlyPlayingTrackId}
         onLoadItems={onLoadItems}
         onRateTrack={onRateTrack}
         onSelectTrack={onSelectTrack}
+        playerState={playerState}
+        preserveTrackIndex
+        trackIds={albumTracks}
+        values={values}
       />
     </Panel>
   )
 }
 
 AlbumPanel.propTypes = {
-  values: PropTypes.shape({
-    albumTracks: PropTypes.instanceOf(Map),
-    tracks: PropTypes.instanceOf(Map),
-  }).isRequired,
   album: PropTypes.shape({
     thumb: PropTypes.string,
     title: PropTypes.string,
@@ -47,7 +44,12 @@ AlbumPanel.propTypes = {
     tracks: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   currentlyPlayingTrackId: PropTypes.number,
-  onSelectTrack: PropTypes.func.isRequired,
-  onRateTrack: PropTypes.func.isRequired,
   onLoadItems: PropTypes.func.isRequired,
+  onRateTrack: PropTypes.func.isRequired,
+  onSelectTrack: PropTypes.func.isRequired,
+  playerState: PropTypes.string,
+  values: PropTypes.shape({
+    albumTracks: PropTypes.instanceOf(Map),
+    tracks: PropTypes.instanceOf(Map),
+  }).isRequired,
 }

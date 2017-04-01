@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://hifi.kitchen",
   "devDependencies": {
+    "@kadira/storybook-addon-knobs": "^1.7.1",
     "gh-pages": "^0.12.0",
     "react-scripts": "0.9.5"
   },

@@ -24,7 +24,7 @@ const handleChangeItem = (props) => (nextItem) => {
 function Browser (props) {
   const {
     className, sections, values,
-    currentlyPlayingTrackId,
+    currentlyPlayingTrackId, playerState,
     item, onChangeItem, onLoadItems, onLoadItemChildren,
     section, onChangeSection, onRateTrack,
     searchQuery, onChangeSearchQuery,
@@ -73,6 +73,7 @@ function Browser (props) {
           className='Browser-selected-panel'
           item={item}
           values={values}
+          playerState={playerState}
           currentlyPlayingTrackId={currentlyPlayingTrackId}
           onClose={() => onChangeItem(null)}
           onRateTrack={onRateTrack}
@@ -91,6 +92,7 @@ Browser.propTypes = {
   section: PropTypes.string.isRequired,
   currentlyPlayingTrackId: PropTypes.number,
   searchQuery: PropTypes.string,
+  playerState: PropTypes.string,
   onChangeSection: PropTypes.func,
   onChangeSearchQuery: PropTypes.func,
   onChangeItem: PropTypes.func.isRequired,

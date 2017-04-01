@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
-import throttle from 'lodash.throttle'
 
 import WebAudio from '../../components/WebAudio'
 import Controls from '../../components/Controls'
@@ -45,7 +44,7 @@ class ControlsContainer extends Component {
     this.handleNextTrack = this.handleNextTrack.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
     this.handleStop = this.handleStop.bind(this)
-    this.handleUpdate = throttle(this.handleUpdate.bind(this), 500)
+    this.handleUpdate = this.handleUpdate.bind(this)
     this.handleQueue = this.handleQueue.bind(this)
   }
 

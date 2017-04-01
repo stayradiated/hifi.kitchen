@@ -5,10 +5,9 @@ import {selectAllTracks} from '../tracks/all'
 
 export const root = (state) => state.queue
 
-export const queueId = createSelector(
-  root,
-  (_root) => _root.id,
-)
+export const queueId = createSelector(root, (_root) => _root.id)
+export const items = createSelector(root, (_root) => _root.items)
+export const selectedItemId = createSelector(root, (_root) => _root.selectedItemId)
 
 export const tracks = createSelector(
   root, selectAllTracks.values,
@@ -18,15 +17,10 @@ export const tracks = createSelector(
     .map((item) => allTracks.get(item.track)),
 )
 
-export const selectedItemOffset = createSelector(
-  root,
-  (_root) => _root.selectedItemOffset,
-)
-
 export const queueItem = createSelector(
   root,
   (_root) => {
-    const item = _root.items[_root.selectedItemOffset]
+    const item = _root.items.find((qI) => qI.id === _root.selectedItemId)
     if (item == null) {
       return null
     }

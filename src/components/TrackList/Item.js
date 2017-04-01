@@ -3,6 +3,7 @@ import withHandlers from 'recompose/withHandlers'
 
 import './Item.css'
 
+import {PLAYER_STATE_PAUSED} from '../../stores/constants'
 import Time from '../Time'
 import RatingBars from '../RatingBars'
 import SoundBars from '../SoundBars'
@@ -19,7 +20,7 @@ const handleSelect = (props) => () => {
 
 function TrackListItem (props) {
   const {
-    index, track, style, currentlyPlaying, displayArtist,
+    index, track, style, currentlyPlaying, displayArtist, playerState,
     onSelect, onRate,
   } = props
 
@@ -28,7 +29,7 @@ function TrackListItem (props) {
       <div className='TrackListItem-contents'>
         {currentlyPlaying
           ? <span className='TrackListItem-nowPlayingIcon'>
-            <SoundBars />
+            <SoundBars paused={playerState === PLAYER_STATE_PAUSED} />
           </span>
           : <span className='TrackListItem-index'>
             {index != null ? index : track.index}
@@ -64,6 +65,7 @@ TrackListItem.propTypes = {
   }).isRequired,
   currentlyPlaying: PropTypes.bool,
   displayArtist: PropTypes.bool,
+  playerState: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
   onRate: PropTypes.func.isRequired,
 }

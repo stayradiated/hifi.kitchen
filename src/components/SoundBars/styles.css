@@ -4,6 +4,10 @@
   position: relative;
 }
 
+.SoundBars-paused .SoundBars-bar {
+  animation-play-state: paused;
+}
+
 .SoundBars-bar {
   background: var(--primary);
   position: absolute;

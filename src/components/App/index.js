@@ -14,7 +14,7 @@ function App (props) {
     libraryAlbumIds, libraryArtistIds, libraryPlaylistIds,
     allAlbums, allArtists, allPlaylists, allTracks,
     allArtistAlbums, allAlbumTracks, allPlaylistTracks,
-    item, section,
+    item, section, playerState,
     onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
     onRateTrack, displayQueue,
     trackId, onChangeTrack,
@@ -47,6 +47,7 @@ function App (props) {
               Artists: artists,
               Playlists: playlists,
             }}
+            playerState={playerState}
             onChangeItem={onChangeItem}
             onChangeSection={onChangeSection}
             onChangeTrack={onChangeTrack}
@@ -97,6 +98,7 @@ App.propTypes = {
   onChangeTrack: PropTypes.func,
 
   displayQueue: PropTypes.bool,
+  playerState: PropTypes.string,
 }
 
 export default App

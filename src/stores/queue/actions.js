@@ -60,27 +60,29 @@ export const createQueueFromPlaylist = (playlistId, track) =>
     key: track.key,
   }, track)
 
-export const selectQueueItem = (index) => ({
+export const selectQueueItem = (queueItemId) => ({
   type: SELECT_QUEUE_ITEM,
   payload: {
-    selectedItemOffset: index,
+    selectedItemId: queueItemId,
   },
 })
 
+export const jumpToRelativeQueueItem = (delta) => (dispatch, getState) => {
+  const state = getState()
+  const selectedItemId = selectors.selectedItemId(state)
+  const items = selectors.items(state)
+  const index = items.findIndex((queueItem) => queueItem.id === selectedItemId)
+  const nextIndex = index + delta
+  const nextQueueItem = items[nextIndex]
+  return dispatch(selectQueueItem(nextQueueItem.id))
+}
+
 export const playNextTrack = () => {
-  return (dispatch, getState) => {
-    const state = getState()
-    const index = selectors.selectedItemOffset(state) + 1
-    return dispatch(selectQueueItem(index))
-  }
+  return jumpToRelativeQueueItem(1)
 }
 
 export const playPrevTrack = () => {
-  return (dispatch, getState) => {
-    const state = getState()
-    const index = selectors.selectedItemOffset(state) - 1
-    return dispatch(selectQueueItem(index))
-  }
+  return jumpToRelativeQueueItem(-1)
 }
 
 export const stopQueue = () => ({
