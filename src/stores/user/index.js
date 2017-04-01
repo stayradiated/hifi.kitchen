@@ -1,7 +1,7 @@
 import {actionTypes} from 'redux-localstorage'
 import {createSelector} from 'reselect'
 
-import {PLEX_AUTHENTICATE} from '../constants'
+import {PLEX_CHECK_PIN, PLEX_AUTHENTICATE} from '../constants'
 
 const initialState = {
   authToken: null,
@@ -16,7 +16,17 @@ export default function reducer (state = initialState, action) {
       }
 
     case PLEX_AUTHENTICATE.SUCCESS:
-      return action.value
+      return {
+        authToken: action.value.authToken,
+      }
+
+    case PLEX_CHECK_PIN.SUCCESS:
+      if (action.value.authToken != null) {
+        return {
+          authToken: action.value.authToken,
+        }
+      }
+      return state
 
     default:
       return state

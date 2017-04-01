@@ -1,0 +1,12 @@
+.Loading {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Loading-spinner .sk-pulse {
+  width: 60px;
+  height: 60px;
+  background-color: var(--primary);
+}

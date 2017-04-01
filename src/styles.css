@@ -26,8 +26,8 @@ body {
   --background: #1B1B1B;
   --foreground: #FBFFFE;
   --menu: #121212;
-  --primary: #FFA400;
-  --primary-hover: #E89600;
+  --primary: #FF8000;
+  --primary-hover: #FFC837;
   --secondary: #009FFD;
 
   --error: #F15025;
@@ -46,7 +46,7 @@ body {
   --scroll-thumb: #2F2F2F;
   --scroll-thumb-hover: #444444;
 
-  --font-logo: 'Unica One', sans-serif;
+  --font-logo: 'Chewy', sans-serif;
  }
 
 ::-webkit-scrollbar {

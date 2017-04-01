@@ -4,19 +4,19 @@ import {connect} from 'react-redux'
 import {
   fetchServerStatus,
 } from '../../stores/servers/status'
-
 import {
   initializePlex,
   usePlexServer,
   setPlexReady,
   selectPlex,
 } from '../../stores/plex/instance'
-
 import {
   fetchLibrarySections,
 } from '../../stores/library/sections/actions'
 
-class Loading extends Component {
+import Loading from '../../components/Loading'
+
+class LoadingContainer extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     serverId: PropTypes.string,
@@ -38,7 +38,7 @@ class Loading extends Component {
 
   render () {
     return (
-      <p>Loading</p>
+      <Loading />
     )
   }
 }
@@ -46,4 +46,4 @@ class Loading extends Component {
 export default connect((state) => ({
   library: selectPlex.library(state),
   serverId: selectPlex.serverId(state),
-}))(Loading)
+}))(LoadingContainer)

@@ -29,6 +29,8 @@ export const PLEX_INITIALIZE          = 'PLEX_INITIALIZE'
 export const PLEX_USE_SERVER          = 'PLEX_USE_SERVER'
 export const PLEX_USE_LIBRARY_SECTION = 'PLEX_USE_LIBRARY_SECTION'
 export const PLEX_AUTHENTICATE        = c('PLEX_AUTHENTICATE')
+export const PLEX_FETCH_PIN           = c('PLEX_FETCH_PIN')
+export const PLEX_CHECK_PIN           = c('PLEX_CHECK_PIN')
 export const PLEX_READY               = 'PLEX_READY'
 
 export const SELECT_QUEUE_ITEM       = 'SELECT_QUEUE_ITEM'

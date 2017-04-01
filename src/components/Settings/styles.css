@@ -39,3 +39,15 @@
 .Settings-doneButton:hover {
   background: var(--white-05);
 }
+
+.Settings-logoutButton {
+  display: flex;
+  width: auto;
+  color: var(--white-50);
+  text-decoration: none;
+}
+
+.Settings-logoutButton:hover {
+  color: var(--white);
+  text-decoration: underline;
+}

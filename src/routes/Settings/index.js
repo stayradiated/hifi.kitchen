@@ -57,11 +57,16 @@ const handleSelectLibrarySectionId = (props) => (librarySectionId) => {
   dispatch(usePlexLibrarySection(librarySectionId))
 }
 
+const handleLogOut = () => () => {
+  delete window.localStorage.plex
+  window.location.reload()
+}
+
 export function SettingsRoute (props) {
   const {
     accountServers, allDevices, allConnections, allStatuses,
     librarySections, librarySectionId, serverId,
-    onSelectServer, onSelectLibrarySection,
+    onSelectServer, onSelectLibrarySection, onLogOut,
   } = props
 
   const servers = accountServers.map((id) => {
@@ -82,6 +87,7 @@ export function SettingsRoute (props) {
       librarySections={librarySections}
       selectedLibrarySectionId={librarySectionId}
       onSelectLibrarySection={onSelectLibrarySection}
+      onLogOut={onLogOut}
     />
   )
 }
@@ -96,6 +102,7 @@ SettingsRoute.propTypes = {
   librarySectionId: PropTypes.number,
   onSelectServer: PropTypes.func.isRequired,
   onSelectLibrarySection: PropTypes.func.isRequired,
+  onLogOut: PropTypes.func.isRequired,
 }
 
 export default compose(
@@ -115,5 +122,6 @@ export default compose(
   withHandlers({
     onSelectServer: handleSelectServerId,
     onSelectLibrarySection: handleSelectLibrarySectionId,
+    onLogOut: handleLogOut,
   }),
 )(SettingsRoute)

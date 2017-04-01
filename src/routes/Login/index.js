@@ -2,32 +2,40 @@ import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router'
 
-import LoginForm from '../../components/LoginForm'
+import LoginWithPin from '../../components/LoginWithPin'
 
-import {authenticatePlex, selectPlexAuth} from '../../stores/plex/auth'
 import {selectUser} from '../../stores/user'
+import {fetchPin, checkPin, selectPin} from '../../stores/plex/pin'
 
 class LoginRoute extends Component {
   static propTypes = {
-    authError: PropTypes.instanceOf(Error),
     loggedIn: PropTypes.bool,
     dispatch: PropTypes.func.isRequired,
+    pin: PropTypes.shape({}),
   }
 
-  constructor () {
-    super()
-
-    this.handleLogin = this.handleLogin.bind(this)
-  }
-
-  handleLogin (fields) {
+  componentWillMount () {
     const {dispatch} = this.props
-    const {username, password} = fields
-    dispatch(authenticatePlex(username, password))
+    dispatch(fetchPin())
+
+    this.interval = setInterval(() => {
+      this.handleCheckPin()
+    }, 1000)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.interval)
+  }
+
+  handleCheckPin () {
+    const {dispatch, pin} = this.props
+    if (pin != null && pin.id != null) {
+      dispatch(checkPin(pin.id))
+    }
   }
 
   render () {
-    const {loggedIn, authError} = this.props
+    const {pin, loggedIn/* , authError */} = this.props
 
     if (loggedIn) {
       return (
@@ -36,15 +44,12 @@ class LoginRoute extends Component {
     }
 
     return (
-      <LoginForm
-        onSubmit={this.handleLogin}
-        errorMessage={authError && authError.message}
-      />
+      <LoginWithPin pin={pin} />
     )
   }
 }
 
 export default connect((state) => ({
-  authError: selectPlexAuth.error(state),
   loggedIn: selectUser.loggedIn(state),
+  pin: selectPin.value(state),
 }))(LoginRoute)

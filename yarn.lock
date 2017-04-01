@@ -5373,6 +5373,13 @@ react-sortable-hoc@^0.6.1:
     invariant "^2.2.1"
     lodash "^4.12.0"
 
+react-spinkit@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/react-spinkit/-/react-spinkit-2.1.1.tgz#a666f02367147de8151c1f7671453d56cef4650f"
+  dependencies:
+    classnames "^2.2.3"
+    object-assign "^4.1.0"
+
 react-stubber@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/react-stubber/-/react-stubber-1.0.0.tgz#41ee2cac72d4d4fd70a63896da98e13739b84628"

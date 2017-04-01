@@ -1,0 +1,56 @@
+.LoginWithPin {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2em;
+  overflow: auto;
+  position: relative;
+
+  background: #FF8008;
+  background: linear-gradient(to left, #FF8008 , #FFC837);
+}
+
+.LoginWithPin-form {
+  position: relative;
+  z-index: 1;
+  width: 400px;
+  background: var(--black-10);
+  padding: 2em;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.LoginWithPin-tagline {
+  text-align: center;
+  font-family: var(--font-logo);
+  font-size: 2em;
+  margin: 0;
+}
+
+.LoginWithPin-logo {
+  text-align: center;
+  font-family: var(--font-logo);
+  font-size: 5em;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.LoginWithPin-pin {
+  font-size: 5em;
+  margin: 0;
+  text-align: center;
+}
+
+.LoginWithPin-button {
+  width: auto;
+  color: var(--background);
+  background: var(--primary);
+  padding: 0.5em 1em;
+  border-radius: 2px;
+}
+
+.LoginWithPin-button:hover {
+  background: var(--primary-hover);
+}

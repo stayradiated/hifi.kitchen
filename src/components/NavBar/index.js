@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react'
 import classNames from 'classnames'
 import noop from 'nop'
+import {Link} from 'react-router-dom'
 
 import './styles.css'
 
@@ -49,12 +50,17 @@ export default function NavBar (props) {
           )
         })}
       </nav>
-      <button className='NavBar-dropdown-button'>
-        <span className='NavBar-dropdown-label'>
-          Date Added
-        </span>
-        <Icon icon='down-dir' className='NavBar-dropdown-icon' />
-      </button>
+      <nav className='NavBar-section-list'>
+        <button className='NavBar-dropdown-button'>
+          <span className='NavBar-dropdown-label'>
+            Date Added
+          </span>
+          <Icon icon='down-dir' className='NavBar-dropdown-icon' />
+        </button>
+        <Link to='/settings' className='NavBar-section-item'>
+          <Icon icon='cog' />
+        </Link>
+      </nav>
     </header>
   )
 }
