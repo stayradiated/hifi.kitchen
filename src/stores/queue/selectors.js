@@ -9,14 +9,6 @@ export const queueId = createSelector(root, (_root) => _root.id)
 export const items = createSelector(root, (_root) => _root.items)
 export const selectedItemId = createSelector(root, (_root) => _root.selectedItemId)
 
-export const tracks = createSelector(
-  root, selectAllTracks.values,
-  (_root, allTracks) =>
-  _root.items
-    .filter((item) => allTracks.has(item.track))
-    .map((item) => allTracks.get(item.track)),
-)
-
 export const queueItem = createSelector(
   root,
   (_root) => {

@@ -5434,9 +5434,9 @@ react-textarea-autosize@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-4.0.5.tgz#55379f6a6fa575fc87d1b8de2756e57e3b6c995d"
 
-react-virtualized@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.4.0.tgz#9337de5a5614ac957bdca17454c97d7ccac4ad0a"
+react-virtualized@^9.4.1:
+  version "9.4.1"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.4.1.tgz#fbcec93e70f69c4a3a83b62d8ffd0dc054109a73"
   dependencies:
     babel-runtime "^6.11.6"
     classnames "^2.2.3"
@@ -5581,9 +5581,9 @@ redux-localstorage@1.0.0-rc4:
   version "1.0.0-rc4"
   resolved "https://registry.yarnpkg.com/redux-localstorage/-/redux-localstorage-1.0.0-rc4.tgz#ceba882693298df2014af3ae8bc1b58dd4272a83"
 
-redux-logger@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.0.tgz#f552052d8992d058cfcdb42b5c654fa5f7beb9cc"
+redux-logger@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.1.tgz#ae8ae4c3c55ed3dd7aa31509f0856c5d3751057a"
   dependencies:
     deep-diff "0.3.4"
 

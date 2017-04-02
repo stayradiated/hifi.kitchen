@@ -4,18 +4,29 @@ import QueueItem from './Item'
 import SortableItemsList from '../SortableList'
 
 export default function Queue (props) {
-  const {className, selectedIndex, tracks, onChange, onSort} = props
+  const {className, selectedItemId, items, allTracks, onChange, onSort} = props
 
-  const renderItem = ({key, style, index}) => (
-    <QueueItem
-      key={key}
-      style={style}
-      index={index}
-      track={tracks[index]}
-      isSelected={selectedIndex === index}
-      onClick={() => onChange && onChange(tracks[index], index)}
-    />
-  )
+  const renderItem = ({key, style, index}) => {
+    const item = items[index]
+    const track = allTracks.get(item.track)
+
+    if (track == null) {
+      return (
+        <div key={key} style={style} />
+      )
+    }
+
+    return (
+      <QueueItem
+        key={key}
+        style={style}
+        index={index}
+        track={track}
+        isSelected={selectedItemId === item.track}
+        onClick={() => onChange && onChange(item)}
+      />
+    )
+  }
 
   renderItem.propTypes = {
     key: PropTypes.string,
@@ -26,9 +37,9 @@ export default function Queue (props) {
   return (
     <SortableItemsList
       className={className}
-      rowCount={tracks.length}
+      rowCount={items.length}
       renderItem={renderItem}
-      isRowLoaded={({index}) => tracks[index] != null}
+      isRowLoaded={({index}) => items[index] != null}
       itemHeight={60}
       rowHeight={60}
       onSortEnd={onSort}
@@ -40,9 +51,10 @@ export default function Queue (props) {
 }
 
 Queue.propTypes = {
+  allTracks: PropTypes.instanceOf(Map).isRequired,
   className: PropTypes.string,
-  tracks: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  selectedIndex: PropTypes.number,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func,
   onSort: PropTypes.func,
+  selectedItemId: PropTypes.number,
 }

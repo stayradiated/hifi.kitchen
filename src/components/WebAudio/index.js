@@ -8,16 +8,24 @@ const AUDIO_CONTEXT = new window.AudioContext()
 export default class WebAudio extends Component {
   static propTypes = {
     source: PropTypes.string,
+    onDurationChange: PropTypes.func,
     onEnd: PropTypes.func,
+    onPause: PropTypes.func,
+    onPlay: PropTypes.func,
+    onProgress: PropTypes.func,
     onStop: PropTypes.func,
-    onUpdate: PropTypes.func,
+    onTimeUpdate: PropTypes.func,
     children: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
+    onDurationChange: noop,
     onEnd: noop,
-    onUpdate: noop,
+    onPause: noop,
+    onPlay: noop,
+    onProgress: noop,
     onStop: noop,
+    onTimeUpdate: noop,
   }
 
   constructor () {
@@ -34,11 +42,15 @@ export default class WebAudio extends Component {
       context: AUDIO_CONTEXT,
     })
 
-    this.updateState = this.updateState.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
     this.handlePause = this.handlePause.bind(this)
     this.handleStop = this.handleStop.bind(this)
+    this.handleAudioDurationChange = this.handleAudioDurationChange.bind(this)
     this.handleAudioEnded = this.handleAudioEnded.bind(this)
+    this.handleAudioPause = this.handleAudioPause.bind(this)
+    this.handleAudioPlay = this.handleAudioPlay.bind(this)
+    this.handleAudioProgress = this.handleAudioProgress.bind(this)
+    this.handleAudioTimeUpdate = this.handleAudioTimeUpdate.bind(this)
   }
 
   componentWillMount () {
@@ -46,12 +58,12 @@ export default class WebAudio extends Component {
 
     this.updateSource(source)
 
-    this.audio.audioElement.addEventListener('durationchange', this.updateState)
+    this.audio.audioElement.addEventListener('durationchange', this.handleAudioDurationChange)
     this.audio.audioElement.addEventListener('ended', this.handleAudioEnded)
-    this.audio.audioElement.addEventListener('pause', this.updateState)
-    this.audio.audioElement.addEventListener('play', this.updateState)
-    this.audio.audioElement.addEventListener('progress', this.updateState)
-    this.audio.audioElement.addEventListener('timeupdate', this.updateState)
+    this.audio.audioElement.addEventListener('pause', this.handleAudioPause)
+    this.audio.audioElement.addEventListener('play', this.handleAudioPlay)
+    this.audio.audioElement.addEventListener('progress', this.handleAudioProgress)
+    this.audio.audioElement.addEventListener('timeupdate', this.handleAudioTimeUpdate)
   }
 
   componentWillReceiveProps (nextProps) {
@@ -61,38 +73,46 @@ export default class WebAudio extends Component {
   }
 
   componentWillUnmount () {
-    this.audio.audioElement.removeEventListener('durationchange', this.updateState)
+    this.audio.audioElement.removeEventListener('durationchange', this.handleAudioDurationChange)
     this.audio.audioElement.removeEventListener('ended', this.handleAudioEnded)
-    this.audio.audioElement.removeEventListener('pause', this.updateState)
-    this.audio.audioElement.removeEventListener('play', this.updateState)
-    this.audio.audioElement.removeEventListener('progress', this.updateState)
-    this.audio.audioElement.removeEventListener('timeupdate', this.updateState)
+    this.audio.audioElement.removeEventListener('pause', this.handleAudioPause)
+    this.audio.audioElement.removeEventListener('play', this.handleAudioPlay)
+    this.audio.audioElement.removeEventListener('progress', this.handleAudioProgress)
+    this.audio.audioElement.removeEventListener('timeupdate', this.handleAudioTimeUpdate)
 
     this.audio.stop()
+  }
+
+  handleAudioDurationChange () {
+    const duration = this.audio.duration()
+    this.setState({duration})
+    this.props.onDurationChange(duration)
   }
 
   handleAudioEnded () {
     this.props.onEnd()
   }
 
-  updateState () {
-    const {audio} = this
-    const paused = audio.paused()
-    const buffered = audio.buffered()
-    const currentTime = audio.currentTime()
-    const duration = audio.duration()
+  handleAudioPause () {
+    this.setState({paused: true})
+    this.props.onPause()
+  }
 
-    const status = {
-      paused,
-      buffered,
-      currentTime,
-      duration,
-    }
+  handleAudioPlay () {
+    this.setState({paused: false})
+    this.props.onPlay()
+  }
 
-    this.setState((previousStatus) => {
-      this.props.onUpdate(status, previousStatus)
-      return status
-    })
+  handleAudioProgress () {
+    const buffered = this.audio.buffered()
+    this.setState({buffered})
+    this.props.onProgress(buffered)
+  }
+
+  handleAudioTimeUpdate () {
+    const currentTime = this.audio.currentTime()
+    this.setState({currentTime})
+    this.props.onTimeUpdate(currentTime)
   }
 
   updateSource (source) {

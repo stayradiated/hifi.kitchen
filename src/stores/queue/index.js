@@ -1,5 +1,5 @@
 import {actionTypes} from 'redux-localstorage'
-import {FETCH_QUEUE, CREATE_QUEUE, SELECT_QUEUE_ITEM, STOP_QUEUE} from '../constants'
+import {FETCH_QUEUE, CREATE_QUEUE, PLAY_QUEUE_ITEM, STOP_QUEUE} from '../constants'
 
 const initialState = {
   id: null,
@@ -32,7 +32,7 @@ export default function (state = initialState, action) {
         ...action.value.result.id,
       }
 
-    case SELECT_QUEUE_ITEM:
+    case PLAY_QUEUE_ITEM:
       const {selectedItemId} = action.payload
       return {
         ...state,

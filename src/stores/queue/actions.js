@@ -3,7 +3,7 @@ import {normalize} from 'perplexed'
 import {
   FETCH_QUEUE,
   CREATE_QUEUE,
-  SELECT_QUEUE_ITEM,
+  PLAY_QUEUE_ITEM,
   STOP_QUEUE,
 } from '../constants'
 
@@ -54,14 +54,20 @@ export const createQueueFromAlbum = (album, track) =>
     key: track.key,
   }, track)
 
+export const createQueueFromArtist = (artist, track) =>
+  createQueueFromURI({
+    source: artist.key,
+    key: track.key,
+  }, track)
+
 export const createQueueFromPlaylist = (playlistId, track) =>
   createQueue({
     playlistId,
     key: track.key,
   }, track)
 
-export const selectQueueItem = (queueItemId) => ({
-  type: SELECT_QUEUE_ITEM,
+export const playQueueItem = (queueItemId) => ({
+  type: PLAY_QUEUE_ITEM,
   payload: {
     selectedItemId: queueItemId,
   },
@@ -74,7 +80,7 @@ export const jumpToRelativeQueueItem = (delta) => (dispatch, getState) => {
   const index = items.findIndex((queueItem) => queueItem.id === selectedItemId)
   const nextIndex = index + delta
   const nextQueueItem = items[nextIndex]
-  return dispatch(selectQueueItem(nextQueueItem.id))
+  return dispatch(playQueueItem(nextQueueItem.id))
 }
 
 export const playNextTrack = () => {

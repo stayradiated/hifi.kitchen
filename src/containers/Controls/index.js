@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import throttle from 'lodash.throttle'
 
 import WebAudio from '../../components/WebAudio'
 import Controls from '../../components/Controls'
@@ -40,12 +41,14 @@ class ControlsContainer extends Component {
   constructor () {
     super()
 
-    this.handlePrevTrack = this.handlePrevTrack.bind(this)
     this.handleNextTrack = this.handleNextTrack.bind(this)
+    this.handlePause = this.handlePause.bind(this)
+    this.handlePlay = this.handlePlay.bind(this)
+    this.handlePrevTrack = this.handlePrevTrack.bind(this)
+    this.handleQueue = this.handleQueue.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
     this.handleStop = this.handleStop.bind(this)
-    this.handleUpdate = this.handleUpdate.bind(this)
-    this.handleQueue = this.handleQueue.bind(this)
+    this.handleTimeUpdate = throttle(this.handleTimeUpdate.bind(this), 1000)
   }
 
   componentWillMount () {
@@ -94,18 +97,19 @@ class ControlsContainer extends Component {
     dispatch(stopQueue())
   }
 
-  handleUpdate (status, previousStatus) {
+  handlePause () {
     const {dispatch, queueItem} = this.props
+    dispatch(sendTimelinePause(queueItem))
+  }
 
-    if (status.paused !== previousStatus.paused) {
-      if (status.paused) {
-        dispatch(sendTimelinePause(queueItem))
-      } else {
-        dispatch(sendTimelinePlay(queueItem))
-      }
-    }
+  handlePlay () {
+    const {dispatch, queueItem} = this.props
+    dispatch(sendTimelinePlay(queueItem))
+  }
 
-    dispatch(setPlayerCurrentTime(Math.round(status.currentTime * 1000)))
+  handleTimeUpdate (currentTime) {
+    const {dispatch} = this.props
+    dispatch(setPlayerCurrentTime(Math.round(currentTime * 1000)))
   }
 
   handleQueue () {
@@ -125,7 +129,9 @@ class ControlsContainer extends Component {
         source={trackSrc}
         duration={track.duration / 1000}
         onStop={this.handleStop}
-        onUpdate={this.handleUpdate}
+        onPause={this.handlePause}
+        onPlay={this.handlePlay}
+        onTimeUpdate={this.handleTimeUpdate}
         onEnd={this.handleNextTrack}
       >
         {(audio) => (

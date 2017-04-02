@@ -45,6 +45,7 @@ import {
   selectAllTracks,
 } from '../../stores/tracks/all'
 import {
+  createQueueFromArtist,
   createQueueFromAlbum,
   createQueueFromPlaylist,
 } from '../../stores/queue/actions'
@@ -132,6 +133,9 @@ const handleCreateQueue = (props) => (parent, track) => {
   switch (parent._type) {
     case 'album':
       dispatch(createQueueFromAlbum(parent, track))
+      break
+    case 'artist':
+      dispatch(createQueueFromArtist(parent, track))
       break
     case 'playlist':
       dispatch(createQueueFromPlaylist(parent.id, track))

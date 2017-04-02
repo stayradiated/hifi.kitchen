@@ -33,7 +33,7 @@ export const PLEX_FETCH_PIN           = c('PLEX_FETCH_PIN')
 export const PLEX_CHECK_PIN           = c('PLEX_CHECK_PIN')
 export const PLEX_READY               = 'PLEX_READY'
 
-export const SELECT_QUEUE_ITEM       = 'SELECT_QUEUE_ITEM'
+export const PLAY_QUEUE_ITEM         = 'PLAY_QUEUE_ITEM'
 export const SET_PLAYER_CURRENT_TIME = 'SET_PLAYER_CURRENT_TIME'
 export const STOP_QUEUE              = 'STOP_QUEUE'
 
