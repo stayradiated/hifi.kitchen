@@ -36,6 +36,7 @@ export const PLEX_READY               = 'PLEX_READY'
 export const PLAY_QUEUE_ITEM         = 'PLAY_QUEUE_ITEM'
 export const SET_PLAYER_CURRENT_TIME = 'SET_PLAYER_CURRENT_TIME'
 export const STOP_QUEUE              = 'STOP_QUEUE'
+export const MOVE_PLAY_QUEUE_ITEM    = c('MOVE_PLAY_QUEUE_ITEM')
 
 export const PLAYER_STATE_PLAYING = 'playing'
 export const PLAYER_STATE_PAUSED  = 'paused'

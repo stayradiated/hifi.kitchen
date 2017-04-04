@@ -6,7 +6,7 @@ import withHandlers from 'recompose/withHandlers'
 import Queue from '../../components/Queue'
 
 import {selectAllTracks} from '../../stores/tracks/all'
-import {playQueueItem} from '../../stores/queue/actions'
+import {movePlayQueueItem, playQueueItem} from '../../stores/queue/actions'
 import * as selectQueue from '../../stores/queue/selectors'
 
 const handleChange = (props) => (item) => {
@@ -14,8 +14,9 @@ const handleChange = (props) => (item) => {
   return dispatch(playQueueItem(item.id))
 }
 
-const handleSort = (props) => (...args) => {
-  console.log('SORT', args)
+const handleSort = (props) => ({newIndex, oldIndex}) => {
+  const {dispatch} = props
+  return dispatch(movePlayQueueItem({newIndex, oldIndex}))
 }
 
 function QueueContainer (props) {
@@ -39,6 +40,7 @@ QueueContainer.propTypes = {
   allTracks: PropTypes.instanceOf(Map).isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
   selectedItemId: PropTypes.number,
 }
 

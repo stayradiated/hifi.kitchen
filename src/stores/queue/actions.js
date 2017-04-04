@@ -5,6 +5,7 @@ import {
   CREATE_QUEUE,
   PLAY_QUEUE_ITEM,
   STOP_QUEUE,
+  MOVE_PLAY_QUEUE_ITEM,
 } from '../constants'
 
 import {selectPlex} from '../plex/instance'
@@ -72,6 +73,24 @@ export const playQueueItem = (queueItemId) => ({
     selectedItemId: queueItemId,
   },
 })
+
+export const movePlayQueueItem = ({newIndex, oldIndex}) => (dispatch, getState) => {
+  const state = getState()
+  const queueId = selectors.queueId(state)
+  const items = selectors.items(state)
+
+  const playQueueId = items[oldIndex].id
+  const afterQueueId = items[newIndex - (oldIndex > newIndex ? 1 : 0)].id
+
+  return dispatch({
+    types: MOVE_PLAY_QUEUE_ITEM,
+    payload: {newIndex, oldIndex},
+    meta: {
+      plex: ({library}) =>
+        normalize(library.movePlayQueueItem(queueId, playQueueId, afterQueueId)),
+    },
+  })
+}
 
 export const jumpToRelativeQueueItem = (delta) => (dispatch, getState) => {
   const state = getState()
