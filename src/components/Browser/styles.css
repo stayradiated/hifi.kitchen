@@ -19,4 +19,7 @@
   flex: 2;
   min-width: 400px;
   border-left: 1px solid var(--white-05);
+
+  // prevents strange flickering on chrome/ubuntu
+  overflow: hidden;
 }

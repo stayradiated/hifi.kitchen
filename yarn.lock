@@ -4684,9 +4684,9 @@ pbkdf2-compat@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pbkdf2-compat/-/pbkdf2-compat-2.0.1.tgz#b6e0c8fa99494d94e0511575802a59a5c142f288"
 
-perplexed@^1.7.1:
-  version "1.7.1"
-  resolved "https://registry.yarnpkg.com/perplexed/-/perplexed-1.7.1.tgz#b38090f53c3795232958ac733ef1dd1be33c50b5"
+perplexed@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/perplexed/-/perplexed-1.7.2.tgz#eba02ae8d26a9038264e435fc75ee7bffd9ff1a3"
   dependencies:
     assert "^1.4.1"
     deep-diff "^0.3.4"

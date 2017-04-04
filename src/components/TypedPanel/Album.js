@@ -19,8 +19,18 @@ export default function AlbumPanel (props) {
 
   const albumTracks = values.albumTracks.get(album.id) || []
 
+  const handleClickSubtitle = () => {
+    const artist = values.artists.get(album.parentId)
+    console.log({album, artist, values})
+    onSelectTrack(artist)
+  }
+
   return (
-    <Panel {...otherProps} details={details}>
+    <Panel
+      {...otherProps}
+      details={details}
+      onClickSubtitle={handleClickSubtitle}
+    >
       <TrackList
         currentlyPlayingTrackId={currentlyPlayingTrackId}
         onLoadItems={onLoadItems}
