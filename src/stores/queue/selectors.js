@@ -8,6 +8,7 @@ export const root = (state) => state.queue
 export const queueId = createSelector(root, (_root) => _root.id)
 export const items = createSelector(root, (_root) => _root.items)
 export const selectedItemId = createSelector(root, (_root) => _root.selectedItemId)
+export const shuffled = createSelector(root, (_root) => _root.shuffled)
 
 export const queueItem = createSelector(
   root,
@@ -46,3 +47,4 @@ export const trackSrc = createSelector(
     return null
   },
 )
+

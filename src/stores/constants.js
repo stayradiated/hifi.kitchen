@@ -37,6 +37,8 @@ export const PLAY_QUEUE_ITEM         = 'PLAY_QUEUE_ITEM'
 export const SET_PLAYER_CURRENT_TIME = 'SET_PLAYER_CURRENT_TIME'
 export const STOP_QUEUE              = 'STOP_QUEUE'
 export const MOVE_PLAY_QUEUE_ITEM    = c('MOVE_PLAY_QUEUE_ITEM')
+export const SHUFFLE_PLAY_QUEUE      = c('SHUFFLE_PLAY_QUEUE')
+export const UNSHUFFLE_PLAY_QUEUE    = c('UNSHUFFLE_PLAY_QUEUE')
 
 export const PLAYER_STATE_PLAYING = 'playing'
 export const PLAYER_STATE_PAUSED  = 'paused'

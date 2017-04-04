@@ -13,6 +13,7 @@ import {
   playNextTrack,
   playPrevTrack,
   stopQueue,
+  toggleShuffleQueue,
 } from '../../stores/queue/actions'
 import {
   sendTimelinePlay,
@@ -36,6 +37,7 @@ class ControlsContainer extends Component {
     track: PropTypes.shape({}),
     trackSrc: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
+    shuffled: PropTypes.bool.isRequired,
   }
 
   constructor () {
@@ -47,6 +49,7 @@ class ControlsContainer extends Component {
     this.handlePrevTrack = this.handlePrevTrack.bind(this)
     this.handleQueue = this.handleQueue.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
+    this.handleShuffle = this.handleShuffle.bind(this)
     this.handleStop = this.handleStop.bind(this)
     this.handleTimeUpdate = throttle(this.handleTimeUpdate.bind(this), 1000)
   }
@@ -117,8 +120,13 @@ class ControlsContainer extends Component {
     dispatch(toggleDisplayQueue())
   }
 
+  handleShuffle () {
+    const {dispatch} = this.props
+    dispatch(toggleShuffleQueue())
+  }
+
   render () {
-    const {track, trackSrc} = this.props
+    const {track, trackSrc, shuffled} = this.props
 
     if (track == null) {
       return null
@@ -138,6 +146,7 @@ class ControlsContainer extends Component {
           <Controls
             track={track}
             audio={audio}
+            shuffled={shuffled}
             paused={audio.paused}
             onPause={audio.onPause}
             onPlay={audio.onPlay}
@@ -146,6 +155,7 @@ class ControlsContainer extends Component {
             onPrev={this.handlePrevTrack}
             onRateTrack={this.handleRateTrack}
             onQueue={this.handleQueue}
+            onShuffle={this.handleShuffle}
           />
         )}
       </WebAudio>
@@ -158,4 +168,5 @@ export default connect((state) => ({
   queueItem: selectQueue.queueItem(state),
   track: selectQueue.track(state),
   trackSrc: selectQueue.trackSrc(state),
+  shuffled: selectQueue.shuffled(state),
 }))(ControlsContainer)

@@ -1,6 +1,8 @@
 import {normalize} from 'perplexed'
 
 import {
+  SHUFFLE_PLAY_QUEUE,
+  UNSHUFFLE_PLAY_QUEUE,
   FETCH_QUEUE,
   CREATE_QUEUE,
   PLAY_QUEUE_ITEM,
@@ -74,7 +76,7 @@ export const playQueueItem = (queueItemId) => ({
   },
 })
 
-export const movePlayQueueItem = ({newIndex, oldIndex}) => (dispatch, getState) => {
+export const moveQueueItem = ({newIndex, oldIndex}) => (dispatch, getState) => {
   const state = getState()
   const queueId = selectors.queueId(state)
   const items = selectors.items(state)
@@ -90,6 +92,34 @@ export const movePlayQueueItem = ({newIndex, oldIndex}) => (dispatch, getState) 
         normalize(library.movePlayQueueItem(queueId, playQueueId, afterQueueId)),
     },
   })
+}
+
+export const shuffleQueue = () => (dispatch, getState) => {
+  const state = getState()
+  const playQueueId = selectors.queueId(state)
+  return dispatch({
+    types: SHUFFLE_PLAY_QUEUE,
+    meta: {
+      plex: ({library}) => normalize(library.shufflePlayQueue(playQueueId)),
+    },
+  })
+}
+
+export const unshuffleQueue = () => (dispatch, getState) => {
+  const state = getState()
+  const playQueueId = selectors.queueId(state)
+  return dispatch({
+    types: UNSHUFFLE_PLAY_QUEUE,
+    meta: {
+      plex: ({library}) => normalize(library.unshufflePlayQueue(playQueueId)),
+    },
+  })
+}
+
+export const toggleShuffleQueue = () => (dispatch, getState) => {
+  const state = getState()
+  const shuffled = selectors.shuffled(state)
+  return dispatch(shuffled ? unshuffleQueue() : shuffleQueue())
 }
 
 export const jumpToRelativeQueueItem = (delta) => (dispatch, getState) => {

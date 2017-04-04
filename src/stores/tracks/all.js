@@ -4,11 +4,13 @@ import {c} from '@stayradiated/mandarin'
 import {createLibraryTypeStore} from '../../storeTemplates'
 
 import {
-  FETCH_QUEUE,
   CREATE_QUEUE,
   FETCH_ALBUM_TRACKS,
   FETCH_PLAYLIST_TRACKS,
+  FETCH_QUEUE,
   SEARCH,
+  SHUFFLE_PLAY_QUEUE,
+  UNSHUFFLE_PLAY_QUEUE,
 } from '../constants'
 
 const RATE_TRACK = c('RATE_TRACK')
@@ -19,11 +21,13 @@ module.exports = createLibraryTypeStore({
   entity: 'tracks',
   rootSelector: (state) => state.tracks.all,
   mergeActions: [
-    FETCH_QUEUE.SUCCESS,
     CREATE_QUEUE.SUCCESS,
     FETCH_ALBUM_TRACKS.SUCCESS,
     FETCH_PLAYLIST_TRACKS.SUCCESS,
+    FETCH_QUEUE.SUCCESS,
     SEARCH.SUCCESS,
+    SHUFFLE_PLAY_QUEUE.SUCCESS,
+    UNSHUFFLE_PLAY_QUEUE.SUCCESS,
   ],
   customActions: {
     [RATE_TRACK.REQUEST]: (state, action) => {

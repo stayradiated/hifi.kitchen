@@ -5,6 +5,8 @@ import {
   PLAY_QUEUE_ITEM,
   STOP_QUEUE,
   MOVE_PLAY_QUEUE_ITEM,
+  SHUFFLE_PLAY_QUEUE,
+  UNSHUFFLE_PLAY_QUEUE,
 } from '../constants'
 
 const initialState = {
@@ -31,6 +33,18 @@ export default function (state = initialState, action) {
         }],
       }
 
+    case SHUFFLE_PLAY_QUEUE.REQUEST:
+      return {
+        ...state,
+        shuffled: true,
+      }
+
+    case UNSHUFFLE_PLAY_QUEUE.REQUEST:
+      return {
+        ...state,
+        shuffled: false,
+      }
+
     case MOVE_PLAY_QUEUE_ITEM.REQUEST:
       const updatedItems = [...state.items]
       const {oldIndex, newIndex} = action.payload
@@ -47,6 +61,8 @@ export default function (state = initialState, action) {
     case FETCH_QUEUE.SUCCESS:
     case CREATE_QUEUE.SUCCESS:
     case MOVE_PLAY_QUEUE_ITEM.SUCCESS:
+    case SHUFFLE_PLAY_QUEUE.SUCCESS:
+    case UNSHUFFLE_PLAY_QUEUE.SUCCESS:
       return {
         ...state,
         ...action.value.result.id,

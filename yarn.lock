@@ -4438,7 +4438,7 @@ normalize-url@^1.4.0:
     query-string "^4.1.0"
     sort-keys "^1.0.0"
 
-normalizr@^3.1.0, normalizr@^3.2.2:
+normalizr@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-3.2.2.tgz#542e915a260ca53279b76a63fb554185e9225f90"
 
@@ -4684,9 +4684,9 @@ pbkdf2-compat@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pbkdf2-compat/-/pbkdf2-compat-2.0.1.tgz#b6e0c8fa99494d94e0511575802a59a5c142f288"
 
-perplexed@^1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/perplexed/-/perplexed-1.6.3.tgz#7e11ea0e473dbd5bcea5f66054c4132cb8bf3e87"
+perplexed@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/perplexed/-/perplexed-1.7.1.tgz#b38090f53c3795232958ac733ef1dd1be33c50b5"
   dependencies:
     assert "^1.4.1"
     deep-diff "^0.3.4"
@@ -4694,8 +4694,8 @@ perplexed@^1.6.3:
     es6-promisify "^5.0.0"
     isomorphic-base64 "^1.0.2"
     isomorphic-fetch "^2.2.1"
-    normalizr "^3.1.0"
-    qs "^6.3.0"
+    normalizr "^3.2.2"
+    qs "^6.4.0"
     uuid "^3.0.1"
     xml2js "^0.4.17"
 
@@ -4759,9 +4759,9 @@ plex-api@^5.0.2:
     uuid "2.0.2"
     xml2js "0.4.16"
 
-plural@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/plural/-/plural-0.2.0.tgz#5351f0d727cfbc24f6b095b195b416161584c47a"
+plural@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/plural/-/plural-0.3.0.tgz#68ac0b3d47379776d6441efb47c83a09cd65394c"
 
 pluralize@^1.2.1:
   version "1.2.1"
@@ -5150,7 +5150,7 @@ qs@^1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-1.2.2.tgz#19b57ff24dc2a99ce1f8bdf6afcda59f8ef61f88"
 
-qs@^6.1.0, qs@^6.2.0, qs@^6.3.0, qs@^6.4.0:
+qs@^6.1.0, qs@^6.2.0, qs@^6.4.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.4.0.tgz#13e26d28ad6b0ffaa91312cd3bf708ed351e7233"
 
@@ -5434,9 +5434,9 @@ react-textarea-autosize@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-4.0.5.tgz#55379f6a6fa575fc87d1b8de2756e57e3b6c995d"
 
-react-virtualized@^9.4.1:
-  version "9.4.1"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.4.1.tgz#fbcec93e70f69c4a3a83b62d8ffd0dc054109a73"
+react-virtualized@^9.5.0:
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.5.0.tgz#6b1e67320a9bfbd7ecad3fe48f7f06e38d11ff16"
   dependencies:
     babel-runtime "^6.11.6"
     classnames "^2.2.3"
@@ -6670,14 +6670,14 @@ xml-name-validator@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-2.0.1.tgz#4d8b8f1eccd3419aa362061becef515e1e559635"
 
-xml2js@0.4.16:
+xml2js@0.4.16, xml2js@^0.4.16:
   version "0.4.16"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.16.tgz#f82fccd2f9540d7e0a9b5dac163e7471195c9db3"
   dependencies:
     sax ">=0.6.0"
     xmlbuilder "^4.1.0"
 
-xml2js@^0.4.16, xml2js@^0.4.17:
+xml2js@^0.4.17:
   version "0.4.17"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.4.17.tgz#17be93eaae3f3b779359c795b419705a8817e868"
   dependencies:

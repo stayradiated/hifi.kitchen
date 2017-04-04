@@ -71,12 +71,17 @@
 
 .Controls-shuffle,
 .Controls-repeat {
+  width: auto;
   color: var(--white-50);
   font-size: 0.9em;
 }
 
 .Controls-shuffle {
   margin-right: 0.5em;
+}
+
+.Controls-shuffle_enabled {
+  color: var(--primary);
 }
 
 .Controls-repeat {

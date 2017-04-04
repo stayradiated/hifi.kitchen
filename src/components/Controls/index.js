@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react'
+import classNames from 'classnames'
 
 import './styles.css'
 
@@ -10,8 +11,9 @@ import RatingStars from '../RatingStars'
 
 export default function Controls (props) {
   const {
-    audio, track, paused,
+    audio, track, paused, shuffled,
     onStop, onPrev, onPlay, onPause, onNext, onQueue, onRateTrack,
+    onShuffle,
   } = props
 
   return (
@@ -46,7 +48,14 @@ export default function Controls (props) {
             </span>
           </div>
           <div className='Controls-timeline'>
-            <Icon icon='shuffle' className='Controls-shuffle' />
+            <button
+              onClick={onShuffle}
+              className={classNames('Controls-shuffle', {
+                'Controls-shuffle_enabled': shuffled,
+              })}
+            >
+              <Icon icon='shuffle' />
+            </button>
             <Timeline
               buffered={audio.buffered}
               currentTime={audio.currentTime}
@@ -85,16 +94,18 @@ Controls.propTypes = {
     thumb: PropTypes.string,
   }).isRequired,
   paused: PropTypes.bool,
+  shuffled: PropTypes.bool,
   audio: PropTypes.shape({
     buffered: PropTypes.number,
     currentTime: PropTypes.number,
     duration: PropTypes.number,
   }).isRequired,
-  onStop: PropTypes.func,
-  onPrev: PropTypes.func,
-  onPlay: PropTypes.func,
-  onPause: PropTypes.func,
-  onNext: PropTypes.func,
-  onQueue: PropTypes.func,
+  onStop: PropTypes.func.isRequired,
+  onPrev: PropTypes.func.isRequired,
+  onPlay: PropTypes.func.isRequired,
+  onPause: PropTypes.func.isRequired,
+  onNext: PropTypes.func.isRequired,
+  onQueue: PropTypes.func.isRequired,
+  onShuffle: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
 }

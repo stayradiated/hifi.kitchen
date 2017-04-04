@@ -18,7 +18,7 @@ export default function Queue (props) {
 
     return (
       <QueueItem
-        key={item.id}
+        key={item.id || key}
         style={style}
         index={index}
         track={track}
