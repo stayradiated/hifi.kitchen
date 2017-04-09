@@ -1,4 +1,4 @@
-import {PropTypes} from 'react'
+import PropTypes from 'prop-types'
 
 export default function AsyncListLayout (props) {
   const {children, layout, onLoad} = props

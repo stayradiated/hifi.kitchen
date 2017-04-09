@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
@@ -57,7 +58,7 @@ import selectSearch from '../../stores/search/selectors'
 import {
   selectDisplayQueue,
 } from '../../stores/ui'
-import * as selectTimeline from '../../stores/timeline/selectors' 
+import * as selectTimeline from '../../stores/timeline/selectors'
 
 function componentWillMount () {
   const {onChangeSection, section} = this.props

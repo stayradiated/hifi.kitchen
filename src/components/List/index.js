@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import {InfiniteLoader, List} from 'react-virtualized'
 import withHandlers from 'recompose/withHandlers'
 

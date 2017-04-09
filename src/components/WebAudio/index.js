@@ -1,5 +1,6 @@
 import noop from 'nop'
-import {Children, Component, PropTypes} from 'react'
+import {Children, Component} from 'react'
+import PropTypes from 'prop-types'
 
 import WebAudioContext from '@stayradiated/web-audio'
 
