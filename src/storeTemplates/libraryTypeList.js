@@ -1,5 +1,5 @@
 import {createSelector} from 'reselect'
-import {normalize} from 'perplexed'
+import {normalize, SORT_ALBUMS_BY_DATE_ADDED_DESC} from 'perplexed'
 import {
   AsyncMapListReducer,
   cacheMapList,
@@ -17,7 +17,13 @@ export default function createLibraryTypeList (options) {
     reducerOptions = {},
     fetchItems = ({library}, section, start, end) =>
       normalize(library.sectionItems(
-        section, TYPE, {start, size: end - start})),
+        section,
+        TYPE,
+        {
+          start,
+          size: end - start,
+          sort: SORT_ALBUMS_BY_DATE_ADDED_DESC,
+        })),
   } = options
 
   const selectors = createListSelector(rootSelector)
