@@ -1,0 +1,39 @@
+.Dropdown {
+  position: relative;
+}
+
+.Dropdown-button {
+  width: auto;
+  display: flex;
+  line-height: 3em;
+  color: var(--white-50);
+}
+
+.Dropdown-button-text {
+  color: #fff;
+  margin-left: 0.6em;
+}
+
+.Dropdown-button-icon {
+  margin-left: 0.3em;
+}
+
+.Dropdown-menu {
+  display: none;
+  z-index: 1;
+
+  position: absolute;
+  top: calc(3em - 2px);
+  left: 0;
+  width: 10em;
+
+  background: var(--menu);
+
+  margin: 0;
+  padding: 1em 0;
+  box-shadow: 0 0 2px var(--black-30);
+}
+
+.Dropdown-menu-open {
+  display: block;
+}

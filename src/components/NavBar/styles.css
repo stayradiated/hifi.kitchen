@@ -36,19 +36,3 @@
   color: var(--primary);
   border-bottom-color: var(--primary);
 }
-
-.NavBar-dropdown-button {
-  width: auto;
-  display: flex;
-  line-height: 3em;
-  color: var(--white-50);
-}
-
-.NavBar-dropdown-label {
-  color: #fff;
-  margin-left: 0.6em;
-}
-
-.NavBar-dropdown-icon {
-  margin-left: 0.3em;
-}

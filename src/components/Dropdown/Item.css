@@ -1,0 +1,19 @@
+.DropdownItem {
+  list-style-type: none;
+}
+
+.DropdownItem-button {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  line-height: 2em;
+  padding: 0 1em;
+}
+
+.DropdownItem-active .DropdownItem-button {
+  color: var(--primary);
+}
+
+.DropdownItem:hover {
+  background: var(--white-05);
+}

@@ -62,6 +62,16 @@ function Browser (props) {
           sections={Object.keys(sections)}
           currentSection={section}
           searchQuery={searchQuery}
+          sortType='Date Added'
+          sortDescending
+          sortOptions={[
+            'Year',
+            'Release Date',
+            'Rating',
+            'Date Added',
+            'Date Played',
+            'Views',
+          ]}
           onChangeSection={onChangeSection}
           onChangeSearchQuery={onChangeSearchQuery}
         />

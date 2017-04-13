@@ -8,13 +8,14 @@ import './styles.css'
 
 import Icon from '../Icon'
 import SearchBar from '../SearchBar'
+import Dropdown from '../Dropdown'
 
 export const SEARCH = 'SEARCH'
 
 export default function NavBar (props) {
   const {
-    sections, currentSection, searchQuery,
-    onChangeSection, onChangeSearchQuery,
+    sections, currentSection, searchQuery, sortType, sortDescending, sortOptions,
+    onChangeSection, onChangeSearchQuery, onChangeSortType,
   } = props
 
   const searchBar = (
@@ -52,12 +53,13 @@ export default function NavBar (props) {
         })}
       </nav>
       <nav className='NavBar-section-list'>
-        <button className='NavBar-dropdown-button'>
-          <span className='NavBar-dropdown-label'>
-            Date Added
-          </span>
-          <Icon icon='down-dir' className='NavBar-dropdown-icon' />
-        </button>
+        <Dropdown
+          active={sortType}
+          descending={sortDescending}
+          items={sortOptions}
+          onChange={onChangeSortType}
+        />
+
         <Link to='/settings' className='NavBar-section-item'>
           <Icon icon='cog' />
         </Link>
@@ -70,8 +72,12 @@ NavBar.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.string).isRequired,
   currentSection: PropTypes.string,
   searchQuery: PropTypes.string,
+  sortType: PropTypes.string,
+  sortDescending: PropTypes.bool,
+  sortOptions: PropTypes.arrayOf(PropTypes.string),
   onChangeSection: PropTypes.func,
   onChangeSearchQuery: PropTypes.func,
+  onChangeSortType: PropTypes.func,
 }
 
 NavBar.defaultProps = {
