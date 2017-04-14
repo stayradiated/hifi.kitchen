@@ -8,7 +8,7 @@ import NavBar from './index'
 
 const StatefulNavBar = (
   withState('currentSection', 'onChangeSection', 'Albums'),
-  withState('sortType', 'onChangeSortType', 'Date Added')
+  withState('sortBy', 'onChangeSortBy', 'Date Added')
 )(NavBar)
 
 storiesOf('NavBar', module)

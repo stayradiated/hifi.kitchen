@@ -14,8 +14,8 @@ export const SEARCH = 'SEARCH'
 
 export default function NavBar (props) {
   const {
-    sections, currentSection, searchQuery, sortType, sortDescending, sortOptions,
-    onChangeSection, onChangeSearchQuery, onChangeSortType,
+    sections, currentSection, searchQuery, sortBy, sortDesc, sortOptions,
+    onChangeSection, onChangeSearchQuery, onChangeSortBy,
   } = props
 
   const searchBar = (
@@ -54,10 +54,10 @@ export default function NavBar (props) {
       </nav>
       <nav className='NavBar-section-list'>
         <Dropdown
-          active={sortType}
-          descending={sortDescending}
+          active={sortBy}
+          descending={sortDesc}
           items={sortOptions}
-          onChange={onChangeSortType}
+          onChange={onChangeSortBy}
         />
 
         <Link to='/settings' className='NavBar-section-item'>
@@ -72,12 +72,12 @@ NavBar.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.string).isRequired,
   currentSection: PropTypes.string,
   searchQuery: PropTypes.string,
-  sortType: PropTypes.string,
-  sortDescending: PropTypes.bool,
+  sortBy: PropTypes.string,
+  sortDesc: PropTypes.bool,
   sortOptions: PropTypes.arrayOf(PropTypes.string),
   onChangeSection: PropTypes.func,
   onChangeSearchQuery: PropTypes.func,
-  onChangeSortType: PropTypes.func,
+  onChangeSortBy: PropTypes.func,
 }
 
 NavBar.defaultProps = {

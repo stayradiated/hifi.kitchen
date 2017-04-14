@@ -27,7 +27,8 @@ function Browser (props) {
     className, sections, values,
     currentlyPlayingTrackId, playerState,
     item, onChangeItem, onLoadItems, onLoadItemChildren,
-    section, onChangeSection, onRateTrack,
+    sortBy, sortDesc, sortOptions,
+    section, onChangeSection, onRateTrack, onChangeSortBy,
     searchQuery, onChangeSearchQuery,
   } = props
 
@@ -62,18 +63,12 @@ function Browser (props) {
           sections={Object.keys(sections)}
           currentSection={section}
           searchQuery={searchQuery}
-          sortType='Date Added'
-          sortDescending
-          sortOptions={[
-            'Year',
-            'Release Date',
-            'Rating',
-            'Date Added',
-            'Date Played',
-            'Views',
-          ]}
+          sortBy={sortBy}
+          sortDesc={sortDesc}
+          sortOptions={sortOptions}
           onChangeSection={onChangeSection}
           onChangeSearchQuery={onChangeSearchQuery}
+          onChangeSortBy={onChangeSortBy}
         />
         <div className='Browser-grid-wrapper'>
           {contents}
@@ -104,12 +99,16 @@ Browser.propTypes = {
   currentlyPlayingTrackId: PropTypes.number,
   searchQuery: PropTypes.string,
   playerState: PropTypes.string,
+  sortBy: PropTypes.string,
+  sortDesc: PropTypes.bool,
+  sortOptions: PropTypes.arrayOf(PropTypes.string),
   onChangeSection: PropTypes.func,
   onChangeSearchQuery: PropTypes.func,
   onChangeItem: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
   onLoadItems: PropTypes.func,
   onLoadItemChildren: PropTypes.func,
+  onChangeSortBy: PropTypes.func,
 }
 
 Browser.defaultProps = {

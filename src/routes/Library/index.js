@@ -11,6 +11,7 @@ import App from '../../components/App'
 import {
   fetchCurrentLibraryAlbumsRange,
   selectLibraryAlbums,
+  sortLibraryAlbums,
 } from '../../stores/library/albums'
 import {
   selectAllAlbums,
@@ -152,12 +153,19 @@ const handleChangeSearchQuery = (props) => (query) => {
   dispatch(search(query, 10))
 }
 
+const handleChangeSortBy = (props) => (sortBy) => {
+  const {section, dispatch, sortBy: prevSortBy, sortDesc} = props
+  dispatch(sortLibraryAlbums(sortBy, sortBy === prevSortBy && !sortDesc))
+  handleLoadItems(props)(section, 0, 30)
+}
+
 function Library (props) {
   const {
     libraryAlbumIds, libraryArtistIds, libraryPlaylistIds,
     allAlbums, allArtists, allPlaylists, allTracks,
     allAlbumTracks, allArtistAlbums, allPlaylistTracks,
     item, section, trackId, displayQueue,
+    sortBy, sortDesc, sortOptions, onChangeSortBy,
     onLoadItems, onLoadItemChildren, onChangeItem, onChangeSection,
     onCreateQueue, onRateTrack,
     searchResults, onChangeSearchQuery,
@@ -177,6 +185,10 @@ function Library (props) {
       allTracks={allTracks}
       allAlbumTracks={allAlbumTracks}
       search={searchResults}
+      sortBy={sortBy}
+      sortDesc={sortDesc}
+      sortOptions={sortOptions}
+      onChangeSortBy={onChangeSortBy}
       queue={[]}
       item={item}
       section={section}
@@ -207,6 +219,11 @@ Library.propTypes = {
   allAlbumTracks: PropTypes.instanceOf(Map),
   allArtistAlbums: PropTypes.instanceOf(Map),
   allPlaylistTracks: PropTypes.instanceOf(Map),
+
+  sortBy: PropTypes.string,
+  sortDesc: PropTypes.bool,
+  sortOptions: PropTypes.arrayOf(PropTypes.string),
+  onChangeSortBy: PropTypes.func,
 
   onLoadItems: PropTypes.func.isRequired,
   onLoadItemChildren: PropTypes.func.isRequired,
@@ -243,6 +260,9 @@ export default compose(
     allPlaylistTracks: selectAllPlaylistTracks.values(state),
     allTracks: selectAllTracks.values(state),
     allAlbumTracks: selectAllAlbumTracks.values(state),
+    sortBy: selectLibraryAlbums.sortBy(state),
+    sortDesc: selectLibraryAlbums.sortDesc(state),
+    sortOptions: selectLibraryAlbums.sortOptions(state),
     searchResults: [
       {title: 'Albums', items: selectSearch.albums(state)},
       {title: 'Artists', items: selectSearch.artists(state)},
@@ -260,6 +280,7 @@ export default compose(
     onRateTrack: handleRateTrack,
     onCreateQueue: handleCreateQueue,
     onChangeSearchQuery: handleChangeSearchQuery,
+    onChangeSortBy: handleChangeSortBy,
   }),
   lifecycle({
     componentWillMount,

@@ -18,6 +18,7 @@ function App (props) {
     allArtistAlbums, allAlbumTracks, allPlaylistTracks,
     item, section, playerState,
     onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
+    sortBy, sortDesc, sortOptions, onChangeSortBy,
     onRateTrack, displayQueue,
     trackId, onChangeTrack,
   } = props
@@ -34,6 +35,9 @@ function App (props) {
             item={item}
             section={section}
             currentlyPlayingTrackId={trackId}
+            sortBy={sortBy}
+            sortDesc={sortDesc}
+            sortOptions={sortOptions}
             values={{
               albums: allAlbums,
               artists: allArtists,
@@ -57,6 +61,7 @@ function App (props) {
             onLoadItemChildren={onLoadItemChildren}
             onRateTrack={onRateTrack}
             onChangeSearchQuery={onChangeSearchQuery}
+            onChangeSortBy={onChangeSortBy}
           />
         </div>
         {displayQueue &&
@@ -82,6 +87,11 @@ App.propTypes = {
   allAlbumTracks: PropTypes.instanceOf(Map),
   allArtistAlbums: PropTypes.instanceOf(Map),
   allPlaylistTracks: PropTypes.instanceOf(Map),
+
+  sortBy: PropTypes.string,
+  sortDesc: PropTypes.bool,
+  sortOptions: PropTypes.arrayOf(PropTypes.string),
+  onChangeSortBy: PropTypes.func,
 
   search: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChangeSearchQuery: PropTypes.func,
