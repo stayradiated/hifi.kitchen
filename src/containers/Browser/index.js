@@ -144,7 +144,7 @@ const handleRateTrack = (props) => (trackId, rating) => {
   dispatch(rateTrack(trackId, rating))
 }
 
-const handleCreateQueue = (props) => (parent, track) => {
+const handleChangeTrack = (props) => (parent, track) => {
   const {dispatch} = props
   switch (parent._type) {
     case 'album':
@@ -315,7 +315,7 @@ export default compose(
     onLoadItems: handleLoadItems,
     onLoadItemChildren: handleLoadItemChildren,
     onRateTrack: handleRateTrack,
-    onCreateQueue: handleCreateQueue,
+    onChangeTrack: handleChangeTrack,
     onChangeSearchQuery: handleChangeSearchQuery,
     onChangeSortBy: handleChangeSortBy,
   }),
