@@ -64,14 +64,18 @@ import Browser from '../../components/Browser'
 import {SEARCH} from '../../components/NavBar'
 
 const receiveProps = (prevProps, props) => {
-  const {dispatch, onLoadItems, section, itemId, itemType} = props
+  const {
+    dispatch, onChangeSection, onLoadItems, section, itemId, itemType,
+  } = props
   const {
     section: prevSection,
     itemId: prevItemId,
     itemType: prevItemType,
   } = prevProps
 
-  if (prevSection !== section) {
+  if (section == null) {
+    onChangeSection('Albums')
+  } else if (prevSection !== section) {
     onLoadItems(section, 0, 30)
   }
 
@@ -186,6 +190,9 @@ const BrowserContainer = (props) => {
 
   let item = null
   switch (itemType) {
+    case null:
+      item = null
+      break
     case 'artist':
       item = allArtists.get(itemId)
       break
@@ -196,7 +203,7 @@ const BrowserContainer = (props) => {
       item = allPlaylists.get(itemId)
       break
     default:
-      console.error('Cannot handle', itemType)
+      console.error('Cannot handle itemType', itemType)
       item = null
   }
 

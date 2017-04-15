@@ -32,7 +32,7 @@ function Browser (props) {
     searchQuery, onChangeSearchQuery,
   } = props
 
-  const items = sections[section]
+  const items = sections[section] || []
 
   let contents
   switch (section) {
@@ -95,7 +95,7 @@ Browser.propTypes = {
   sections: PropTypes.objectOf(PropTypes.array),
   values: PropTypes.objectOf(PropTypes.instanceOf(Map)),
   item: PropTypes.shape({}),
-  section: PropTypes.string.isRequired,
+  section: PropTypes.string,
   currentlyPlayingTrackId: PropTypes.number,
   searchQuery: PropTypes.string,
   playerState: PropTypes.string,
