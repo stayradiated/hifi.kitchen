@@ -38,6 +38,8 @@
 
 .QueueItem-artist {
   color: var(--white-50);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .QueueItem-time {

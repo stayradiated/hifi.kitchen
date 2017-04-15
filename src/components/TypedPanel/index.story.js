@@ -6,8 +6,6 @@ import {albums, artists, playlists, values} from '../../stories/data'
 
 import TypedPanel from './index'
 
-console.log({values})
-
 storiesOf('TypedPanel', module)
   .addDecorator(Wrapper)
   .add('Album', () => (

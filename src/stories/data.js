@@ -18,8 +18,6 @@ const normalizedAlbums = normalizeSync(albums)
 const albumIds = normalizedAlbums.result.map(getId)
 const allAlbums = normalizedAlbums.result.reduce(toObject, {})
 
-console.log(normalizedAlbums)
-
 const normalizedArtists = normalizeSync(artists)
 const artistIds = normalizedArtists.result.map(getId)
 const allArtists = normalizedArtists.result.reduce(toObject, {})

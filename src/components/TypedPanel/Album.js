@@ -22,9 +22,10 @@ export default function AlbumPanel (props) {
   const albumTracks = values.albumTracks.get(album.id) || []
 
   const handleClickSubtitle = () => {
-    const artist = values.artists.get(album.parentId)
-    console.log({album, artist, values})
-    onSelectTrack(artist)
+    onSelectTrack({
+      _type: 'artist',
+      id: album.parentId,
+    })
   }
 
   return (

@@ -1,67 +1,56 @@
 import React from 'react'
+import compose from 'recompose/compose'
+import withHandlers from 'recompose/withHandlers'
+import withProps from 'recompose/withProps'
 
 import PropTypes from 'prop-types'
 
 import './styles.css'
 
+import BrowserContainer from '../../containers/Browser'
 import ControlsContainer from '../../containers/Controls'
 import QueueContainer from '../../containers/Queue'
 
-import {SEARCH} from '../NavBar'
-import Browser from '../Browser'
+const handleChangeSection = (props) => (section) => {
+  const {history, location, section: prevSection} = props
+  if (section === prevSection) {
+    return null
+  }
+
+  const params = new URLSearchParams(location.search)
+  params.set('section', section)
+  history.push({
+    pathname: location.pathname,
+    search: params.toString(),
+  })
+}
+
+const handleChangeItem = (props) => (item) => {
+  const {history, location} = props
+  const params = new URLSearchParams(location.search)
+  params.set('itemType', item._type)
+  params.set('itemId', item.id)
+  history.push({
+    pathname: location.pathname,
+    search: params.toString(),
+  })
+}
 
 function App (props) {
   const {
-    search, onChangeSearchQuery,
-    libraryAlbumIds, libraryArtistIds, libraryPlaylistIds,
-    allAlbums, allArtists, allPlaylists, allTracks,
-    allArtistAlbums, allAlbumTracks, allPlaylistTracks,
-    item, section, playerState,
-    onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
-    sortBy, sortDesc, sortOptions, onChangeSortBy,
-    onRateTrack, displayQueue,
-    trackId, onChangeTrack,
+    displayQueue, section, itemType, itemId, onChangeSection, onChangeItem,
   } = props
-
-  const albums = libraryAlbumIds.map((id) => allAlbums.get(id))
-  const artists = libraryArtistIds.map((id) => allArtists.get(id))
-  const playlists = libraryPlaylistIds.map((id) => allPlaylists.get(id))
 
   return (
     <div className='App'>
       <div className='App-main'>
         <div className='App-browser'>
-          <Browser
-            item={item}
+          <BrowserContainer
             section={section}
-            currentlyPlayingTrackId={trackId}
-            sortBy={sortBy}
-            sortDesc={sortDesc}
-            sortOptions={sortOptions}
-            values={{
-              albums: allAlbums,
-              artists: allArtists,
-              artistAlbums: allArtistAlbums,
-              playlists: allPlaylists,
-              playlistTracks: allPlaylistTracks,
-              tracks: allTracks,
-              albumTracks: allAlbumTracks,
-            }}
-            sections={{
-              [SEARCH]: search,
-              Albums: albums,
-              Artists: artists,
-              Playlists: playlists,
-            }}
-            playerState={playerState}
+            itemType={itemType}
+            itemId={itemId}
             onChangeItem={onChangeItem}
             onChangeSection={onChangeSection}
-            onChangeTrack={onChangeTrack}
-            onLoadItems={onLoadItems}
-            onLoadItemChildren={onLoadItemChildren}
-            onRateTrack={onRateTrack}
-            onChangeSearchQuery={onChangeSearchQuery}
-            onChangeSortBy={onChangeSortBy}
           />
         </div>
         {displayQueue &&
@@ -75,42 +64,25 @@ function App (props) {
 }
 
 App.propTypes = {
-  libraryAlbumIds: PropTypes.arrayOf(PropTypes.number),
-  libraryArtistIds: PropTypes.arrayOf(PropTypes.number),
-  libraryPlaylistIds: PropTypes.arrayOf(PropTypes.number),
-
-  allAlbums: PropTypes.instanceOf(Map),
-  allArtists: PropTypes.instanceOf(Map),
-  allPlaylists: PropTypes.instanceOf(Map),
-  allTracks: PropTypes.instanceOf(Map),
-
-  allAlbumTracks: PropTypes.instanceOf(Map),
-  allArtistAlbums: PropTypes.instanceOf(Map),
-  allPlaylistTracks: PropTypes.instanceOf(Map),
-
-  sortBy: PropTypes.string,
-  sortDesc: PropTypes.bool,
-  sortOptions: PropTypes.arrayOf(PropTypes.string),
-  onChangeSortBy: PropTypes.func,
-
-  search: PropTypes.arrayOf(PropTypes.object).isRequired,
-  onChangeSearchQuery: PropTypes.func,
-
-  onLoadItems: PropTypes.func,
-  onLoadItemChildren: PropTypes.func,
-  onRateTrack: PropTypes.func.isRequired,
-
-  item: PropTypes.shape({}),
-  onChangeItem: PropTypes.func,
-
-  section: PropTypes.string,
-  onChangeSection: PropTypes.func,
-
-  trackId: PropTypes.number,
-  onChangeTrack: PropTypes.func,
-
   displayQueue: PropTypes.bool,
-  playerState: PropTypes.string,
+  section: PropTypes.string,
+  itemType: PropTypes.string,
+  itemId: PropTypes.number,
+  onChangeSection: PropTypes.func.isRequired,
+  onChangeItem: PropTypes.func.isRequired,
 }
 
-export default App
+export default compose(
+  withHandlers({
+    onChangeSection: handleChangeSection,
+    onChangeItem: handleChangeItem,
+  }),
+  withProps((props) => {
+    const params = new URLSearchParams(props.location.search)
+    return {
+      section: params.get('section'),
+      itemType: params.get('itemType'),
+      itemId: parseInt(params.get('itemId'), 10),
+    }
+  }),
+)(App)

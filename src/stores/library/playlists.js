@@ -23,7 +23,7 @@ module.exports = createLibraryTypeList({
   sort: {
     default: 'Date Added',
     descending: true,
-    sortOptions: {
+    options: {
       Name: SORT_PLAYLISTS_BY_NAME,
       Plays: SORT_PLAYLISTS_BY_PLAYS,
       'Last Played': SORT_PLAYLISTS_BY_LAST_PLAYED,

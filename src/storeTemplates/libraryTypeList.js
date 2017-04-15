@@ -27,6 +27,17 @@ export default function createLibraryTypeList (options) {
       normalize(library.sectionItems(section, TYPE, params)),
   } = options
 
+  console.assert(typeof name === 'string', 'name missing')
+  console.assert(typeof TYPE === 'number', 'type missing')
+  console.assert(typeof FETCH_LIBRARY_TYPE === 'object', 'actions.fetch missing')
+  console.assert(typeof SORT_LIBRARY_TYPE === 'string', 'actions.sort missing')
+  console.assert(typeof defaultSortBy === 'string', 'sort.default missing')
+  console.assert(typeof defaultSortDesc === 'boolean', 'sort.descending missing')
+  console.assert(typeof sortOptions === 'object', 'sort.options missing')
+  console.assert(typeof rootSelector === 'function', 'rootSelector missing')
+  console.assert(typeof reducerOptions === 'object', 'reducerOptions missing')
+  console.assert(typeof fetchItems === 'function', 'fetchItems missing')
+
   const selectors = createListSelector(rootSelector)
 
   selectors.currentIds = createSelector(
@@ -35,7 +46,6 @@ export default function createLibraryTypeList (options) {
     (section, values) => values.get(section) || [])
 
   selectors.sortKey = createSelector(rootSelector, (root) => {
-    console.log(root.sortOptions, root.sortBy, root.sortDesc)
     return root.sortOptions[root.sortBy][root.sortDesc ? 1 : 0]
   })
 
