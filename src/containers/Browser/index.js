@@ -347,8 +347,8 @@ export default compose(
         sortOptions = selectLibraryPlaylists.sortOptions(state)
         break
       default:
-        sortBy = 'Null'
-        sortDesc = true
+        sortBy = null
+        sortDesc = false
         sortOptions = []
     }
 

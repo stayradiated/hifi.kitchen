@@ -53,12 +53,12 @@ export default function NavBar (props) {
         })}
       </nav>
       <nav className='NavBar-section-list'>
-        <Dropdown
+        {sortOptions.length > 0 && <Dropdown
           active={sortBy}
           descending={sortDesc}
           items={sortOptions}
           onChange={onChangeSortBy}
-        />
+        />}
 
         <Link to='/settings' className='NavBar-section-item'>
           <Icon icon='cog' />
