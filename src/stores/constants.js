@@ -1,5 +1,10 @@
 import {c} from '@stayradiated/mandarin'
 
+export const PLAYLIST = 'playlist'
+export const ARTIST   = 'artist'
+export const ALBUM    = 'album'
+export const TRACK    = 'track'
+
 export const CONFIG_TIMELINE_UPDATE_TIME = 1000 * 10
 
 export const FETCH_QUEUE             = c('FETCH_QUEUE')

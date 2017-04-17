@@ -13,7 +13,7 @@ export default function SearchResults (props) {
   const renderItem = (item) => (
     <TypedGridItem
       item={item}
-      onSelect={() => onChange(item)}
+      onSelect={onChange}
     />
   )
 

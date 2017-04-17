@@ -1,25 +1,24 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import noop from 'nop'
-import compose from 'recompose/compose'
-import defaultProps from 'recompose/defaultProps'
-import setPropTypes from 'recompose/setPropTypes'
 import withHandlers from 'recompose/withHandlers'
+import noop from 'nop'
 
 import './styles.css'
+
+import {TRACK} from '../../stores/constants'
 
 import TypedGrid from '../TypedGrid'
 import TypedPanel from '../TypedPanel'
 import NavBar, {SEARCH} from '../NavBar'
 import SearchResults from '../SearchResults'
 
-const handleChangeItem = (props) => (nextItem) => {
-  const {item, onChangeTrack, onChangeItem} = props
-  if (nextItem != null && nextItem._type === 'track') {
-    return onChangeTrack(item, nextItem)
+const handleChangeItem = (props) => (itemType, itemId) => {
+  const {onChangeItem, onCreateQueue} = props
+  if (itemType === TRACK) {
+    return onCreateQueue(itemType, itemId)
   }
-  return onChangeItem(nextItem)
+  return onChangeItem(itemType, itemId)
 }
 
 function Browser (props) {
@@ -29,7 +28,7 @@ function Browser (props) {
     item, onChangeItem, onLoadItems, onLoadItemChildren,
     sortBy, sortDesc, sortOptions,
     section, onChangeSection, onRateTrack, onChangeSortBy,
-    searchQuery, onChangeSearchQuery,
+    searchQuery, onChangeSearchQuery, onCreateQueue,
   } = props
 
   const items = sections[section] || []
@@ -83,7 +82,8 @@ function Browser (props) {
           currentlyPlayingTrackId={currentlyPlayingTrackId}
           onClose={() => onChangeItem(null)}
           onRateTrack={onRateTrack}
-          onSelectTrack={onChangeItem}
+          onNavigate={onChangeItem}
+          onCreateQueue={onCreateQueue}
           onLoadItems={(start, end) => onLoadItemChildren(item, start, end)}
         />}
     </div>
@@ -102,36 +102,27 @@ Browser.propTypes = {
   sortBy: PropTypes.string,
   sortDesc: PropTypes.bool,
   sortOptions: PropTypes.arrayOf(PropTypes.string),
-  onChangeSection: PropTypes.func,
-  onChangeSearchQuery: PropTypes.func,
   onChangeItem: PropTypes.func.isRequired,
-  onRateTrack: PropTypes.func.isRequired,
-  onLoadItems: PropTypes.func,
-  onLoadItemChildren: PropTypes.func,
+  onChangeSearchQuery: PropTypes.func,
+  onChangeSection: PropTypes.func,
   onChangeSortBy: PropTypes.func,
+  onCreateQueue: PropTypes.func,
+  onLoadItemChildren: PropTypes.func,
+  onLoadItems: PropTypes.func,
+  onRateTrack: PropTypes.func.isRequired,
 }
 
 Browser.defaultProps = {
-  sections: {},
-  onChangeSection: noop,
+  onChangeItem: noop,
   onChangeSearchQuery: noop,
+  onChangeSection: noop,
+  sections: {},
 }
 
 export {
   SEARCH,
 }
 
-export default compose(
-  setPropTypes({
-    onChangeTrack: PropTypes.func,
-    onChangeItem: PropTypes.func,
-    onLoadItems: PropTypes.func,
-  }),
-  defaultProps({
-    onChangeTrack: noop,
-    onChangeItem: noop,
-  }),
-  withHandlers({
-    onChangeItem: handleChangeItem,
-  }),
-)(Browser)
+export default withHandlers({
+  onChangeItem: handleChangeItem,
+})(Browser)

@@ -24,12 +24,12 @@ export default function (state = initialState, action) {
         : state
 
     case CREATE_QUEUE.REQUEST:
-      const {initialTrack} = action.payload
+      const {initialTrackId} = action.payload
       return {
         ...state,
         selectedItemId: null,
         items: [{
-          track: initialTrack.id,
+          track: initialTrackId,
         }],
       }
 

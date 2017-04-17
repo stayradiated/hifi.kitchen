@@ -5,6 +5,8 @@ import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import lifecycle from 'recompose/lifecycle'
 
+import {ARTIST, ALBUM, PLAYLIST, TRACK} from '../../stores/constants'
+
 import {
   fetchCurrentLibraryAlbumsRange,
   selectLibraryAlbums,
@@ -49,6 +51,7 @@ import {
   createQueueFromArtist,
   createQueueFromAlbum,
   createQueueFromPlaylist,
+  createQueueFromTrack,
 } from '../../stores/queue/actions'
 import * as selectQueue from '../../stores/queue/selectors'
 import {
@@ -81,11 +84,11 @@ const receiveProps = (prevProps, props) => {
 
   if (prevItemType !== itemType || prevItemId !== itemId) {
     switch (itemType) {
-      case 'album':
+      case ALBUM:
         dispatch(fetchAlbum(itemId))
         dispatch(fetchAlbumTracks(itemId, 0, 15))
         break
-      case 'artist':
+      case ARTIST:
         dispatch(fetchArtist(itemId))
         dispatch(fetchArtistAlbums(itemId, 0, 100)).then((getState) => {
           const state = getState()
@@ -93,7 +96,7 @@ const receiveProps = (prevProps, props) => {
           artistAlbumIds.forEach((id) => dispatch(fetchAlbumTracks(id, 0, 100)))
         })
         break
-      case 'playlist':
+      case PLAYLIST:
         dispatch(fetchPlaylistTracks(itemId, 0, 15))
         break
       default:
@@ -128,10 +131,10 @@ const handleLoadItems = (props) => (section, start, end) => {
 const handleLoadItemChildren = (props) => (item, start, end) => {
   const {dispatch} = props
   switch (item._type) {
-    case 'album':
+    case ALBUM:
       dispatch(fetchAlbumTracks(item.id, start, end))
       break
-    case 'playlist':
+    case PLAYLIST:
       dispatch(fetchPlaylistTracks(item.id, start, end))
       break
     default:
@@ -144,20 +147,23 @@ const handleRateTrack = (props) => (trackId, rating) => {
   dispatch(rateTrack(trackId, rating))
 }
 
-const handleChangeTrack = (props) => (parent, track) => {
+const handleCreateQueue = (props) => (parentType, parentId, trackId) => {
   const {dispatch} = props
-  switch (parent._type) {
-    case 'album':
-      dispatch(createQueueFromAlbum(parent, track))
+  switch (parentType) {
+    case ALBUM:
+      dispatch(createQueueFromAlbum(parentId, trackId))
       break
-    case 'artist':
-      dispatch(createQueueFromArtist(parent, track))
+    case ARTIST:
+      dispatch(createQueueFromArtist(parentId, trackId))
       break
-    case 'playlist':
-      dispatch(createQueueFromPlaylist(parent.id, track))
+    case PLAYLIST:
+      dispatch(createQueueFromPlaylist(parentId, trackId))
+      break
+    case TRACK:
+      dispatch(createQueueFromTrack(parentId))
       break
     default:
-      console.warn('Could not create queue', {parent, track})
+      console.warn('Could not create queue', {parentType, parentId, trackId})
       break
   }
 }
@@ -185,7 +191,7 @@ const BrowserContainer = (props) => {
     onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
     sortBy, sortDesc, sortOptions, onChangeSortBy,
     onRateTrack,
-    trackId, onChangeTrack,
+    trackId, onCreateQueue,
   } = props
 
   let item = null
@@ -193,13 +199,13 @@ const BrowserContainer = (props) => {
     case null:
       item = null
       break
-    case 'artist':
+    case ARTIST:
       item = allArtists.get(itemId)
       break
-    case 'album':
+    case ALBUM:
       item = allAlbums.get(itemId)
       break
-    case 'playlist':
+    case PLAYLIST:
       item = allPlaylists.get(itemId)
       break
     default:
@@ -237,7 +243,7 @@ const BrowserContainer = (props) => {
       playerState={playerState}
       onChangeItem={onChangeItem}
       onChangeSection={onChangeSection}
-      onChangeTrack={onChangeTrack}
+      onCreateQueue={onCreateQueue}
       onLoadItems={onLoadItems}
       onLoadItemChildren={onLoadItemChildren}
       onRateTrack={onRateTrack}
@@ -281,7 +287,7 @@ BrowserContainer.propTypes = {
   onChangeSection: PropTypes.func,
 
   trackId: PropTypes.number,
-  onChangeTrack: PropTypes.func,
+  onCreateQueue: PropTypes.func,
 
   playerState: PropTypes.string,
 }
@@ -315,7 +321,7 @@ export default compose(
     onLoadItems: handleLoadItems,
     onLoadItemChildren: handleLoadItemChildren,
     onRateTrack: handleRateTrack,
-    onChangeTrack: handleChangeTrack,
+    onCreateQueue: handleCreateQueue,
     onChangeSearchQuery: handleChangeSearchQuery,
     onChangeSortBy: handleChangeSortBy,
   }),

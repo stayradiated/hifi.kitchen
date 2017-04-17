@@ -1,11 +1,20 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
+import compose from 'recompose/compose'
+import setPropTypes from 'recompose/setPropTypes'
+import withHandlers from 'recompose/withHandlers'
+
+import {ARTIST} from '../../stores/constants'
 
 import Panel from '../Panel'
 import AlbumList from '../AlbumList'
 
-export default function ArtistPanel (props) {
+const handleSelectTrack = (props) => (track) => {
+  const {artist, onCreateQueue} = props
+  onCreateQueue(ARTIST, artist.id, track.id)
+}
+
+function ArtistPanel (props) {
   const {
     artist, values, currentlyPlayingTrackId,
     onSelectTrack, onRateTrack, onLoadItems,
@@ -48,3 +57,12 @@ ArtistPanel.propTypes = {
   onRateTrack: PropTypes.func.isRequired,
   onLoadItems: PropTypes.func.isRequired,
 }
+
+export default compose(
+  setPropTypes({
+    onCreateQueue: PropTypes.func.isRequired,
+  }),
+  withHandlers({
+    onSelectTrack: handleSelectTrack,
+  }),
+)(ArtistPanel)

@@ -1,14 +1,28 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
+import compose from 'recompose/compose'
+import setPropTypes from 'recompose/setPropTypes'
+import withHandlers from 'recompose/withHandlers'
+
+import {ARTIST, ALBUM} from '../../stores/constants'
 
 import Panel from '../Panel'
 import TrackList from '../TrackList'
 
-export default function AlbumPanel (props) {
+const handleClickSubtitle = (props) => () => {
+  const {album, onNavigate} = props
+  onNavigate(ARTIST, album.parentId)
+}
+
+const handleSelectTrack = (props) => (track) => {
+  const {album, onCreateQueue} = props
+  onCreateQueue(ALBUM, album.id, track.id)
+}
+
+function AlbumPanel (props) {
   const {
     album, values, currentlyPlayingTrackId, playerState,
-    onSelectTrack, onRateTrack, onLoadItems,
+    onRateTrack, onLoadItems, onClickSubtitle, onSelectTrack,
     ...otherProps
   } = props
 
@@ -21,18 +35,11 @@ export default function AlbumPanel (props) {
 
   const albumTracks = values.albumTracks.get(album.id) || []
 
-  const handleClickSubtitle = () => {
-    onSelectTrack({
-      _type: 'artist',
-      id: album.parentId,
-    })
-  }
-
   return (
     <Panel
       {...otherProps}
       details={details}
-      onClickSubtitle={handleClickSubtitle}
+      onClickSubtitle={onClickSubtitle}
     >
       <TrackList
         currentlyPlayingTrackId={currentlyPlayingTrackId}
@@ -57,6 +64,7 @@ AlbumPanel.propTypes = {
     tracks: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   currentlyPlayingTrackId: PropTypes.number,
+  onClickSubtitle: PropTypes.func.isRequired,
   onLoadItems: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
   onSelectTrack: PropTypes.func.isRequired,
@@ -66,3 +74,14 @@ AlbumPanel.propTypes = {
     tracks: PropTypes.instanceOf(Map),
   }).isRequired,
 }
+
+export default compose(
+  setPropTypes({
+    onNavigate: PropTypes.func.isRequired,
+    onCreateQueue: PropTypes.func.isRequired,
+  }),
+  withHandlers({
+    onClickSubtitle: handleClickSubtitle,
+    onSelectTrack: handleSelectTrack,
+  }),
+)(AlbumPanel)

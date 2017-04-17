@@ -25,11 +25,11 @@ const handleChangeSection = (props) => (section) => {
   })
 }
 
-const handleChangeItem = (props) => (item) => {
+const handleChangeItem = (props) => (itemType, itemId) => {
   const {history, location} = props
   const params = new URLSearchParams(location.search)
-  params.set('itemType', item._type)
-  params.set('itemId', item.id)
+  params.set('itemType', itemType)
+  params.set('itemId', itemId)
   history.push({
     pathname: location.pathname,
     search: params.toString(),

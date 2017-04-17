@@ -1,16 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import withHandlers from 'recompose/withHandlers'
 import plural from 'plural'
+
+import {PLAYLIST} from '../../stores/constants'
 
 import GridItem from '../GridItem'
 
-export default function PlaylistItem (props) {
+const handleSelect = (props) => () => {
+  const {playlist, onSelect} = props
+  onSelect(PLAYLIST, playlist.id)
+}
+
+function PlaylistItem (props) {
   const {playlist, ...otherProps} = props
 
   return (
     <GridItem
       {...otherProps}
-      id={playlist.id}
       image={playlist.composite}
       title={playlist.title}
       subtitle={`${playlist.leafCount} ${plural('item', playlist.leafCount)}`}
@@ -26,3 +33,7 @@ PlaylistItem.propTypes = {
     tracks: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 }
+
+export default withHandlers({
+  onSelect: handleSelect,
+})(PlaylistItem)

@@ -11,6 +11,9 @@ import {
 } from '../constants'
 
 import {selectPlex} from '../plex/instance'
+import {selectAllTracks} from '../tracks/all'
+import {selectAllAlbums} from '../albums/all'
+import {selectAllArtists} from '../artists/all'
 import {value as getLibrarySections} from '../library/sections/selectors'
 import * as selectors from './selectors'
 
@@ -22,16 +25,16 @@ export const fetchQueue = (queueId) => ({
   },
 })
 
-export const createQueue = (options, initialTrack) => ({
+export const createQueue = (options) => ({
   types: CREATE_QUEUE,
-  payload: {...options, initialTrack},
+  payload: {...options},
   meta: {
     plex: ({library}) => normalize(library.createQueue(options)),
   },
 })
 
-export const createQueueFromURI = (options, initialTrack) => {
-  const {source, key} = options
+export const createQueueFromURI = (options) => {
+  const {source, key, initialTrackId} = options
 
   return (dispatch, getState) => {
     const state = getState()
@@ -42,32 +45,71 @@ export const createQueueFromURI = (options, initialTrack) => {
     const path = encodeURIComponent(source)
     const uri = `library://${section.uuid}/directory/${path}`
 
-    return dispatch(createQueue({uri, key}, initialTrack))
+    return dispatch(createQueue({uri, key, initialTrackId}))
   }
 }
 
-export const createQueueFromPlexMix = (track) =>
-  createQueueFromURI({
-    source: track.plexMix.key,
-  }, track)
+export const createQueueFromPlexMix = (trackId) => (dispatch, getState) => {
+  const state = getState()
+  const allTracks = selectAllTracks.values(state)
+  const track = allTracks.get(trackId)
 
-export const createQueueFromAlbum = (album, track) =>
-  createQueueFromURI({
+  return dispatch(createQueueFromURI({
+    source: track.plexMix.key,
+    initialTrackId: trackId,
+  }))
+}
+
+export const createQueueFromAlbum = (albumId, trackId) => (dispatch, getState) => {
+  const state = getState()
+  const allAlbums = selectAllAlbums.values(state)
+  const allTracks = selectAllTracks.values(state)
+  const album = allAlbums.get(albumId)
+  const track = allTracks.get(trackId)
+
+  return dispatch(createQueueFromURI({
     source: album.key,
     key: track.key,
-  }, track)
+    initialTrackId: trackId,
+  }))
+}
 
-export const createQueueFromArtist = (artist, track) =>
-  createQueueFromURI({
+export const createQueueFromArtist = (artistId, trackId) => (dispatch, getState) => {
+  const state = getState()
+  const allArtists = selectAllArtists.values(state)
+  const allTracks = selectAllTracks.values(state)
+  const artist = allArtists.get(artistId)
+  const track = allTracks.get(trackId)
+
+  return dispatch(createQueueFromURI({
     source: artist.key,
     key: track.key,
-  }, track)
+    initialTrackId: trackId,
+  }))
+}
 
-export const createQueueFromPlaylist = (playlistId, track) =>
-  createQueue({
+export const createQueueFromPlaylist = (playlistId, trackId) => (dispatch, getState) => {
+  const state = getState()
+  const allTracks = selectAllTracks.values(state)
+  const track = allTracks.get(trackId)
+
+  return dispatch(createQueue({
     playlistId,
     key: track.key,
-  }, track)
+    initialTrackId: trackId,
+  }))
+}
+
+export const createQueueFromTrack = (trackId) => (dispatch, getState) => {
+  const state = getState()
+  const allTracks = selectAllTracks.values(state)
+  const track = allTracks.get(trackId)
+
+  return dispatch(createQueueFromURI({
+    source: track.key,
+    initialTrackId: trackId,
+  }))
+}
 
 export const playQueueItem = (queueItemId) => ({
   type: PLAY_QUEUE_ITEM,

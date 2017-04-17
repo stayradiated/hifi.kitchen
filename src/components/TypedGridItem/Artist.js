@@ -1,16 +1,22 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
+import withHandlers from 'recompose/withHandlers'
+
+import {ARTIST} from '../../stores/constants'
 
 import GridItem from '../GridItem'
 
-export default function ArtistItem (props) {
+const handleSelect = (props) => () => {
+  const {artist, onSelect} = props
+  onSelect(ARTIST, artist.id)
+}
+
+function ArtistItem (props) {
   const {artist, ...otherProps} = props
 
   return (
     <GridItem
       {...otherProps}
-      id={artist.id}
       image={artist.thumb}
       title={artist.title}
       subtitle={artist.genre.join(', ')}
@@ -26,3 +32,7 @@ ArtistItem.propTypes = {
     genre: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 }
+
+export default withHandlers({
+  onSelect: handleSelect,
+})(ArtistItem)

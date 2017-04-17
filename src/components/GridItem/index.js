@@ -7,13 +7,13 @@ import './styles.css'
 import SquareImage from '../SquareImage'
 
 export default function GridItem (props) {
-  const {id, onSelect, image, title, subtitle, ...otherProps} = props
+  const {onSelect, image, title, subtitle, ...otherProps} = props
 
   return (
     <button
       {...otherProps}
       className='GridItem'
-      onClick={() => onSelect && onSelect(id)}
+      onClick={onSelect}
     >
       <SquareImage
         className='GridItem-thumb'
@@ -32,7 +32,6 @@ export default function GridItem (props) {
 }
 
 GridItem.propTypes = {
-  id: PropTypes.number,
   image: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,

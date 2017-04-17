@@ -1,11 +1,21 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
+import compose from 'recompose/compose'
+import setPropTypes from 'recompose/setPropTypes'
+import withHandlers from 'recompose/withHandlers'
+
+import {PLAYLIST} from '../../stores/constants'
 
 import Panel from '../Panel'
 import TrackList from '../TrackList'
 
-export default function PlaylistPanel (props) {
+const handleSelectTrack = (props) => (track) => {
+  const {playlist, onCreateQueue} = props
+  onCreateQueue(PLAYLIST, playlist.id, track.id)
+}
+
+
+function PlaylistPanel (props) {
   const {
     playlist, values, currentlyPlayingTrackId, playerState,
     onSelectTrack, onLoadItems, onRateTrack,
@@ -51,3 +61,12 @@ PlaylistPanel.propTypes = {
     tracks: PropTypes.instanceOf(Map),
   }).isRequired,
 }
+
+export default compose(
+  setPropTypes({
+    onCreateQueue: PropTypes.func.isRequired,
+  }),
+  withHandlers({
+    onSelectTrack: handleSelectTrack,
+  }),
+)(PlaylistPanel)

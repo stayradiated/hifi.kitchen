@@ -1,16 +1,22 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
+import withHandlers from 'recompose/withHandlers'
+
+import {ALBUM} from '../../stores/constants'
 
 import GridItem from '../GridItem'
 
-export default function AlbumItem (props) {
+const handleSelect = (props) => () => {
+  const {album, onSelect} = props
+  onSelect(ALBUM, album.id)
+}
+
+function AlbumItem (props) {
   const {album, ...otherProps} = props
 
   return (
     <GridItem
       {...otherProps}
-      id={album.id}
       image={album.thumb}
       title={album.title}
       subtitle={album.parentTitle}
@@ -26,3 +32,7 @@ AlbumItem.propTypes = {
     parentTitle: PropTypes.string,
   }).isRequired,
 }
+
+export default withHandlers({
+  onSelect: handleSelect,
+})(AlbumItem)

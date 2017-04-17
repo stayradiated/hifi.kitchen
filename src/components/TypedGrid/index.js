@@ -1,6 +1,6 @@
 import React from 'react'
-
 import PropTypes from 'prop-types'
+import noop from 'nop'
 
 import TypedGridItem from '../TypedGridItem'
 import Grid from '../Grid/withAutoSizer'
@@ -20,7 +20,7 @@ export default function TypedGrid (props) {
       {(item) => (
         <TypedGridItem
           item={item}
-          onSelect={() => onChange && onChange(item)}
+          onSelect={onChange}
         />
       )}
     </Grid>
@@ -29,6 +29,10 @@ export default function TypedGrid (props) {
 
 TypedGrid.propTypes = {
   onChange: PropTypes.func,
+}
+
+TypedGrid.defaultProps = {
+  onChange: noop,
 }
 
 TypedGrid.withState = withState(TypedGrid)
