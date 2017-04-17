@@ -34,7 +34,7 @@ export default function NavBar (props) {
   return (
     <header className='NavBar'>
       <nav className='NavBar-section-list'>
-        {sections.map((section) => {
+        {Object.keys(sections).map((section) => {
           if (section === SEARCH) {
             return searchBar
           }
@@ -47,7 +47,7 @@ export default function NavBar (props) {
               })}
               onMouseDown={() => onChangeSection(section)}
             >
-              {section}
+              {sections[section]}
             </button>
           )
         })}
@@ -69,7 +69,7 @@ export default function NavBar (props) {
 }
 
 NavBar.propTypes = {
-  sections: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sections: PropTypes.objectOf(PropTypes.string).isRequired,
   currentSection: PropTypes.string,
   searchQuery: PropTypes.string,
   sortBy: PropTypes.string,

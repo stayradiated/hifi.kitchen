@@ -23,15 +23,13 @@ const handleChangeItem = (props) => (itemType, itemId) => {
 
 function Browser (props) {
   const {
-    className, sections, values,
+    className, section, values, sectionItems, navBarSections,
     currentlyPlayingTrackId, playerState,
     item, onChangeItem, onLoadItems, onLoadItemChildren,
     sortBy, sortDesc, sortOptions,
-    section, onChangeSection, onRateTrack, onChangeSortBy,
+    onChangeSection, onRateTrack, onChangeSortBy,
     searchQuery, onChangeSearchQuery, onCreateQueue,
   } = props
-
-  const items = sections[section] || []
 
   let contents
   switch (section) {
@@ -39,7 +37,7 @@ function Browser (props) {
       contents = (
         <SearchResults
           query={searchQuery}
-          hubs={items}
+          hubs={sectionItems}
           onChange={onChangeItem}
         />
       )
@@ -48,7 +46,7 @@ function Browser (props) {
       contents = (
         <TypedGrid
           size={150}
-          items={items}
+          items={sectionItems}
           onChange={onChangeItem}
           onLoad={(start, end) => onLoadItems(section, start, end)}
         />
@@ -59,7 +57,7 @@ function Browser (props) {
     <div className={classNames(className, 'Browser')}>
       <div className='Browser-grid'>
         <NavBar
-          sections={Object.keys(sections)}
+          sections={navBarSections}
           currentSection={section}
           searchQuery={searchQuery}
           sortBy={sortBy}
@@ -92,10 +90,11 @@ function Browser (props) {
 
 Browser.propTypes = {
   className: PropTypes.string,
-  sections: PropTypes.objectOf(PropTypes.array),
+  section: PropTypes.string,
+  navBarSections: PropTypes.objectOf(PropTypes.string),
+  sectionItems: PropTypes.arrayOf(PropTypes.object),
   values: PropTypes.objectOf(PropTypes.instanceOf(Map)),
   item: PropTypes.shape({}),
-  section: PropTypes.string,
   currentlyPlayingTrackId: PropTypes.number,
   searchQuery: PropTypes.string,
   playerState: PropTypes.string,
@@ -116,7 +115,6 @@ Browser.defaultProps = {
   onChangeItem: noop,
   onChangeSearchQuery: noop,
   onChangeSection: noop,
-  sections: {},
 }
 
 export {

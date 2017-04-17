@@ -129,8 +129,6 @@ class ControlsContainer extends Component {
   render () {
     const {track, trackSrc, shuffled} = this.props
 
-    console.log('RENDERING TRACK', track)
-
     if (track == null) {
       return null
     }

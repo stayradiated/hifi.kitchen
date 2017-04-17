@@ -23,6 +23,7 @@ import {
 import {
   fetchCurrentLibraryArtistsRange,
   selectLibraryArtists,
+  sortLibraryArtists,
 } from '../../stores/library/artists'
 import {
   fetchArtist,
@@ -35,6 +36,7 @@ import {
 import {
   fetchCurrentLibraryPlaylistsRange,
   selectLibraryPlaylists,
+  sortLibraryPlaylists,
 } from '../../stores/library/playlists'
 import {
   selectAllPlaylists,
@@ -117,11 +119,11 @@ const handleLoadItems = (props) => (section, start, end) => {
   const {dispatch} = props
 
   switch (section) {
-    case 'Albums':
+    case ALBUM:
       return dispatch(fetchCurrentLibraryAlbumsRange(start, end))
-    case 'Artists':
+    case ARTIST:
       return dispatch(fetchCurrentLibraryArtistsRange(start, end))
-    case 'Playlists':
+    case PLAYLIST:
       return dispatch(fetchCurrentLibraryPlaylistsRange(start, end))
     default:
       console.error(`Could not load items for section: ${section}`)
@@ -174,8 +176,21 @@ const handleChangeSearchQuery = (props) => (query) => {
 }
 
 const handleChangeSortBy = (props) => (sortBy) => {
-  const {section, dispatch, sortBy: prevSortBy, sortDesc} = props
-  dispatch(sortLibraryAlbums(sortBy, sortBy === prevSortBy && !sortDesc))
+  const {section, dispatch, sortBy: prevSortBy, sortDesc: prevSortDesc} = props
+  const sortDesc = sortBy === prevSortBy && !prevSortDesc
+  switch (section) {
+    case ALBUM:
+      dispatch(sortLibraryAlbums(sortBy, sortDesc))
+      break
+    case ARTIST:
+      dispatch(sortLibraryArtists(sortBy, sortDesc))
+      break
+    case PLAYLIST:
+      dispatch(sortLibraryPlaylists(sortBy, sortDesc))
+      break
+    default:
+      console.error('Could not sort based on section:', section)
+  }
   handleLoadItems(props)(section, 0, 30)
 }
 
@@ -209,18 +224,33 @@ const BrowserContainer = (props) => {
       item = allPlaylists.get(itemId)
       break
     default:
-      console.error('Cannot handle itemType', itemType)
+      console.error('Cannot set item based on itemType:', itemType)
       item = null
   }
 
-  const albums = libraryAlbumIds.map((id) => allAlbums.get(id))
-  const artists = libraryArtistIds.map((id) => allArtists.get(id))
-  const playlists = libraryPlaylistIds.map((id) => allPlaylists.get(id))
+  let sectionItems = null
+  switch (section) {
+    case SEARCH:
+      sectionItems = searchResults
+      break
+    case ALBUM:
+      sectionItems = libraryAlbumIds.map((id) => allAlbums.get(id))
+      break
+    case ARTIST:
+      sectionItems = libraryArtistIds.map((id) => allArtists.get(id))
+      break
+    case PLAYLIST:
+      sectionItems = libraryPlaylistIds.map((id) => allPlaylists.get(id))
+      break
+    default:
+      console.error('Cannot set sectionItems based on section:', section)
+  }
 
   return (
     <Browser
       item={item}
       section={section}
+      sectionItems={sectionItems}
       currentlyPlayingTrackId={trackId}
       sortBy={sortBy}
       sortDesc={sortDesc}
@@ -234,11 +264,11 @@ const BrowserContainer = (props) => {
         tracks: allTracks,
         albumTracks: allAlbumTracks,
       }}
-      sections={{
-        [SEARCH]: searchResults,
-        Albums: albums,
-        Artists: artists,
-        Playlists: playlists,
+      navBarSections={{
+        [SEARCH]: 'Search',
+        [ALBUM]: 'Albums',
+        [ARTIST]: 'Artists',
+        [PLAYLIST]: 'Playlists',
       }}
       playerState={playerState}
       onChangeItem={onChangeItem}
@@ -293,30 +323,59 @@ BrowserContainer.propTypes = {
 }
 
 export default compose(
-  connect((state) => ({
-    trackId: selectQueue.trackId(state),
-    libraryAlbumIds: selectLibraryAlbums.currentIds(state),
-    libraryArtistIds: selectLibraryArtists.currentIds(state),
-    libraryPlaylistIds: selectLibraryPlaylists.currentIds(state),
-    displayQueue: selectDisplayQueue(state),
-    playerState: selectTimeline.playerState(state),
-    allAlbums: selectAllAlbums.values(state),
-    allArtists: selectAllArtists.values(state),
-    allArtistAlbums: selectAllArtistAlbums.values(state),
-    allPlaylists: selectAllPlaylists.values(state),
-    allPlaylistTracks: selectAllPlaylistTracks.values(state),
-    allTracks: selectAllTracks.values(state),
-    allAlbumTracks: selectAllAlbumTracks.values(state),
-    sortBy: selectLibraryAlbums.sortBy(state),
-    sortDesc: selectLibraryAlbums.sortDesc(state),
-    sortOptions: selectLibraryAlbums.sortOptions(state),
-    searchResults: [
-      {title: 'Albums', items: selectSearch.albums(state)},
-      {title: 'Artists', items: selectSearch.artists(state)},
-      {title: 'Playlists', items: selectSearch.playlists(state)},
-      {title: 'Tracks', items: selectSearch.tracks(state)},
-    ],
-  })),
+  connect((state, props) => {
+    const {section} = props
+
+    let sortBy
+    let sortDesc
+    let sortOptions
+    switch (section) {
+      case ALBUM:
+        sortBy = selectLibraryAlbums.sortBy(state)
+        sortDesc = selectLibraryAlbums.sortDesc(state)
+        sortOptions = selectLibraryAlbums.sortOptions(state)
+        break
+      case ARTIST:
+        sortBy = selectLibraryArtists.sortBy(state)
+        sortDesc = selectLibraryArtists.sortDesc(state)
+        sortOptions = selectLibraryArtists.sortOptions(state)
+        break
+      case PLAYLIST:
+        sortBy = selectLibraryPlaylists.sortBy(state)
+        sortDesc = selectLibraryPlaylists.sortDesc(state)
+        sortOptions = selectLibraryPlaylists.sortOptions(state)
+        break
+      default:
+        sortBy = 'Null'
+        sortDesc = true
+        sortOptions = []
+    }
+
+    return {
+      trackId: selectQueue.trackId(state),
+      libraryAlbumIds: selectLibraryAlbums.currentIds(state),
+      libraryArtistIds: selectLibraryArtists.currentIds(state),
+      libraryPlaylistIds: selectLibraryPlaylists.currentIds(state),
+      displayQueue: selectDisplayQueue(state),
+      playerState: selectTimeline.playerState(state),
+      allAlbums: selectAllAlbums.values(state),
+      allArtists: selectAllArtists.values(state),
+      allArtistAlbums: selectAllArtistAlbums.values(state),
+      allPlaylists: selectAllPlaylists.values(state),
+      allPlaylistTracks: selectAllPlaylistTracks.values(state),
+      allTracks: selectAllTracks.values(state),
+      allAlbumTracks: selectAllAlbumTracks.values(state),
+      sortBy,
+      sortDesc,
+      sortOptions,
+      searchResults: [
+        {title: 'Albums', items: selectSearch.albums(state)},
+        {title: 'Artists', items: selectSearch.artists(state)},
+        {title: 'Playlists', items: selectSearch.playlists(state)},
+        {title: 'Tracks', items: selectSearch.tracks(state)},
+      ],
+    }
+  }),
   withHandlers({
     onLoadItems: handleLoadItems,
     onLoadItemChildren: handleLoadItemChildren,
