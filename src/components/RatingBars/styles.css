@@ -1,5 +1,6 @@
 .RatingBars {
   display: flex;
+  cursor: default;
 }
 
 .RatingBars-bar {

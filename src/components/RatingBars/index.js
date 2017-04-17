@@ -8,6 +8,10 @@ import setPropTypes from 'recompose/setPropTypes'
 
 import './styles.css'
 
+const handleClick = () => (event) => {
+  event.stopPropagation()
+}
+
 const handleMouseDown = (props) => () => {
   const {hover, onRate} = props
   onRate(hover + 1) // remember hover is zero-indexed
@@ -30,7 +34,7 @@ const handleMouseLeave = (props) => () => {
 function RatingBars (props) {
   const {
     className, style, value, maxValue, hover,
-    onMouseDown, onMouseOver, onMouseLeave,
+    onClick, onMouseDown, onMouseOver, onMouseLeave,
   } = props
 
   const bars = []
@@ -55,6 +59,7 @@ function RatingBars (props) {
     <div
       style={style}
       className={classNames(className, 'RatingBars')}
+      onClick={onClick}
       onMouseDown={onMouseDown}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
@@ -70,6 +75,7 @@ RatingBars.propTypes = {
   value: PropTypes.number,
   maxValue: PropTypes.number,
   hover: PropTypes.number,
+  onClick: PropTypes.func.isRequired,
   onMouseDown: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
   onMouseLeave: PropTypes.func.isRequired,
@@ -86,6 +92,7 @@ export default compose(
   }),
   withState('hover', 'setHover', null),
   withHandlers({
+    onClick: handleClick,
     onMouseDown: handleMouseDown,
     onMouseOver: handleMouseOver,
     onMouseLeave: handleMouseLeave,
