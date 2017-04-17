@@ -27,8 +27,9 @@ export default function (state = initialState, action) {
       const {initialTrackId} = action.payload
       return {
         ...state,
-        selectedItemId: null,
+        selectedItemId: 0,
         items: [{
+          id: 0,
           track: initialTrackId,
         }],
       }
