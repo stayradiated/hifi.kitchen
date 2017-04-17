@@ -79,7 +79,7 @@ const receiveProps = (prevProps, props) => {
   } = prevProps
 
   if (section == null) {
-    onChangeSection('Albums')
+    onChangeSection(ALBUM)
   } else if (prevSection !== section) {
     onLoadItems(section, 0, 30)
   }
@@ -244,6 +244,7 @@ const BrowserContainer = (props) => {
       break
     default:
       console.error('Cannot set sectionItems based on section:', section)
+      sectionItems = []
   }
 
   return (
