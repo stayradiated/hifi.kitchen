@@ -9,15 +9,12 @@
 ```
 git clone https://github.com/stayradiated/hifi.kitchen
 cd hifi.kitchen
-
-cp config.default.json config.json
-vim config.json
-
-yarn
-yarn start
+yarn       # or npm install
+yarn start # or npm start
 ```
 
-Then open http://localhost:3000/library in your browser. Select a music library from the top right, and then select 'albums' in the top center.
+Then open http://localhost:3000/library in your browser. Select a music library
+from the top right, and then select 'albums' in the top center.
 
 ## Screenshots
 
