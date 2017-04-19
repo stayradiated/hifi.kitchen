@@ -4,6 +4,7 @@ import {
   SET_PLAYER_CURRENT_TIME,
   UPDATE_TIMELINE,
   CREATE_QUEUE,
+  PLAY_QUEUE_ITEM,
 } from '../constants'
 
 const initialState = {
@@ -31,6 +32,14 @@ export default function (state = initialState, action) {
     case CREATE_QUEUE.REQUEST: {
       const {initialTrackId} = action.payload
       return updateItem(state, initialTrackId, (item) => ({
+        ...item,
+        playerState: PLAYER_STATE_PLAYING,
+      }))
+    }
+
+    case PLAY_QUEUE_ITEM: {
+      const {trackId} = action.payload
+      return updateItem(state, trackId, (item) => ({
         ...item,
         playerState: PLAYER_STATE_PLAYING,
       }))

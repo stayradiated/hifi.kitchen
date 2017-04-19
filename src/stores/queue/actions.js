@@ -111,10 +111,11 @@ export const createQueueFromTrack = (trackId) => (dispatch, getState) => {
   }))
 }
 
-export const playQueueItem = (queueItemId) => ({
+export const playQueueItem = (queueItemId, trackId) => ({
   type: PLAY_QUEUE_ITEM,
   payload: {
     selectedItemId: queueItemId,
+    trackId,
   },
 })
 
@@ -171,7 +172,7 @@ export const jumpToRelativeQueueItem = (delta) => (dispatch, getState) => {
   const index = items.findIndex((queueItem) => queueItem.id === selectedItemId)
   const nextIndex = index + delta
   const nextQueueItem = items[nextIndex]
-  return dispatch(playQueueItem(nextQueueItem.id))
+  return dispatch(playQueueItem(nextQueueItem.id, nextQueueItem.track))
 }
 
 export const playNextTrack = () => {
