@@ -6,6 +6,8 @@ import throttle from 'lodash.throttle'
 import WebAudio from '../../components/WebAudio'
 import Controls from '../../components/Controls'
 
+import {PLAYER_STATE_PAUSED} from '../../stores/constants'
+
 import {
   rateTrack,
 } from '../../stores/tracks/all'
@@ -22,6 +24,7 @@ import {
   sendTimelineStop,
   setPlayerCurrentTime,
 } from '../../stores/timeline/actions'
+import * as selectTimeline from '../../stores/timeline/selectors'
 import {
   toggleDisplayQueue,
 } from '../../stores/ui'
@@ -39,6 +42,7 @@ class ControlsContainer extends Component {
     trackSrc: PropTypes.string,
     dispatch: PropTypes.func.isRequired,
     shuffled: PropTypes.bool.isRequired,
+    playerState: PropTypes.string,
   }
 
   constructor () {
@@ -75,9 +79,6 @@ class ControlsContainer extends Component {
       if (thisTrackId != null) {
         dispatch(sendTimelineStop(this.props.queueItem))
       }
-      if (nextTrackId != null) {
-        dispatch(sendTimelinePlay(nextProps.queueItem))
-      }
     }
   }
 
@@ -112,8 +113,8 @@ class ControlsContainer extends Component {
   }
 
   handleTimeUpdate (currentTime) {
-    const {dispatch} = this.props
-    dispatch(setPlayerCurrentTime(Math.round(currentTime * 1000)))
+    const {dispatch, queueItem} = this.props
+    dispatch(setPlayerCurrentTime(queueItem, Math.round(currentTime * 1000)))
   }
 
   handleQueue () {
@@ -127,7 +128,7 @@ class ControlsContainer extends Component {
   }
 
   render () {
-    const {track, trackSrc, shuffled} = this.props
+    const {track, trackSrc, shuffled, playerState} = this.props
 
     if (track == null) {
       return null
@@ -135,28 +136,26 @@ class ControlsContainer extends Component {
 
     return (
       <WebAudio
-        source={trackSrc}
         duration={track.duration / 1000}
-        onStop={this.handleStop}
-        onPause={this.handlePause}
-        onPlay={this.handlePlay}
-        onTimeUpdate={this.handleTimeUpdate}
         onEnd={this.handleNextTrack}
+        onTimeUpdate={this.handleTimeUpdate}
+        playerState={playerState}
+        source={trackSrc}
       >
         {(audio) => (
           <Controls
-            track={track}
             audio={audio}
-            shuffled={shuffled}
-            paused={audio.paused}
-            onPause={audio.onPause}
-            onPlay={audio.onPlay}
-            onStop={audio.onStop}
             onNext={this.handleNextTrack}
+            onPause={this.handlePause}
+            onPlay={this.handlePlay}
             onPrev={this.handlePrevTrack}
-            onRateTrack={this.handleRateTrack}
             onQueue={this.handleQueue}
+            onRateTrack={this.handleRateTrack}
             onShuffle={this.handleShuffle}
+            onStop={this.handleStop}
+            paused={playerState === PLAYER_STATE_PAUSED}
+            shuffled={shuffled}
+            track={track}
           />
         )}
       </WebAudio>
@@ -170,4 +169,5 @@ export default connect((state) => ({
   track: selectQueue.track(state),
   trackSrc: selectQueue.trackSrc(state),
   shuffled: selectQueue.shuffled(state),
+  playerState: selectTimeline.playerState(state),
 }))(ControlsContainer)

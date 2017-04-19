@@ -36,6 +36,7 @@ export const updatePlayerState = (playerState, queueItem) => {
     }, CONFIG_TIMELINE_UPDATE_TIME)
 
     return dispatch(updateTimeline({
+      trackId: track.id,
       queueItemId: queueItem.id,
       ratingKey: track.ratingKey,
       key: track.id,
@@ -59,7 +60,7 @@ export const sendTimelineStop = (queueItem) => {
   return updatePlayerState(PLAYER_STATE_STOPPED, queueItem)
 }
 
-export const setPlayerCurrentTime = (currentTime) => ({
+export const setPlayerCurrentTime = (queueItem, currentTime) => ({
   type: SET_PLAYER_CURRENT_TIME,
-  payload: {currentTime},
+  payload: {trackId: queueItem.track, currentTime},
 })
