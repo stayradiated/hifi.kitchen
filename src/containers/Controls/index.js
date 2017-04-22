@@ -6,7 +6,7 @@ import throttle from 'lodash.throttle'
 import WebAudio from '../../components/WebAudio'
 import Controls from '../../components/Controls'
 
-import {PLAYER_STATE_PAUSED} from '../../stores/constants'
+import {PLAYER_STATE_PAUSED, PLAYER_STATE_PLAYING} from '../../stores/constants'
 
 import {
   rateTrack,
@@ -78,6 +78,9 @@ class ControlsContainer extends Component {
     if (thisTrackId !== nextTrackId) {
       if (thisTrackId != null) {
         dispatch(sendTimelineStop(this.props.queueItem))
+      }
+      if (nextTrackId != null && nextProps.playerState === PLAYER_STATE_PLAYING) {
+        dispatch(sendTimelinePlay(nextProps.queueItem))
       }
     }
   }
