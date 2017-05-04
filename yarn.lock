@@ -3945,9 +3945,9 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-konva@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-1.5.0.tgz#12581faced9fa98062ef7bf42b7af7d587d6b003"
+konva@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-1.6.1.tgz#75a4b7a08776e1f08f65e1a6c7e94a09b37270ab"
 
 lazy-cache@^1.0.3:
   version "1.0.4"
@@ -5302,9 +5302,9 @@ react-onclickoutside@^5.9.0:
   version "5.10.0"
   resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-5.10.0.tgz#6831f1bd8683ce75f3f4f9821aa012919e907684"
 
-react-rating@^0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/react-rating/-/react-rating-0.7.0.tgz#12db057552a20114a57055d74b7f3c7f43e597bd"
+react-rating@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/react-rating/-/react-rating-0.7.1.tgz#2e6d683fe6872c62e7eec8894a3c0ec72f75a594"
 
 react-redux@^5.0.4:
   version "5.0.4"
@@ -5398,21 +5398,22 @@ react-simple-di@^1.2.0:
     babel-runtime "6.x.x"
     hoist-non-react-statics "1.x.x"
 
-react-sortable-hoc@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/react-sortable-hoc/-/react-sortable-hoc-0.6.2.tgz#9f0b5aea0a496de1ecb9e1da97d8d2dbbed0905c"
+react-sortable-hoc@^0.6.3:
+  version "0.6.3"
+  resolved "https://registry.yarnpkg.com/react-sortable-hoc/-/react-sortable-hoc-0.6.3.tgz#ab9fa699607c5f5871d00889222fb52559242947"
   dependencies:
     babel-runtime "^6.11.6"
     invariant "^2.2.1"
     lodash "^4.12.0"
     prop-types "^15.5.7"
 
-react-spinkit@^2.1.1:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/react-spinkit/-/react-spinkit-2.1.1.tgz#a666f02367147de8151c1f7671453d56cef4650f"
+react-spinkit@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/react-spinkit/-/react-spinkit-2.1.2.tgz#55c037bd73e99e4b69bf2e37c6227474e74a99f6"
   dependencies:
     classnames "^2.2.3"
     object-assign "^4.1.0"
+    prop-types "^15.5.8"
 
 react-stubber@^1.0.0:
   version "1.0.0"
@@ -5424,9 +5425,9 @@ react-textarea-autosize@^4.0.5:
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-4.0.5.tgz#55379f6a6fa575fc87d1b8de2756e57e3b6c995d"
 
-react-virtualized@^9.7.3:
-  version "9.7.3"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.7.3.tgz#5be2bbc0316151ee1c00d133f7a5f9727874f756"
+react-virtualized@^9.7.4:
+  version "9.7.4"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-9.7.4.tgz#1b5b25c1397282c6ffc651b416befc69e282df12"
   dependencies:
     babel-runtime "^6.11.6"
     classnames "^2.2.3"

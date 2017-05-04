@@ -42,6 +42,7 @@ function AlbumPanel (props) {
       onClickSubtitle={onClickSubtitle}
     >
       <TrackList
+        displayArtist={album.parentTitle}
         currentlyPlayingTrackId={currentlyPlayingTrackId}
         onLoadItems={onLoadItems}
         onRateTrack={onRateTrack}

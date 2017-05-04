@@ -37,7 +37,7 @@ function TrackListItem (props) {
           </span>}
         <span className='TrackListItem-fulltitle'>
           <span className='TrackListItem-title'>{track.title}</span>
-          {displayArtist &&
+          {displayArtist != null && displayArtist !== track.originalTitle &&
             <span className='TrackListItem-artist'>{track.originalTitle}</span>}
         </span>
         <RatingBars
