@@ -39,7 +39,7 @@ export const updatePlayerState = (playerState, queueItem) => {
       trackId: track.id,
       queueItemId: queueItem.id,
       ratingKey: track.ratingKey,
-      key: track.id,
+      key: track.key,
       playerState,
       currentTime,
       duration: track.duration,
