@@ -50,6 +50,11 @@ import {
   selectAllTracks,
 } from '../../stores/tracks/all'
 import {
+  fetchCurrentLibraryTracksRange,
+  selectLibraryTracks,
+  sortLibraryTracks,
+} from '../../stores/library/tracks'
+import {
   createQueueFromArtist,
   createQueueFromAlbum,
   createQueueFromPlaylist,
@@ -125,6 +130,8 @@ const handleLoadItems = (props) => (section, start, end) => {
       return dispatch(fetchCurrentLibraryArtistsRange(start, end))
     case PLAYLIST:
       return dispatch(fetchCurrentLibraryPlaylistsRange(start, end))
+    case TRACK:
+      return dispatch(fetchCurrentLibraryTracksRange(start, end))
     default:
       console.error(`Could not load items for section: ${section}`)
   }
@@ -188,6 +195,9 @@ const handleChangeSortBy = (props) => (sortBy) => {
     case PLAYLIST:
       dispatch(sortLibraryPlaylists(sortBy, sortDesc))
       break
+    case TRACK:
+      dispatch(sortLibraryTracks(sortBy, sortDesc))
+      break
     default:
       console.error('Could not sort based on section:', section)
   }
@@ -199,7 +209,7 @@ const BrowserContainer = (props) => {
   const {
     section, itemType, itemId,
     searchResults, onChangeSearchQuery,
-    libraryAlbumIds, libraryArtistIds, libraryPlaylistIds,
+    libraryAlbumIds, libraryArtistIds, libraryPlaylistIds, libraryTrackIds,
     allAlbums, allArtists, allPlaylists, allTracks,
     allArtistAlbums, allAlbumTracks, allPlaylistTracks,
     playerState,
@@ -242,6 +252,9 @@ const BrowserContainer = (props) => {
     case PLAYLIST:
       sectionItems = libraryPlaylistIds.map((id) => allPlaylists.get(id))
       break
+    case TRACK:
+      sectionItems = libraryTrackIds.map((id) => allTracks.get(id))
+      break
     default:
       console.error('Cannot set sectionItems based on section:', section)
       sectionItems = []
@@ -270,6 +283,7 @@ const BrowserContainer = (props) => {
         [ALBUM]: 'Albums',
         [ARTIST]: 'Artists',
         [PLAYLIST]: 'Playlists',
+        [TRACK]: 'Tracks',
       }}
       playerState={playerState}
       onChangeItem={onChangeItem}
@@ -288,6 +302,7 @@ BrowserContainer.propTypes = {
   libraryAlbumIds: PropTypes.arrayOf(PropTypes.number),
   libraryArtistIds: PropTypes.arrayOf(PropTypes.number),
   libraryPlaylistIds: PropTypes.arrayOf(PropTypes.number),
+  libraryTrackIds: PropTypes.arrayOf(PropTypes.number),
 
   allAlbums: PropTypes.instanceOf(Map),
   allArtists: PropTypes.instanceOf(Map),
@@ -346,6 +361,11 @@ export default compose(
         sortDesc = selectLibraryPlaylists.sortDesc(state)
         sortOptions = selectLibraryPlaylists.sortOptions(state)
         break
+      case TRACK:
+        sortBy = selectLibraryTracks.sortBy(state)
+        sortDesc = selectLibraryTracks.sortDesc(state)
+        sortOptions = selectLibraryTracks.sortOptions(state)
+        break
       default:
         sortBy = null
         sortDesc = false
@@ -357,6 +377,7 @@ export default compose(
       libraryAlbumIds: selectLibraryAlbums.currentIds(state),
       libraryArtistIds: selectLibraryArtists.currentIds(state),
       libraryPlaylistIds: selectLibraryPlaylists.currentIds(state),
+      libraryTrackIds: selectLibraryTracks.currentIds(state),
       displayQueue: selectDisplayQueue(state),
       playerState: selectTimeline.playerState(state),
       allAlbums: selectAllAlbums.values(state),

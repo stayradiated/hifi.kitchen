@@ -8,27 +8,31 @@ import libraries from '../../data/libraries.json'
 import tracks from '../../data/tracks.json'
 import search from '../../data/search.json'
 
-const getId = (artist) => artist.id
-const toObject = (obj, item) => {
-  obj[item.id] = item
-  return obj
+const getId = (item) => item.id
+
+const toMap = (map, item) => {
+  map.set(getId(item), item)
+  return map
 }
 
 const normalizedAlbums = normalizeSync(albums)
 const albumIds = normalizedAlbums.result.map(getId)
-const allAlbums = normalizedAlbums.result.reduce(toObject, {})
+const allAlbums = normalizedAlbums.result.reduce(toMap, new Map())
+const allAlbumTracks = normalizedAlbums.result
+  .map((album) => album.tracks)
+  .reduce(toMap, new Map())
 
 const normalizedArtists = normalizeSync(artists)
 const artistIds = normalizedArtists.result.map(getId)
-const allArtists = normalizedArtists.result.reduce(toObject, {})
+const allArtists = normalizedArtists.result.reduce(toMap, new Map())
 
 const normalizedPlaylists = normalizeSync(playlists)
 const playlistIds = normalizedPlaylists.result.map(getId)
-const allPlaylists = normalizedPlaylists.result.reduce(toObject, {})
+const allPlaylists = normalizedPlaylists.result.reduce(toMap, new Map())
 
 const normalizedTracks = normalizeSync(tracks)
 const trackIds = normalizedTracks.result.map(getId)
-const allTracks = normalizedTracks.result.reduce(toObject, {})
+const allTracks = normalizedTracks.result.reduce(toMap, new Map())
 
 // const normalizedSearch = normalizeSync(search)
 // const searchIds = normalizedSearch.result.map(getId)
@@ -43,10 +47,11 @@ const allTracks = normalizedTracks.result.reduce(toObject, {})
 // const allServer = normalizedServers.result.reduce(toObject, {})
 
 const values = {
-  allAlbums,
-  allArtists,
-  allPlaylists,
-  allTracks,
+  albums: allAlbums,
+  albumTracks: allAlbumTracks,
+  artists: allArtists,
+  playlists: allPlaylists,
+  tracks: allTracks,
 }
 
 export {

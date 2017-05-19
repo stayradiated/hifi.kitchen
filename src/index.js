@@ -5,6 +5,8 @@ import {Provider} from 'react-redux'
 import {ConnectedRouter, routerMiddleware} from 'react-router-redux'
 import {Route} from 'react-router'
 
+import 'react-virtualized/styles.css'
+
 import './styles.css'
 
 import App from './routes/App'

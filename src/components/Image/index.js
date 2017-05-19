@@ -31,6 +31,9 @@ Image.defaultProps = {
   width: 400,
   height: 400,
   quality: 90,
+  library: {
+    resizePhoto: ({url}) => url,
+  },
 }
 
 Image.propTypes = {

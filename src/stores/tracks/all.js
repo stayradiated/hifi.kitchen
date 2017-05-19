@@ -11,6 +11,7 @@ import {
   SEARCH,
   SHUFFLE_PLAY_QUEUE,
   UNSHUFFLE_PLAY_QUEUE,
+  FETCH_LIBRARY_TRACKS,
 } from '../constants'
 
 const RATE_TRACK = c('RATE_TRACK')
@@ -28,6 +29,7 @@ module.exports = createLibraryTypeStore({
     SEARCH.SUCCESS,
     SHUFFLE_PLAY_QUEUE.SUCCESS,
     UNSHUFFLE_PLAY_QUEUE.SUCCESS,
+    FETCH_LIBRARY_TRACKS.SUCCESS,
   ],
   customActions: {
     [RATE_TRACK.REQUEST]: (state, action) => {

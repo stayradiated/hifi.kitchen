@@ -18,6 +18,9 @@ storiesOf('TypedPanel', module)
       onClose={action('Close Panel')}
       onSelectTrack={action('Change Track')}
       onRateTrack={action('Rate Track')}
+      onCreateQueue={action('Create Queue')}
+      onLoadItems={action('Load Items')}
+      onNavigate={action('Navigate')}
     />
   ))
   .add('Artist', () => (

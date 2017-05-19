@@ -3,6 +3,7 @@ import {combineReducers} from 'redux'
 import {reducer as albums} from './albums'
 import {reducer as artists} from './artists'
 import {reducer as playlists} from './playlists'
+import {reducer as tracks} from './tracks'
 import sections from './sections'
 
 export default combineReducers({
@@ -10,4 +11,5 @@ export default combineReducers({
   artists,
   sections,
   playlists,
+  tracks,
 })

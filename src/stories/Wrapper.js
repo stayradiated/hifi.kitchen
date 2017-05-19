@@ -2,6 +2,8 @@ import React from 'react'
 import {Router} from 'react-router'
 import createHistory from 'history/createHashHistory'
 
+import 'react-virtualized/styles.css'
+
 import '../styles.css'
 import './styles.css'
 

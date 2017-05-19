@@ -12,6 +12,7 @@ import TypedGrid from '../TypedGrid'
 import TypedPanel from '../TypedPanel'
 import NavBar, {SEARCH} from '../NavBar'
 import SearchResults from '../SearchResults'
+import TrackTable from '../TrackTable'
 
 const handleChangeItem = (props) => (itemType, itemId) => {
   const {onChangeItem, onCreateQueue} = props
@@ -39,6 +40,14 @@ function Browser (props) {
           query={searchQuery}
           hubs={sectionItems}
           onChange={onChangeItem}
+        />
+      )
+      break
+    case TRACK:
+      contents = (
+        <TrackTable
+          tracks={sectionItems}
+          onLoad={(start, end) => onLoadItems(section, start, end)}
         />
       )
       break
