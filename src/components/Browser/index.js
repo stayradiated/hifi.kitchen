@@ -49,6 +49,7 @@ function Browser (props) {
           tracks={sectionItems}
           onChange={onChangeItem}
           onLoad={(start, end) => onLoadItems(section, start, end)}
+          onRate={onRateTrack}
         />
       )
       break

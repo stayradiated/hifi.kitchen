@@ -13,7 +13,7 @@ import Time from '../Time'
 const ROW_HEIGHT = 40
 
 const TrackTable = (props) => {
-  const {tracks, onLoad, onChange} = props
+  const {tracks, onLoad, onChange, onRate} = props
 
   return (
     <AutoSizer>
@@ -67,12 +67,12 @@ const TrackTable = (props) => {
                 label='Rating'
                 dataKey='userRating'
                 width={100}
-                cellRenderer={({cellData}) => (
+                cellRenderer={({rowData, cellData}) => (
                   <RatingBars
                     className='TrackTable-rating'
                     value={cellData}
                     maxValue={10}
-                    onRate={(rating) => console.log('onRate', rating)}
+                    onRate={(rating) => onRate(rowData.id, rating)}
                   />
                 )}
               />
@@ -87,7 +87,7 @@ const TrackTable = (props) => {
               <Column
                 label='Plays'
                 dataKey='viewCount'
-                width={30}
+                width={50}
               />
               <Column
                 label='Date Added'
@@ -101,7 +101,7 @@ const TrackTable = (props) => {
                 label='Bitrate'
                 dataKey='bitrate'
                 cellDataGetter={({rowData}) => rowData.media && rowData.media[0].bitrate}
-                width={100}
+                width={50}
               />
             </Table>
           )}
@@ -115,6 +115,7 @@ TrackTable.propTypes = {
   tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
   onLoad: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
+  onRate: PropTypes.func.isRequired,
 }
 
 export default TrackTable

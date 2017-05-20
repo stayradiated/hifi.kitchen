@@ -9,9 +9,13 @@
 .TrackTable-row:hover {
   background: var(--white-10);
 }
+.TrackTable-row:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--secondary);
+}
 
 .TrackTable-evenRow {
-  background: var(--white-05);
+  background: var(--white-02);
 }
 
 .TrackTable-oddRow {
