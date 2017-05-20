@@ -47,6 +47,7 @@ function Browser (props) {
       contents = (
         <TrackTable
           tracks={sectionItems}
+          onChange={onChangeItem}
           onLoad={(start, end) => onLoadItems(section, start, end)}
         />
       )

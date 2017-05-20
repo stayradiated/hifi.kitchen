@@ -104,9 +104,11 @@ export const createQueueFromTrack = (trackId) => (dispatch, getState) => {
   const state = getState()
   const allTracks = selectAllTracks.values(state)
   const track = allTracks.get(trackId)
+  const sectionId = selectPlex.librarySectionId(state)
 
   return dispatch(createQueueFromURI({
-    source: track.key,
+    key: track.key,
+    source: `/library/sections/${sectionId}/all?type=10`,
     initialTrackId: trackId,
   }))
 }

@@ -1,0 +1,27 @@
+.TrackTable-rating {
+  width: 40px;
+  height: 15px;
+}
+
+.TrackTable-row {
+  cursor: pointer;
+}
+.TrackTable-row:hover {
+  background: var(--white-10);
+}
+
+.TrackTable-evenRow {
+  background: var(--white-05);
+}
+
+.TrackTable-oddRow {
+  background: none;
+}
+
+.TrackTable-headerRow {
+}
+
+.TrackTable-headerColumn {
+  text-transform: none;
+  font-weight: regular;
+}
