@@ -1,0 +1,7 @@
+.Input-input {
+  background: var(--menu);
+  padding: 1em;
+  border: 1px solid var(--primary);
+  border-radius: 3px;
+  outline: none;
+}
