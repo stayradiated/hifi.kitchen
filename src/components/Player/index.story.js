@@ -1,5 +1,6 @@
 import React from 'react'
-import {storiesOf, action} from '@kadira/storybook'
+import {storiesOf} from '@storybook/react'
+import {action} from '@storybook/addon-actions'
 import compose from 'recompose/compose'
 import withState from 'recompose/withState'
 import withHandlers from 'recompose/withHandlers'

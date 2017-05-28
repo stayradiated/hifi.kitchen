@@ -1,5 +1,5 @@
 import React from 'react'
-import {storiesOf} from '@kadira/storybook'
+import {storiesOf} from '@storybook/react'
 import compose from 'recompose/compose'
 import withState from 'recompose/withState'
 

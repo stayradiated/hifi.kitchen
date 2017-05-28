@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {storiesOf, action} from '@kadira/storybook'
+import {storiesOf} from '@storybook/react'
+import {action} from '@storybook/addon-actions'
 import withContext from 'recompose/withContext'
 
 import Wrapper from '../../stories/Wrapper'

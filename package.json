@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://hifi.kitchen",
   "devDependencies": {
+    "@storybook/addon-knobs": "^3.0.0-rc.2",
+    "@storybook/react": "^3.0.0-rc.2",
     "gh-pages": "^1.0.0",
     "react-scripts": "1.0.7"
   },
@@ -11,6 +13,7 @@
     "@stayradiated/mandarin": "^1.12.0",
     "@stayradiated/react-floating-label": "^1.0.5",
     "@stayradiated/web-audio": "^2.0.1",
+    "babel-polyfill": "^6.23.0",
     "classnames": "^2.2.5",
     "cls-bluebird": "^2.0.1",
     "get-scrollbar-width": "^1.0.4",
@@ -54,6 +57,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "build-storybook": "build-storybook -s public"
   }
 }
