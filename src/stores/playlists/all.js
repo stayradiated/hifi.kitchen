@@ -3,7 +3,7 @@ import {PLAYLIST, normalize} from 'perplexed'
 import {createLibraryTypeStore} from '../../storeTemplates'
 
 import {
-  SEARCH,
+  FETCH_SEARCH_RESULTS,
   FETCH_LIBRARY_PLAYLISTS,
   FETCH_PLAYLIST,
 } from '../constants'
@@ -14,7 +14,7 @@ const store = createLibraryTypeStore({
   entity: 'playlists',
   rootSelector: (state) => state.playlists.all,
   mergeActions: [
-    SEARCH.SUCCESS,
+    FETCH_SEARCH_RESULTS.SUCCESS,
     FETCH_LIBRARY_PLAYLISTS.SUCCESS,
   ],
   fetchItems: ({library}, playlistId) =>

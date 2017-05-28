@@ -3,7 +3,7 @@ import {ALBUM} from 'perplexed'
 import {createLibraryTypeStore} from '../../storeTemplates'
 
 import {
-  SEARCH,
+  FETCH_SEARCH_RESULTS,
   FETCH_LIBRARY_ALBUMS,
   FETCH_ARTIST_ALBUMS,
   FETCH_ALBUM,
@@ -15,7 +15,7 @@ const store = createLibraryTypeStore({
   entity: 'albums',
   rootSelector: (state) => state.albums.all,
   mergeActions: [
-    SEARCH.SUCCESS,
+    FETCH_SEARCH_RESULTS.SUCCESS,
     FETCH_LIBRARY_ALBUMS.SUCCESS,
     FETCH_ARTIST_ALBUMS.SUCCESS,
   ],

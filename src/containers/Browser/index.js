@@ -137,6 +137,8 @@ const handleLoadItems = (props) => (section, start, end) => {
       return dispatch(fetchCurrentLibraryPlaylistsRange(start, end))
     case TRACK:
       return dispatch(fetchCurrentLibraryTracksRange(start, end))
+    case SEARCH:
+      return
     default:
       console.error(`Could not load items for section: ${section}`)
   }
