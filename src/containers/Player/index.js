@@ -4,11 +4,11 @@ import {connect} from 'react-redux'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 
-import Queue from '../../components/Queue'
+import Player from '../../components/Player'
 
 import {selectAllTracks} from '../../stores/tracks/all'
 import {moveQueueItem, playQueueItem} from '../../stores/queue/actions'
-import * as selectQueue from '../../stores/queue/selectors'
+import * as selectPlayer from '../../stores/queue/selectors'
 
 const handleChange = (props) => (item) => {
   const {dispatch} = props
@@ -20,14 +20,14 @@ const handleSort = (props) => ({newIndex, oldIndex}) => {
   return dispatch(moveQueueItem({newIndex, oldIndex}))
 }
 
-function QueueContainer (props) {
+function PlayerContainer (props) {
   const {
     items, values, selectedItemId,
     onChange, onSort,
   } = props
 
   return (
-    <Queue
+    <Player
       items={items}
       values={values}
       selectedItemId={selectedItemId}
@@ -37,7 +37,7 @@ function QueueContainer (props) {
   )
 }
 
-QueueContainer.propTypes = {
+PlayerContainer.propTypes = {
   values: PropTypes.shape({
     tracks: PropTypes.instanceOf(Map).isRequired,
   }).isRequired,
@@ -52,11 +52,11 @@ export default compose(
     values: {
       tracks: selectAllTracks.values(state),
     },
-    items: selectQueue.items(state),
-    selectedItemId: selectQueue.selectedItemId(state),
+    items: selectPlayer.items(state),
+    selectedItemId: selectPlayer.selectedItemId(state),
   })),
   withHandlers({
     onChange: handleChange,
     onSort: handleSort,
   }),
-)(QueueContainer)
+)(PlayerContainer)

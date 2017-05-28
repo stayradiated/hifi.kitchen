@@ -6,7 +6,7 @@ import {
 
 export default function createFetchMapStore (options) {
   const {
-    constant: TYPE, name,
+    constant: TYPE,
     rootSelector,
     forceFetch,
     getCacheOptions = () => ({}),
@@ -41,8 +41,8 @@ export default function createFetchMapStore (options) {
 
   return {
     reducer,
-    [`fetch${name}`]: fetchMap,
-    [`forceFetch${name}`]: forceFetch,
-    [`select${name}`]: selectors,
+    fetchMap,
+    forceFetch,
+    selectors,
   }
 }

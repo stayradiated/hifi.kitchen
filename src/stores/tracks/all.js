@@ -8,7 +8,8 @@ import {
   FETCH_ALBUM_TRACKS,
   FETCH_PLAYLIST_TRACKS,
   FETCH_QUEUE,
-  SEARCH,
+  FETCH_SEARCH_RESULTS,
+  FETCH_TRACK,
   SHUFFLE_PLAY_QUEUE,
   UNSHUFFLE_PLAY_QUEUE,
   FETCH_LIBRARY_TRACKS,
@@ -16,9 +17,9 @@ import {
 
 const RATE_TRACK = c('RATE_TRACK')
 
-module.exports = createLibraryTypeStore({
-  type: TRACK,
-  name: 'Track',
+const store = createLibraryTypeStore({
+  constant: FETCH_TRACK,
+  libraryType: TRACK,
   entity: 'tracks',
   rootSelector: (state) => state.tracks.all,
   mergeActions: [
@@ -26,7 +27,7 @@ module.exports = createLibraryTypeStore({
     FETCH_ALBUM_TRACKS.SUCCESS,
     FETCH_PLAYLIST_TRACKS.SUCCESS,
     FETCH_QUEUE.SUCCESS,
-    SEARCH.SUCCESS,
+    FETCH_SEARCH_RESULTS.SUCCESS,
     SHUFFLE_PLAY_QUEUE.SUCCESS,
     UNSHUFFLE_PLAY_QUEUE.SUCCESS,
     FETCH_LIBRARY_TRACKS.SUCCESS,
@@ -47,10 +48,15 @@ module.exports = createLibraryTypeStore({
   },
 })
 
-module.exports.rateTrack = (trackId, rating) => ({
+export const rateTrack = (trackId, rating) => ({
   types: RATE_TRACK,
   payload: {trackId, rating},
   meta: {
     plex: ({library}) => library.rate(trackId, rating),
   },
 })
+
+export const reducer = store.reducer
+export const forceFetchTrack = store.forceFetchType
+export const fetchTrack = store.fetchType
+export const selectAllTracks = store.selectors

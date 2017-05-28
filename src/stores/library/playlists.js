@@ -13,9 +13,8 @@ import {FETCH_LIBRARY_PLAYLISTS, SORT_LIBRARY_PLAYLISTS} from '../constants'
 
 import {createLibraryTypeList} from '../../storeTemplates'
 
-module.exports = createLibraryTypeList({
+const store = createLibraryTypeList({
   type: PLAYLIST,
-  name: 'Playlists',
   actions: {
     fetch: FETCH_LIBRARY_PLAYLISTS,
     sort: SORT_LIBRARY_PLAYLISTS,
@@ -40,3 +39,10 @@ module.exports = createLibraryTypeList({
   fetchItems: ({library}, section, options) =>
     normalize(library.playlists(options)),
 })
+
+export const reducer = store.reducer
+export const fetchCurrentLibraryPlaylistsRange = store.fetchCurrentLibraryTypeRange
+export const fetchLibraryPlaylistsRange = store.fetchLibraryTypeRange
+export const sortLibraryPlaylists = store.sortLibraryType
+export const forceFetchLibraryPlaylistsRange = store.forceFetchLibraryTypeRange
+export const selectLibraryPlaylists = store.selectors

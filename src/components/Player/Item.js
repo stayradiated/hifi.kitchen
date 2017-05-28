@@ -6,35 +6,29 @@ import {SortableElement} from 'react-sortable-hoc'
 import './Item.css'
 
 import SortHandle from '../SortHandle'
-import SquareImage from '../SquareImage'
 import Time from '../Time'
 
-function QueueItem (props) {
+const PlayerItem = (props) => {
   const {style, track, isSelected, onClick} = props
 
   return (
     <button
       style={style}
-      className={classNames('QueueItem', {
-        'QueueItem-selected': isSelected,
+      className={classNames('PlayerItem', {
+        'PlayerItem-selected': isSelected,
       })}
       onClick={onClick}
     >
-      <SquareImage
-        className='QueueItem-thumb'
-        src={track.parentThumb}
-        size={40}
-      />
-      <div className='QueueItem-text'>
-        <div className='QueueItem-title'>
+      <div className='PlayerItem-text'>
+        <div className='PlayerItem-title'>
           {track.title}
         </div>
-        <div className='QueueItem-artist'>
+        <div className='PlayerItem-artist'>
           {track.grandparentTitle}
         </div>
       </div>
       <Time
-        className='QueueItem-time'
+        className='PlayerItem-time'
         value={track.duration}
       />
       <SortHandle />
@@ -42,7 +36,7 @@ function QueueItem (props) {
   )
 }
 
-QueueItem.propTypes = {
+PlayerItem.propTypes = {
   style: PropTypes.shape({}),
   track: PropTypes.shape({
     title: PropTypes.string,
@@ -51,4 +45,4 @@ QueueItem.propTypes = {
   onClick: PropTypes.func,
 }
 
-export default new SortableElement(QueueItem)
+export default new SortableElement(PlayerItem)

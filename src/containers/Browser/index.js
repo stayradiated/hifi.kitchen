@@ -5,7 +5,13 @@ import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import lifecycle from 'recompose/lifecycle'
 
-import {ARTIST, ALBUM, PLAYLIST, TRACK} from '../../stores/constants'
+import {
+  ARTIST,
+  ALBUM,
+  PLAYLIST,
+  TRACK,
+  SEARCH,
+} from '../../stores/constants'
 
 import {
   fetchCurrentLibraryAlbumsRange,
@@ -71,7 +77,6 @@ import {
 import * as selectTimeline from '../../stores/timeline/selectors'
 
 import Browser from '../../components/Browser'
-import {SEARCH} from '../../components/NavBar'
 
 const receiveProps = (prevProps, props) => {
   const {

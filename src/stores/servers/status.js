@@ -46,7 +46,7 @@ export function connectMultiple (account, server, connections) {
   })
 }
 
-const fetchServerStatus = (serverId) => {
+const handleFetchServerStatus = (serverId) => {
   return async (dispatch, getState) => {
     // make sure all the account servers have been fetched first
     await dispatch(fetchAccountServers())
@@ -67,12 +67,16 @@ const fetchServerStatus = (serverId) => {
   }
 }
 
-module.exports = createFetchMapStore({
-  name: 'ServerStatus',
+const store = createFetchMapStore({
   constant: FETCH_SERVER_STATUS,
   rootSelector: (state) => state.servers.status,
-  forceFetch: fetchServerStatus,
+  forceFetch: handleFetchServerStatus,
   getCacheOptions: (serverId) => ({
     id: serverId,
   }),
 })
+
+export const reducer = store.reducer
+export const fetchServerStatus = store.fetchMap
+export const forceFetchServerStatus = store.forceFetch
+export const selectServerStatus = store.selectors

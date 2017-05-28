@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import QueueItem from './Item'
+import PlayerItem from './Item'
 import SortableItemsList from '../SortableList'
 
-export default function Queue (props) {
-  const {className, selectedItemId, items, values, onChange, onSort} = props
+export default function PlayerList (props) {
+  const {className, selectedTrackId, items, values, onChange, onSort} = props
 
   const renderItem = ({key, style, index}) => {
     const item = items[index]
@@ -18,12 +18,12 @@ export default function Queue (props) {
     }
 
     return (
-      <QueueItem
+      <PlayerItem
         key={item.id || key}
         style={style}
         index={index}
         track={track}
-        isSelected={selectedItemId === item.track}
+        isSelected={selectedTrackId === item.track}
         onClick={() => onChange && onChange(item)}
       />
     )
@@ -46,12 +46,12 @@ export default function Queue (props) {
       onSortEnd={onSort}
       useDragHandle
       lockAxis='y'
-      helperClass='QueueItem-helper SortHandle-helper'
+      helperClass='PlayerItem-helper SortHandle-helper'
     />
   )
 }
 
-Queue.propTypes = {
+PlayerList.propTypes = {
   values: PropTypes.shape({
     tracks: PropTypes.instanceOf(Map).isRequired,
   }).isRequired,
@@ -59,5 +59,5 @@ Queue.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func,
   onSort: PropTypes.func,
-  selectedItemId: PropTypes.number,
+  selectedTrackId: PropTypes.number,
 }

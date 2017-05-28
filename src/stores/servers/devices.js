@@ -2,8 +2,7 @@ import {createPassiveMapStore} from '../../storeTemplates'
 
 import {FETCH_ACCOUNT_SERVERS} from '../constants'
 
-module.exports = createPassiveMapStore({
-  name: 'AllDevices',
+const store = createPassiveMapStore({
   entity: 'devices',
   constants: [FETCH_ACCOUNT_SERVERS.SUCCESS],
   rootSelector: (state) => state.servers.devices,
@@ -11,3 +10,6 @@ module.exports = createPassiveMapStore({
     getId: (device) => device.id,
   },
 })
+
+export const reducer = store.reducer
+export const selectAllDevices = store.selectors

@@ -7,6 +7,7 @@ import servers from '../../data/servers.json'
 import libraries from '../../data/libraries.json'
 import tracks from '../../data/tracks.json'
 import search from '../../data/search.json'
+import albumart from '../../data/albumart.jpg'
 
 const getId = (item) => item.id
 
@@ -61,4 +62,5 @@ export {
   playlistIds,
   trackIds,
   values,
+  albumart,
 }

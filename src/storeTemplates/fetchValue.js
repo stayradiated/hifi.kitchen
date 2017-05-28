@@ -6,7 +6,7 @@ import {
 
 export default function createFetchValueStore (options) {
   const {
-    constant: TYPE, name,
+    constant: TYPE,
     rootSelector,
     getActionOptions = () => ({}),
     reducerOptions = {},
@@ -44,8 +44,8 @@ export default function createFetchValueStore (options) {
 
   return {
     reducer,
-    [`fetch${name}`]: fetchValue,
-    [`forceFetch${name}`]: forceFetchValue,
-    [`select${name}`]: selectors,
+    fetchValue,
+    forceFetchValue,
+    selectors,
   }
 }

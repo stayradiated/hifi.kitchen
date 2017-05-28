@@ -2,7 +2,7 @@ import {createSelector} from 'reselect'
 import {Client, Account, Library} from 'perplexed'
 import {actionTypes} from 'redux-localstorage'
 
-import config from '../../../config.json'
+import config from '../../config.json'
 
 import {
   PLEX_INITIALIZE,

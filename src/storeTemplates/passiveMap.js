@@ -5,7 +5,7 @@ import {
 
 export default function createPassiveMapStore (options) {
   const {
-    name, constants, entity,
+    constants, entity,
     rootSelector,
     mergeOptions = {},
   } = options
@@ -30,6 +30,6 @@ export default function createPassiveMapStore (options) {
 
   return {
     reducer,
-    [`select${name}`]: selectors,
+    selectors,
   }
 }

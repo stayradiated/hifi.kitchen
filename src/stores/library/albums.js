@@ -17,8 +17,7 @@ import {
 
 import {createLibraryTypeList} from '../../storeTemplates'
 
-module.exports = createLibraryTypeList({
-  name: 'Albums',
+const store = createLibraryTypeList({
   type: ALBUM,
   actions: {
     fetch: FETCH_LIBRARY_ALBUMS,
@@ -43,3 +42,10 @@ module.exports = createLibraryTypeList({
     getValues: (action) => action.value.result.id.albums,
   },
 })
+
+export const reducer = store.reducer
+export const fetchCurrentLibraryAlbumsRange = store.fetchCurrentLibraryTypeRange
+export const fetchLibraryAlbumsRange = store.fetchLibraryTypeRange
+export const sortLibraryAlbums = store.sortLibraryType
+export const forceFetchLibraryAlbumsRange = store.forceFetchLibraryTypeRange
+export const selectLibraryAlbums = store.selectors

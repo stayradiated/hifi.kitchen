@@ -9,8 +9,7 @@ import './styles.css'
 import Icon from '../Icon'
 import SearchBar from '../SearchBar'
 import Dropdown from '../Dropdown'
-
-export const SEARCH = 'SEARCH'
+import {SEARCH} from '../../stores/constants'
 
 export default function NavBar (props) {
   const {

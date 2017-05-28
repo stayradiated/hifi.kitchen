@@ -4,8 +4,7 @@ import {FETCH_PLAYLIST_TRACKS} from '../constants'
 
 import {createLibraryTypeChildrenStore} from '../../storeTemplates'
 
-module.exports = createLibraryTypeChildrenStore({
-  name: 'PlaylistTracks',
+const store = createLibraryTypeChildrenStore({
   type: TRACK,
   constant: FETCH_PLAYLIST_TRACKS,
   rootSelector: (state) => state.playlists.tracks,
@@ -25,3 +24,8 @@ module.exports = createLibraryTypeChildrenStore({
     normalize(library.playlistTracks(
       playlistId, {start, size: end - start})),
 })
+
+export const reducer = store.reducer
+export const fetchPlaylistTracks = store.fetchTypeChildren
+export const forceFetchPlaylistTracks = store.forceFetchTypeChildren
+export const selectAllPlaylistTracks = store.selectors

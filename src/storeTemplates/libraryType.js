@@ -1,6 +1,5 @@
 import {normalize} from 'perplexed'
 import {
-  c,
   AsyncMapReducer,
   createObjectMergeFunction,
   cacheMap,
@@ -9,18 +8,26 @@ import {
 
 export default function createLibraryTypeStore (options) {
   const {
-    type: TYPE, name, entity,
+    entity,
+    libraryType,
+    constant: TYPE,
     rootSelector, mergeActions = [], customActions = {},
     fetchItems = ({library}, id) =>
-      normalize(library.metadata(id, TYPE)),
+      normalize(library.metadata(id, libraryType)),
   } = options
 
-  const FETCH_TYPE = c(`FETCH_${name.toUpperCase()}`)
+  console.assert(typeof entity === 'string', 'entity missing')
+  console.assert(typeof libraryType === 'number', 'libraryType missing')
+  console.assert(Array.isArray(TYPE), 'constant missing')
+  console.assert(typeof rootSelector === 'function', 'rootSelector missing')
+  console.assert(Array.isArray(mergeActions), 'mergeActions missing')
+  console.assert(typeof customActions === 'object', 'customActions missing')
+  console.assert(typeof fetchItems === 'function', 'fetchItems missing')
 
   const selectors = createMapSelector(rootSelector)
 
   const forceFetchType = (id) => ({
-    types: FETCH_TYPE,
+    types: TYPE,
     payload: {id},
     meta: {
       plex: (plex) => fetchItems(plex, id),
@@ -53,13 +60,13 @@ export default function createLibraryTypeStore (options) {
 
   const reducer = (state = asyncReducer.initialState, action) => {
     switch (action.type) {
-      case FETCH_TYPE.REQUEST:
+      case TYPE.REQUEST:
         return asyncReducer.handleRequest(state, action)
 
-      case FETCH_TYPE.FAILURE:
+      case TYPE.FAILURE:
         return asyncReducer.handleFailure(state, action)
 
-      case FETCH_TYPE.SUCCESS:
+      case TYPE.SUCCESS:
         return asyncReducer.handleSuccess(state, action)
 
       default:
@@ -82,9 +89,8 @@ export default function createLibraryTypeStore (options) {
 
   return {
     reducer,
-    [`FETCH_${name.toUpperCase()}`]: FETCH_TYPE,
-    [`forceFetch${name}`]: forceFetchType,
-    [`fetch${name}`]: fetchType,
-    [`selectAll${name}s`]: selectors,
+    forceFetchType,
+    fetchType,
+    selectors,
   }
 }

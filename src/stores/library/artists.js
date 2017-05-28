@@ -10,9 +10,8 @@ import {FETCH_LIBRARY_ARTISTS, SORT_LIBRARY_ARTISTS} from '../constants'
 
 import {createLibraryTypeList} from '../../storeTemplates'
 
-module.exports = createLibraryTypeList({
+const store = createLibraryTypeList({
   type: ARTIST,
-  name: 'Artists',
   actions: {
     fetch: FETCH_LIBRARY_ARTISTS,
     sort: SORT_LIBRARY_ARTISTS,
@@ -32,3 +31,10 @@ module.exports = createLibraryTypeList({
     getValues: (action) => action.value.result.id.artists,
   },
 })
+
+export const reducer = store.reducer
+export const fetchCurrentLibraryArtistsRange = store.fetchCurrentLibraryTypeRange
+export const fetchLibraryArtistsRange = store.fetchLibraryTypeRange
+export const sortLibraryArtists = store.sortLibraryType
+export const forceFetchLibraryArtistsRange = store.forceFetchLibraryTypeRange
+export const selectLibraryArtists = store.selectors

@@ -1,6 +1,6 @@
 import {AsyncValueReducer} from '@stayradiated/mandarin'
 
-import {SEARCH} from '../constants'
+import {FETCH_SEARCH_RESULTS} from '../constants'
 
 const searchReducer = new AsyncValueReducer({
   defaultValue: {
@@ -14,13 +14,13 @@ const searchReducer = new AsyncValueReducer({
 
 export default function (state = searchReducer.initialState, action) {
   switch (action.type) {
-    case SEARCH.REQUEST:
+    case FETCH_SEARCH_RESULTS.REQUEST:
       return searchReducer.handleRequest(state, action)
 
-    case SEARCH.FAILURE:
+    case FETCH_SEARCH_RESULTS.FAILURE:
       return searchReducer.handleFailure(state, action)
 
-    case SEARCH.SUCCESS:
+    case FETCH_SEARCH_RESULTS.SUCCESS:
       return searchReducer.handleSuccess(state, action)
 
     default:

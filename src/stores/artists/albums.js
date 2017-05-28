@@ -4,8 +4,7 @@ import {FETCH_ARTIST_ALBUMS} from '../constants'
 
 import {createLibraryTypeChildrenStore} from '../../storeTemplates'
 
-module.exports = createLibraryTypeChildrenStore({
-  name: 'ArtistAlbums',
+const store = createLibraryTypeChildrenStore({
   type: ALBUM,
   constant: FETCH_ARTIST_ALBUMS,
   rootSelector: (state) => state.artists.albums,
@@ -13,3 +12,8 @@ module.exports = createLibraryTypeChildrenStore({
     getValues: (action) => action.value.result.id.albums,
   },
 })
+
+export const reducer = store.reducer
+export const fetchArtistAlbums = store.fetchTypeChildren
+export const forceFetchArtistAlbums = store.forceFetchTypeChildren
+export const selectAllArtistAlbums = store.selectors

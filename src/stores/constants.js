@@ -4,33 +4,38 @@ export const PLAYLIST = 'playlist'
 export const ARTIST   = 'artist'
 export const ALBUM    = 'album'
 export const TRACK    = 'track'
+export const SEARCH   = 'search'
+export const PLAYER   = 'player'
 
 export const CONFIG_TIMELINE_UPDATE_TIME = 1000 * 10
 
 export const FETCH_QUEUE             = c('FETCH_QUEUE')
 export const CREATE_QUEUE            = c('CREATE_QUEUE')
 export const FETCH_LIBRARY_SECTIONS  = c('FETCH_LIBRARY_SECTIONS')
-export const FETCH_PLAYLIST          = c('FETCH_PLAYLIST')
 export const FETCH_PLAYLIST_TRACKS   = c('FETCH_PLAYLIST_TRACKS')
 export const RATE_TRACK              = c('RATE_TRACK')
-export const SEARCH                  = c('SEARCH')
+export const FETCH_SEARCH_RESULTS    = c('FETCH_SEARCH_RESULTS')
 export const UPDATE_TIMELINE         = c('UPDATE_TIMELINE')
 
 // albums
+export const FETCH_ALBUM          = c('FETCH_ALBUM')
 export const FETCH_LIBRARY_ALBUMS = c('FETCH_LIBRARY_ALBUMS')
 export const FETCH_ALBUM_TRACKS   = c('FETCH_ALBUM_TRACKS')
 export const SORT_LIBRARY_ALBUMS  = 'SORT_LIBRARY_ALBUMS'
 
 // artists
+export const FETCH_ARTIST          = c('FETCH_ARTIST')
 export const FETCH_LIBRARY_ARTISTS = c('FETCH_LIBRARY_ARTISTS')
 export const FETCH_ARTIST_ALBUMS   = c('FETCH_ARTIST_ALBUMS')
 export const SORT_LIBRARY_ARTISTS  = 'SORT_LIBRARY_ARTISTS'
 
 // playlists
+export const FETCH_PLAYLIST          = c('FETCH_PLAYLIST')
 export const FETCH_LIBRARY_PLAYLISTS = c('FETCH_LIBRARY_PLAYLISTS')
 export const SORT_LIBRARY_PLAYLISTS  = 'SORT_LIBRARY_PLAYLISTS'
 
 // tracks
+export const FETCH_TRACK          = c('FETCH_TRACK')
 export const FETCH_LIBRARY_TRACKS = c('FETCH_LIBRARY_TRACKS')
 export const SORT_LIBRARY_TRACKS  = 'SORT_LIBRARY_TRACKS'
 

@@ -7,7 +7,6 @@ import {
 
 export default function createLibraryTypeChildrenStore (options) {
   const {
-    name,
     type: TYPE,
     constant: FETCH_TYPE_CHILDREN,
     rootSelector,
@@ -61,8 +60,8 @@ export default function createLibraryTypeChildrenStore (options) {
 
   return {
     reducer,
-    [`fetch${name}`]: fetchTypeChildren,
-    [`forceFetch${name}`]: forceFetchTypeChildren,
-    [`selectAll${name}`]: selectors,
+    fetchTypeChildren,
+    forceFetchTypeChildren,
+    selectors,
   }
 }

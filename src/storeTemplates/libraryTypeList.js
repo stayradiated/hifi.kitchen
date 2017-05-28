@@ -10,7 +10,6 @@ import {selectPlex} from '../stores/plex/instance'
 
 export default function createLibraryTypeList (options) {
   const {
-    name,
     type: TYPE,
     actions: {
       fetch: FETCH_LIBRARY_TYPE,
@@ -27,7 +26,6 @@ export default function createLibraryTypeList (options) {
       normalize(library.sectionItems(section, TYPE, params)),
   } = options
 
-  console.assert(typeof name === 'string', 'name missing')
   console.assert(typeof TYPE === 'number', 'type missing')
   console.assert(typeof FETCH_LIBRARY_TYPE === 'object', 'actions.fetch missing')
   console.assert(typeof SORT_LIBRARY_TYPE === 'string', 'actions.sort missing')
@@ -134,10 +132,10 @@ export default function createLibraryTypeList (options) {
 
   return {
     reducer,
-    [`fetchCurrentLibrary${name}Range`]: fetchCurrentLibraryTypeRange,
-    [`fetchLibrary${name}Range`]: fetchLibraryTypeRange,
-    [`sortLibrary${name}`]: sortLibraryType,
-    [`forceFetchLibrary${name}Range`]:forceFetchLibraryTypeRange,
-    [`selectLibrary${name}`]: selectors,
+    fetchCurrentLibraryTypeRange,
+    fetchLibraryTypeRange,
+    sortLibraryType,
+    forceFetchLibraryTypeRange,
+    selectors,
   }
 }

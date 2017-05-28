@@ -95,7 +95,7 @@ TrackList.defaultProps = {
 export default compose(
   setPropTypes({
     currentlyPlayingTrackId: PropTypes.number,
-    displayArtist: PropTypes.string,
+    displayArtist: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     onRateTrack: PropTypes.func.isRequired,
     onSelectTrack: PropTypes.func.isRequired,
     playerState: PropTypes.string,

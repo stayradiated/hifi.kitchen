@@ -65,7 +65,7 @@ TrackListItem.propTypes = {
     duration: PropTypes.nuumber,
   }).isRequired,
   currentlyPlaying: PropTypes.bool,
-  displayArtist: PropTypes.bool,
+  displayArtist: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   playerState: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
   onRate: PropTypes.func.isRequired,

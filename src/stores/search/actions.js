@@ -1,9 +1,9 @@
 import {normalize} from 'perplexed'
 
-import {SEARCH} from '../constants'
+import {FETCH_SEARCH_RESULTS} from '../constants'
 
 export const search = (query, limit) => ({
-  types: SEARCH,
+  types: FETCH_SEARCH_RESULTS,
   payload: {query, limit},
   meta: {
     plex: ({library}) => normalize(library.searchAll(query, limit)),

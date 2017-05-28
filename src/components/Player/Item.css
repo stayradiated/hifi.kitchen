@@ -1,0 +1,47 @@
+.PlayerItem {
+  display: flex;
+  padding: 0.5em;
+  align-items: center;
+  border-bottom: 1px solid var(--white-05);
+}
+
+.PlayerItem:hover {
+  background: var(--white-05);
+}
+
+.PlayerItem-selected {
+  color: var(--primary);
+}
+
+.PlayerItem-helper {
+  background: var(--background);
+  opacity: 0.9;
+}
+
+.PlayerItem-thumb {
+  width: calc(60px - 1em);
+  margin-right: 0.5em;
+}
+
+.PlayerItem-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.PlayerItem-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.PlayerItem-artist {
+  color: var(--white-50);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.PlayerItem-time {
+  color: var(--white-50);
+}

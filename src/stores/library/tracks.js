@@ -20,8 +20,7 @@ import {
 
 import {createLibraryTypeList} from '../../storeTemplates'
 
-module.exports = createLibraryTypeList({
-  name: 'Tracks',
+const store = createLibraryTypeList({
   type: TRACK,
   actions: {
     fetch: FETCH_LIBRARY_TRACKS,
@@ -49,3 +48,10 @@ module.exports = createLibraryTypeList({
     getValues: (action) => action.value.result.id.tracks,
   },
 })
+
+export const reducer = store.reducer
+export const fetchCurrentLibraryTracksRange = store.fetchCurrentLibraryTypeRange
+export const fetchLibraryTracksRange = store.fetchLibraryTypeRange
+export const sortLibraryTracks = store.sortLibraryType
+export const forceFetchLibraryTracksRange = store.forceFetchLibraryTypeRange
+export const selectLibraryTracks = store.selectors

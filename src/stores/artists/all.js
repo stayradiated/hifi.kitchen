@@ -5,11 +5,12 @@ import {createLibraryTypeStore} from '../../storeTemplates'
 import {
   SEARCH,
   FETCH_LIBRARY_ARTISTS,
+  FETCH_ARTIST,
 } from '../constants'
 
-module.exports = createLibraryTypeStore({
-  type: ARTIST,
-  name: 'Artist',
+const store = createLibraryTypeStore({
+  constant: FETCH_ARTIST,
+  libraryType: ARTIST,
   entity: 'artists',
   rootSelector: (state) => state.artists.all,
   mergeActions: [
@@ -17,3 +18,8 @@ module.exports = createLibraryTypeStore({
     FETCH_LIBRARY_ARTISTS.SUCCESS,
   ],
 })
+
+export const reducer = store.reducer
+export const forceFetchArtist = store.forceFetchType
+export const fetchArtist = store.fetchType
+export const selectAllArtists = store.selectors

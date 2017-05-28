@@ -16,7 +16,7 @@ const trackHub = exportValue(selectors, 'track')
 const resolve = (hub, allItems) =>
   hub.items.map((item) => allItems.get(item.id))
 
-module.exports = {
+export default {
   ...selectors,
 
   artists: createSelector(artistHub, selectAllArtists.values, resolve),
