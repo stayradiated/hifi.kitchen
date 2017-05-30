@@ -12,13 +12,15 @@ storiesOf('TypedGrid', module)
   .add('of Albums', () => (
     <TypedGrid
       items={albums}
-      onChange={action('Select Item')}
+      onChange={action('onChange')}
+      onLoad={action('onLoad')}
     />
   ))
   .add('of Artists', () => (
     <TypedGrid
       items={artists}
-      onChange={action('Select Item')}
+      onChange={action('onChange')}
+      onLoad={action('onLoad')}
     />
   ))
 

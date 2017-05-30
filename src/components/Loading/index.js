@@ -1,12 +1,12 @@
 import React from 'react'
-import Spinner from 'react-spinkit'
+import {Pulse} from 'better-react-spinkit'
 
 import './styles.css'
 
 export default function () {
   return (
     <div className='Loading'>
-      <Spinner spinnerName='pulse' className='Loading-spinner' />
+      <Pulse size={60} color='var(--primary)' />
     </div>
   )
 }

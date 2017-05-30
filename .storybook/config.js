@@ -1,7 +1,6 @@
 import { configure } from '@storybook/react'
-import 'babel-polyfill'
 
-const req = require.context('../src/components', true, /\.story\.js$/)
+const req = require.context('../src/components/', true, /\.story\.js$/)
 
 function loadStories() {
   req.keys().forEach(req)

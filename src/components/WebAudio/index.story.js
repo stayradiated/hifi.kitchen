@@ -27,21 +27,17 @@ storiesOf('WebAudio', module)
       <WebAudioWithContext
         source={'https://122-57-168-188.5d65810fd05e4d9abddb0f60758e3559.plex.direct:45804/library/parts/65977/1490522610/file.mp3?X-Plex-Session-Identifier=clzcyg9w7obht2xdcz2949ru&X-Plex-Product=Plex%20Web&X-Plex-Version=3.1.1&X-Plex-Client-Identifier=6ffb72b0-c203-4b20-9770-86a1eb46ca6f&X-Plex-Platform=Chrome&X-Plex-Platform-Version=54.0&X-Plex-Device=Linux&X-Plex-Device-Name=Plex%20Web%20%28Chrome%29&X-Plex-Device-Screen-Resolution=1322x623%2C1366x768&X-Plex-Token=HNNtkVW8rxag9JDRrfGW&Accept-Language=en-GB'}
       >
-        {({currentTime, buffered, duration, paused, onPause, onPlay}) => (
+        {(audio) => (
           <Controls
             track={track}
-            audio={{
-              currentTime,
-              buffered,
-              duration,
-            }}
-            paused={paused}
-            onPause={onPause}
-            onPlay={onPlay}
-            onPrev={action('Prev')}
-            onNext={action('Next')}
-            onQueue={action('Queue')}
-            onRateTrack={action('RateTrack')}
+            audio={audio}
+            paused={false}
+            onPause={action('onPause')}
+            onPlay={action('onPlay')}
+            onPrev={action('onPrev')}
+            onNext={action('onNext')}
+            onQueue={action('onQueue')}
+            onRateTrack={action('onRateTrack')}
           />
         )}
       </WebAudioWithContext>

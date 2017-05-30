@@ -13,7 +13,7 @@ import TypedPanel from '../TypedPanel'
 import NavBar from '../NavBar'
 import SearchResults from '../SearchResults'
 import TrackTable from '../TrackTable'
-import PlayerContainer from '../../containers/Player'
+// import PlayerContainer from '../../containers/Player'
 
 const handleChangeItem = (props) => (itemType, itemId) => {
   const {onChangeItem, onCreateQueue} = props
@@ -56,7 +56,8 @@ function Browser (props) {
       break
     case PLAYER:
       contents = (
-        <PlayerContainer />
+        <div/>
+        // <PlayerContainer />
       )
       break
     default:
@@ -117,7 +118,7 @@ Browser.propTypes = {
   playerState: PropTypes.string,
   sortBy: PropTypes.string,
   sortDesc: PropTypes.bool,
-  sortOptions: PropTypes.arrayOf(PropTypes.string),
+  sortOptions: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChangeItem: PropTypes.func.isRequired,
   onChangeSearchQuery: PropTypes.func,
   onChangeSection: PropTypes.func,

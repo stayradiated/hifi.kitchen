@@ -8,7 +8,7 @@ import LoginForm from './index'
 
 storiesOf('Login Form', module)
   .addDecorator(Wrapper)
-  .add('Main', () => (
+  .add('Default', () => (
     <LoginForm
       onSubmit={action('Submit Form')}
       errorMessage='Authentication failed'

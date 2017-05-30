@@ -5,13 +5,7 @@ import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import lifecycle from 'recompose/lifecycle'
 
-import {
-  ARTIST,
-  ALBUM,
-  PLAYLIST,
-  TRACK,
-  SEARCH,
-} from '../../stores/constants'
+import {ARTIST, ALBUM, PLAYLIST, TRACK, SEARCH} from '../../stores/constants'
 
 import {
   fetchCurrentLibraryAlbumsRange,
