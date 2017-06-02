@@ -13,7 +13,7 @@ import RatingStars from '../RatingStars'
 export default function Controls (props) {
   const {
     audio, track, paused, shuffled,
-    onStop, onPrev, onPlay, onPause, onNext, onQueue, onRateTrack,
+    onStop, onPrev, onPlay, onPause, onNext, onQueue, onPlayer, onRateTrack,
     onShuffle,
   } = props
 
@@ -77,11 +77,16 @@ export default function Controls (props) {
         >
           <Icon icon='list' />
         </button>
-        <SquareImage
-          className='Controls-albumThumb'
-          imageClassName='Controls-albumThumbImage'
-          src={track.thumb}
-        />
+        <button
+          className='Controls-albumThumbButton'
+          onClick={onPlayer}
+        >
+          <SquareImage
+            className='Controls-albumThumb'
+            imageClassName='Controls-albumThumbImage'
+            src={track.thumb}
+          />
+        </button>
       </div>
     </div>
   )
@@ -107,6 +112,7 @@ Controls.propTypes = {
   onPause: PropTypes.func.isRequired,
   onNext: PropTypes.func.isRequired,
   onQueue: PropTypes.func.isRequired,
+  onPlayer: PropTypes.func.isRequired,
   onShuffle: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
 }

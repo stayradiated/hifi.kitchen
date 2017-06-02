@@ -69,6 +69,9 @@ export default function (state = initialState, action) {
         ...action.value.result.id,
       }
 
+    case FETCH_QUEUE.FAILURE:
+      return initialState
+
     case PLAY_QUEUE_ITEM:
       const {selectedItemId} = action.payload
       return {

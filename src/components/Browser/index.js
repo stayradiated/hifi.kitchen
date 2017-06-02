@@ -6,14 +6,13 @@ import noop from 'nop'
 
 import './styles.css'
 
-import {PLAYER, SEARCH, TRACK} from '../../stores/constants'
+import {SEARCH, TRACK} from '../../stores/constants'
 
 import TypedGrid from '../TypedGrid'
 import TypedPanel from '../TypedPanel'
 import NavBar from '../NavBar'
 import SearchResults from '../SearchResults'
 import TrackTable from '../TrackTable'
-// import PlayerContainer from '../../containers/Player'
 
 const handleChangeItem = (props) => (itemType, itemId) => {
   const {onChangeItem, onCreateQueue} = props
@@ -52,12 +51,6 @@ function Browser (props) {
           onLoad={(start, end) => onLoadItems(section, start, end)}
           onRate={onRateTrack}
         />
-      )
-      break
-    case PLAYER:
-      contents = (
-        <div/>
-        // <PlayerContainer />
       )
       break
     default:
@@ -133,11 +126,6 @@ Browser.defaultProps = {
   onChangeItem: noop,
   onChangeSearchQuery: noop,
   onChangeSection: noop,
-}
-
-export {
-  SEARCH,
-  PLAYER,
 }
 
 export default withHandlers({

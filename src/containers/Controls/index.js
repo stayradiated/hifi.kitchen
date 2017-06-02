@@ -27,6 +27,7 @@ import {
 import * as selectTimeline from '../../stores/timeline/selectors'
 import {
   toggleDisplayQueue,
+  toggleDisplayPlayer,
 } from '../../stores/ui'
 
 import * as selectQueue from '../../stores/queue/selectors'
@@ -53,6 +54,7 @@ class ControlsContainer extends Component {
     this.handlePlay = this.handlePlay.bind(this)
     this.handlePrevTrack = this.handlePrevTrack.bind(this)
     this.handleQueue = this.handleQueue.bind(this)
+    this.handlePlayer = this.handlePlayer.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
     this.handleShuffle = this.handleShuffle.bind(this)
     this.handleStop = this.handleStop.bind(this)
@@ -125,6 +127,11 @@ class ControlsContainer extends Component {
     dispatch(toggleDisplayQueue())
   }
 
+  handlePlayer () {
+    const {dispatch} = this.props
+    dispatch(toggleDisplayPlayer())
+  }
+
   handleShuffle () {
     const {dispatch} = this.props
     dispatch(toggleShuffleQueue())
@@ -153,6 +160,7 @@ class ControlsContainer extends Component {
             onPlay={this.handlePlay}
             onPrev={this.handlePrevTrack}
             onQueue={this.handleQueue}
+            onPlayer={this.handlePlayer}
             onRateTrack={this.handleRateTrack}
             onShuffle={this.handleShuffle}
             onStop={this.handleStop}

@@ -22,7 +22,7 @@ const handleSort = (props) => ({newIndex, oldIndex}) => {
 
 function PlayerContainer (props) {
   const {
-    items, values, selectedItemId,
+    items, values, selectedTrackId,
     onChange, onSort,
   } = props
 
@@ -30,7 +30,7 @@ function PlayerContainer (props) {
     <Player
       items={items}
       values={values}
-      selectedItemId={selectedItemId}
+      selectedTrackId={selectedTrackId}
       onChange={onChange}
       onSort={onSort}
     />
@@ -44,7 +44,7 @@ PlayerContainer.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
-  selectedItemId: PropTypes.number,
+  selectedTrackId: PropTypes.number,
 }
 
 export default compose(
@@ -53,7 +53,7 @@ export default compose(
       tracks: selectAllTracks.values(state),
     },
     items: selectPlayer.items(state),
-    selectedItemId: selectPlayer.selectedItemId(state),
+    selectedTrackId: selectPlayer.trackId(state),
   })),
   withHandlers({
     onChange: handleChange,

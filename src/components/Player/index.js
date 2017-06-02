@@ -12,6 +12,10 @@ const Player = (props) => {
 
   const track = values.tracks.get(selectedTrackId)
 
+  if (track == null) {
+    return null
+  }
+
   return (
     <div className='Player'>
       <BlurImage src={track.thumb} />

@@ -10,6 +10,7 @@ import './styles.css'
 import BrowserContainer from '../../containers/Browser'
 import ControlsContainer from '../../containers/Controls'
 import QueueContainer from '../../containers/Queue'
+import PlayerContainer from '../../containers/Player'
 
 const handleChangeSection = (props) => (section) => {
   const {history, location, section: prevSection} = props
@@ -38,26 +39,38 @@ const handleChangeItem = (props) => (itemType, itemId) => {
 
 function App (props) {
   const {
-    displayQueue, section, itemType, itemId, onChangeSection, onChangeItem,
+    displayQueue, displayPlayer,
+    section, itemType, itemId,
+    onChangeSection, onChangeItem,
   } = props
+
+  let content = (
+    <div className='App-browser'>
+      <BrowserContainer
+        section={section}
+        itemType={itemType}
+        itemId={itemId}
+        onChangeItem={onChangeItem}
+        onChangeSection={onChangeSection}
+      />
+    </div>
+  )
+
+  if (displayPlayer) {
+    content = (
+      <PlayerContainer />
+    )
+  }
 
   return (
     <div className='App'>
       <div className='App-main'>
-        <div className='App-browser'>
-          <BrowserContainer
-            section={section}
-            itemType={itemType}
-            itemId={itemId}
-            onChangeItem={onChangeItem}
-            onChangeSection={onChangeSection}
-          />
-        </div>
-        {displayQueue &&
-          <div className='App-queue'>
-            <QueueContainer />
-          </div>}
+        {content}
       </div>
+      {displayQueue &&
+        <div className='App-queue'>
+          <QueueContainer />
+        </div>}
       <ControlsContainer />
     </div>
   )
@@ -65,6 +78,7 @@ function App (props) {
 
 App.propTypes = {
   displayQueue: PropTypes.bool,
+  displayPlayer: PropTypes.bool,
   section: PropTypes.string,
   itemType: PropTypes.string,
   itemId: PropTypes.number,

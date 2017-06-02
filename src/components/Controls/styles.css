@@ -98,6 +98,10 @@
   height: 15px;
 }
 
+.Controls-albumThumbButton {
+  width: auto;
+}
+
 .Controls-albumThumb {
   width: 40px;
   margin: 0 calc((var(--height) - 40px) / 2);
