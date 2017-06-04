@@ -47,6 +47,9 @@ export default function PlayerList (props) {
       useDragHandle
       lockAxis='y'
       helperClass='PlayerItem-helper SortHandle-helper'
+      style={{
+        paddingTop: '50px',
+      }}
     />
   )
 }

@@ -4,14 +4,17 @@
 }
 
 .Player-currentAlbum {
-  flex: 4;
+  flex: 1;
   position: relative;
   z-index: 1;
-  margin: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .Player-albumThumb {
-  width: 100%;
+  width: 80%;
 }
 
 .Player-albumThumbImage {
@@ -33,5 +36,5 @@
 }
 
 .Player-list {
-  flex: 6;
+  flex: 1;
 }

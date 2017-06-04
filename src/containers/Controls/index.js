@@ -28,6 +28,7 @@ import * as selectTimeline from '../../stores/timeline/selectors'
 import {
   toggleDisplayQueue,
   toggleDisplayPlayer,
+  selectDisplayPlayer,
 } from '../../stores/ui'
 
 import * as selectQueue from '../../stores/queue/selectors'
@@ -44,6 +45,7 @@ class ControlsContainer extends Component {
     dispatch: PropTypes.func.isRequired,
     shuffled: PropTypes.bool.isRequired,
     playerState: PropTypes.string,
+    fullScreenMode: PropTypes.bool,
   }
 
   constructor () {
@@ -138,7 +140,7 @@ class ControlsContainer extends Component {
   }
 
   render () {
-    const {track, trackSrc, shuffled, playerState} = this.props
+    const {track, trackSrc, shuffled, playerState, fullScreenMode} = this.props
 
     if (track == null) {
       return null
@@ -167,6 +169,7 @@ class ControlsContainer extends Component {
             paused={playerState === PLAYER_STATE_PAUSED}
             shuffled={shuffled}
             track={track}
+            fullScreenMode={fullScreenMode}
           />
         )}
       </WebAudio>
@@ -181,4 +184,5 @@ export default connect((state) => ({
   trackSrc: selectQueue.trackSrc(state),
   shuffled: selectQueue.shuffled(state),
   playerState: selectTimeline.playerState(state),
+  fullScreenMode: selectDisplayPlayer(state),
 }))(ControlsContainer)

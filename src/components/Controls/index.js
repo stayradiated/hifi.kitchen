@@ -14,12 +14,12 @@ export default function Controls (props) {
   const {
     audio, track, paused, shuffled,
     onStop, onPrev, onPlay, onPause, onNext, onQueue, onPlayer, onRateTrack,
-    onShuffle,
+    onShuffle, fullScreenMode,
   } = props
 
   return (
     <div className='Controls'>
-      <BlurImage src={track.thumb} />
+      {fullScreenMode || <BlurImage src={track.thumb} />}
       <div className='Controls-contents'>
         <div className='Controls-playback'>
           <button onClick={onPrev} className='Controls-playback-prev'>
@@ -106,6 +106,7 @@ Controls.propTypes = {
     currentTime: PropTypes.number,
     duration: PropTypes.number,
   }).isRequired,
+  fullScreenMode: PropTypes.bool,
   onStop: PropTypes.func.isRequired,
   onPrev: PropTypes.func.isRequired,
   onPlay: PropTypes.func.isRequired,

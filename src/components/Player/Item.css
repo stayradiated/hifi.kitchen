@@ -18,11 +18,6 @@
   opacity: 0.9;
 }
 
-.PlayerItem-thumb {
-  width: calc(60px - 1em);
-  margin-right: 0.5em;
-}
-
 .PlayerItem-text {
   flex: 1;
   display: flex;
@@ -40,6 +35,12 @@
   color: var(--white-50);
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.PlayerItem-rating {
+  width: 40px;
+  height: 15px;
+  margin-right: 1rem;
 }
 
 .PlayerItem-time {

@@ -4,12 +4,12 @@ import classNames from 'classnames'
 import {SortableElement} from 'react-sortable-hoc'
 
 import './Item.css'
-
+import RatingBars from '../RatingBars'
 import SortHandle from '../SortHandle'
 import Time from '../Time'
 
 const PlayerItem = (props) => {
-  const {style, track, isSelected, onClick} = props
+  const {style, track, isSelected, onClick, onRate} = props
 
   return (
     <button
@@ -27,6 +27,12 @@ const PlayerItem = (props) => {
           {track.grandparentTitle}
         </div>
       </div>
+      <RatingBars
+        className='PlayerItem-rating'
+        value={track.userRating}
+        maxValue={10}
+        onRate={onRate}
+      />
       <Time
         className='PlayerItem-time'
         value={track.duration}
@@ -43,6 +49,7 @@ PlayerItem.propTypes = {
   }).isRequired,
   isSelected: PropTypes.bool.isRequired,
   onClick: PropTypes.func,
+  onRate: PropTypes.func,
 }
 
 export default new SortableElement(PlayerItem)
