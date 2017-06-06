@@ -5,7 +5,7 @@ import PlayerItem from './Item'
 import SortableItemsList from '../SortableList'
 
 export default function PlayerList (props) {
-  const {className, selectedTrackId, items, values, onChange, onSort} = props
+  const {className, selectedTrackId, items, values, onChange, onSort, onRateTrack} = props
 
   const renderItem = ({key, style, index}) => {
     const item = items[index]
@@ -25,6 +25,7 @@ export default function PlayerList (props) {
         track={track}
         isSelected={selectedTrackId === item.track}
         onClick={() => onChange && onChange(item)}
+        onRate={onRateTrack}
       />
     )
   }
@@ -62,5 +63,6 @@ PlayerList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   onChange: PropTypes.func,
   onSort: PropTypes.func,
+  onRateTrack: PropTypes.func,
   selectedTrackId: PropTypes.number,
 }

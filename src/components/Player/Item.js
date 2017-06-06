@@ -2,11 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import {SortableElement} from 'react-sortable-hoc'
+import withHandlers from 'recompose/withHandlers'
 
 import './Item.css'
 import RatingBars from '../RatingBars'
 import SortHandle from '../SortHandle'
 import Time from '../Time'
+
+const handleRate = (props) => (rating) => {
+  const {track, onRate} = props
+  onRate(track.id, rating)
+}
 
 const PlayerItem = (props) => {
   const {style, track, isSelected, onClick, onRate} = props
@@ -52,4 +58,8 @@ PlayerItem.propTypes = {
   onRate: PropTypes.func,
 }
 
-export default new SortableElement(PlayerItem)
+export default new SortableElement(
+  withHandlers({
+    onRate: handleRate,
+  })(PlayerItem)
+)

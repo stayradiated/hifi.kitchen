@@ -6,9 +6,14 @@ import withHandlers from 'recompose/withHandlers'
 
 import Player from '../../components/Player'
 
-import {selectAllTracks} from '../../stores/tracks/all'
+import {rateTrack, selectAllTracks} from '../../stores/tracks/all'
 import {moveQueueItem, playQueueItem} from '../../stores/queue/actions'
 import * as selectPlayer from '../../stores/queue/selectors'
+
+const handleRateTrack = (props) => (track, rating) => {
+  const {dispatch} = props
+  dispatch(rateTrack(track, rating))
+}
 
 const handleChange = (props) => (item) => {
   const {dispatch} = props
@@ -23,7 +28,7 @@ const handleSort = (props) => ({newIndex, oldIndex}) => {
 function PlayerContainer (props) {
   const {
     items, values, selectedTrackId,
-    onChange, onSort,
+    onChange, onSort, onRateTrack,
   } = props
 
   return (
@@ -33,6 +38,7 @@ function PlayerContainer (props) {
       selectedTrackId={selectedTrackId}
       onChange={onChange}
       onSort={onSort}
+      onRateTrack={onRateTrack}
     />
   )
 }
@@ -42,9 +48,10 @@ PlayerContainer.propTypes = {
     tracks: PropTypes.instanceOf(Map).isRequired,
   }).isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  selectedTrackId: PropTypes.number,
   onChange: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
-  selectedTrackId: PropTypes.number,
+  onRateTrack: PropTypes.func.isRequired,
 }
 
 export default compose(
@@ -58,5 +65,6 @@ export default compose(
   withHandlers({
     onChange: handleChange,
     onSort: handleSort,
+    onRateTrack: handleRateTrack,
   }),
 )(PlayerContainer)

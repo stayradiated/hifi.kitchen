@@ -8,7 +8,7 @@ import SquareImage from '../SquareImage'
 import PlayerList from './List'
 
 const Player = (props) => {
-  const {values, items, selectedTrackId, onChange, onSort} = props
+  const {values, items, selectedTrackId, onChange, onSort, onRateTrack} = props
 
   const track = values.tracks.get(selectedTrackId)
 
@@ -36,6 +36,7 @@ const Player = (props) => {
           selectedTrackId={selectedTrackId}
           onChange={onChange}
           onSort={onSort}
+          onRateTrack={onRateTrack}
         />
       </div>
     </div>
@@ -53,6 +54,7 @@ Player.propTypes = {
   selectedTrackId: PropTypes.number,
   onChange: PropTypes.func,
   onSort: PropTypes.func,
+  onRateTrack: PropTypes.func,
 }
 
 export default Player
