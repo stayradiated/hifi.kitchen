@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 
 import './styles.css'
 
+import ContextMenu from '../ContextMenu'
 import BrowserContainer from '../../containers/Browser'
 import ControlsContainer from '../../containers/Controls'
 import QueueContainer from '../../containers/Queue'
@@ -72,6 +73,7 @@ function App (props) {
           <QueueContainer />
         </div>}
       <ControlsContainer />
+      <ContextMenu />
     </div>
   )
 }

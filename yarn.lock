@@ -23,9 +23,9 @@
     nop "^1.0.0"
     throttleit "^1.0.0"
 
-"@storybook/addon-actions@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-3.0.0.tgz#e141378eeff36cbc61d27ba4330eaadfb6cd5c8b"
+"@storybook/addon-actions@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-3.0.1.tgz#b3832b79c34cc8a73cfe5e7ba808c4dde25241dc"
   dependencies:
     "@storybook/addons" "^3.0.0"
     deep-equal "^1.0.1"
@@ -33,9 +33,9 @@
     prop-types "^15.5.8"
     react-inspector "^2.0.0"
 
-"@storybook/addon-knobs@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-3.0.0.tgz#1ed2f26dd72a5f5de43d47ce5094f715d9670c85"
+"@storybook/addon-knobs@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-3.0.1.tgz#fed58275b33bcc0a0d9f6d3dd9427319b71ad84c"
   dependencies:
     "@storybook/addons" "*"
     babel-runtime "^6.23.0"
@@ -78,15 +78,15 @@
     fuse.js "^3.0.1"
     prop-types "^15.5.9"
 
-"@storybook/react@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-3.0.0.tgz#8e0d7118691bd09c37264000525accaf6546aa5f"
+"@storybook/react@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@storybook/react/-/react-3.0.1.tgz#9d6c3ddfdca22d9e7c4baedd82fa9d9a230e8770"
   dependencies:
-    "@storybook/addon-actions" "^3.0.0"
+    "@storybook/addon-actions" "^3.0.1"
     "@storybook/addon-links" "^3.0.0"
     "@storybook/addons" "^3.0.0"
     "@storybook/channel-postmessage" "^3.0.0"
-    "@storybook/ui" "^3.0.0"
+    "@storybook/ui" "^3.0.1"
     airbnb-js-shims "^1.1.1"
     autoprefixer "^7.1.1"
     babel-core "^6.24.1"
@@ -128,9 +128,9 @@
     webpack-dev-middleware "^1.10.2"
     webpack-hot-middleware "^2.18.0"
 
-"@storybook/ui@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@storybook/ui/-/ui-3.0.0.tgz#64d83dd7529ebe0ffe7622d90e08bf00cd362508"
+"@storybook/ui@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@storybook/ui/-/ui-3.0.1.tgz#fbb2dca43bb35ec7d0efd68fb8336478e5e25585"
   dependencies:
     "@storybook/react-fuzzy" "^0.4.0"
     babel-runtime "^6.23.0"
@@ -5550,6 +5550,13 @@ react-color@^2.11.4:
     prop-types "^15.5.4"
     reactcss "^1.2.0"
     tinycolor2 "^1.1.2"
+
+react-contextmenu@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/react-contextmenu/-/react-contextmenu-2.6.1.tgz#46ba69f2685b9ad8f0cd03fd77cf7cb282295bad"
+  dependencies:
+    classnames "^2.2.5"
+    object-assign "^4.1.0"
 
 react-datetime@^2.8.10:
   version "2.8.10"

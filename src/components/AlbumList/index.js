@@ -11,7 +11,7 @@ import TrackListSummary from '../TrackList/Summary'
 import AsyncListLayout from '../AsyncListLayout'
 
 /* eslint react/prop-types: "off" */
-const handleTrackItem = (props) => (trackId) => ({key, style}) => {
+const handleRenderTrackItem = (props) => (trackId) => ({key, style}) => {
   const {
     values, displayArtist, currentlyPlayingTrackId,
     onRateTrack, onSelectTrack,
@@ -135,7 +135,7 @@ export default compose(
   }),
   withHandlers({
     renderAlbumHeader: handleAlbumHeader,
-    renderTrackItem: handleTrackItem,
+    renderTrackItem: handleRenderTrackItem,
     renderAlbumSummary: handleAlbumSummary,
   })
 )(AlbumList)
