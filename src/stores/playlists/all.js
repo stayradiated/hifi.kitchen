@@ -5,6 +5,7 @@ import {createLibraryTypeStore} from '../../storeTemplates'
 import {
   FETCH_SEARCH_RESULTS,
   FETCH_LIBRARY_PLAYLISTS,
+  FETCH_LIBRARY_PLAYLISTS_REGULAR,
   FETCH_PLAYLIST,
 } from '../constants'
 
@@ -16,6 +17,7 @@ const store = createLibraryTypeStore({
   mergeActions: [
     FETCH_SEARCH_RESULTS.SUCCESS,
     FETCH_LIBRARY_PLAYLISTS.SUCCESS,
+    FETCH_LIBRARY_PLAYLISTS_REGULAR.SUCCESS,
   ],
   fetchItems: ({library}, playlistId) =>
     normalize(library.playlist(playlistId)),

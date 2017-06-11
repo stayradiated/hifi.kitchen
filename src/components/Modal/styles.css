@@ -1,0 +1,28 @@
+.Modal-overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: var(--black-50);
+}
+
+.Modal-window {
+  --width: 500px;
+  --height: 400px;
+
+  position: fixed;
+  width: var(--width);
+  height: var(--height);
+  top: 50%;
+  left: 50%;
+  margin-left: calc(var(--width) / -2);
+  margin-top: calc(var(--height) / -2);
+  border: 5px solid var(--black-50);
+  box-sizing: border-box;
+  display: flex;
+  background: var(--background);
+}
+
+.Modal-content {
+  flex: 1;
+}

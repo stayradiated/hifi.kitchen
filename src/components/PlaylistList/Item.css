@@ -1,0 +1,28 @@
+.PlaylistListItem {
+  padding: 0 1em;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--white-05);
+  cursor: pointer;
+}
+
+.PlaylistListItem:hover {
+  background: var(--white-05);
+}
+
+.PlaylistListItem-contents {
+  display: flex;
+  align-items: center;
+}
+
+.PlaylistListItem-image {
+  width: 40px;
+  margin-right: 1em;
+}
+
+.PlaylistListItem-title {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 1em;
+}

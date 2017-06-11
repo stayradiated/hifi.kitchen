@@ -1,29 +1,44 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {ContextMenu, MenuItem, connectMenu} from 'react-contextmenu'
+import compose from 'recompose/compose'
+import withHandlers from 'recompose/withHandlers'
+import setPropTypes from 'recompose/setPropTypes'
 
 export const TRACK_CONTEXT_MENU = 'TRACK_CONTEXT_MENU'
 
-const TrackContextMenu = (props) => {
-  const {id, trigger} = props
+const handleAddTrackToPlaylist = (props) => () => {
+  const {trigger, onAddTrackToPlaylist} = props
   const track = (trigger && trigger.track) || {}
-  console.log({track})
+  onAddTrackToPlaylist(track.id)
+}
+
+const TrackContextMenu = (props) => {
+  const {id, onAddTrackToPlaylist} = props
 
   return (
     <ContextMenu id={id}>
       <MenuItem>Play Next</MenuItem>
       <MenuItem>Add to Queue</MenuItem>
       <MenuItem>Play Plex Mix</MenuItem>
-      <MenuItem>Add to Playlist...</MenuItem>
+      <MenuItem onClick={onAddTrackToPlaylist}>Add to Playlist...</MenuItem>
     </ContextMenu>
   )
 }
 
 TrackContextMenu.propTypes = {
   id: PropTypes.string.isRequired,
-  trigger: PropTypes.shape({
-    track: PropTypes.shape({}).isRequired,
-  }),
+  onAddTrackToPlaylist: PropTypes.func.isRequired,
 }
 
-export default connectMenu(TRACK_CONTEXT_MENU)(TrackContextMenu)
+export default compose(
+  connectMenu(TRACK_CONTEXT_MENU),
+  setPropTypes({
+    trigger: PropTypes.shape({
+      track: PropTypes.shape({}).isRequired,
+    }),
+  }),
+  withHandlers({
+    onAddTrackToPlaylist: handleAddTrackToPlaylist,
+  }),
+)(TrackContextMenu)

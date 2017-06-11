@@ -1,6 +1,7 @@
 import {
   normalize,
   PLAYLIST,
+  PLAYLIST_TYPE_MUSIC,
   SORT_PLAYLISTS_BY_NAME,
   SORT_PLAYLISTS_BY_PLAYS,
   SORT_PLAYLISTS_BY_LAST_PLAYED,
@@ -37,7 +38,10 @@ const store = createLibraryTypeList({
     getTotal: (action) => action.value.result.id.totalSize,
   },
   fetchItems: ({library}, section, options) =>
-    normalize(library.playlists(options)),
+    normalize(library.playlists({
+      ...options,
+      playlistType: PLAYLIST_TYPE_MUSIC,
+    })),
 })
 
 export const reducer = store.reducer

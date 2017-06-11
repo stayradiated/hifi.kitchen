@@ -7,11 +7,12 @@ import PropTypes from 'prop-types'
 
 import './styles.css'
 
-import ContextMenu from '../ContextMenu'
+import ContextMenuContainer from '../../containers/ContextMenu'
 import BrowserContainer from '../../containers/Browser'
 import ControlsContainer from '../../containers/Controls'
 import QueueContainer from '../../containers/Queue'
 import PlayerContainer from '../../containers/Player'
+import AddToPlaylistContainer from '../../containers/AddToPlaylist'
 
 const handleChangeSection = (props) => (section) => {
   const {history, location, section: prevSection} = props
@@ -73,7 +74,8 @@ function App (props) {
           <QueueContainer />
         </div>}
       <ControlsContainer />
-      <ContextMenu />
+      <AddToPlaylistContainer />
+      <ContextMenuContainer />
     </div>
   )
 }
