@@ -73,9 +73,9 @@ function App (props) {
         <div className='App-queue'>
           <QueueContainer />
         </div>}
-      <ControlsContainer />
+      <ControlsContainer onNavigate={onChangeItem} />
       <AddToPlaylistContainer />
-      <ContextMenuContainer />
+      <ContextMenuContainer onNavigate={onChangeItem} />
     </div>
   )
 }

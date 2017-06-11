@@ -4,6 +4,7 @@
   bottom: 0;
   width: 100%;
   background: var(--black-50);
+  cursor: default;
 }
 
 .Modal-window {

@@ -62,6 +62,16 @@
   color: var(--white-50);
 }
 
+.Controls-trackInfo-artist,
+.Controls-trackInfo-title {
+  width: auto;
+}
+
+.Controls-trackInfo-artist:hover,
+.Controls-trackInfo-title:hover {
+  text-decoration: underline;
+}
+
 .Controls-timeline {
   flex: 1;
   display: flex;

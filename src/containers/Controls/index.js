@@ -46,6 +46,7 @@ class ControlsContainer extends Component {
     shuffled: PropTypes.bool.isRequired,
     playerState: PropTypes.string,
     fullScreenMode: PropTypes.bool,
+    onNavigate: PropTypes.func.isRequired,
   }
 
   constructor () {
@@ -140,7 +141,10 @@ class ControlsContainer extends Component {
   }
 
   render () {
-    const {track, trackSrc, shuffled, playerState, fullScreenMode} = this.props
+    const {
+      track, trackSrc, shuffled, playerState, fullScreenMode,
+      onNavigate,
+    } = this.props
 
     if (track == null) {
       return null
@@ -170,6 +174,7 @@ class ControlsContainer extends Component {
             shuffled={shuffled}
             track={track}
             fullScreenMode={fullScreenMode}
+            onNavigate={onNavigate}
           />
         )}
       </WebAudio>

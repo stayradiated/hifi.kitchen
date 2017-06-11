@@ -8,17 +8,19 @@ import {setTrackToAddToPlaylist} from '../../stores/ui'
 import ContextMenu from '../../components/ContextMenu'
 
 const ContextMenuContainer = (props) => {
-  const {dispatch} = props
+  const {onNavigate, dispatch} = props
 
   return (
     <ContextMenu
       onAddTrackToPlaylist={compose(dispatch, setTrackToAddToPlaylist)}
+      onNavigate={onNavigate}
     />
   )
 }
 
 ContextMenuContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  onNavigate: PropTypes.func.isRequired,
 }
 
 export default connect()(ContextMenuContainer)

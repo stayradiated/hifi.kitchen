@@ -1,8 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import compose from 'recompose/compose'
+import withHandlers from 'recompose/withHandlers'
+import setPropTypes from 'recompose/setPropTypes'
 
 import './styles.css'
+
+import {ALBUM, ARTIST} from '../../stores/constants'
 
 import Icon from '../Icon'
 import BlurImage from '../BlurImage'
@@ -10,11 +15,21 @@ import Timeline from '../Timeline'
 import SquareImage from '../SquareImage'
 import RatingStars from '../RatingStars'
 
-export default function Controls (props) {
+const handleGoToAlbum = (props) => () => {
+  const {track, onNavigate} = props
+  onNavigate(ALBUM, track.parentId)
+}
+
+const handleGoToArtist = (props) => () => {
+  const {track, onNavigate} = props
+  onNavigate(ARTIST, track.grandparentId)
+}
+
+function Controls (props) {
   const {
     audio, track, paused, shuffled,
     onStop, onPrev, onPlay, onPause, onNext, onQueue, onPlayer, onRateTrack,
-    onShuffle, fullScreenMode,
+    onShuffle, fullScreenMode, onGoToArtist, onGoToAlbum,
   } = props
 
   return (
@@ -40,13 +55,13 @@ export default function Controls (props) {
         </div>
         <div className='Controls-centerBlock'>
           <div className='Controls-trackInfo'>
-            <span className='Controls-trackInfo-title'>
+            <button onClick={onGoToAlbum} className='Controls-trackInfo-title'>
               {track.title}
-            </span>
+            </button>
             <span className='Controls-trackInfo-seperator'>&mdash;</span>
-            <span className='Controls-trackInfo-artist'>
+            <button onClick={onGoToArtist} className='Controls-trackInfo-artist'>
               {track.originalTitle}
-            </span>
+            </button>
           </div>
           <div className='Controls-timeline'>
             <button
@@ -116,4 +131,16 @@ Controls.propTypes = {
   onPlayer: PropTypes.func.isRequired,
   onShuffle: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
+  onGoToArtist: PropTypes.func.isRequired,
+  onGoToAlbum: PropTypes.func.isRequired,
 }
+
+export default compose(
+  setPropTypes({
+    onNavigate: PropTypes.func.isRequired,
+  }),
+  withHandlers({
+    onGoToArtist: handleGoToArtist,
+    onGoToAlbum: handleGoToAlbum,
+  })
+)(Controls)

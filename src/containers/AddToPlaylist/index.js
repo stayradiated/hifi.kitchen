@@ -35,11 +35,16 @@ const handleLoadItems = (props) => (start, end) => {
   return dispatch(fetchCurrentLibraryPlaylistsRegularRange(start, end))
 }
 
+const handleClose = (props) => () => {
+  const {dispatch} = props
+  return dispatch(setTrackToAddToPlaylist(null))
+}
+
 const AddToPlaylist = (props) => {
   const {
     trackToAddToPlaylist,
     playlistIds, values,
-    onSelectPlaylist, onLoadItems,
+    onSelectPlaylist, onLoadItems, onClose,
   } = props
 
   if (trackToAddToPlaylist == null) {
@@ -47,7 +52,7 @@ const AddToPlaylist = (props) => {
   }
 
   return (
-    <Modal>
+    <Modal onClose={onClose}>
       <PlaylistList
         playlistIds={playlistIds}
         values={values}
@@ -66,6 +71,7 @@ AddToPlaylist.propTypes = {
   trackToAddToPlaylist: PropTypes.number,
   onSelectPlaylist: PropTypes.func.isRequired,
   onLoadItems: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 }
 
 export default compose(
@@ -79,6 +85,7 @@ export default compose(
   withHandlers({
     onSelectPlaylist: handleSelectPlaylist,
     onLoadItems: handleLoadItems,
+    onClose: handleClose,
   }),
   lifecycle({
     componentWillMount,
