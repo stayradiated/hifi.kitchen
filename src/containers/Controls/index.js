@@ -26,9 +26,10 @@ import {
 } from '../../stores/timeline/actions'
 import * as selectTimeline from '../../stores/timeline/selectors'
 import {
-  toggleDisplayQueue,
-  toggleDisplayPlayer,
   selectDisplayPlayer,
+  setDisplayPlayer,
+  toggleDisplayPlayer,
+  toggleDisplayQueue,
 } from '../../stores/ui'
 
 import * as selectQueue from '../../stores/queue/selectors'
@@ -108,6 +109,7 @@ class ControlsContainer extends Component {
   handleStop () {
     const {dispatch} = this.props
     dispatch(stopQueue())
+    dispatch(setDisplayPlayer(false))
   }
 
   handlePause () {
@@ -122,7 +124,9 @@ class ControlsContainer extends Component {
 
   handleTimeUpdate (currentTime) {
     const {dispatch, queueItem} = this.props
-    dispatch(setPlayerCurrentTime(queueItem, Math.round(currentTime * 1000)))
+    if (queueItem != null) {
+      dispatch(setPlayerCurrentTime(queueItem, Math.round(currentTime * 1000)))
+    }
   }
 
   handleQueue () {
