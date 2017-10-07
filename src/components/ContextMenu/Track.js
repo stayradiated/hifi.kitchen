@@ -38,7 +38,7 @@ const handleGoToArtist = (props) => () => {
 
 const TrackContextMenu = (props) => {
   const {
-    id,
+    id, trigger,
     onGoToArtist, onGoToAlbum, onAddTrackToPlaylist, onRemoveItemFromPlaylist,
   } = props
 
@@ -50,7 +50,9 @@ const TrackContextMenu = (props) => {
       {/* <MenuItem>Add to Queue</MenuItem> */}
       {/* <MenuItem>Play Plex Mix</MenuItem> */}
       <MenuItem onClick={onAddTrackToPlaylist}>Add to Playlist...</MenuItem>
-      <MenuItem onClick={onRemoveItemFromPlaylist}>Remove from Playlist</MenuItem>
+      {trigger && trigger.context && trigger.context.playlistItem && (
+        <MenuItem onClick={onRemoveItemFromPlaylist}>Remove from Playlist</MenuItem>
+      )}
     </ContextMenu>
   )
 }
