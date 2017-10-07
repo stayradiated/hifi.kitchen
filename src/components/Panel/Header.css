@@ -44,11 +44,25 @@
   top: 0.5em;
   right: 0.5em;
   font-size: 1.3em;
-  opacity: 0.5;
+  opacity: 0.3;
   cursor: pointer;
   transition: opacity 0.3s ease;
 }
 
 .PanelHeader-close:hover {
+  opacity: 1;
+}
+
+.PanelHeader-refresh {
+  position: absolute;
+  bottom: 0.5em;
+  right: 0.5em;
+  font-size: 1em;
+  opacity: 0.3;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.PanelHeader-refresh:hover {
   opacity: 1;
 }

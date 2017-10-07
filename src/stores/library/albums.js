@@ -13,6 +13,7 @@ import {
 import {
   FETCH_LIBRARY_ALBUMS,
   SORT_LIBRARY_ALBUMS,
+  RESET_LIBRARY_ALBUMS,
 } from '../constants'
 
 import {createLibraryTypeList} from '../../storeTemplates'
@@ -22,6 +23,7 @@ const store = createLibraryTypeList({
   actions: {
     fetch: FETCH_LIBRARY_ALBUMS,
     sort: SORT_LIBRARY_ALBUMS,
+    reset: RESET_LIBRARY_ALBUMS,
   },
   sort: {
     default: 'Date Added',
@@ -46,6 +48,7 @@ const store = createLibraryTypeList({
 export const reducer = store.reducer
 export const fetchCurrentLibraryAlbumsRange = store.fetchCurrentLibraryTypeRange
 export const fetchLibraryAlbumsRange = store.fetchLibraryTypeRange
-export const sortLibraryAlbums = store.sortLibraryType
 export const forceFetchLibraryAlbumsRange = store.forceFetchLibraryTypeRange
+export const resetCurrentLibraryAlbums = store.resetCurrentLibraryType
 export const selectLibraryAlbums = store.selectors
+export const sortLibraryAlbums = store.sortLibraryType

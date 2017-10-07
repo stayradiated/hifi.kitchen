@@ -1,18 +1,21 @@
 import {TRACK, normalize} from 'perplexed'
 
-import {FETCH_PLAYLIST_TRACKS} from '../constants'
+import {FETCH_PLAYLIST_ITEMS, RESET_PLAYLIST_ITEMS} from '../constants'
 
 import {createLibraryTypeChildrenStore} from '../../storeTemplates'
 
 const store = createLibraryTypeChildrenStore({
   type: TRACK,
-  constant: FETCH_PLAYLIST_TRACKS,
-  rootSelector: (state) => state.playlists.tracks,
+  actions: {
+    fetch: FETCH_PLAYLIST_ITEMS,
+    reset: RESET_PLAYLIST_ITEMS,
+  },
+  rootSelector: (state) => state.playlists.items,
   reducerOptions: {
     getValues: (action) => {
       const {id} = action.payload
       const playlist = action.value.entities.playlists[id]
-      return playlist.tracks
+      return playlist.items
     },
     getTotal: (action) => {
       const {id} = action.payload
@@ -26,6 +29,7 @@ const store = createLibraryTypeChildrenStore({
 })
 
 export const reducer = store.reducer
-export const fetchPlaylistTracks = store.fetchTypeChildren
-export const forceFetchPlaylistTracks = store.forceFetchTypeChildren
-export const selectAllPlaylistTracks = store.selectors
+export const fetchPlaylistItems = store.fetchTypeChildren
+export const forceFetchPlaylistItems = store.forceFetchTypeChildren
+export const resetPlaylistItems = store.resetTypeChildren
+export const selectAllPlaylistItems = store.selectors

@@ -28,6 +28,7 @@ function Browser (props) {
     currentlyPlayingTrackId, playerState,
     item, onChangeItem, onLoadItems, onLoadItemChildren,
     sortBy, sortDesc, sortOptions,
+    onRefreshItem, onRefreshSection,
     onChangeSection, onRateTrack, onChangeSortBy,
     searchQuery, onChangeSearchQuery, onCreateQueue,
   } = props
@@ -77,6 +78,7 @@ function Browser (props) {
           onChangeSection={onChangeSection}
           onChangeSearchQuery={onChangeSearchQuery}
           onChangeSortBy={onChangeSortBy}
+          onRefreshSection={onRefreshSection}
         />
         <div className='Browser-grid-wrapper'>
           {contents}
@@ -90,6 +92,7 @@ function Browser (props) {
           playerState={playerState}
           currentlyPlayingTrackId={currentlyPlayingTrackId}
           onClose={() => onChangeItem(null)}
+          onRefresh={onRefreshItem}
           onRateTrack={onRateTrack}
           onNavigate={onChangeItem}
           onCreateQueue={onCreateQueue}
@@ -120,6 +123,8 @@ Browser.propTypes = {
   onLoadItemChildren: PropTypes.func,
   onLoadItems: PropTypes.func,
   onRateTrack: PropTypes.func.isRequired,
+  onRefreshItem: PropTypes.func.isRequired,
+  onRefreshSection: PropTypes.func.isRequired,
 }
 
 Browser.defaultProps = {

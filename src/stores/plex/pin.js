@@ -21,10 +21,7 @@ const forceFetchPin = () => ({
 
 const fetchPin = cacheValue(() => ({
   dispatch: forceFetchPin,
-  validate: (value) => {
-    console.log('VALIDATE', value)
-    return true
-  },
+  validate: (value) => true,
   selectors: selectPin,
 }))
 

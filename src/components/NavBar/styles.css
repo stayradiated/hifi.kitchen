@@ -30,6 +30,10 @@
   border-bottom-color: var(--white-10);
 }
 
+.NavBar-section-item:active {
+  border-bottom-color: var(--primary);
+}
+
 .NavBar-section-item-selected,
 .NavBar-section-item-selected:hover {
   background: var(--white-05);

@@ -11,6 +11,7 @@ import {
   fetchCurrentLibraryAlbumsRange,
   selectLibraryAlbums,
   sortLibraryAlbums,
+  resetCurrentLibraryAlbums,
 } from '../../stores/library/albums'
 import {
   fetchAlbum,
@@ -19,11 +20,13 @@ import {
 import {
   fetchAlbumTracks,
   selectAllAlbumTracks,
+  resetAlbumTracks,
 } from '../../stores/albums/tracks'
 import {
   fetchCurrentLibraryArtistsRange,
   selectLibraryArtists,
   sortLibraryArtists,
+  resetCurrentLibraryArtists,
 } from '../../stores/library/artists'
 import {
   fetchArtist,
@@ -32,9 +35,11 @@ import {
 import {
   fetchArtistAlbums,
   selectAllArtistAlbums,
+  resetArtistAlbums,
 } from '../../stores/artists/albums'
 import {
   fetchCurrentLibraryPlaylistsRange,
+  resetCurrentLibraryPlaylists,
   selectLibraryPlaylists,
   sortLibraryPlaylists,
 } from '../../stores/library/playlists'
@@ -42,9 +47,10 @@ import {
   selectAllPlaylists,
 } from '../../stores/playlists/all'
 import {
-  fetchPlaylistTracks,
-  selectAllPlaylistTracks,
-} from '../../stores/playlists/tracks'
+  fetchPlaylistItems,
+  selectAllPlaylistItems,
+  resetPlaylistItems,
+} from '../../stores/playlists/items'
 import {
   rateTrack,
   selectAllTracks,
@@ -53,6 +59,7 @@ import {
   fetchCurrentLibraryTracksRange,
   selectLibraryTracks,
   sortLibraryTracks,
+  resetCurrentLibraryTracks,
 } from '../../stores/library/tracks'
 import {
   createQueueFromArtist,
@@ -103,7 +110,7 @@ const receiveProps = (prevProps, props) => {
         })
         break
       case PLAYLIST:
-        dispatch(fetchPlaylistTracks(itemId, 0, 15))
+        dispatch(fetchPlaylistItems(itemId, 0, 15))
         break
       default:
         break
@@ -145,7 +152,7 @@ const handleLoadItemChildren = (props) => (item, start, end) => {
       dispatch(fetchAlbumTracks(item.id, start, end))
       break
     case PLAYLIST:
-      dispatch(fetchPlaylistTracks(item.id, start, end))
+      dispatch(fetchPlaylistItems(item.id, start, end))
       break
     default:
       break
@@ -205,6 +212,49 @@ const handleChangeSortBy = (props) => (sortBy) => {
   handleLoadItems(props)(section, 0, 30)
 }
 
+const handleRefreshItem = (props) => async () => {
+  const {dispatch, itemType, itemId} = props
+  switch (itemType) {
+    case ALBUM:
+      await dispatch(resetAlbumTracks(itemId))
+      dispatch(fetchAlbumTracks(itemId, 0, 15))
+      break
+    case ARTIST:
+      await dispatch(resetArtistAlbums(itemId))
+      dispatch(fetchArtistAlbums(itemId, 0, 15))
+      break
+    case PLAYLIST:
+      await dispatch(resetPlaylistItems(itemId))
+      dispatch(fetchPlaylistItems(itemId, 0, 15))
+      break
+    default:
+      console.error('Could not refresh based on item type:', itemType)
+  }
+}
+
+const handleRefreshSection = (props) => async () => {
+  const {dispatch, section} = props
+  switch (section) {
+    case ALBUM:
+      await dispatch(resetCurrentLibraryAlbums(section))
+      dispatch(fetchCurrentLibraryAlbumsRange(0, 30))
+      break
+    case ARTIST:
+      await dispatch(resetCurrentLibraryArtists(section))
+      dispatch(fetchCurrentLibraryArtistsRange(0, 30))
+      break
+    case PLAYLIST:
+      await dispatch(resetCurrentLibraryPlaylists(section))
+      dispatch(fetchCurrentLibraryPlaylistsRange(0, 30))
+      break
+    case TRACK:
+      await dispatch(resetCurrentLibraryTracks(section))
+      dispatch(fetchCurrentLibraryTracksRange(0, 30))
+      break
+    default:
+      console.error('Could not refresh based on section type', section)
+  }
+}
 
 const BrowserContainer = (props) => {
   const {
@@ -212,9 +262,9 @@ const BrowserContainer = (props) => {
     searchResults, onChangeSearchQuery,
     libraryAlbumIds, libraryArtistIds, libraryPlaylistIds, libraryTrackIds,
     allAlbums, allArtists, allPlaylists, allTracks,
-    allArtistAlbums, allAlbumTracks, allPlaylistTracks,
+    allArtistAlbums, allAlbumTracks, allPlaylistItems,
     playerState,
-    onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
+    onRefreshItem, onRefreshSection, onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
     sortBy, sortDesc, sortOptions, onChangeSortBy,
     onRateTrack,
     trackId, onCreateQueue,
@@ -275,7 +325,7 @@ const BrowserContainer = (props) => {
         artists: allArtists,
         artistAlbums: allArtistAlbums,
         playlists: allPlaylists,
-        playlistTracks: allPlaylistTracks,
+        playlistItems: allPlaylistItems,
         tracks: allTracks,
         albumTracks: allAlbumTracks,
       }}
@@ -287,6 +337,8 @@ const BrowserContainer = (props) => {
         [TRACK]: 'Tracks',
       }}
       playerState={playerState}
+      onRefreshItem={onRefreshItem}
+      onRefreshSection={onRefreshSection}
       onChangeItem={onChangeItem}
       onChangeSection={onChangeSection}
       onCreateQueue={onCreateQueue}
@@ -312,7 +364,7 @@ BrowserContainer.propTypes = {
 
   allAlbumTracks: PropTypes.instanceOf(Map),
   allArtistAlbums: PropTypes.instanceOf(Map),
-  allPlaylistTracks: PropTypes.instanceOf(Map),
+  allPlaylistItems: PropTypes.instanceOf(Map),
 
   sortBy: PropTypes.string,
   sortDesc: PropTypes.bool,
@@ -329,9 +381,11 @@ BrowserContainer.propTypes = {
   itemType: PropTypes.string,
   itemId: PropTypes.number,
   onChangeItem: PropTypes.func,
+  onRefreshItem: PropTypes.func,
 
   section: PropTypes.string,
   onChangeSection: PropTypes.func,
+  onRefreshSection: PropTypes.func,
 
   trackId: PropTypes.number,
   onCreateQueue: PropTypes.func,
@@ -385,7 +439,7 @@ export default compose(
       allArtists: selectAllArtists.values(state),
       allArtistAlbums: selectAllArtistAlbums.values(state),
       allPlaylists: selectAllPlaylists.values(state),
-      allPlaylistTracks: selectAllPlaylistTracks.values(state),
+      allPlaylistItems: selectAllPlaylistItems.values(state),
       allTracks: selectAllTracks.values(state),
       allAlbumTracks: selectAllAlbumTracks.values(state),
       sortBy,
@@ -406,6 +460,8 @@ export default compose(
     onCreateQueue: handleCreateQueue,
     onChangeSearchQuery: handleChangeSearchQuery,
     onChangeSortBy: handleChangeSortBy,
+    onRefreshItem: handleRefreshItem,
+    onRefreshSection: handleRefreshSection,
   }),
   lifecycle({
     componentWillMount,

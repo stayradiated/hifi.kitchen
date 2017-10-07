@@ -2,15 +2,19 @@ import {
   normalize,
   PLAYLIST,
   PLAYLIST_TYPE_MUSIC,
+  SORT_PLAYLISTS_BY_DATE_ADDED,
+  SORT_PLAYLISTS_BY_DURATION,
+  SORT_PLAYLISTS_BY_ITEM_COUNT,
+  SORT_PLAYLISTS_BY_LAST_PLAYED,
   SORT_PLAYLISTS_BY_NAME,
   SORT_PLAYLISTS_BY_PLAYS,
-  SORT_PLAYLISTS_BY_LAST_PLAYED,
-  SORT_PLAYLISTS_BY_DURATION,
-  SORT_PLAYLISTS_BY_DATE_ADDED,
-  SORT_PLAYLISTS_BY_ITEM_COUNT,
 } from 'perplexed'
 
-import {FETCH_LIBRARY_PLAYLISTS, SORT_LIBRARY_PLAYLISTS} from '../constants'
+import {
+  FETCH_LIBRARY_PLAYLISTS,
+  SORT_LIBRARY_PLAYLISTS,
+  RESET_LIBRARY_PLAYLISTS,
+} from '../constants'
 
 import {createLibraryTypeList} from '../../storeTemplates'
 
@@ -19,6 +23,7 @@ const store = createLibraryTypeList({
   actions: {
     fetch: FETCH_LIBRARY_PLAYLISTS,
     sort: SORT_LIBRARY_PLAYLISTS,
+    reset: RESET_LIBRARY_PLAYLISTS,
   },
   sort: {
     default: 'Date Added',
@@ -47,6 +52,7 @@ const store = createLibraryTypeList({
 export const reducer = store.reducer
 export const fetchCurrentLibraryPlaylistsRange = store.fetchCurrentLibraryTypeRange
 export const fetchLibraryPlaylistsRange = store.fetchLibraryTypeRange
-export const sortLibraryPlaylists = store.sortLibraryType
 export const forceFetchLibraryPlaylistsRange = store.forceFetchLibraryTypeRange
+export const resetCurrentLibraryPlaylists = store.resetCurrentLibraryType
 export const selectLibraryPlaylists = store.selectors
+export const sortLibraryPlaylists = store.sortLibraryType

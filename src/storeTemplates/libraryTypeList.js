@@ -14,6 +14,7 @@ export default function createLibraryTypeList (options) {
     actions: {
       fetch: FETCH_LIBRARY_TYPE,
       sort: SORT_LIBRARY_TYPE,
+      reset: RESET_LIBRARY_TYPE,
     },
     sort: {
       default: defaultSortBy,
@@ -29,6 +30,7 @@ export default function createLibraryTypeList (options) {
   console.assert(typeof TYPE === 'number', 'type missing')
   console.assert(typeof FETCH_LIBRARY_TYPE === 'object', 'actions.fetch missing')
   console.assert(typeof SORT_LIBRARY_TYPE === 'string', 'actions.sort missing')
+  console.assert(typeof RESET_LIBRARY_TYPE === 'string', 'actions.reset missing')
   console.assert(typeof defaultSortBy === 'string', 'sort.default missing')
   console.assert(typeof defaultSortDesc === 'boolean', 'sort.descending missing')
   console.assert(typeof sortOptions === 'object', 'sort.options missing')
@@ -75,8 +77,10 @@ export default function createLibraryTypeList (options) {
       id: section,
       range: [start, end],
       selectors,
-      dispatch: (range) => forceFetchLibraryTypeRange(
-        section, range[0], range[1]),
+      dispatch: (range) => {
+        return forceFetchLibraryTypeRange(
+          section, range[0], range[1])
+      },
     }),
   )
 
@@ -85,6 +89,17 @@ export default function createLibraryTypeList (options) {
       const state = getState()
       const section = selectPlex.librarySectionId(state)
       return dispatch(fetchLibraryTypeRange(section, start, end))
+    }
+  }
+
+  const resetCurrentLibraryType = () => {
+    return (dispatch, getState) => {
+      const state = getState()
+      const section = selectPlex.librarySectionId(state)
+      return dispatch({
+        type: RESET_LIBRARY_TYPE,
+        payload: {section},
+      })
     }
   }
 
@@ -125,6 +140,9 @@ export default function createLibraryTypeList (options) {
           sortDesc,
         }
 
+      case RESET_LIBRARY_TYPE:
+        return asyncReducer.handleReset(state, action)
+
       default:
         return state
     }
@@ -134,8 +152,9 @@ export default function createLibraryTypeList (options) {
     reducer,
     fetchCurrentLibraryTypeRange,
     fetchLibraryTypeRange,
-    sortLibraryType,
     forceFetchLibraryTypeRange,
+    resetCurrentLibraryType,
     selectors,
+    sortLibraryType,
   }
 }

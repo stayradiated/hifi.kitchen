@@ -1,4 +1,7 @@
-import {ADD_TRACK_TO_PLAYLIST} from '../constants'
+import {
+  ADD_TRACK_TO_PLAYLIST,
+  REMOVE_TRACK_FROM_PLAYLIST,
+} from '../constants'
 
 import {value as getLibrarySections} from '../library/sections/selectors'
 import {selectPlex} from '../plex/instance'
@@ -27,6 +30,17 @@ const addTrackToPlaylist = (trackId, playlistId) => (dispatch, getState) => {
   })
 }
 
+const removeItemFromPlaylist = (itemId, playlistId) => (dispatch) => {
+  return dispatch({
+    types: REMOVE_TRACK_FROM_PLAYLIST,
+    payload: {itemId, playlistId},
+    meta: {
+      plex: ({library}) => library.removeFromPlaylist(playlistId, itemId),
+    },
+  })
+}
+
 export {
   addTrackToPlaylist,
+  removeItemFromPlaylist,
 }

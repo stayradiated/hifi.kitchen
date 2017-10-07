@@ -14,7 +14,7 @@ import {SEARCH} from '../../stores/constants'
 export default function NavBar (props) {
   const {
     sections, currentSection, searchQuery, sortBy, sortDesc, sortOptions,
-    onChangeSection, onChangeSearchQuery, onChangeSortBy,
+    onChangeSection, onChangeSearchQuery, onChangeSortBy, onRefreshSection,
   } = props
 
   const searchBar = (
@@ -62,6 +62,11 @@ export default function NavBar (props) {
         <Link to='/settings' className='NavBar-section-item'>
           <Icon icon='cog' />
         </Link>
+        <Icon
+          icon='cw'
+          className='NavBar-section-item'
+          onClick={onRefreshSection}
+        />
       </nav>
     </header>
   )
@@ -74,12 +79,15 @@ NavBar.propTypes = {
   sortBy: PropTypes.string,
   sortDesc: PropTypes.bool,
   sortOptions: PropTypes.arrayOf(PropTypes.string),
-  onChangeSection: PropTypes.func,
-  onChangeSearchQuery: PropTypes.func,
-  onChangeSortBy: PropTypes.func,
+  onChangeSection: PropTypes.func.isRequired,
+  onChangeSearchQuery: PropTypes.func.isRequired,
+  onChangeSortBy: PropTypes.func.isRequired,
+  onRefreshSection: PropTypes.func.isRequired,
 }
 
 NavBar.defaultProps = {
   onChangeSection: noop,
   onChangeSearchQuery: noop,
+  onChangeSortBy: noop,
+  onRefreshSection: noop,
 }

@@ -23,13 +23,14 @@ const handleSelect = (props) => () => {
 
 function TrackListItem (props) {
   const {
-    index, track, style, currentlyPlaying, displayArtist, playerState,
+    index, context, track, style, currentlyPlaying, displayArtist, playerState,
     onSelect, onRate,
   } = props
 
   return (
     <ContextMenuTrigger
       id={TRACK_CONTEXT_MENU}
+      context={context}
       track={track}
       collect={(p) => p}
     >
@@ -66,6 +67,7 @@ function TrackListItem (props) {
 TrackListItem.propTypes = {
   style: PropTypes.shape({}),
   index: PropTypes.number,
+  context: PropTypes.shape({}),
   track: PropTypes.shape({
     index: PropTypes.number,
     title: PropTypes.string,

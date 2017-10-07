@@ -6,7 +6,11 @@ import {
   SORT_ARTISTS_BY_PLAYS,
 } from 'perplexed'
 
-import {FETCH_LIBRARY_ARTISTS, SORT_LIBRARY_ARTISTS} from '../constants'
+import {
+  FETCH_LIBRARY_ARTISTS,
+  SORT_LIBRARY_ARTISTS,
+  RESET_LIBRARY_ARTISTS,
+} from '../constants'
 
 import {createLibraryTypeList} from '../../storeTemplates'
 
@@ -15,6 +19,7 @@ const store = createLibraryTypeList({
   actions: {
     fetch: FETCH_LIBRARY_ARTISTS,
     sort: SORT_LIBRARY_ARTISTS,
+    reset: RESET_LIBRARY_ARTISTS,
   },
   sort: {
     default: 'Date Added',
@@ -35,6 +40,7 @@ const store = createLibraryTypeList({
 export const reducer = store.reducer
 export const fetchCurrentLibraryArtistsRange = store.fetchCurrentLibraryTypeRange
 export const fetchLibraryArtistsRange = store.fetchLibraryTypeRange
-export const sortLibraryArtists = store.sortLibraryType
 export const forceFetchLibraryArtistsRange = store.forceFetchLibraryTypeRange
+export const resetCurrentLibraryArtists = store.resetCurrentLibraryType
 export const selectLibraryArtists = store.selectors
+export const sortLibraryArtists = store.sortLibraryType

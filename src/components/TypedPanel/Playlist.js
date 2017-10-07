@@ -7,13 +7,12 @@ import withHandlers from 'recompose/withHandlers'
 import {PLAYLIST} from '../../stores/constants'
 
 import Panel from '../Panel'
-import TrackList from '../TrackList'
+import PlaylistItemList from '../PlaylistItemList'
 
 const handleSelectTrack = (props) => (track) => {
   const {playlist, onCreateQueue} = props
   onCreateQueue(PLAYLIST, playlist.id, track.id)
 }
-
 
 function PlaylistPanel (props) {
   const {
@@ -29,18 +28,17 @@ function PlaylistPanel (props) {
     meta: `${playlist.leafCount} items`,
   }
 
-  const playlistTracks = values.playlistTracks.get(playlist.id) || []
+  const playlistItems = values.playlistItems.get(playlist.id) || []
 
   return (
     <Panel {...otherProps} details={details}>
-      <TrackList
+      <PlaylistItemList
         currentlyPlayingTrackId={currentlyPlayingTrackId}
-        displayArtist
         onLoadItems={onLoadItems}
         onRateTrack={onRateTrack}
         onSelectTrack={onSelectTrack}
         playerState={playerState}
-        trackIds={playlistTracks}
+        playlistItems={playlistItems}
         values={values}
       />
     </Panel>

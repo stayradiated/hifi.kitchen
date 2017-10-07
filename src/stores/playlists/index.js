@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux'
 
 import {reducer as all} from './all'
-import {reducer as tracks} from './tracks'
+import {reducer as items} from './items'
 
 export default combineReducers({
   all,
-  tracks,
+  items,
 })

@@ -8,6 +8,7 @@ import {
 import {
   FETCH_LIBRARY_PLAYLISTS_REGULAR,
   SORT_LIBRARY_PLAYLISTS_REGULAR,
+  RESET_LIBRARY_PLAYLISTS_REGULAR,
 } from '../constants'
 
 import {createLibraryTypeList} from '../../storeTemplates'
@@ -17,6 +18,7 @@ const store = createLibraryTypeList({
   actions: {
     fetch: FETCH_LIBRARY_PLAYLISTS_REGULAR,
     sort: SORT_LIBRARY_PLAYLISTS_REGULAR,
+    reset: RESET_LIBRARY_PLAYLISTS_REGULAR,
   },
   sort: {
     default: 'Name',
@@ -41,6 +43,7 @@ const store = createLibraryTypeList({
 export const reducer = store.reducer
 export const fetchCurrentLibraryPlaylistsRegularRange = store.fetchCurrentLibraryTypeRange
 export const fetchLibraryPlaylistsRegularRange = store.fetchLibraryTypeRange
-export const sortLibraryPlaylistsRegular = store.sortLibraryType
 export const forceFetchLibraryPlaylistsRegularRange = store.forceFetchLibraryTypeRange
+export const resetCurrentLibraryPlaylistsRegular = store.resetCurrentLibraryType
 export const selectLibraryPlaylistsRegular = store.selectors
+export const sortLibraryPlaylistsRegular = store.sortLibraryType

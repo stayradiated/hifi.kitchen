@@ -15,6 +15,15 @@ const handleAddTrackToPlaylist = (props) => () => {
   onAddTrackToPlaylist(track.id)
 }
 
+const handleRemoveTrackFromPlaylist = (props) => () => {
+  const {trigger, onRemoveItemFromPlaylist} = props
+  const context = (trigger && trigger.context)
+  const playlistItem = (context && context.playlistItem)
+  if (playlistItem != null) {
+    onRemoveItemFromPlaylist(playlistItem.id, playlistItem.playlistId)
+  }
+}
+
 const handleGoToAlbum = (props) => () => {
   const {trigger, onNavigate} = props
   const track = (trigger && trigger.track) || {}
@@ -28,7 +37,10 @@ const handleGoToArtist = (props) => () => {
 }
 
 const TrackContextMenu = (props) => {
-  const {id, onGoToArtist, onGoToAlbum, onAddTrackToPlaylist} = props
+  const {
+    id,
+    onGoToArtist, onGoToAlbum, onAddTrackToPlaylist, onRemoveItemFromPlaylist,
+  } = props
 
   return (
     <ContextMenu id={id}>
@@ -38,6 +50,7 @@ const TrackContextMenu = (props) => {
       {/* <MenuItem>Add to Queue</MenuItem> */}
       {/* <MenuItem>Play Plex Mix</MenuItem> */}
       <MenuItem onClick={onAddTrackToPlaylist}>Add to Playlist...</MenuItem>
+      <MenuItem onClick={onRemoveItemFromPlaylist}>Remove from Playlist</MenuItem>
     </ContextMenu>
   )
 }
@@ -45,6 +58,7 @@ const TrackContextMenu = (props) => {
 TrackContextMenu.propTypes = {
   id: PropTypes.string.isRequired,
   onAddTrackToPlaylist: PropTypes.func.isRequired,
+  onRemoveItemFromPlaylist: PropTypes.func.isRequired,
   onGoToAlbum: PropTypes.func.isRequired,
   onGoToArtist: PropTypes.func.isRequired,
 }
@@ -59,6 +73,7 @@ export default compose(
   }),
   withHandlers({
     onAddTrackToPlaylist: handleAddTrackToPlaylist,
+    onRemoveItemFromPlaylist: handleRemoveTrackFromPlaylist,
     onGoToArtist: handleGoToArtist,
     onGoToAlbum: handleGoToAlbum,
   }),

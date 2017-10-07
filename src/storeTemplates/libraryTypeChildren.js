@@ -8,13 +8,23 @@ import {
 export default function createLibraryTypeChildrenStore (options) {
   const {
     type: TYPE,
-    constant: FETCH_TYPE_CHILDREN,
+    actions: {
+      fetch: FETCH_TYPE_CHILDREN,
+      reset: RESET_TYPE_CHILDREN,
+    },
     rootSelector,
     reducerOptions = {},
     fetchItems = ({library}, id, start, end) =>
       normalize(library.metadataChildren(
         id, TYPE, {start, size: end - start, includeRelated: 1})),
   } = options
+
+  console.assert(typeof TYPE === 'number', 'type missing')
+  console.assert(typeof FETCH_TYPE_CHILDREN === 'object', 'actions.fetch missing')
+  console.assert(typeof RESET_TYPE_CHILDREN === 'string', 'actions.reset missing')
+  console.assert(typeof rootSelector === 'function', 'rootSelector missing')
+  console.assert(typeof reducerOptions === 'object', 'reducerOptions missing')
+  console.assert(typeof fetchItems === 'function', 'fetchItems missing')
 
   const selectors = createMapListSelector(rootSelector)
 
@@ -36,6 +46,11 @@ export default function createLibraryTypeChildrenStore (options) {
     }),
   )
 
+  const resetTypeChildren = (id) => ({
+    type: RESET_TYPE_CHILDREN,
+    payload: {id},
+  })
+
   const asyncReducer = new AsyncMapListReducer({
     getId: (action) => action.payload.id,
     getTotal: (action) => action.value.result.id.totalSize,
@@ -44,6 +59,9 @@ export default function createLibraryTypeChildrenStore (options) {
 
   const reducer = (state = asyncReducer.initialState, action) => {
     switch (action.type) {
+      case RESET_TYPE_CHILDREN:
+        return asyncReducer.handleReset(state, action)
+
       case FETCH_TYPE_CHILDREN.REQUEST:
         return asyncReducer.handleRequest(state, action)
 
@@ -62,6 +80,7 @@ export default function createLibraryTypeChildrenStore (options) {
     reducer,
     fetchTypeChildren,
     forceFetchTypeChildren,
+    resetTypeChildren,
     selectors,
   }
 }
