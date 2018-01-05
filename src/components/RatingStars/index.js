@@ -14,11 +14,11 @@ export default function RatingStars (props) {
       className={classNames(className, 'RatingStars')}
       start={0}
       stop={maxValue / 2}
-      initialRate={value / 2}
+      initialRating={value / 2}
       fractions={2}
       onChange={(nextValue) => onRate(nextValue * 2)}
-      empty={<Icon icon='star' className='RatingStars-empty' />}
-      full={<Icon icon='star' className='RatingStars-full' />}
+      emptySymbol={<Icon icon='star' className='RatingStars-empty' />}
+      fullSymbol={<Icon icon='star' className='RatingStars-full' />}
     />
   )
 }

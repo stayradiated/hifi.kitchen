@@ -1,5 +1,5 @@
 import React from 'react'
-
+import classNames from 'classnames'
 import PropTypes from 'prop-types'
 
 import './styles.css'
@@ -7,7 +7,7 @@ import './styles.css'
 import SquareImage from '../SquareImage'
 
 export default function GridItem (props) {
-  const { onSelect, image, title, subtitle, ...otherProps } = props
+  const { onSelect, image, title, subtitle, highlight, ...otherProps } = props
 
   return (
     <button
@@ -17,7 +17,9 @@ export default function GridItem (props) {
     >
       <SquareImage
         className='GridItem-thumb'
-        imageClassName='GridItem-thumbImage'
+        imageClassName={classNames('GridItem-thumbImage', {
+          'GridItem-thumbImage-highlight': highlight
+        })}
         src={image}
         alt={title}
         size={300}
@@ -35,5 +37,6 @@ GridItem.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
+  highlight: PropTypes.boolean,
   onSelect: PropTypes.func
 }

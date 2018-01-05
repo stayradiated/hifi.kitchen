@@ -23,7 +23,6 @@ import {
   selectDisplayPlayer,
   setDisplayPlayer,
   toggleDisplayPlayer,
-  toggleDisplayQueue,
   selectQueue
 } from '@stayradiated/hifi-redux'
 
@@ -50,7 +49,6 @@ class ControlsContainer extends Component {
     this.handlePause = this.handlePause.bind(this)
     this.handlePlay = this.handlePlay.bind(this)
     this.handlePrevTrack = this.handlePrevTrack.bind(this)
-    this.handleQueue = this.handleQueue.bind(this)
     this.handlePlayer = this.handlePlayer.bind(this)
     this.handleRateTrack = this.handleRateTrack.bind(this)
     this.handleShuffle = this.handleShuffle.bind(this)
@@ -122,11 +120,6 @@ class ControlsContainer extends Component {
     }
   }
 
-  handleQueue () {
-    const { dispatch } = this.props
-    dispatch(toggleDisplayQueue())
-  }
-
   handlePlayer () {
     const { dispatch } = this.props
     dispatch(toggleDisplayPlayer())
@@ -162,7 +155,6 @@ class ControlsContainer extends Component {
             onPause={this.handlePause}
             onPlay={this.handlePlay}
             onPrev={this.handlePrevTrack}
-            onQueue={this.handleQueue}
             onPlayer={this.handlePlayer}
             onRateTrack={this.handleRateTrack}
             onShuffle={this.handleShuffle}

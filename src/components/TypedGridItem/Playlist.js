@@ -21,6 +21,7 @@ function PlaylistItem (props) {
       image={playlist.composite}
       title={playlist.title}
       subtitle={`${playlist.leafCount} ${plural('item', playlist.leafCount)}`}
+      highlight={playlist.smart}
     />
   )
 }

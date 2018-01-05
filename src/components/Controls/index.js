@@ -28,7 +28,7 @@ const handleGoToArtist = (props) => () => {
 function Controls (props) {
   const {
     audio, track, paused, shuffled,
-    onStop, onPrev, onPlay, onPause, onNext, onQueue, onPlayer, onRateTrack,
+    onStop, onPrev, onPlay, onPause, onNext, onPlayer, onRateTrack,
     onShuffle, fullScreenMode, onGoToArtist, onGoToAlbum
   } = props
 
@@ -87,12 +87,6 @@ function Controls (props) {
           onRate={(rating) => onRateTrack(track.id, rating)}
         />
         <button
-          className='Controls-queue'
-          onClick={onQueue}
-        >
-          <Icon icon='list' />
-        </button>
-        <button
           className='Controls-albumThumbButton'
           onClick={onPlayer}
         >
@@ -127,7 +121,6 @@ Controls.propTypes = {
   onPlay: PropTypes.func.isRequired,
   onPause: PropTypes.func.isRequired,
   onNext: PropTypes.func.isRequired,
-  onQueue: PropTypes.func.isRequired,
   onPlayer: PropTypes.func.isRequired,
   onShuffle: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,

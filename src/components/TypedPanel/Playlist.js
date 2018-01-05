@@ -24,7 +24,7 @@ function PlaylistPanel (props) {
   const details = {
     thumb: playlist.composite,
     title: playlist.title,
-    subtitle: 'Playlist',
+    subtitle: playlist.smart ? 'Smart Playlist' : 'Playlist',
     meta: `${playlist.leafCount} items`
   }
 

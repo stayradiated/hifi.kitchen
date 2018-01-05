@@ -10,7 +10,6 @@ import './styles.css'
 import ContextMenuContainer from '../../containers/ContextMenu'
 import BrowserContainer from '../../containers/Browser'
 import ControlsContainer from '../../containers/Controls'
-import QueueContainer from '../../containers/Queue'
 import PlayerContainer from '../../containers/Player'
 import AddToPlaylistContainer from '../../containers/AddToPlaylist'
 
@@ -20,7 +19,7 @@ const handleChangeSection = (props) => (section) => {
     return null
   }
 
-  const params = new URLSearchParams(location.search)
+  const params = new window.URLSearchParams(location.search)
   params.set('section', section)
   history.push({
     pathname: location.pathname,
@@ -30,7 +29,7 @@ const handleChangeSection = (props) => (section) => {
 
 const handleChangeItem = (props) => (itemType, itemId) => {
   const { history, location } = props
-  const params = new URLSearchParams(location.search)
+  const params = new window.URLSearchParams(location.search)
   params.set('itemType', itemType)
   params.set('itemId', itemId)
   history.push({
@@ -41,7 +40,7 @@ const handleChangeItem = (props) => (itemType, itemId) => {
 
 function App (props) {
   const {
-    displayQueue, displayPlayer,
+    displayPlayer,
     section, itemType, itemId,
     onChangeSection, onChangeItem
   } = props
@@ -69,10 +68,6 @@ function App (props) {
       <div className='App-main'>
         {content}
       </div>
-      {displayQueue &&
-        <div className='App-queue'>
-          <QueueContainer />
-        </div>}
       <ControlsContainer onNavigate={onChangeItem} />
       <AddToPlaylistContainer />
       <ContextMenuContainer onNavigate={onChangeItem} />
@@ -81,7 +76,6 @@ function App (props) {
 }
 
 App.propTypes = {
-  displayQueue: PropTypes.bool,
   displayPlayer: PropTypes.bool,
   section: PropTypes.string,
   itemType: PropTypes.string,
@@ -96,7 +90,7 @@ export default compose(
     onChangeItem: handleChangeItem
   }),
   withProps((props) => {
-    const params = new URLSearchParams(props.location.search)
+    const params = new window.URLSearchParams(props.location.search)
     return {
       section: params.get('section'),
       itemType: params.get('itemType'),

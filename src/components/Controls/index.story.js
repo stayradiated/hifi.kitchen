@@ -36,6 +36,5 @@ storiesOf('Controls', module)
       }}
       onPrev={action('Prev')}
       onNext={action('Next')}
-      onQueue={action('Queue')}
     />
   ))

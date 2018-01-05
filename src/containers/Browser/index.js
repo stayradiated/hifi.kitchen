@@ -48,7 +48,6 @@ import {
   createQueueFromPlaylist,
   createQueueFromTrack,
   fetchSearchResults,
-  selectDisplayQueue,
   selectSearch,
   selectQueue,
   selectTimeline
@@ -410,7 +409,6 @@ export default compose(
       libraryArtistIds: selectLibraryArtists.currentIds(state),
       libraryPlaylistIds: selectLibraryPlaylists.currentIds(state),
       libraryTrackIds: selectLibraryTracks.currentIds(state),
-      displayQueue: selectDisplayQueue(state),
       playerState: selectTimeline.playerState(state),
       allAlbums: selectAllAlbums.values(state),
       allArtists: selectAllArtists.values(state),

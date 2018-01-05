@@ -36,7 +36,6 @@ storiesOf('WebAudio', module)
             onPlay={action('onPlay')}
             onPrev={action('onPrev')}
             onNext={action('onNext')}
-            onQueue={action('onQueue')}
             onRateTrack={action('onRateTrack')}
           />
         )}
