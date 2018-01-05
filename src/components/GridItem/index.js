@@ -37,6 +37,6 @@ GridItem.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  highlight: PropTypes.boolean,
+  highlight: PropTypes.bool,
   onSelect: PropTypes.func
 }

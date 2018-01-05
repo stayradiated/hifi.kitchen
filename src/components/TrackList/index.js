@@ -6,6 +6,7 @@ import setPropTypes from 'recompose/setPropTypes'
 
 import ItemsList from '../List/withAutoSizer'
 import TrackListItem from './Item'
+import TrackListItemLoading from './ItemLoading'
 import TrackListSummary from './Summary'
 import AsyncListLayout from '../AsyncListLayout'
 
@@ -20,7 +21,11 @@ const handleTrackItem = (props) => (trackId, index) => ({ key, style }) => {
 
   if (track == null) {
     return (
-      <div key={key} style={style} />
+      <TrackListItemLoading
+        key={key}
+        style={style}
+        index={preserveTrackIndex ? null : index + 1}
+      />
     )
   }
 

@@ -7,6 +7,7 @@ import withHandlers from 'recompose/withHandlers'
 import ItemsList from '../List/withAutoSizer'
 import AlbumListHeader from './Header'
 import TrackListItem from '../TrackList/Item'
+import TrackListItemLoading from '../TrackList/ItemLoading'
 import TrackListSummary from '../TrackList/Summary'
 import AsyncListLayout from '../AsyncListLayout'
 
@@ -21,7 +22,10 @@ const handleRenderTrackItem = (props) => (trackId) => ({ key, style }) => {
 
   if (track == null) {
     return (
-      <div key={key} style={style} />
+      <TrackListItemLoading
+        key={key}
+        style={style}
+      />
     )
   }
 
