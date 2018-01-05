@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {InfiniteLoader, List} from 'react-virtualized'
+import { InfiniteLoader, List } from 'react-virtualized'
 import classNames from 'classnames'
 import getScrollbarWidth from 'get-scrollbar-width'
 
@@ -25,13 +25,13 @@ export default class Grid extends Component {
     paddingHorizontal: PropTypes.number,
 
     children: PropTypes.func.isRequired,
-    onLoad: PropTypes.func.isRequired,
+    onLoad: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     itemsPerRow: 5,
     getItemHeight: (width) => width,
-    paddingHorizontal: 0,
+    paddingHorizontal: 0
   }
 
   constructor () {
@@ -40,7 +40,7 @@ export default class Grid extends Component {
   }
 
   calcRows () {
-    const {itemsPerRow, items} = this.props
+    const { itemsPerRow, items } = this.props
 
     return items.reduce((rows, item, index) => {
       if (index % itemsPerRow === 0) {
@@ -52,12 +52,12 @@ export default class Grid extends Component {
   }
 
   calcTotal () {
-    const {items, total} = this.props
+    const { items, total } = this.props
     return total != null ? total : items.length
   }
 
-  handleLoadMoreRows ({startIndex, stopIndex}) {
-    const {onLoad, itemsPerRow} = this.props
+  handleLoadMoreRows ({ startIndex, stopIndex }) {
+    const { onLoad, itemsPerRow } = this.props
     return onLoad(startIndex * itemsPerRow, (stopIndex + 1) * itemsPerRow)
   }
 
@@ -65,7 +65,7 @@ export default class Grid extends Component {
     const {
       children,
       width, height, className,
-      getItemHeight, itemsPerRow, paddingHorizontal,
+      getItemHeight, itemsPerRow, paddingHorizontal
     } = this.props
 
     const innerWidth = width - SCROLLBAR - (paddingHorizontal * 2)
@@ -79,7 +79,7 @@ export default class Grid extends Component {
     const rows = this.calcRows()
     const rowCount = Math.ceil(total / itemsPerRow)
 
-    const isRowLoaded = ({index}) => {
+    const isRowLoaded = ({ index }) => {
       const row = rows[index]
       if (row == null) {
         return false
@@ -87,7 +87,7 @@ export default class Grid extends Component {
       return row.every((item) => item != null)
     }
 
-    const rowRenderer = ({index, key, style}) => {
+    const rowRenderer = ({ index, key, style }) => {
       const row = rows[index]
 
       if (row == null) {
@@ -113,7 +113,7 @@ export default class Grid extends Component {
           loadMoreRows={this.handleLoadMoreRows}
           rowCount={rowCount}
         >
-          {({onRowsRendered, registerChild}) => (
+          {({ onRowsRendered, registerChild }) => (
             <List
               width={width}
               height={height}
@@ -126,7 +126,7 @@ export default class Grid extends Component {
               rowHeight={itemHeight}
               rowRenderer={rowRenderer}
               style={{
-                overflowX: 'hidden',
+                overflowX: 'hidden'
               }}
             />
           )}

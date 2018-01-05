@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import getContext from 'recompose/getContext'
 
 function Image (props) {
-  const {width, height, library, src, quality, ...otherProps} = props
+  const { width, height, library, src, quality, ...otherProps } = props
 
   if (src == null) {
     return (
@@ -15,14 +15,14 @@ function Image (props) {
     url: src,
     width,
     height,
-    quality,
+    quality
   })
   const backgroundImage = `url(${url})`
 
   return (
     <div
       {...otherProps}
-      style={{backgroundImage}}
+      style={{ backgroundImage }}
     />
   )
 }
@@ -32,8 +32,8 @@ Image.defaultProps = {
   height: 400,
   quality: 90,
   library: {
-    resizePhoto: ({url}) => url,
-  },
+    resizePhoto: ({ url }) => url
+  }
 }
 
 Image.propTypes = {
@@ -42,10 +42,10 @@ Image.propTypes = {
   height: PropTypes.number,
   quality: PropTypes.number,
   library: PropTypes.shape({
-    resizePhoto: PropTypes.func.isRequired,
-  }).isRequired,
+    resizePhoto: PropTypes.func.isRequired
+  }).isRequired
 }
 
 export default getContext({
-  library: PropTypes.shape({}),
+  library: PropTypes.shape({})
 })(Image)

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import {SortableElement} from 'react-sortable-hoc'
+import { SortableElement } from 'react-sortable-hoc'
 
 import './Item.css'
 
@@ -10,13 +10,13 @@ import SquareImage from '../SquareImage'
 import Time from '../Time'
 
 function QueueItem (props) {
-  const {style, track, isSelected, onClick} = props
+  const { style, track, isSelected, onClick } = props
 
   return (
     <button
       style={style}
       className={classNames('QueueItem', {
-        'QueueItem-selected': isSelected,
+        'QueueItem-selected': isSelected
       })}
       onClick={onClick}
     >
@@ -45,10 +45,10 @@ function QueueItem (props) {
 QueueItem.propTypes = {
   style: PropTypes.shape({}),
   track: PropTypes.shape({
-    title: PropTypes.string,
+    title: PropTypes.string
   }).isRequired,
   isSelected: PropTypes.bool.isRequired,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 }
 
 export default new SortableElement(QueueItem)

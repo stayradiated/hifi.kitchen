@@ -1,24 +1,24 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import AlbumInfo from '../../components/AlbumInfo'
 
-import {rateTrack, selectAllTracks} from '../../stores/tracks/all'
-import {fetchAlbum, selectAllAlbums} from '../../stores/albums/all'
-import {fetchAlbumTracks, selectAllAlbumTracks} from '../../stores/albums/tracks'
+import { rateTrack, selectAllTracks } from '@stayradiated/hifi-redux/dist/stores/tracks/all'
+import { fetchAlbum, selectAllAlbums } from '@stayradiated/hifi-redux/dist/stores/albums/all'
+import { fetchAlbumTracks, selectAllAlbumTracks } from '@stayradiated/hifi-redux/dist/stores/albums/tracks'
 
 import {
   createQueueFromAlbum,
-  createQueueFromPlexMix,
-} from '../../stores/queue/actions'
+  createQueueFromPlexMix
+} from '@stayradiated/hifi-redux/dist/stores/queue/actions'
 
 class AlbumContainer extends Component {
   static propTypes = {
     albumId: PropTypes.number.isRequired,
     album: PropTypes.shape({}),
     albumTracks: PropTypes.arrayOf(PropTypes.object),
-    dispatch: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired
   }
 
   constructor () {
@@ -40,28 +40,28 @@ class AlbumContainer extends Component {
   }
 
   fetchAlbum (albumId) {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(fetchAlbum(albumId))
     dispatch(fetchAlbumTracks(albumId))
   }
 
   handleSelectTrack (track) {
-    const {album, dispatch} = this.props
+    const { album, dispatch } = this.props
     dispatch(createQueueFromAlbum(album, track))
   }
 
   handlePlexMix (track) {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(createQueueFromPlexMix(track))
   }
 
   handleRateTrack (track, rating) {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(rateTrack(track, rating))
   }
 
   render () {
-    const {album, albumTracks} = this.props
+    const { album, albumTracks } = this.props
 
     if (album == null || albumTracks == null) {
       return null
@@ -80,7 +80,7 @@ class AlbumContainer extends Component {
 }
 
 export default connect((state, props) => {
-  const {albumId} = props
+  const { albumId } = props
 
   // select state
   const allTracks = selectAllTracks.values(state)
@@ -96,6 +96,6 @@ export default connect((state, props) => {
 
   return {
     album,
-    albumTracks,
+    albumTracks
   }
 })(AlbumContainer)

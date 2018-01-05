@@ -1,21 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {storiesOf} from '@storybook/react'
-import {action} from '@storybook/addon-actions'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 import withContext from 'recompose/withContext'
 
 import Wrapper from '../../stories/Wrapper'
-import {tracks} from '../../stories/data'
+import { tracks } from '../../stories/data'
 
 import WebAudio from './index'
 import Controls from '../Controls'
 
 const WebAudioWithContext = withContext({
-  library: PropTypes.object,
+  library: PropTypes.object
 }, () => ({
   library: {
-    resizePhoto: (src) => src,
-  },
+    resizePhoto: (src) => src
+  }
 }))(WebAudio)
 
 storiesOf('WebAudio', module)
@@ -43,4 +43,3 @@ storiesOf('WebAudio', module)
       </WebAudioWithContext>
     )
   })
-

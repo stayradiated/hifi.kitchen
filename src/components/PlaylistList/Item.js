@@ -7,12 +7,12 @@ import './Item.css'
 import SquareImage from '../SquareImage'
 
 const handleSelect = (props) => () => {
-  const {playlist, onSelect} = props
+  const { playlist, onSelect } = props
   onSelect(playlist)
 }
 
 function PlaylistListItem (props) {
-  const {playlist, style, onSelect} = props
+  const { playlist, style, onSelect } = props
 
   return (
     <button className='PlaylistListItem' style={style} onClick={onSelect}>
@@ -33,11 +33,11 @@ function PlaylistListItem (props) {
 PlaylistListItem.propTypes = {
   style: PropTypes.shape({}),
   playlist: PropTypes.shape({
-    title: PropTypes.string,
+    title: PropTypes.string
   }).isRequired,
-  onSelect: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired
 }
 
 export default withHandlers({
-  onSelect: handleSelect,
+  onSelect: handleSelect
 })(PlaylistListItem)

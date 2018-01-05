@@ -9,15 +9,15 @@ import Icon from '../Icon'
 import './Item.css'
 
 const handleClick = (props) => () => {
-  const {onClick, item} = props
+  const { onClick, item } = props
   onClick(item)
 }
 
 function DropdownItem (props) {
-  const {item, active, descending, onClick} = props
+  const { item, active, descending, onClick } = props
 
   const classes = classNames('DropdownItem', {
-    'DropdownItem-active': active,
+    'DropdownItem-active': active
   })
 
   return (
@@ -33,11 +33,11 @@ function DropdownItem (props) {
 DropdownItem.propTypes = {
   item: PropTypes.string.isRequired,
   active: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired
 }
 
 export default compose(
   withHandlers({
-    onClick: handleClick,
-  }),
+    onClick: handleClick
+  })
 )(DropdownItem)

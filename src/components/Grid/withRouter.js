@@ -6,13 +6,13 @@ import withHandlers from 'recompose/withHandlers'
 
 const withRouter = compose(
   getContext({
-    router: PropTypes.shape({}).isRequired,
+    router: PropTypes.shape({}).isRequired
   }),
   withHandlers({
-    onChange: ({itemPath, router}) => (id) => {
+    onChange: ({ itemPath, router }) => (id) => {
       const path = itemPath(id, router.params)
       router.push(path)
-    },
+    }
   })
 )
 

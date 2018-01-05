@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Layer, Rect, Stage, Group} from 'react-konva'
+import { Layer, Rect, Stage, Group } from 'react-konva'
 import classNames from 'classnames'
 
 import './styles.css'
@@ -12,7 +12,7 @@ const BAR_GAP = 1
 const SHADOW = 0.3
 
 function Wave (props) {
-  const {className, height: maxHeight, width, peaks, currentProgress} = props
+  const { className, height: maxHeight, width, peaks, currentProgress } = props
 
   const height = Math.min(maxHeight, 200)
 
@@ -92,7 +92,7 @@ Wave.propTypes = {
   peaks: PropTypes.arrayOf(PropTypes.number),
   currentProgress: PropTypes.number,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired
 }
 
 export default withAutoSizer(Wave)

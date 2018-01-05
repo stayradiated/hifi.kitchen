@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 const SelectOption = (props) => {
-  const {value, onChange, options} = props
+  const { value, onChange, options } = props
 
   return (
     <select value={value} onChange={onChange}>
@@ -16,7 +16,7 @@ const SelectOption = (props) => {
 SelectOption.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  options: PropTypes.shape({}).isRequired,
+  options: PropTypes.shape({}).isRequired
 }
 
 export default SelectOption

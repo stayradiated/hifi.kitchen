@@ -1,22 +1,23 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import createHistory from 'history/createHashHistory'
-import {Provider} from 'react-redux'
-import {ConnectedRouter, routerMiddleware} from 'react-router-redux'
-import {Route} from 'react-router'
+import { Provider } from 'react-redux'
+import { ConnectedRouter, routerMiddleware } from 'react-router-redux'
+import { Route } from 'react-router'
 
 import 'react-virtualized/styles.css'
 
 import './styles.css'
+import createStore from './store'
 
 import App from './routes/App'
-
-import createStore from './stores'
 
 const history = createHistory()
 const middleware = routerMiddleware(history)
 
-const store = createStore({middleware})
+const store = createStore({
+  middleware
+})
 
 ReactDOM.render(
   <Provider store={store}>
@@ -24,4 +25,4 @@ ReactDOM.render(
       <Route path='/' component={App} />
     </ConnectedRouter>
   </Provider>
-, document.getElementById('root'))
+  , document.getElementById('root'))

@@ -7,7 +7,7 @@ import './styles.css'
 import Time from '../Time'
 
 export default function Timeline (props) {
-  const {buffered, currentTime, duration} = props
+  const { buffered, currentTime, duration } = props
 
   return (
     <div className='Timeline'>
@@ -17,11 +17,11 @@ export default function Timeline (props) {
       <div className='Timeline-track'>
         <div
           className='Timeline-trackBar Timeline-trackBuffered'
-          style={{width: `${(buffered / duration) * 100}%`}}
+          style={{ width: `${(buffered / duration) * 100}%` }}
         />
         <div
           className='Timeline-trackBar Timeline-trackCurrentTime'
-          style={{width: `${(currentTime / duration) * 100}%`}}
+          style={{ width: `${(currentTime / duration) * 100}%` }}
         />
       </div>
       <div className='Timeline-timestamp Timeline-duration'>
@@ -34,5 +34,5 @@ export default function Timeline (props) {
 Timeline.propTypes = {
   buffered: PropTypes.number.isRequired,
   currentTime: PropTypes.number.isRequired,
-  duration: PropTypes.number.isRequired,
+  duration: PropTypes.number.isRequired
 }

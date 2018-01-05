@@ -10,10 +10,10 @@ import TrackListSummary from '../TrackList/Summary'
 import AsyncListLayout from '../AsyncListLayout'
 
 /* eslint react/prop-types: "off" */
-const handlePlaylistItem = (props) => (item, index) => ({key, style}) => {
+const handlePlaylistItem = (props) => (item, index) => ({ key, style }) => {
   const {
     values, currentlyPlayingTrackId,
-    playerState, onRateTrack, onSelectTrack,
+    playerState, onRateTrack, onSelectTrack
   } = props
 
   const track = item && values.tracks.get(item.track)
@@ -32,7 +32,7 @@ const handlePlaylistItem = (props) => (item, index) => ({key, style}) => {
       track={track}
       index={index + 1}
       context={{
-        playlistItem: item,
+        playlistItem: item
       }}
       playerState={playerState}
       currentlyPlaying={item.trackId === currentlyPlayingTrackId}
@@ -42,8 +42,8 @@ const handlePlaylistItem = (props) => (item, index) => ({key, style}) => {
   )
 }
 
-const handleSummary = (props) => () => ({style, key}) => {
-  const {playlistItems, values} = props
+const handleSummary = (props) => () => ({ style, key }) => {
+  const { playlistItems, values } = props
 
   const trackIds = playlistItems.map((item) => item && item.track)
 
@@ -58,24 +58,24 @@ const handleSummary = (props) => () => ({style, key}) => {
 }
 
 function PlaylistItemList (props) {
-  const {playlistItems, renderPlaylistItem, renderSummary, onLoadItems} = props
+  const { playlistItems, renderPlaylistItem, renderSummary, onLoadItems } = props
 
   const layout = [
     {
       size: playlistItems.length,
       items: playlistItems,
-      render: renderPlaylistItem,
+      render: renderPlaylistItem
     },
     {
       size: 1,
       items: [true],
-      render: renderSummary,
-    },
+      render: renderSummary
+    }
   ]
 
   return (
     <AsyncListLayout layout={layout} onLoad={onLoadItems}>
-      {({rowCount, isRowLoaded, renderItem, onLoad}) => (
+      {({ rowCount, isRowLoaded, renderItem, onLoad }) => (
         <ItemsList
           rowHeight={40}
           rowCount={rowCount}
@@ -91,13 +91,13 @@ function PlaylistItemList (props) {
 PlaylistItemList.propTypes = {
   playlistItems: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
-    track: PropTypes.numbers,
+    track: PropTypes.numbers
   })),
-  onLoadItems: PropTypes.func,
+  onLoadItems: PropTypes.func
 }
 
 PlaylistItemList.defaultProps = {
-  playlistItems: [],
+  playlistItems: []
 }
 
 export default compose(
@@ -107,10 +107,10 @@ export default compose(
     onRateTrack: PropTypes.func.isRequired,
     onSelectTrack: PropTypes.func.isRequired,
     playerState: PropTypes.string,
-    preserveTrackIndex: PropTypes.bool,
+    preserveTrackIndex: PropTypes.bool
   }),
   withHandlers({
     renderPlaylistItem: handlePlaylistItem,
-    renderSummary: handleSummary,
+    renderSummary: handleSummary
   })
 )(PlaylistItemList)

@@ -7,7 +7,7 @@ import setPropTypes from 'recompose/setPropTypes'
 
 import './styles.css'
 
-import {ALBUM, ARTIST} from '../../stores/constants'
+import { ALBUM, ARTIST } from '@stayradiated/hifi-redux'
 
 import Icon from '../Icon'
 import BlurImage from '../BlurImage'
@@ -16,12 +16,12 @@ import SquareImage from '../SquareImage'
 import RatingStars from '../RatingStars'
 
 const handleGoToAlbum = (props) => () => {
-  const {track, onNavigate} = props
+  const { track, onNavigate } = props
   onNavigate(ALBUM, track.parentId)
 }
 
 const handleGoToArtist = (props) => () => {
-  const {track, onNavigate} = props
+  const { track, onNavigate } = props
   onNavigate(ARTIST, track.grandparentId)
 }
 
@@ -29,7 +29,7 @@ function Controls (props) {
   const {
     audio, track, paused, shuffled,
     onStop, onPrev, onPlay, onPause, onNext, onQueue, onPlayer, onRateTrack,
-    onShuffle, fullScreenMode, onGoToArtist, onGoToAlbum,
+    onShuffle, fullScreenMode, onGoToArtist, onGoToAlbum
   } = props
 
   return (
@@ -67,7 +67,7 @@ function Controls (props) {
             <button
               onClick={onShuffle}
               className={classNames('Controls-shuffle', {
-                'Controls-shuffle_enabled': shuffled,
+                'Controls-shuffle_enabled': shuffled
               })}
             >
               <Icon icon='shuffle' />
@@ -112,14 +112,14 @@ Controls.propTypes = {
     title: PropTypes.string,
     originalTitle: PropTypes.string,
     userRating: PropTypes.number,
-    thumb: PropTypes.string,
+    thumb: PropTypes.string
   }).isRequired,
   paused: PropTypes.bool,
   shuffled: PropTypes.bool,
   audio: PropTypes.shape({
     buffered: PropTypes.number,
     currentTime: PropTypes.number,
-    duration: PropTypes.number,
+    duration: PropTypes.number
   }).isRequired,
   fullScreenMode: PropTypes.bool,
   onStop: PropTypes.func.isRequired,
@@ -132,15 +132,15 @@ Controls.propTypes = {
   onShuffle: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
   onGoToArtist: PropTypes.func.isRequired,
-  onGoToAlbum: PropTypes.func.isRequired,
+  onGoToAlbum: PropTypes.func.isRequired
 }
 
 export default compose(
   setPropTypes({
-    onNavigate: PropTypes.func.isRequired,
+    onNavigate: PropTypes.func.isRequired
   }),
   withHandlers({
     onGoToArtist: handleGoToArtist,
-    onGoToAlbum: handleGoToAlbum,
+    onGoToAlbum: handleGoToAlbum
   })
 )(Controls)

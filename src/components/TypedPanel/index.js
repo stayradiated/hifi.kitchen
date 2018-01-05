@@ -8,7 +8,7 @@ import ArtistPanel from './Artist'
 import PlaylistPanel from './Playlist'
 
 export default function TypedPanel (props) {
-  const {item, ...otherProps} = props
+  const { item, ...otherProps } = props
 
   return (
     <Typed
@@ -16,7 +16,7 @@ export default function TypedPanel (props) {
       components={{
         album: (album) => <AlbumPanel {...otherProps} album={album} />,
         artist: (artist) => <ArtistPanel {...otherProps} artist={artist} />,
-        playlist: (playlist) => <PlaylistPanel {...otherProps} playlist={playlist} />,
+        playlist: (playlist) => <PlaylistPanel {...otherProps} playlist={playlist} />
       }}
     />
   )
@@ -24,6 +24,6 @@ export default function TypedPanel (props) {
 
 TypedPanel.propTypes = {
   item: PropTypes.shape({
-    _type: PropTypes.string,
-  }).isRequired,
+    _type: PropTypes.string
+  }).isRequired
 }

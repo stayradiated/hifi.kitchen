@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import lifecycle from 'recompose/lifecycle'
@@ -8,35 +8,33 @@ import lifecycle from 'recompose/lifecycle'
 import Modal from '../../components/Modal'
 import PlaylistList from '../../components/PlaylistList'
 
-import {selectAllPlaylists} from '../../stores/playlists/all'
-import {addTrackToPlaylist} from '../../stores/playlists/actions'
 import {
+  selectAllPlaylists,
+  addTrackToPlaylist,
   fetchCurrentLibraryPlaylistsRegularRange,
   selectLibraryPlaylistsRegular,
-} from '../../stores/library/playlistsRegular'
-import {
   setTrackToAddToPlaylist,
-  selectTrackToAddToPlaylist,
-} from '../../stores/ui'
+  selectTrackToAddToPlaylist
+} from '@stayradiated/hifi-redux'
 
 function componentWillMount () {
-  const {onLoadItems} = this.props
+  const { onLoadItems } = this.props
   onLoadItems(0, 30)
 }
 
 const handleSelectPlaylist = (props) => (playlist) => {
-  const {dispatch, trackToAddToPlaylist} = props
+  const { dispatch, trackToAddToPlaylist } = props
   dispatch(addTrackToPlaylist(trackToAddToPlaylist, playlist.id))
   dispatch(setTrackToAddToPlaylist(null))
 }
 
 const handleLoadItems = (props) => (start, end) => {
-  const {dispatch} = props
+  const { dispatch } = props
   return dispatch(fetchCurrentLibraryPlaylistsRegularRange(start, end))
 }
 
 const handleClose = (props) => () => {
-  const {dispatch} = props
+  const { dispatch } = props
   return dispatch(setTrackToAddToPlaylist(null))
 }
 
@@ -44,7 +42,7 @@ const AddToPlaylist = (props) => {
   const {
     trackToAddToPlaylist,
     playlistIds, values,
-    onSelectPlaylist, onLoadItems, onClose,
+    onSelectPlaylist, onLoadItems, onClose
   } = props
 
   if (trackToAddToPlaylist == null) {
@@ -66,12 +64,12 @@ const AddToPlaylist = (props) => {
 AddToPlaylist.propTypes = {
   playlistIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   values: PropTypes.shape({
-    playlists: PropTypes.instanceOf(Map).isRequired,
+    playlists: PropTypes.instanceOf(Map).isRequired
   }).isRequired,
   trackToAddToPlaylist: PropTypes.number,
   onSelectPlaylist: PropTypes.func.isRequired,
   onLoadItems: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 }
 
 export default compose(
@@ -79,15 +77,15 @@ export default compose(
     trackToAddToPlaylist: selectTrackToAddToPlaylist(state),
     playlistIds: selectLibraryPlaylistsRegular.currentIds(state),
     values: {
-      playlists: selectAllPlaylists.values(state),
-    },
+      playlists: selectAllPlaylists.values(state)
+    }
   })),
   withHandlers({
     onSelectPlaylist: handleSelectPlaylist,
     onLoadItems: handleLoadItems,
-    onClose: handleClose,
+    onClose: handleClose
   }),
   lifecycle({
-    componentWillMount,
+    componentWillMount
   })
 )(AddToPlaylist)

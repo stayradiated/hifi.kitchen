@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export default function Typed (props) {
-  const {item, components} = props
+  const { item, components } = props
 
   const type = item._type
 
@@ -14,7 +14,7 @@ export default function Typed (props) {
 
 Typed.propTypes = {
   item: PropTypes.shape({
-    _type: PropTypes.string,
+    _type: PropTypes.string
   }).isRequired,
-  components: PropTypes.objectOf(PropTypes.func).isRequired,
+  components: PropTypes.objectOf(PropTypes.func).isRequired
 }

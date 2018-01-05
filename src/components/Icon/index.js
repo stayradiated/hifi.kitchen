@@ -5,12 +5,12 @@ import classNames from 'classnames'
 import './fontello.css'
 
 export default function Icon (props) {
-  const {className, icon, ...otherProps} = props
+  const { className, icon, ...otherProps } = props
 
   const classes = classNames(
     className,
     'icon',
-    `icon-${icon}`,
+    `icon-${icon}`
   )
 
   return (
@@ -20,5 +20,5 @@ export default function Icon (props) {
 
 Icon.propTypes = {
   className: PropTypes.string,
-  icon: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired
 }

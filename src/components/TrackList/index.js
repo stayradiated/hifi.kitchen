@@ -10,10 +10,10 @@ import TrackListSummary from './Summary'
 import AsyncListLayout from '../AsyncListLayout'
 
 /* eslint react/prop-types: "off" */
-const handleTrackItem = (props) => (trackId, index) => ({key, style}) => {
+const handleTrackItem = (props) => (trackId, index) => ({ key, style }) => {
   const {
     values, preserveTrackIndex, currentlyPlayingTrackId, displayArtist,
-    playerState, onRateTrack, onSelectTrack,
+    playerState, onRateTrack, onSelectTrack
   } = props
 
   const track = values.tracks.get(trackId)
@@ -39,8 +39,8 @@ const handleTrackItem = (props) => (trackId, index) => ({key, style}) => {
   )
 }
 
-const handleSummary = (props) => () => ({style, key}) => {
-  const {trackIds, values} = props
+const handleSummary = (props) => () => ({ style, key }) => {
+  const { trackIds, values } = props
 
   return (
     <TrackListSummary
@@ -53,24 +53,24 @@ const handleSummary = (props) => () => ({style, key}) => {
 }
 
 function TrackList (props) {
-  const {trackIds, renderTrackItem, renderSummary, onLoadItems} = props
+  const { trackIds, renderTrackItem, renderSummary, onLoadItems } = props
 
   const layout = [
     {
       size: trackIds.length,
       items: trackIds,
-      render: renderTrackItem,
+      render: renderTrackItem
     },
     {
       size: 1,
       items: [true],
-      render: renderSummary,
-    },
+      render: renderSummary
+    }
   ]
 
   return (
     <AsyncListLayout layout={layout} onLoad={onLoadItems}>
-      {({rowCount, isRowLoaded, renderItem, onLoad}) => (
+      {({ rowCount, isRowLoaded, renderItem, onLoad }) => (
         <ItemsList
           rowHeight={40}
           rowCount={rowCount}
@@ -85,11 +85,11 @@ function TrackList (props) {
 
 TrackList.propTypes = {
   trackIds: PropTypes.arrayOf(PropTypes.number),
-  onLoadItems: PropTypes.func,
+  onLoadItems: PropTypes.func
 }
 
 TrackList.defaultProps = {
-  tracksIds: [],
+  tracksIds: []
 }
 
 export default compose(
@@ -99,10 +99,10 @@ export default compose(
     onRateTrack: PropTypes.func.isRequired,
     onSelectTrack: PropTypes.func.isRequired,
     playerState: PropTypes.string,
-    preserveTrackIndex: PropTypes.bool,
+    preserveTrackIndex: PropTypes.bool
   }),
   withHandlers({
     renderTrackItem: handleTrackItem,
-    renderSummary: handleSummary,
+    renderSummary: handleSummary
   })
 )(TrackList)

@@ -1,22 +1,21 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Redirect} from 'react-router'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 
 import LoginWithPin from '../../components/LoginWithPin'
 
-import {selectUser} from '../../stores/user'
-import {fetchPin, checkPin, selectPin} from '../../stores/plex/pin'
+import { selectUser, fetchPin, checkPin, selectPin } from '@stayradiated/hifi-redux'
 
 class LoginRoute extends Component {
   static propTypes = {
     loggedIn: PropTypes.bool,
     dispatch: PropTypes.func.isRequired,
-    pin: PropTypes.shape({}),
+    pin: PropTypes.shape({})
   }
 
   componentWillMount () {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(fetchPin())
 
     this.interval = setInterval(() => {
@@ -29,14 +28,14 @@ class LoginRoute extends Component {
   }
 
   handleCheckPin () {
-    const {dispatch, pin} = this.props
+    const { dispatch, pin } = this.props
     if (pin != null && pin.id != null) {
       dispatch(checkPin(pin.id))
     }
   }
 
   render () {
-    const {pin, loggedIn/* , authError */} = this.props
+    const { pin, loggedIn } = this.props
 
     if (loggedIn) {
       return (
@@ -52,5 +51,5 @@ class LoginRoute extends Component {
 
 export default connect((state) => ({
   loggedIn: selectUser.loggedIn(state),
-  pin: selectPin.value(state),
+  pin: selectPin.value(state)
 }))(LoginRoute)

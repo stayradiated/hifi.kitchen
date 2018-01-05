@@ -6,7 +6,7 @@ import noop from 'nop'
 
 import './styles.css'
 
-import {SEARCH, TRACK} from '../../stores/constants'
+import { SEARCH, TRACK } from '@stayradiated/hifi-redux'
 
 import TypedGrid from '../TypedGrid'
 import TypedPanel from '../TypedPanel'
@@ -15,7 +15,7 @@ import SearchResults from '../SearchResults'
 import TrackTable from '../TrackTable'
 
 const handleChangeItem = (props) => (itemType, itemId) => {
-  const {onChangeItem, onCreateQueue} = props
+  const { onChangeItem, onCreateQueue } = props
   if (itemType === TRACK) {
     return onCreateQueue(itemType, itemId)
   }
@@ -30,7 +30,7 @@ function Browser (props) {
     sortBy, sortDesc, sortOptions,
     onRefreshItem, onRefreshSection,
     onChangeSection, onRateTrack, onChangeSortBy,
-    searchQuery, onChangeSearchQuery, onCreateQueue,
+    searchQuery, onChangeSearchQuery, onCreateQueue
   } = props
 
   let contents
@@ -124,15 +124,15 @@ Browser.propTypes = {
   onLoadItems: PropTypes.func,
   onRateTrack: PropTypes.func.isRequired,
   onRefreshItem: PropTypes.func.isRequired,
-  onRefreshSection: PropTypes.func.isRequired,
+  onRefreshSection: PropTypes.func.isRequired
 }
 
 Browser.defaultProps = {
   onChangeItem: noop,
   onChangeSearchQuery: noop,
-  onChangeSection: noop,
+  onChangeSection: noop
 }
 
 export default withHandlers({
-  onChangeItem: handleChangeItem,
+  onChangeItem: handleChangeItem
 })(Browser)

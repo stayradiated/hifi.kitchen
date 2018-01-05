@@ -8,7 +8,7 @@ import './styles.css'
 import Image from '../Image'
 
 export default function BlurImage (props) {
-  const {src} = props
+  const { src } = props
 
   return (
     <div className='BlurImage'>
@@ -24,5 +24,5 @@ export default function BlurImage (props) {
 }
 
 BlurImage.propTypes = {
-  src: PropTypes.string,
+  src: PropTypes.string
 }

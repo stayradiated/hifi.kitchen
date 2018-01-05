@@ -3,17 +3,17 @@ import PropTypes from 'prop-types'
 import withHandlers from 'recompose/withHandlers'
 import plural from 'plural'
 
-import {PLAYLIST} from '../../stores/constants'
+import { PLAYLIST } from '@stayradiated/hifi-redux'
 
 import GridItem from '../GridItem'
 
 const handleSelect = (props) => () => {
-  const {playlist, onSelect} = props
+  const { playlist, onSelect } = props
   onSelect(PLAYLIST, playlist.id)
 }
 
 function PlaylistItem (props) {
-  const {playlist, ...otherProps} = props
+  const { playlist, ...otherProps } = props
 
   return (
     <GridItem
@@ -30,10 +30,10 @@ PlaylistItem.propTypes = {
     id: PropTypes.number,
     composite: PropTypes.string,
     title: PropTypes.string,
-    tracks: PropTypes.arrayOf(PropTypes.object),
-  }).isRequired,
+    tracks: PropTypes.arrayOf(PropTypes.object)
+  }).isRequired
 }
 
 export default withHandlers({
-  onSelect: handleSelect,
+  onSelect: handleSelect
 })(PlaylistItem)

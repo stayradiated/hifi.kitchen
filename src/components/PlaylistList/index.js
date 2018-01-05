@@ -9,8 +9,8 @@ import AsyncListLayout from '../AsyncListLayout'
 import PlaylistListItem from '../PlaylistList/Item'
 
 /* eslint react/prop-types: "off" */
-const handleRenderPlaylistItem = (props) => (playlistId) => ({key, style}) => {
-  const {values, onSelectPlaylist} = props
+const handleRenderPlaylistItem = (props) => (playlistId) => ({ key, style }) => {
+  const { values, onSelectPlaylist } = props
 
   const playlist = values.playlists.get(playlistId)
 
@@ -31,17 +31,17 @@ const handleRenderPlaylistItem = (props) => (playlistId) => ({key, style}) => {
 }
 
 function PlaylistList (props) {
-  const {playlistIds, renderPlaylistItem, onLoadItems} = props
+  const { playlistIds, renderPlaylistItem, onLoadItems } = props
 
   const layout = [{
     size: playlistIds.length,
     items: playlistIds,
-    render: renderPlaylistItem,
+    render: renderPlaylistItem
   }]
 
   return (
     <AsyncListLayout layout={layout} onLoad={onLoadItems}>
-      {({rowCount, isRowLoaded, renderItem, onLoad}) => (
+      {({ rowCount, isRowLoaded, renderItem, onLoad }) => (
         <ItemsList
           rowHeight={60}
           rowCount={rowCount}
@@ -57,21 +57,21 @@ function PlaylistList (props) {
 PlaylistList.propTypes = {
   playlistIds: PropTypes.arrayOf(PropTypes.number),
   renderPlaylistItem: PropTypes.func.isRequired,
-  onLoadItems: PropTypes.func.isRequired,
+  onLoadItems: PropTypes.func.isRequired
 }
 
 PlaylistList.defaultProps = {
-  playlistIds: [],
+  playlistIds: []
 }
 
 export default compose(
   setPropTypes({
     values: PropTypes.shape({
-      playlists: PropTypes.instanceOf(Map).isRequired,
+      playlists: PropTypes.instanceOf(Map).isRequired
     }).isRequired,
-    onSelectPlaylist: PropTypes.func.isRequired,
+    onSelectPlaylist: PropTypes.func.isRequired
   }),
   withHandlers({
-    renderPlaylistItem: handleRenderPlaylistItem,
+    renderPlaylistItem: handleRenderPlaylistItem
   })
 )(PlaylistList)

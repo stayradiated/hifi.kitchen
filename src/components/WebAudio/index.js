@@ -1,13 +1,13 @@
 import noop from 'nop'
-import {Children, Component} from 'react'
+import { Children, Component } from 'react'
 import PropTypes from 'prop-types'
 import WebAudioContext from '@stayradiated/web-audio'
 
 import {
   PLAYER_STATE_PAUSED,
   PLAYER_STATE_PLAYING,
-  PLAYER_STATE_STOPPED,
-} from '../../stores/constants'
+  PLAYER_STATE_STOPPED
+} from '@stayradiated/hifi-redux'
 
 const AUDIO_CONTEXT = new window.AudioContext()
 
@@ -19,14 +19,14 @@ export default class WebAudio extends Component {
     onEnd: PropTypes.func,
     onProgress: PropTypes.func,
     onTimeUpdate: PropTypes.func,
-    children: PropTypes.func.isRequired,
+    children: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     onDurationChange: noop,
     onEnd: noop,
     onProgress: noop,
-    onTimeUpdate: noop,
+    onTimeUpdate: noop
   }
 
   constructor () {
@@ -35,11 +35,11 @@ export default class WebAudio extends Component {
     this.state = {
       buffered: 0,
       currentTime: 0,
-      duration: 0,
+      duration: 0
     }
 
     this.audio = new WebAudioContext({
-      context: AUDIO_CONTEXT,
+      context: AUDIO_CONTEXT
     })
 
     this.handleAudioDurationChange = this.handleAudioDurationChange.bind(this)
@@ -72,8 +72,8 @@ export default class WebAudio extends Component {
   }
 
   receiveProps (prevProps, props) {
-    const {source, playerState} = props
-    const {source: prevSource, playerState: prevPlayerState} = prevProps
+    const { source, playerState } = props
+    const { source: prevSource, playerState: prevPlayerState } = prevProps
 
     if (source !== prevSource) {
       this.updateSource(source)
@@ -101,7 +101,7 @@ export default class WebAudio extends Component {
 
   handleAudioDurationChange () {
     const duration = this.audio.duration()
-    this.setState({duration})
+    this.setState({ duration })
     this.props.onDurationChange(duration)
   }
 
@@ -111,13 +111,13 @@ export default class WebAudio extends Component {
 
   handleAudioProgress () {
     const buffered = this.audio.buffered()
-    this.setState({buffered})
+    this.setState({ buffered })
     this.props.onProgress(buffered)
   }
 
   handleAudioTimeUpdate () {
     const currentTime = this.audio.currentTime()
-    this.setState({currentTime})
+    this.setState({ currentTime })
     this.props.onTimeUpdate(currentTime)
   }
 
@@ -138,13 +138,13 @@ export default class WebAudio extends Component {
   }
 
   render () {
-    const {children: getChildren} = this.props
-    const {duration, buffered, currentTime} = this.state
+    const { children: getChildren } = this.props
+    const { duration, buffered, currentTime } = this.state
 
     const children = getChildren({
       buffered,
       currentTime,
-      duration,
+      duration
     })
 
     return Children.only(children)

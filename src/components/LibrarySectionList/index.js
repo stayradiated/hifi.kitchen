@@ -7,7 +7,7 @@ import './styles.css'
 import LibrarySectionListItem from './Item'
 
 export default function LibrarySectionList (props) {
-  const {sections, selectedId, onChange} = props
+  const { sections, selectedId, onChange } = props
 
   return (
     <div className='LibrarySectionList'>
@@ -26,5 +26,5 @@ export default function LibrarySectionList (props) {
 LibrarySectionList.propTypes = {
   sections: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedId: PropTypes.number,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 }

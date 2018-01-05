@@ -8,7 +8,7 @@ import TypedGridItem from '../TypedGridItem'
 import GridList from '../GridList/withAutoSizer'
 
 export default function SearchResults (props) {
-  const {hubs, onChange, ...otherProps} = props
+  const { hubs, onChange, ...otherProps } = props
 
   const renderItem = (item) => (
     <TypedGridItem
@@ -38,11 +38,11 @@ SearchResults.propTypes = {
   // query: PropTypes.string,
   hubs: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
-    items: PropTypes.arrayOf(PropTypes.object),
+    items: PropTypes.arrayOf(PropTypes.object)
   })),
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 }
 
 SearchResults.defaultProps = {
-  onChange: noop,
+  onChange: noop
 }

@@ -7,7 +7,7 @@ import './styles.css'
 import Image from '../Image'
 
 export default function SquareImage (props) {
-  const {imageClassName, className, src, size, quality} = props
+  const { imageClassName, className, src, size, quality } = props
 
   return (
     <div className={classNames(className, 'SquareImage')}>
@@ -27,5 +27,5 @@ SquareImage.propTypes = {
   imageClassName: PropTypes.string,
   size: PropTypes.number,
   quality: PropTypes.number,
-  src: PropTypes.string,
+  src: PropTypes.string
 }

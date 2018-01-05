@@ -1,14 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {filter} from 'perplexed'
-import {compose, withState, withHandlers, setPropTypes} from 'recompose'
+import { filter } from 'perplexed'
+import { compose, withState, withHandlers, setPropTypes } from 'recompose'
 
 import SelectOption from './SelectOption'
 import Input from './Input'
 
 const handlePropertyChange = (props) => (event) => {
-  const {setProperty, operator, setOperator} = props
-  const {value} = event.target
+  const { setProperty, operator, setOperator } = props
+  const { value } = event.target
   setProperty(value)
 
   const operatorOptions = filter[value].options()
@@ -18,15 +18,15 @@ const handlePropertyChange = (props) => (event) => {
 }
 
 const handleOperatorChange = (props) => (event) => {
-  const {setOperator} = props
-  const {value} = event.target
+  const { setOperator } = props
+  const { value } = event.target
   setOperator(value)
 }
 
 const Filters = (props) => {
   const {
     property, operator, value,
-    onPropertyChange, onOperatorChange, setValue,
+    onPropertyChange, onOperatorChange, setValue
   } = props
 
   const propertyOptions = filter.availableTrackOptions
@@ -64,7 +64,7 @@ Filters.propTypes = {
 
   onPropertyChange: PropTypes.func.isRequired,
   onOperatorChange: PropTypes.func.isRequired,
-  setValue: PropTypes.func.isRequired,
+  setValue: PropTypes.func.isRequired
 }
 
 export default compose(
@@ -73,10 +73,10 @@ export default compose(
   withState('value', 'setValue', []),
   setPropTypes({
     setProperty: PropTypes.func.isRequired,
-    setOperator: PropTypes.func.isRequired,
+    setOperator: PropTypes.func.isRequired
   }),
   withHandlers({
     onPropertyChange: handlePropertyChange,
-    onOperatorChange: handleOperatorChange,
+    onOperatorChange: handleOperatorChange
   })
 )(Filters)

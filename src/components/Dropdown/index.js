@@ -13,31 +13,31 @@ import Icon from '../Icon'
 import DropdownItem from './Item'
 
 const handleOpen = (props) => () => {
-  const {setOpen} = props
+  const { setOpen } = props
   setOpen(true)
 }
 
 const handleClose = (props) => () => {
-  const {setOpen} = props
+  const { setOpen } = props
   setOpen(false)
 }
 
 const handleToggle = (props) => () => {
-  const {open, setOpen} = props
+  const { open, setOpen } = props
   setOpen(!open)
 }
 
 const handleChange = (props) => (item) => {
-  const {onChange, setOpen} = props
+  const { onChange, setOpen } = props
   onChange(item)
   setOpen(false)
 }
 
 function Dropdown (props) {
-  const {active, items, open, descending, onToggle, onChange} = props
+  const { active, items, open, descending, onToggle, onChange } = props
 
   const menuClasses = classNames('Dropdown-menu', {
-    'Dropdown-menu-open': open,
+    'Dropdown-menu-open': open
   })
 
   return (
@@ -67,18 +67,18 @@ Dropdown.propTypes = {
   open: PropTypes.bool,
   descending: PropTypes.bool,
   onToggle: PropTypes.func.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 export default compose(
   defaultProps({
-    onChange: noop,
+    onChange: noop
   }),
   withState('open', 'setOpen', false),
   withHandlers({
     onOpen: handleOpen,
     onClose: handleClose,
     onToggle: handleToggle,
-    onChange: handleChange,
+    onChange: handleChange
   })
 )(Dropdown)

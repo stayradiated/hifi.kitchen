@@ -1,5 +1,5 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
+import { storiesOf } from '@storybook/react'
 
 import Wrapper from '../../stories/Wrapper'
 
@@ -10,4 +10,3 @@ storiesOf('Filters', module)
   .add('Default', () => (
     <Filters />
   ))
-

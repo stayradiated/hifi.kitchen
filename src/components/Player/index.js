@@ -8,7 +8,7 @@ import SquareImage from '../SquareImage'
 import PlayerList from './List'
 
 const Player = (props) => {
-  const {values, items, selectedTrackId, onChange, onSort, onRateTrack} = props
+  const { values, items, selectedTrackId, onChange, onSort, onRateTrack } = props
 
   const track = values.tracks.get(selectedTrackId)
 
@@ -45,16 +45,16 @@ const Player = (props) => {
 
 Player.propTypes = {
   values: PropTypes.shape({
-    tracks: PropTypes.instanceOf(Map).isRequired,
+    tracks: PropTypes.instanceOf(Map).isRequired
   }).isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
-    track: PropTypes.number.isRequired,
+    track: PropTypes.number.isRequired
   })).isRequired,
   selectedTrackId: PropTypes.number,
   onChange: PropTypes.func,
   onSort: PropTypes.func,
-  onRateTrack: PropTypes.func,
+  onRateTrack: PropTypes.func
 }
 
 export default Player

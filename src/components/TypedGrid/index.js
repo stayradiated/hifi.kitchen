@@ -8,7 +8,7 @@ import withState from '../Grid/withState'
 import withRouter from '../Grid/withRouter'
 
 export default function TypedGrid (props) {
-  const {onChange, ...otherProps} = props
+  const { onChange, ...otherProps } = props
 
   return (
     <Grid
@@ -28,11 +28,11 @@ export default function TypedGrid (props) {
 }
 
 TypedGrid.propTypes = {
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 }
 
 TypedGrid.defaultProps = {
-  onChange: noop,
+  onChange: noop
 }
 
 TypedGrid.withState = withState(TypedGrid)

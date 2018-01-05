@@ -1,5 +1,5 @@
 import React from 'react'
-import {SortableHandle} from 'react-sortable-hoc'
+import { SortableHandle } from 'react-sortable-hoc'
 
 import './styles.css'
 

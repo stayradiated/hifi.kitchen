@@ -1,14 +1,14 @@
 import React from 'react'
 import moment from 'moment'
 import PropTypes from 'prop-types'
-import {filter} from 'perplexed'
+import { filter } from 'perplexed'
 
 import './Input.css'
 
 import SelectOption from './SelectOption'
 
 const InputText = (props) => {
-  const {value, onChange} = props
+  const { value, onChange } = props
 
   return (
     <input
@@ -22,11 +22,11 @@ const InputText = (props) => {
 
 InputText.propTypes = {
   value: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 const InputNumber = (props) => {
-  const {value, onChange} = props
+  const { value, onChange } = props
 
   return (
     <input
@@ -40,11 +40,11 @@ const InputNumber = (props) => {
 
 InputNumber.propTypes = {
   value: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 const InputAbsoluteDate = (props) => {
-  const {value, onChange} = props
+  const { value, onChange } = props
 
   return (
     <input
@@ -58,11 +58,11 @@ const InputAbsoluteDate = (props) => {
 
 InputAbsoluteDate.propTypes = {
   value: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 const InputRelativeDate = (props) => {
-  const {value, onChange} = props
+  const { value, onChange } = props
 
   return (
     <div>
@@ -72,14 +72,14 @@ const InputRelativeDate = (props) => {
         value={value[0]}
         onChange={(event) => onChange([
           parseInt(event.target.value, 10),
-          value[1],
+          value[1]
         ])}
       />
       <SelectOption
         value={value[1]}
         onChange={(event) => onChange([
           value[0],
-          event.target.value,
+          event.target.value
         ])}
         options={filter.availableDateUnits}
       />
@@ -89,13 +89,13 @@ const InputRelativeDate = (props) => {
 
 InputRelativeDate.propTypes = {
   value: PropTypes.array.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 const Input = (props) => {
-  const {operator, value, onChange} = props
+  const { operator, value, onChange } = props
 
-  const options = {value, onChange}
+  const options = { value, onChange }
 
   switch (operator) {
     case 'isBefore':
@@ -121,7 +121,7 @@ const Input = (props) => {
 Input.propTypes = {
   operator: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 export default Input

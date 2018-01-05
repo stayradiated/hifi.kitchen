@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import noop from 'nop'
@@ -12,7 +12,7 @@ export default class SearchBar extends Component {
     super()
 
     this.state = {
-      displayInput: false,
+      displayInput: false
     }
 
     this.handleBlur = this.handleBlur.bind(this)
@@ -21,27 +21,27 @@ export default class SearchBar extends Component {
   }
 
   handleClick (event) {
-    const {onClick} = this.props
-    this.setState({displayInput: true})
+    const { onClick } = this.props
+    this.setState({ displayInput: true })
     this.input.focus()
     return onClick(event)
   }
 
   handleBlur (event) {
     event.stopPropagation()
-    this.setState({displayInput: false})
+    this.setState({ displayInput: false })
     return true
   }
 
   handleChange () {
-    const {onChange} = this.props
+    const { onChange } = this.props
     const query = this.input.value
     return onChange(query)
   }
 
   render () {
-    const {className, query} = this.props
-    const {displayInput} = this.state
+    const { className, query } = this.props
+    const { displayInput } = this.state
 
     return (
       <button
@@ -52,7 +52,7 @@ export default class SearchBar extends Component {
           <Icon className='SearchBar-icon' icon='search' />
           <div
             className={classNames('SearchBar-inputWrapper', {
-              'SearchBar-inputWrapper_closed': !displayInput,
+              'SearchBar-inputWrapper_closed': !displayInput
             })}
           >
             <input
@@ -74,10 +74,10 @@ SearchBar.propTypes = {
   className: PropTypes.string,
   query: PropTypes.string,
   onClick: PropTypes.func,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 }
 
 SearchBar.defaultProps = {
   onClick: noop,
-  onChange: noop,
+  onChange: noop
 }

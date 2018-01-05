@@ -1,9 +1,9 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {action} from '@storybook/addon-actions'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 
 import Wrapper from '../../stories/Wrapper'
-import {albums, artists, playlists, values} from '../../stories/data'
+import { albums, artists, playlists, values } from '../../stories/data'
 
 import TypedPanel from './index'
 
@@ -48,4 +48,3 @@ storiesOf('TypedPanel', module)
       onRateTrack={action('Rate Track')}
     />
   ))
-

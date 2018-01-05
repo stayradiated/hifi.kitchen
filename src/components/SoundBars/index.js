@@ -5,10 +5,10 @@ import classNames from 'classnames'
 import './styles.css'
 
 export default function SoundBars (props) {
-  const {paused} = props
+  const { paused } = props
 
   const classes = classNames('SoundBars', {
-    'SoundBars-paused': paused,
+    'SoundBars-paused': paused
   })
 
   return (
@@ -22,5 +22,5 @@ export default function SoundBars (props) {
 }
 
 SoundBars.propTypes = {
-  paused: PropTypes.bool,
+  paused: PropTypes.bool
 }

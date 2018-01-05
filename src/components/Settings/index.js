@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import './styles.css'
 
@@ -12,7 +12,7 @@ export default function Settings (props) {
   const {
     servers, selectedServerId, onSelectServer,
     librarySections, selectedLibrarySectionId, onSelectLibrarySection,
-    onLogOut,
+    onLogOut
   } = props
 
   return (
@@ -64,5 +64,5 @@ Settings.propTypes = {
   librarySections: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedLibrarySectionId: PropTypes.number,
   onSelectLibrarySection: PropTypes.func,
-  onLogOut: PropTypes.func,
+  onLogOut: PropTypes.func
 }

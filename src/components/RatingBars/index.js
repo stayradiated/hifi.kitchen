@@ -13,12 +13,12 @@ const handleClick = () => (event) => {
 }
 
 const handleMouseDown = (props) => () => {
-  const {hover, onRate} = props
+  const { hover, onRate } = props
   onRate(hover + 1) // remember hover is zero-indexed
 }
 
 const handleMouseOver = (props) => (event) => {
-  const {setHover} = props
+  const { setHover } = props
   const key = event.target.getAttribute('data-key')
   const index = parseInt(key, 10)
   if (isNaN(index) === false) {
@@ -27,14 +27,14 @@ const handleMouseOver = (props) => (event) => {
 }
 
 const handleMouseLeave = (props) => () => {
-  const {setHover} = props
+  const { setHover } = props
   setHover(null)
 }
 
 function RatingBars (props) {
   const {
     className, style, value, maxValue, hover,
-    onClick, onMouseDown, onMouseOver, onMouseLeave,
+    onClick, onMouseDown, onMouseOver, onMouseLeave
   } = props
 
   const bars = []
@@ -46,10 +46,10 @@ function RatingBars (props) {
       <div
         key={i}
         data-key={i}
-        style={{width}}
+        style={{ width }}
         className={classNames('RatingBars-bar', {
           'RatingBars-bar-active': i < value,
-          'RatingBars-bar-hover': hover != null && i <= hover,
+          'RatingBars-bar-hover': hover != null && i <= hover
         })}
       />
     )
@@ -78,23 +78,23 @@ RatingBars.propTypes = {
   onClick: PropTypes.func.isRequired,
   onMouseDown: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
-  onMouseLeave: PropTypes.func.isRequired,
+  onMouseLeave: PropTypes.func.isRequired
 }
 
 RatingBars.defaultProps = {
   value: 0,
-  maxValue: 5,
+  maxValue: 5
 }
 
 export default compose(
   setPropTypes({
-    onRate: PropTypes.func.isRequired,
+    onRate: PropTypes.func.isRequired
   }),
   withState('hover', 'setHover', null),
   withHandlers({
     onClick: handleClick,
     onMouseDown: handleMouseDown,
     onMouseOver: handleMouseOver,
-    onMouseLeave: handleMouseLeave,
+    onMouseLeave: handleMouseLeave
   })
 )(RatingBars)

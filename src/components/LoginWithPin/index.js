@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import './styles.css'
 
 function LoginWithPin (props) {
-  const {pin} = props
+  const { pin } = props
 
   return (
     <div className='LoginWithPin'>
@@ -31,8 +31,8 @@ function LoginWithPin (props) {
 
 LoginWithPin.propTypes = {
   pin: PropTypes.shape({
-    code: PropTypes.string,
-  }),
+    code: PropTypes.string
+  })
 }
 
 export default LoginWithPin

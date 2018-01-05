@@ -4,13 +4,13 @@ import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import withHandlers from 'recompose/withHandlers'
 
-import {PLAYLIST} from '../../stores/constants'
+import { PLAYLIST } from '@stayradiated/hifi-redux'
 
 import Panel from '../Panel'
 import PlaylistItemList from '../PlaylistItemList'
 
 const handleSelectTrack = (props) => (track) => {
-  const {playlist, onCreateQueue} = props
+  const { playlist, onCreateQueue } = props
   onCreateQueue(PLAYLIST, playlist.id, track.id)
 }
 
@@ -25,7 +25,7 @@ function PlaylistPanel (props) {
     thumb: playlist.composite,
     title: playlist.title,
     subtitle: 'Playlist',
-    meta: `${playlist.leafCount} items`,
+    meta: `${playlist.leafCount} items`
   }
 
   const playlistItems = values.playlistItems.get(playlist.id) || []
@@ -52,19 +52,19 @@ PlaylistPanel.propTypes = {
   onSelectTrack: PropTypes.func,
   playerState: PropTypes.string,
   playlist: PropTypes.shape({
-    tracks: PropTypes.arrayOf(PropTypes.object),
+    tracks: PropTypes.arrayOf(PropTypes.object)
   }).isRequired,
   values: PropTypes.shape({
     playlistTracks: PropTypes.instanceOf(Map),
-    tracks: PropTypes.instanceOf(Map),
-  }).isRequired,
+    tracks: PropTypes.instanceOf(Map)
+  }).isRequired
 }
 
 export default compose(
   setPropTypes({
-    onCreateQueue: PropTypes.func.isRequired,
+    onCreateQueue: PropTypes.func.isRequired
   }),
   withHandlers({
-    onSelectTrack: handleSelectTrack,
-  }),
+    onSelectTrack: handleSelectTrack
+  })
 )(PlaylistPanel)

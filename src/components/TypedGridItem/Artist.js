@@ -2,17 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withHandlers from 'recompose/withHandlers'
 
-import {ARTIST} from '../../stores/constants'
+import { ARTIST } from '@stayradiated/hifi-redux'
 
 import GridItem from '../GridItem'
 
 const handleSelect = (props) => () => {
-  const {artist, onSelect} = props
+  const { artist, onSelect } = props
   onSelect(ARTIST, artist.id)
 }
 
 function ArtistItem (props) {
-  const {artist, ...otherProps} = props
+  const { artist, ...otherProps } = props
 
   return (
     <GridItem
@@ -29,10 +29,10 @@ ArtistItem.propTypes = {
     id: PropTypes.number,
     thumb: PropTypes.string,
     title: PropTypes.string,
-    genre: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
+    genre: PropTypes.arrayOf(PropTypes.string)
+  }).isRequired
 }
 
 export default withHandlers({
-  onSelect: handleSelect,
+  onSelect: handleSelect
 })(ArtistItem)

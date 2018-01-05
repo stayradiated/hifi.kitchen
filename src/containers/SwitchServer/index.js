@@ -1,23 +1,23 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import SwitchServer from '../../components/SwitchServer'
 
 import {
   fetchAccountServers,
-  selectAccountServers,
-} from '../../stores/servers/account'
+  selectAccountServers
+} from '@stayradiated/hifi-redux/dist/stores/servers/account'
 import {
-  selectAllDevices,
-} from '../../stores/servers/devices'
+  selectAllDevices
+} from '@stayradiated/hifi-redux/dist/stores/servers/devices'
 import {
-  selectAllConnections,
-} from '../../stores/servers/connections'
+  selectAllConnections
+} from '@stayradiated/hifi-redux/dist/stores/servers/connections'
 import {
   fetchServerStatus,
-  selectServerStatus,
-} from '../../stores/servers/status'
+  selectServerStatus
+} from '@stayradiated/hifi-redux/dist/stores/servers/status'
 
 class SwitchServerContainer extends Component {
   static propTypes = {
@@ -25,11 +25,11 @@ class SwitchServerContainer extends Component {
     allDevices: PropTypes.instanceOf(Map).isRequired,
     allConnections: PropTypes.instanceOf(Map).isRequired,
     allStatuses: PropTypes.instanceOf(Map).isRequired,
-    dispatch: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired
   }
 
   async componentWillMount () {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     const getState = await dispatch(fetchAccountServers())
     const accountServers = selectAccountServers.value(getState())
     accountServers.forEach((serverId) =>
@@ -37,7 +37,7 @@ class SwitchServerContainer extends Component {
   }
 
   render () {
-    const {accountServers, allDevices, allConnections, allStatuses} = this.props
+    const { accountServers, allDevices, allConnections, allStatuses } = this.props
     const servers = accountServers.map((id) => allDevices.get(id))
 
     return (
@@ -54,5 +54,5 @@ export default connect((state) => ({
   accountServers: selectAccountServers.value(state),
   allDevices: selectAllDevices.values(state),
   allConnections: selectAllConnections.values(state),
-  allStatuses: selectServerStatus.values(state),
+  allStatuses: selectServerStatus.values(state)
 }))(SwitchServerContainer)

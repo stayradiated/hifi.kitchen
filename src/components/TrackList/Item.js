@@ -1,30 +1,30 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import withHandlers from 'recompose/withHandlers'
-import {ContextMenuTrigger} from 'react-contextmenu'
+import { ContextMenuTrigger } from 'react-contextmenu'
+import { PLAYER_STATE_PAUSED } from '@stayradiated/hifi-redux'
 
 import './Item.css'
 
-import {PLAYER_STATE_PAUSED} from '../../stores/constants'
-import {TRACK_CONTEXT_MENU} from '../ContextMenu/Track'
+import { TRACK_CONTEXT_MENU } from '../ContextMenu/Track'
 import Time from '../Time'
 import RatingBars from '../RatingBars'
 import SoundBars from '../SoundBars'
 
 const handleRate = (props) => (rating) => {
-  const {track, onRate} = props
+  const { track, onRate } = props
   onRate(track.id, rating)
 }
 
 const handleSelect = (props) => () => {
-  const {track, onSelect} = props
+  const { track, onSelect } = props
   onSelect(track)
 }
 
 function TrackListItem (props) {
   const {
     index, context, track, style, currentlyPlaying, displayArtist, playerState,
-    onSelect, onRate,
+    onSelect, onRate
   } = props
 
   return (
@@ -72,16 +72,16 @@ TrackListItem.propTypes = {
     index: PropTypes.number,
     title: PropTypes.string,
     userRating: PropTypes.nuumber,
-    duration: PropTypes.nuumber,
+    duration: PropTypes.nuumber
   }).isRequired,
   currentlyPlaying: PropTypes.bool,
   displayArtist: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   playerState: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
-  onRate: PropTypes.func.isRequired,
+  onRate: PropTypes.func.isRequired
 }
 
 export default withHandlers({
   onRate: handleRate,
-  onSelect: handleSelect,
+  onSelect: handleSelect
 })(TrackListItem)

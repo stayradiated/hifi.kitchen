@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import './styles.css'
 
 const Modal = (props) => {
-  const {children, onClose} = props
+  const { children, onClose } = props
 
   return (
     <div className='Modal'>
@@ -20,7 +20,7 @@ const Modal = (props) => {
 
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired
 }
 
 export default Modal

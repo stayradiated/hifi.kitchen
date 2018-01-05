@@ -7,7 +7,7 @@ import './styles.css'
 import Icon from '../Icon'
 
 export default function RatingStars (props) {
-  const {className, value, maxValue, onRate} = props
+  const { className, value, maxValue, onRate } = props
 
   return (
     <Rating
@@ -27,10 +27,10 @@ RatingStars.propTypes = {
   className: PropTypes.string,
   value: PropTypes.number.isRequired,
   maxValue: PropTypes.number.isRequired,
-  onRate: PropTypes.func.isRequired,
+  onRate: PropTypes.func.isRequired
 }
 
 RatingStars.defaultProps = {
   value: 0,
-  maxValue: 10,
+  maxValue: 10
 }

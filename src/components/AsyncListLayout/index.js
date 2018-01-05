@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 
 export default function AsyncListLayout (props) {
-  const {children, layout, onLoad} = props
+  const { children, layout, onLoad } = props
 
   const rowCount = layout.reduce((acc, item) => acc + item.size, 0)
 
   const renderItem = (itemProps) => {
-    const {index} = itemProps
+    const { index } = itemProps
     let chunk = 0
     for (let i = 0; i < layout.length; i += 1) {
       const nextChunk = chunk + layout[i].size
@@ -17,11 +17,11 @@ export default function AsyncListLayout (props) {
       }
       chunk = nextChunk
     }
-    console.error('Could not render item!', {props, layout})
+    console.error('Could not render item!', { props, layout })
     return false
   }
 
-  const isRowLoaded = ({index}) => {
+  const isRowLoaded = ({ index }) => {
     let chunk = 0
     for (let i = 0; i < layout.length; i += 1) {
       const nextChunk = chunk + layout[i].size
@@ -31,7 +31,7 @@ export default function AsyncListLayout (props) {
       }
       chunk = nextChunk
     }
-    console.error('Could not detect if row is loaded!', {index, layout})
+    console.error('Could not detect if row is loaded!', { index, layout })
     return false
   }
 
@@ -39,7 +39,7 @@ export default function AsyncListLayout (props) {
     rowCount,
     renderItem,
     isRowLoaded,
-    onLoad,
+    onLoad
   })
 }
 
@@ -48,7 +48,7 @@ AsyncListLayout.propTypes = {
   layout: PropTypes.arrayOf(PropTypes.shape({
     size: PropTypes.number.isRequired,
     items: PropTypes.arrayOf(PropTypes.any).isRequired,
-    render: PropTypes.func.isRequired,
+    render: PropTypes.func.isRequired
   })).isRequired,
-  onLoad: PropTypes.func.isRequired,
+  onLoad: PropTypes.func.isRequired
 }

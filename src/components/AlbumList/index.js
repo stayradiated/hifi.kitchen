@@ -11,10 +11,10 @@ import TrackListSummary from '../TrackList/Summary'
 import AsyncListLayout from '../AsyncListLayout'
 
 /* eslint react/prop-types: "off" */
-const handleRenderTrackItem = (props) => (trackId) => ({key, style}) => {
+const handleRenderTrackItem = (props) => (trackId) => ({ key, style }) => {
   const {
     values, displayArtist, currentlyPlayingTrackId,
-    onRateTrack, onSelectTrack,
+    onRateTrack, onSelectTrack
   } = props
 
   const track = values.tracks.get(trackId)
@@ -39,8 +39,8 @@ const handleRenderTrackItem = (props) => (trackId) => ({key, style}) => {
   )
 }
 
-const handleAlbumHeader = (props) => (albumId) => ({key, style}) => {
-  const {values} = props
+const handleAlbumHeader = (props) => (albumId) => ({ key, style }) => {
+  const { values } = props
   const album = values.albums.get(albumId)
 
   return (
@@ -48,8 +48,8 @@ const handleAlbumHeader = (props) => (albumId) => ({key, style}) => {
   )
 }
 
-const handleAlbumSummary = (props) => () => ({key, style}) => {
-  const {albumIds, values} = props
+const handleAlbumSummary = (props) => () => ({ key, style }) => {
+  const { albumIds, values } = props
 
   const trackIds = albumIds
     .map((albumId) => values.albumTracks.get(albumId))
@@ -69,7 +69,7 @@ function AlbumList (props) {
   const {
     albumIds, values,
     renderAlbumHeader, renderTrackItem, renderAlbumSummary,
-    onLoadItems,
+    onLoadItems
   } = props
 
   const layout = []
@@ -80,25 +80,25 @@ function AlbumList (props) {
     layout.push({
       size: 1,
       items: [albumId],
-      render: renderAlbumHeader,
+      render: renderAlbumHeader
     })
 
     layout.push({
       size: albumTracks.length,
       items: albumTracks,
-      render: renderTrackItem,
+      render: renderTrackItem
     })
   }
 
   layout.push({
     size: 1,
     items: [true],
-    render: renderAlbumSummary,
+    render: renderAlbumSummary
   })
 
   return (
     <AsyncListLayout layout={layout} onLoad={onLoadItems}>
-      {({rowCount, isRowLoaded, renderItem, onLoad}) => (
+      {({ rowCount, isRowLoaded, renderItem, onLoad }) => (
         <ItemsList
           rowHeight={40}
           rowCount={rowCount}
@@ -114,16 +114,16 @@ function AlbumList (props) {
 AlbumList.propTypes = {
   albumIds: PropTypes.arrayOf(PropTypes.number),
   values: PropTypes.shape({
-    albumTracks: PropTypes.instanceOf(Map).isRequired,
+    albumTracks: PropTypes.instanceOf(Map).isRequired
   }).isRequired,
   renderAlbumHeader: PropTypes.func.isRequired,
   renderTrackItem: PropTypes.func.isRequired,
   renderAlbumSummary: PropTypes.func.isRequired,
-  onLoadItems: PropTypes.func,
+  onLoadItems: PropTypes.func
 }
 
 AlbumList.defaultProps = {
-  albumIds: [],
+  albumIds: []
 }
 
 export default compose(
@@ -131,11 +131,11 @@ export default compose(
     displayArtist: PropTypes.bool,
     currentlyPlayingTrackId: PropTypes.number,
     onRateTrack: PropTypes.func.isRequired,
-    onSelectTrack: PropTypes.func.isRequired,
+    onSelectTrack: PropTypes.func.isRequired
   }),
   withHandlers({
     renderAlbumHeader: handleAlbumHeader,
     renderTrackItem: handleRenderTrackItem,
-    renderAlbumSummary: handleAlbumSummary,
+    renderAlbumSummary: handleAlbumSummary
   })
 )(AlbumList)

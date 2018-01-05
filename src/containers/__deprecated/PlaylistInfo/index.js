@@ -1,26 +1,26 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import PlaylistInfo from '../../components/PlaylistInfo'
 
-import {rateTrack, selectAllTracks} from '../../stores/tracks/all'
-import {fetchPlaylist} from '../../stores/playlists/all/actions'
-import {fetchPlaylistTracks} from '../../stores/playlists/tracks/actions'
+import { rateTrack, selectAllTracks } from '@stayradiated/hifi-redux/dist/stores/tracks/all'
+import { fetchPlaylist } from '@stayradiated/hifi-redux/dist/stores/playlists/all/actions'
+import { fetchPlaylistTracks } from '@stayradiated/hifi-redux/dist/stores/playlists/tracks/actions'
 import {
   createQueueFromPlaylist,
-  createQueueFromPlexMix,
-} from '../../stores/queue/actions'
+  createQueueFromPlexMix
+} from '@stayradiated/hifi-redux/dist/stores/queue/actions'
 
-import {values as getAllPlaylists} from '../../stores/playlists/all/selectors'
-import {values as getAllPlaylistTracks} from '../../stores/playlists/tracks/selectors'
+import { values as getAllPlaylists } from '@stayradiated/hifi-redux/dist/stores/playlists/all/selectors'
+import { values as getAllPlaylistTracks } from '@stayradiated/hifi-redux/dist/stores/playlists/tracks/selectors'
 
 class PlaylistContainer extends Component {
   static propTypes = {
     playlistId: PropTypes.number.isRequired,
     playlist: PropTypes.shape({}),
     playlistTracks: PropTypes.arrayOf(PropTypes.object),
-    dispatch: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired
   }
 
   constructor () {
@@ -42,28 +42,28 @@ class PlaylistContainer extends Component {
   }
 
   fetchPlaylist (playlistId) {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(fetchPlaylist(playlistId))
     dispatch(fetchPlaylistTracks(playlistId))
   }
 
   handleSelectTrack (track) {
-    const {playlist, dispatch} = this.props
+    const { playlist, dispatch } = this.props
     dispatch(createQueueFromPlaylist(playlist.id, track))
   }
 
   handlePlexMix (track) {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(createQueueFromPlexMix(track))
   }
 
   handleRateTrack (track, rating) {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(rateTrack(track, rating))
   }
 
   render () {
-    const {playlist, playlistTracks} = this.props
+    const { playlist, playlistTracks } = this.props
 
     if (playlist == null || playlistTracks == null) {
       return null
@@ -82,7 +82,7 @@ class PlaylistContainer extends Component {
 }
 
 export default connect((state, props) => {
-  const {playlistId} = props
+  const { playlistId } = props
 
   // select state
   const allTracks = selectAllTracks.values(state)
@@ -98,6 +98,6 @@ export default connect((state, props) => {
 
   return {
     playlist,
-    playlistTracks,
+    playlistTracks
   }
 })(PlaylistContainer)

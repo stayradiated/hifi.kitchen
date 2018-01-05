@@ -1,5 +1,5 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
+import { storiesOf } from '@storybook/react'
 import withState from 'recompose/withState'
 
 import Wrapper from '../../stories/Wrapper'
@@ -20,9 +20,8 @@ storiesOf('Dropdown', module)
         'Rating',
         'Date Added',
         'Date Played',
-        'Views',
+        'Views'
       ]}
       descending
     />
   ))
-

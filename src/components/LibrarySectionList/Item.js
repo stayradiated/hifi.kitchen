@@ -10,18 +10,18 @@ const SECTION_ICON = {
   movie: 'video',
   artist: 'music',
   photo: 'picture',
-  show: 'monitor',
+  show: 'monitor'
 }
 
 export default function LibrarySectionListItem (props) {
-  const {section, selected, onSelect} = props
+  const { section, selected, onSelect } = props
 
   const icon = SECTION_ICON[section.type]
 
   return (
     <button
       className={classNames('LibrarySectionListItem', {
-        'LibrarySectionListItem-selected': selected,
+        'LibrarySectionListItem-selected': selected
       })}
       onClick={onSelect}
     >
@@ -36,7 +36,7 @@ LibrarySectionListItem.propTypes = {
   selected: PropTypes.bool,
   section: PropTypes.shape({
     title: PropTypes.string,
-    type: PropTypes.string,
+    type: PropTypes.string
   }).isRequired,
-  onSelect: PropTypes.func,
+  onSelect: PropTypes.func
 }

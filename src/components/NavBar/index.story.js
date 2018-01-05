@@ -1,6 +1,6 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {action} from '@storybook/addon-actions'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 import withState from 'recompose/withState'
 
 import Wrapper from '../../stories/Wrapper'
@@ -24,8 +24,7 @@ storiesOf('NavBar', module)
         'Rating',
         'Date Added',
         'Date Played',
-        'Views',
+        'Views'
       ]}
     />
   ))
-

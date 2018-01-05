@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import './styles.css'
 
 export default function Root (props) {
-  const {children} = props
+  const { children } = props
 
   return (
     <div className='Root'>
@@ -17,5 +17,5 @@ export default function Root (props) {
 }
 
 Root.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 }

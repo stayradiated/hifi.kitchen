@@ -1,92 +1,69 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import lifecycle from 'recompose/lifecycle'
 
-import {ARTIST, ALBUM, PLAYLIST, TRACK, SEARCH} from '../../stores/constants'
-
 import {
+  ARTIST,
+  ALBUM,
+  PLAYLIST,
+  TRACK,
+  SEARCH,
   fetchCurrentLibraryAlbumsRange,
   selectLibraryAlbums,
   sortLibraryAlbums,
   resetCurrentLibraryAlbums,
-} from '../../stores/library/albums'
-import {
   fetchAlbum,
   selectAllAlbums,
-} from '../../stores/albums/all'
-import {
   fetchAlbumTracks,
   selectAllAlbumTracks,
   resetAlbumTracks,
-} from '../../stores/albums/tracks'
-import {
   fetchCurrentLibraryArtistsRange,
   selectLibraryArtists,
   sortLibraryArtists,
   resetCurrentLibraryArtists,
-} from '../../stores/library/artists'
-import {
   fetchArtist,
   selectAllArtists,
-} from '../../stores/artists/all'
-import {
   fetchArtistAlbums,
   selectAllArtistAlbums,
   resetArtistAlbums,
-} from '../../stores/artists/albums'
-import {
   fetchCurrentLibraryPlaylistsRange,
   resetCurrentLibraryPlaylists,
   selectLibraryPlaylists,
   sortLibraryPlaylists,
-} from '../../stores/library/playlists'
-import {
   selectAllPlaylists,
-} from '../../stores/playlists/all'
-import {
   fetchPlaylistItems,
   selectAllPlaylistItems,
   resetPlaylistItems,
-} from '../../stores/playlists/items'
-import {
   rateTrack,
   selectAllTracks,
-} from '../../stores/tracks/all'
-import {
   fetchCurrentLibraryTracksRange,
   selectLibraryTracks,
   sortLibraryTracks,
   resetCurrentLibraryTracks,
-} from '../../stores/library/tracks'
-import {
   createQueueFromArtist,
   createQueueFromAlbum,
   createQueueFromPlaylist,
   createQueueFromTrack,
-} from '../../stores/queue/actions'
-import * as selectQueue from '../../stores/queue/selectors'
-import {
-  search,
-} from '../../stores/search/actions'
-import selectSearch from '../../stores/search/selectors'
-import {
+  fetchSearchResults,
   selectDisplayQueue,
-} from '../../stores/ui'
-import * as selectTimeline from '../../stores/timeline/selectors'
+  selectSearch,
+  selectQueue,
+  selectTimeline
+} from '@stayradiated/hifi-redux'
 
 import Browser from '../../components/Browser'
 
 const receiveProps = (prevProps, props) => {
   const {
-    dispatch, onChangeSection, onLoadItems, section, itemId, itemType,
+    dispatch, onChangeSection, onLoadItems, section, itemId, itemType
   } = props
   const {
     section: prevSection,
     itemId: prevItemId,
-    itemType: prevItemType,
+    itemType: prevItemType
   } = prevProps
 
   if (section == null) {
@@ -127,7 +104,7 @@ function componentWillReceiveProps (nextProps) {
 }
 
 const handleLoadItems = (props) => (section, start, end) => {
-  const {dispatch} = props
+  const { dispatch } = props
 
   switch (section) {
     case ALBUM:
@@ -146,7 +123,7 @@ const handleLoadItems = (props) => (section, start, end) => {
 }
 
 const handleLoadItemChildren = (props) => (item, start, end) => {
-  const {dispatch} = props
+  const { dispatch } = props
   switch (item._type) {
     case ALBUM:
       dispatch(fetchAlbumTracks(item.id, start, end))
@@ -160,12 +137,12 @@ const handleLoadItemChildren = (props) => (item, start, end) => {
 }
 
 const handleRateTrack = (props) => (trackId, rating) => {
-  const {dispatch} = props
+  const { dispatch } = props
   dispatch(rateTrack(trackId, rating))
 }
 
 const handleCreateQueue = (props) => (parentType, parentId, trackId) => {
-  const {dispatch} = props
+  const { dispatch } = props
   switch (parentType) {
     case ALBUM:
       dispatch(createQueueFromAlbum(parentId, trackId))
@@ -180,18 +157,18 @@ const handleCreateQueue = (props) => (parentType, parentId, trackId) => {
       dispatch(createQueueFromTrack(parentId))
       break
     default:
-      console.warn('Could not create queue', {parentType, parentId, trackId})
+      console.warn('Could not create queue', { parentType, parentId, trackId })
       break
   }
 }
 
 const handleChangeSearchQuery = (props) => (query) => {
-  const {dispatch} = props
-  dispatch(search(query, 10))
+  const { dispatch } = props
+  dispatch(fetchSearchResults(query, 10))
 }
 
 const handleChangeSortBy = (props) => (sortBy) => {
-  const {section, dispatch, sortBy: prevSortBy, sortDesc: prevSortDesc} = props
+  const { section, dispatch, sortBy: prevSortBy, sortDesc: prevSortDesc } = props
   const sortDesc = sortBy === prevSortBy && !prevSortDesc
   switch (section) {
     case ALBUM:
@@ -213,7 +190,7 @@ const handleChangeSortBy = (props) => (sortBy) => {
 }
 
 const handleRefreshItem = (props) => async () => {
-  const {dispatch, itemType, itemId} = props
+  const { dispatch, itemType, itemId } = props
   switch (itemType) {
     case ALBUM:
       await dispatch(resetAlbumTracks(itemId))
@@ -233,7 +210,7 @@ const handleRefreshItem = (props) => async () => {
 }
 
 const handleRefreshSection = (props) => async () => {
-  const {dispatch, section} = props
+  const { dispatch, section } = props
   switch (section) {
     case ALBUM:
       await dispatch(resetCurrentLibraryAlbums(section))
@@ -267,7 +244,7 @@ const BrowserContainer = (props) => {
     onRefreshItem, onRefreshSection, onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
     sortBy, sortDesc, sortOptions, onChangeSortBy,
     onRateTrack,
-    trackId, onCreateQueue,
+    trackId, onCreateQueue
   } = props
 
   let item = null
@@ -327,14 +304,14 @@ const BrowserContainer = (props) => {
         playlists: allPlaylists,
         playlistItems: allPlaylistItems,
         tracks: allTracks,
-        albumTracks: allAlbumTracks,
+        albumTracks: allAlbumTracks
       }}
       navBarSections={{
         [SEARCH]: 'Search',
         [ALBUM]: 'Albums',
         [ARTIST]: 'Artists',
         [PLAYLIST]: 'Playlists',
-        [TRACK]: 'Tracks',
+        [TRACK]: 'Tracks'
       }}
       playerState={playerState}
       onRefreshItem={onRefreshItem}
@@ -390,12 +367,12 @@ BrowserContainer.propTypes = {
   trackId: PropTypes.number,
   onCreateQueue: PropTypes.func,
 
-  playerState: PropTypes.string,
+  playerState: PropTypes.string
 }
 
 export default compose(
   connect((state, props) => {
-    const {section} = props
+    const { section } = props
 
     let sortBy
     let sortDesc
@@ -446,11 +423,11 @@ export default compose(
       sortDesc,
       sortOptions,
       searchResults: [
-        {title: 'Albums', items: selectSearch.albums(state)},
-        {title: 'Artists', items: selectSearch.artists(state)},
-        {title: 'Playlists', items: selectSearch.playlists(state)},
-        {title: 'Tracks', items: selectSearch.tracks(state)},
-      ],
+        { title: 'Albums', items: selectSearch.albums(state) },
+        { title: 'Artists', items: selectSearch.artists(state) },
+        { title: 'Playlists', items: selectSearch.playlists(state) },
+        { title: 'Tracks', items: selectSearch.tracks(state) }
+      ]
     }
   }),
   withHandlers({
@@ -461,10 +438,10 @@ export default compose(
     onChangeSearchQuery: handleChangeSearchQuery,
     onChangeSortBy: handleChangeSortBy,
     onRefreshItem: handleRefreshItem,
-    onRefreshSection: handleRefreshSection,
+    onRefreshSection: handleRefreshSection
   }),
   lifecycle({
     componentWillMount,
-    componentWillReceiveProps,
-  }),
+    componentWillReceiveProps
+  })
 )(BrowserContainer)

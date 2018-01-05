@@ -7,7 +7,7 @@ import './styles.css'
 import TypedGrid from '../TypedGrid'
 
 export default function Hub (props) {
-  const {hub} = props
+  const { hub } = props
 
   return (
     <div className='Hub'>
@@ -21,6 +21,6 @@ export default function Hub (props) {
 
 Hub.propTypes = {
   hub: PropTypes.shape({
-    title: PropTypes.string,
-  }),
+    title: PropTypes.string
+  })
 }

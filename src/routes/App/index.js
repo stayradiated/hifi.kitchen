@@ -1,10 +1,9 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Route, Redirect} from 'react-router'
+import { connect } from 'react-redux'
+import { Route, Redirect } from 'react-router'
 
-import {selectPlex} from '../../stores/plex/instance'
-import {selectUser} from '../../stores/user'
+import { selectLibrarySectionId, selectPlex, selectUser } from '@stayradiated/hifi-redux'
 
 import Root from '../../components/Root'
 import Loading from '../../containers/Loading'
@@ -19,24 +18,24 @@ class AppRoute extends Component {
     loggedIn: PropTypes.bool,
     librarySectionId: PropTypes.number,
     match: PropTypes.shape({
-      isExact: PropTypes.bool,
+      isExact: PropTypes.bool
     }).isRequired,
     location: PropTypes.shape({
-      pathname: PropTypes.string,
-    }).isRequired,
+      pathname: PropTypes.string
+    }).isRequired
   }
 
   static childContextTypes = {
-    library: PropTypes.shape({}),
+    library: PropTypes.shape({})
   }
 
   getChildContext () {
-    const {library} = this.props
-    return {library}
+    const { library } = this.props
+    return { library }
   }
 
   render () {
-    const {ready, match, location, loggedIn, librarySectionId} = this.props
+    const { ready, match, location, loggedIn, librarySectionId } = this.props
 
     // Display loading screen while we load the app
     if (!ready) {
@@ -68,7 +67,6 @@ class AppRoute extends Component {
       )
     }
 
-
     return (
       <Root>
         <Route path='/login' component={Login} />
@@ -83,5 +81,5 @@ export default connect((state) => ({
   library: selectPlex.library(state),
   ready: selectPlex.ready(state),
   loggedIn: selectUser.loggedIn(state),
-  librarySectionId: selectPlex.librarySectionId(state),
+  librarySectionId: selectLibrarySectionId(state)
 }))(AppRoute)

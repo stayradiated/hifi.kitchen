@@ -7,8 +7,8 @@ import './Item.css'
 import Icon from '../Icon'
 
 export default function ServerListItem (props) {
-  const {selected, server, onSelect} = props
-  const {connection} = server
+  const { selected, server, onSelect } = props
+  const { connection } = server
 
   let status = ''
   switch (true) {
@@ -28,7 +28,7 @@ export default function ServerListItem (props) {
       className={classNames('ServerListItem', {
         'ServerListItem-selected': selected,
         'ServerListItem-unavailable': connection == null,
-        'ServerListItem-secure': connection && connection.protocol === 'https',
+        'ServerListItem-secure': connection && connection.protocol === 'https'
       })}
       onClick={onSelect}
     >
@@ -47,7 +47,7 @@ ServerListItem.propTypes = {
   selected: PropTypes.bool,
   server: PropTypes.shape({
     name: PropTypes.string,
-    connection: PropTypes.object,
+    connection: PropTypes.object
   }).isRequired,
-  onSelect: PropTypes.func,
+  onSelect: PropTypes.func
 }

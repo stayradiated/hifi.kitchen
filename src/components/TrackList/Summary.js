@@ -7,7 +7,7 @@ import './Summary.css'
 import Time from '../Time'
 
 export default function Summary (props) {
-  const {trackIds, values, style} = props
+  const { trackIds, values, style } = props
 
   const totalDuration = trackIds
     .map((trackId) => values.tracks.get(trackId))
@@ -27,7 +27,7 @@ export default function Summary (props) {
 Summary.propTypes = {
   trackIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   values: PropTypes.shape({
-    tracks: PropTypes.instanceOf(Map).isRequired,
+    tracks: PropTypes.instanceOf(Map).isRequired
   }).isRequired,
-  style: PropTypes.shape({}),
+  style: PropTypes.shape({})
 }

@@ -1,9 +1,9 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {action} from '@storybook/addon-actions'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 
 import Wrapper from '../../stories/Wrapper'
-import {albums, artists} from '../../stories/data'
+import { albums, artists } from '../../stories/data'
 
 import TypedGrid from './index'
 
@@ -23,4 +23,3 @@ storiesOf('TypedGrid', module)
       onLoad={action('onLoad')}
     />
   ))
-

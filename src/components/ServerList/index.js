@@ -7,7 +7,7 @@ import './styles.css'
 import ServerListItem from './Item'
 
 export default function ServerList (props) {
-  const {selectedId, servers, onChange} = props
+  const { selectedId, servers, onChange } = props
 
   return (
     <div className='ServerList'>
@@ -26,5 +26,5 @@ export default function ServerList (props) {
 ServerList.propTypes = {
   servers: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedId: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func
 }

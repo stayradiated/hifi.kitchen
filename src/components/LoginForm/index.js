@@ -1,16 +1,15 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import FloatingLabel from
-'@stayradiated/react-floating-label'
+  '@stayradiated/react-floating-label'
 // import '@stayradiated/react-floating-label/lib/styles.css'
 
 import './styles.css'
 
 export default class LoginForm extends Component {
-
   static propTypes = {
     onSubmit: PropTypes.func,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.string
   }
 
   constructor () {
@@ -18,7 +17,7 @@ export default class LoginForm extends Component {
 
     this.state = {
       username: '',
-      password: '',
+      password: ''
     }
 
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
@@ -28,7 +27,7 @@ export default class LoginForm extends Component {
 
   handleFormSubmit (event) {
     event.preventDefault()
-    const {onSubmit} = this.props
+    const { onSubmit } = this.props
     if (onSubmit) {
       onSubmit(this.state)
     }
@@ -36,16 +35,16 @@ export default class LoginForm extends Component {
 
   handleUsernameChange (event) {
     const value = event.target.value
-    this.setState({username: value})
+    this.setState({ username: value })
   }
 
   handlePasswordChange (event) {
     const value = event.target.value
-    this.setState({password: value})
+    this.setState({ password: value })
   }
 
   render () {
-    const {errorMessage} = this.props
+    const { errorMessage } = this.props
 
     return (
       <div className='LoginForm'>

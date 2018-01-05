@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {InfiniteLoader, List} from 'react-virtualized'
+import { InfiniteLoader, List } from 'react-virtualized'
 import withHandlers from 'recompose/withHandlers'
 
 import './styles.css'
 
-const handleLoad = (props) => ({startIndex, stopIndex}) => {
-  const {onLoad} = props
+const handleLoad = (props) => ({ startIndex, stopIndex }) => {
+  const { onLoad } = props
   return onLoad(startIndex, stopIndex + 1)
 }
 
 function ItemsList (props) {
-  const {rowCount, renderItem, isRowLoaded, onLoad, ...otherProps} = props
+  const { rowCount, renderItem, isRowLoaded, onLoad, ...otherProps } = props
 
   return (
     <InfiniteLoader
@@ -19,7 +19,7 @@ function ItemsList (props) {
       loadMoreRows={onLoad}
       rowCount={rowCount}
     >
-      {({onRowsRendered, registerChild}) => (
+      {({ onRowsRendered, registerChild }) => (
         <List
           {...otherProps}
           rowCount={rowCount}
@@ -36,9 +36,9 @@ ItemsList.propTypes = {
   rowCount: PropTypes.number.isRequired,
   renderItem: PropTypes.func.isRequired,
   isRowLoaded: PropTypes.func.isRequired,
-  onLoad: PropTypes.func.isRequired,
+  onLoad: PropTypes.func.isRequired
 }
 
 export default withHandlers({
-  onLoad: handleLoad,
+  onLoad: handleLoad
 })(ItemsList)

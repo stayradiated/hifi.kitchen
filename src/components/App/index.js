@@ -15,7 +15,7 @@ import PlayerContainer from '../../containers/Player'
 import AddToPlaylistContainer from '../../containers/AddToPlaylist'
 
 const handleChangeSection = (props) => (section) => {
-  const {history, location, section: prevSection} = props
+  const { history, location, section: prevSection } = props
   if (section === prevSection) {
     return null
   }
@@ -24,18 +24,18 @@ const handleChangeSection = (props) => (section) => {
   params.set('section', section)
   history.push({
     pathname: location.pathname,
-    search: params.toString(),
+    search: params.toString()
   })
 }
 
 const handleChangeItem = (props) => (itemType, itemId) => {
-  const {history, location} = props
+  const { history, location } = props
   const params = new URLSearchParams(location.search)
   params.set('itemType', itemType)
   params.set('itemId', itemId)
   history.push({
     pathname: location.pathname,
-    search: params.toString(),
+    search: params.toString()
   })
 }
 
@@ -43,7 +43,7 @@ function App (props) {
   const {
     displayQueue, displayPlayer,
     section, itemType, itemId,
-    onChangeSection, onChangeItem,
+    onChangeSection, onChangeItem
   } = props
 
   let content = (
@@ -87,20 +87,20 @@ App.propTypes = {
   itemType: PropTypes.string,
   itemId: PropTypes.number,
   onChangeSection: PropTypes.func.isRequired,
-  onChangeItem: PropTypes.func.isRequired,
+  onChangeItem: PropTypes.func.isRequired
 }
 
 export default compose(
   withHandlers({
     onChangeSection: handleChangeSection,
-    onChangeItem: handleChangeItem,
+    onChangeItem: handleChangeItem
   }),
   withProps((props) => {
     const params = new URLSearchParams(props.location.search)
     return {
       section: params.get('section'),
       itemType: params.get('itemType'),
-      itemId: parseInt(params.get('itemId'), 10),
+      itemId: parseInt(params.get('itemId'), 10)
     }
-  }),
+  })
 )(App)

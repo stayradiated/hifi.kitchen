@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 import App from '../../components/App'
 
-import {selectDisplayQueue, selectDisplayPlayer} from '../../stores/ui'
+import { selectDisplayQueue, selectDisplayPlayer } from '@stayradiated/hifi-redux'
 
 function Library (props) {
-  const {history, location, displayQueue, displayPlayer} = props
+  const { history, location, displayQueue, displayPlayer } = props
 
   return (
     <App
@@ -23,10 +23,10 @@ Library.propTypes = {
   displayQueue: PropTypes.bool,
   displayPlayer: PropTypes.bool,
   location: PropTypes.shape({}).isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({}).isRequired
 }
 
 export default connect((state) => ({
   displayQueue: selectDisplayQueue(state),
-  displayPlayer: selectDisplayPlayer(state),
+  displayPlayer: selectDisplayPlayer(state)
 }))(Library)

@@ -1,4 +1,4 @@
-import {normalizeSync} from 'perplexed'
+import { normalizeSync } from 'perplexed'
 
 import albums from '../../data/albums.json'
 import artists from '../../data/artists.json'
@@ -52,7 +52,7 @@ const values = {
   albumTracks: allAlbumTracks,
   artists: allArtists,
   playlists: allPlaylists,
-  tracks: allTracks,
+  tracks: allTracks
 }
 
 export {
@@ -62,5 +62,5 @@ export {
   playlistIds,
   trackIds,
   values,
-  albumart,
+  albumart
 }

@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {InfiniteLoader, List} from 'react-virtualized'
+import { InfiniteLoader, List } from 'react-virtualized'
 import classNames from 'classnames'
 import getScrollbarWidth from 'get-scrollbar-width'
 
@@ -18,7 +18,7 @@ export default class GridList extends Component {
     sections: PropTypes.arrayOf(PropTypes.shape({
       header: PropTypes.any,
       items: PropTypes.arrayOf(PropTypes.any),
-      total: PropTypes.number,
+      total: PropTypes.number
     })).isRequired,
 
     height: PropTypes.number.isRequired,
@@ -30,13 +30,13 @@ export default class GridList extends Component {
 
     renderItem: PropTypes.func.isRequired,
     renderHeader: PropTypes.func.isRequired,
-    onLoad: PropTypes.func,
+    onLoad: PropTypes.func
   }
 
   static defaultProps = {
     itemsPerRow: 5,
     getItemHeight: (width) => width,
-    paddingHorizontal: 0,
+    paddingHorizontal: 0
   }
 
   constructor () {
@@ -54,7 +54,7 @@ export default class GridList extends Component {
     const {
       sections, getItemHeight, itemsPerRow,
       width, paddingHorizontal,
-      renderItem, renderHeader,
+      renderItem, renderHeader
     } = this.props
 
     const innerWidth = width - SCROLLBAR - (paddingHorizontal * 2)
@@ -68,10 +68,10 @@ export default class GridList extends Component {
         renderFn: renderItem,
         items,
         itemWidth,
-        rowOffset,
+        rowOffset
       },
       height: itemHeight,
-      isLoaded: items.every((item) => item != null),
+      isLoaded: items.every((item) => item != null)
     })
 
     const sortItemsIntoGroups = (items) => items.reduce((rows, item, index) => {
@@ -95,18 +95,18 @@ export default class GridList extends Component {
           props: {
             renderFn: renderHeader,
             section,
-            rowOffset,
+            rowOffset
           },
           height: 50,
-          isLoaded: true,
+          isLoaded: true
         },
-        ...items,
+        ...items
       ]
     }, [])
   }
 
   calcRowCount () {
-    const {sections, itemsPerRow} = this.props
+    const { sections, itemsPerRow } = this.props
     return sections.reduce((sum, section) => {
       const itemsCount = (section.total != null
         ? section.total
@@ -115,25 +115,25 @@ export default class GridList extends Component {
     }, 0)
   }
 
-  handleLoadMoreRows ({startIndex, stopIndex}) {
-    const {onLoad, itemsPerRow} = this.props
+  handleLoadMoreRows ({ startIndex, stopIndex }) {
+    const { onLoad, itemsPerRow } = this.props
     return onLoad(startIndex * itemsPerRow, (stopIndex + 1) * itemsPerRow)
   }
 
   render () {
     const {
-      width, height, className,
+      width, height, className
     } = this.props
 
     const rows = this.calcRows()
     const rowCount = this.calcRowCount()
 
-    const isRowLoaded = ({index}) => {
+    const isRowLoaded = ({ index }) => {
       const row = rows[index]
       return row != null && row.isLoaded
     }
 
-    const rowRenderer = ({index, key, style}) => {
+    const rowRenderer = ({ index, key, style }) => {
       const row = rows[index]
 
       return (
@@ -145,7 +145,7 @@ export default class GridList extends Component {
       )
     }
 
-    const rowHeight = ({index}) => {
+    const rowHeight = ({ index }) => {
       const row = rows[index]
       return row.height
     }
@@ -157,7 +157,7 @@ export default class GridList extends Component {
           loadMoreRows={this.handleLoadMoreRows}
           rowCount={rowCount}
         >
-          {({onRowsRendered, registerChild}) => (
+          {({ onRowsRendered, registerChild }) => (
             <List
               width={width}
               height={height}
@@ -170,7 +170,7 @@ export default class GridList extends Component {
               rowHeight={rowHeight}
               rowRenderer={rowRenderer}
               style={{
-                overflowX: 'hidden',
+                overflowX: 'hidden'
               }}
             />
           )}

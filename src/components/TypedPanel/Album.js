@@ -4,18 +4,18 @@ import compose from 'recompose/compose'
 import setPropTypes from 'recompose/setPropTypes'
 import withHandlers from 'recompose/withHandlers'
 
-import {ARTIST, ALBUM} from '../../stores/constants'
+import { ARTIST, ALBUM } from '@stayradiated/hifi-redux'
 
 import Panel from '../Panel'
 import TrackList from '../TrackList'
 
 const handleClickSubtitle = (props) => () => {
-  const {album, onNavigate} = props
+  const { album, onNavigate } = props
   onNavigate(ARTIST, album.parentId)
 }
 
 const handleSelectTrack = (props) => (track) => {
-  const {album, onCreateQueue} = props
+  const { album, onCreateQueue } = props
   onCreateQueue(ALBUM, album.id, track.id)
 }
 
@@ -30,7 +30,7 @@ function AlbumPanel (props) {
     thumb: album.thumb,
     title: album.title,
     subtitle: album.parentTitle,
-    meta: album.year != null ? album.year.toString() : '',
+    meta: album.year != null ? album.year.toString() : ''
   }
 
   const albumTracks = values.albumTracks.get(album.id) || []
@@ -62,7 +62,7 @@ AlbumPanel.propTypes = {
     title: PropTypes.string,
     parentTitle: PropTypes.string,
     pear: PropTypes.number,
-    tracks: PropTypes.arrayOf(PropTypes.object),
+    tracks: PropTypes.arrayOf(PropTypes.object)
   }).isRequired,
   currentlyPlayingTrackId: PropTypes.number,
   onClickSubtitle: PropTypes.func.isRequired,
@@ -72,17 +72,17 @@ AlbumPanel.propTypes = {
   playerState: PropTypes.string,
   values: PropTypes.shape({
     albumTracks: PropTypes.instanceOf(Map),
-    tracks: PropTypes.instanceOf(Map),
-  }).isRequired,
+    tracks: PropTypes.instanceOf(Map)
+  }).isRequired
 }
 
 export default compose(
   setPropTypes({
     onNavigate: PropTypes.func.isRequired,
-    onCreateQueue: PropTypes.func.isRequired,
+    onCreateQueue: PropTypes.func.isRequired
   }),
   withHandlers({
     onClickSubtitle: handleClickSubtitle,
-    onSelectTrack: handleSelectTrack,
-  }),
+    onSelectTrack: handleSelectTrack
+  })
 )(AlbumPanel)

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import {InfiniteLoader, AutoSizer, Table, Column} from 'react-virtualized'
+import { InfiniteLoader, AutoSizer, Table, Column } from 'react-virtualized'
 
-import {TRACK} from '../../stores/constants'
+import { TRACK } from '@stayradiated/hifi-redux'
 
 import './styles.css'
 
@@ -13,26 +13,26 @@ import Time from '../Time'
 const ROW_HEIGHT = 40
 
 const TrackTable = (props) => {
-  const {tracks, onLoad, onChange, onRate} = props
+  const { tracks, onLoad, onChange, onRate } = props
 
   return (
     <AutoSizer>
-      {({width, height}) => (
+      {({ width, height }) => (
         <InfiniteLoader
-          isRowLoaded={({index}) => tracks[index] != null}
-          loadMoreRows={({startIndex, stopIndex}) => onLoad(startIndex, stopIndex + 1)}
+          isRowLoaded={({ index }) => tracks[index] != null}
+          loadMoreRows={({ startIndex, stopIndex }) => onLoad(startIndex, stopIndex + 1)}
           rowCount={tracks.length}
         >
-          {({onRowsRendered, registerChild}) => (
+          {({ onRowsRendered, registerChild }) => (
             <Table
               width={width}
               height={height}
               headerHeight={ROW_HEIGHT}
               headerClassName='TrackTable-headerColumn'
               rowCount={tracks.length}
-              rowGetter={({index}) => tracks[index] || {}}
+              rowGetter={({ index }) => tracks[index] || {}}
               rowHeight={ROW_HEIGHT}
-              rowClassName={({index}) => (
+              rowClassName={({ index }) => (
                 index < 0
                   ? 'TrackTable-headerRow'
                   : index % 2 === 0
@@ -40,7 +40,7 @@ const TrackTable = (props) => {
                     : 'TrackTable-row TrackTable-oddRow'
               )}
               onRowsRendered={onRowsRendered}
-              onRowClick={({rowData}) => onChange(TRACK, rowData.id)}
+              onRowClick={({ rowData }) => onChange(TRACK, rowData.id)}
               ref={registerChild}
             >
               <Column
@@ -67,7 +67,7 @@ const TrackTable = (props) => {
                 label='Rating'
                 dataKey='userRating'
                 width={100}
-                cellRenderer={({rowData, cellData}) => (
+                cellRenderer={({ rowData, cellData }) => (
                   <RatingBars
                     className='TrackTable-rating'
                     value={cellData}
@@ -80,7 +80,7 @@ const TrackTable = (props) => {
                 label='Duration'
                 dataKey='duration'
                 width={100}
-                cellRenderer={({cellData}) => (
+                cellRenderer={({ cellData }) => (
                   <Time value={cellData} />
                 )}
               />
@@ -93,14 +93,14 @@ const TrackTable = (props) => {
                 label='Date Added'
                 dataKey='addedAt'
                 width={150}
-                cellRenderer={({cellData}) => (
+                cellRenderer={({ cellData }) => (
                   cellData && moment(cellData * 1000).format('MMMM Do, YYYY')
                 )}
               />
               <Column
                 label='Bitrate'
                 dataKey='bitrate'
-                cellDataGetter={({rowData}) => rowData.media && rowData.media[0].bitrate}
+                cellDataGetter={({ rowData }) => rowData.media && rowData.media[0].bitrate}
                 width={50}
               />
             </Table>
@@ -115,7 +115,7 @@ TrackTable.propTypes = {
   tracks: PropTypes.arrayOf(PropTypes.object).isRequired,
   onLoad: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-  onRate: PropTypes.func.isRequired,
+  onRate: PropTypes.func.isRequired
 }
 
 export default TrackTable

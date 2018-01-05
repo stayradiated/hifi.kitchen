@@ -9,7 +9,7 @@ import PlaylistItem from './Playlist'
 import TrackItem from './Track'
 
 export default function TypedGridItem (props) {
-  const {item, ...otherProps} = props
+  const { item, ...otherProps } = props
 
   return (
     <Typed
@@ -18,12 +18,12 @@ export default function TypedGridItem (props) {
         artist: (artist) => <ArtistItem {...otherProps} artist={artist} />,
         album: (album) => <AlbumItem {...otherProps} album={album} />,
         playlist: (playlist) => <PlaylistItem {...otherProps} playlist={playlist} />,
-        track: (track) => <TrackItem {...otherProps} track={track} />,
+        track: (track) => <TrackItem {...otherProps} track={track} />
       }}
     />
   )
 }
 
 TypedGridItem.propTypes = {
-  item: PropTypes.shape({}).isRequired,
+  item: PropTypes.shape({}).isRequired
 }

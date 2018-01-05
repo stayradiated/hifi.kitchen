@@ -1,45 +1,38 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import throttle from 'lodash.throttle'
 
 import WebAudio from '../../components/WebAudio'
 import Controls from '../../components/Controls'
 
-import {PLAYER_STATE_PAUSED, PLAYER_STATE_PLAYING} from '../../stores/constants'
-
 import {
+  PLAYER_STATE_PAUSED,
+  PLAYER_STATE_PLAYING,
   rateTrack,
-} from '../../stores/tracks/all'
-import {
   fetchQueue,
   playNextTrack,
   playPrevTrack,
   stopQueue,
   toggleShuffleQueue,
-} from '../../stores/queue/actions'
-import {
   sendTimelinePlay,
   sendTimelinePause,
   sendTimelineStop,
   setPlayerCurrentTime,
-} from '../../stores/timeline/actions'
-import * as selectTimeline from '../../stores/timeline/selectors'
-import {
+  selectTimeline,
   selectDisplayPlayer,
   setDisplayPlayer,
   toggleDisplayPlayer,
   toggleDisplayQueue,
-} from '../../stores/ui'
-
-import * as selectQueue from '../../stores/queue/selectors'
+  selectQueue
+} from '@stayradiated/hifi-redux'
 
 class ControlsContainer extends Component {
   static propTypes = {
     queueId: PropTypes.number,
     queueItem: PropTypes.shape({
       id: PropTypes.number,
-      track: PropTypes.number,
+      track: PropTypes.number
     }),
     track: PropTypes.shape({}),
     trackSrc: PropTypes.string,
@@ -47,7 +40,7 @@ class ControlsContainer extends Component {
     shuffled: PropTypes.bool.isRequired,
     playerState: PropTypes.string,
     fullScreenMode: PropTypes.bool,
-    onNavigate: PropTypes.func.isRequired,
+    onNavigate: PropTypes.func.isRequired
   }
 
   constructor () {
@@ -66,14 +59,14 @@ class ControlsContainer extends Component {
   }
 
   componentWillMount () {
-    const {dispatch, queueId} = this.props
+    const { dispatch, queueId } = this.props
     if (queueId != null) {
       dispatch(fetchQueue(queueId))
     }
   }
 
   componentWillReceiveProps (nextProps) {
-    const {dispatch} = nextProps
+    const { dispatch } = nextProps
 
     const nextTrack = nextProps.track
     const thisTrack = this.props.track
@@ -92,62 +85,62 @@ class ControlsContainer extends Component {
   }
 
   handleNextTrack () {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(playNextTrack())
   }
 
   handlePrevTrack () {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(playPrevTrack())
   }
 
   handleRateTrack (track, rating) {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(rateTrack(track, rating))
   }
 
   handleStop () {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(stopQueue())
     dispatch(setDisplayPlayer(false))
   }
 
   handlePause () {
-    const {dispatch, queueItem} = this.props
+    const { dispatch, queueItem } = this.props
     dispatch(sendTimelinePause(queueItem))
   }
 
   handlePlay () {
-    const {dispatch, queueItem} = this.props
+    const { dispatch, queueItem } = this.props
     dispatch(sendTimelinePlay(queueItem))
   }
 
   handleTimeUpdate (currentTime) {
-    const {dispatch, queueItem} = this.props
+    const { dispatch, queueItem } = this.props
     if (queueItem != null) {
       dispatch(setPlayerCurrentTime(queueItem, Math.round(currentTime * 1000)))
     }
   }
 
   handleQueue () {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(toggleDisplayQueue())
   }
 
   handlePlayer () {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(toggleDisplayPlayer())
   }
 
   handleShuffle () {
-    const {dispatch} = this.props
+    const { dispatch } = this.props
     dispatch(toggleShuffleQueue())
   }
 
   render () {
     const {
       track, trackSrc, shuffled, playerState, fullScreenMode,
-      onNavigate,
+      onNavigate
     } = this.props
 
     if (track == null) {
@@ -193,5 +186,5 @@ export default connect((state) => ({
   trackSrc: selectQueue.trackSrc(state),
   shuffled: selectQueue.shuffled(state),
   playerState: selectTimeline.playerState(state),
-  fullScreenMode: selectDisplayPlayer(state),
+  fullScreenMode: selectDisplayPlayer(state)
 }))(ControlsContainer)

@@ -7,7 +7,7 @@ import './Header.css'
 import BlurImage from '../BlurImage'
 
 export default function AlbumListHeader (props) {
-  const {album, style} = props
+  const { album, style } = props
 
   return (
     <div style={style} className='AlbumListHeader'>
@@ -20,7 +20,7 @@ export default function AlbumListHeader (props) {
 AlbumListHeader.propTypes = {
   album: PropTypes.shape({
     thumb: PropTypes.string,
-    title: PropTypes.string,
+    title: PropTypes.string
   }).isRequired,
-  style: PropTypes.shape({}),
+  style: PropTypes.shape({})
 }

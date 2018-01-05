@@ -1,12 +1,12 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {action} from '@storybook/addon-actions'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 
 import Wrapper from '../../stories/Wrapper'
-import {albums} from '../../stories/data'
+import { albums } from '../../stories/data'
 
 import Browser from './index'
-import {ARTIST, ALBUM, PLAYLIST, TRACK, SEARCH} from '../../stores/constants'
+import { ARTIST, ALBUM, PLAYLIST, TRACK, SEARCH } from '@stayradiated/hifi-redux'
 
 storiesOf('Browser', module)
   .addDecorator(Wrapper)
@@ -17,7 +17,7 @@ storiesOf('Browser', module)
         [ALBUM]: 'Albums',
         [ARTIST]: 'Artists',
         [PLAYLIST]: 'Playlists',
-        [TRACK]: 'Tracks',
+        [TRACK]: 'Tracks'
       }}
       sortBy='Up'
       sortDesc={false}
@@ -34,4 +34,3 @@ storiesOf('Browser', module)
       onRateTrack={action('onRateTrack')}
     />
   ))
-

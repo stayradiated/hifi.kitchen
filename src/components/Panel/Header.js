@@ -11,7 +11,7 @@ import SquareImage from '../SquareImage'
 export default function PanelHeader (props) {
   const {
     thumb, title, subtitle, meta,
-    onClickSubtitle, onClickMeta, onClose, onRefresh,
+    onClickSubtitle, onClickMeta, onClose, onRefresh
   } = props
 
   return (
@@ -66,5 +66,5 @@ PanelHeader.propTypes = {
   onClickSubtitle: PropTypes.func,
   onClickMeta: PropTypes.func,
   onClose: PropTypes.func,
-  onRefresh: PropTypes.func,
+  onRefresh: PropTypes.func
 }

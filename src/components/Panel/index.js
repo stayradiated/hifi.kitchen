@@ -9,7 +9,7 @@ import PanelHeader from './Header'
 export default function Panel (props) {
   const {
     details, children, className,
-    onClickSubtitle, onClickMeta, onClose, onRefresh,
+    onClickSubtitle, onClickMeta, onClose, onRefresh
   } = props
 
   return (
@@ -34,11 +34,11 @@ Panel.propTypes = {
     thumb: PropTypes.string,
     title: PropTypes.string,
     subtitle: PropTypes.string,
-    meta: PropTypes.string,
+    meta: PropTypes.string
   }).isRequired,
   className: PropTypes.string,
   onClickSubtitle: PropTypes.func,
   onClickMeta: PropTypes.func,
   onClose: PropTypes.func,
-  onRefresh: PropTypes.func,
+  onRefresh: PropTypes.func
 }

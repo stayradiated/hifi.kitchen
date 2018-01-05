@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import compose from 'recompose/compose'
 import lifecycle from 'recompose/lifecycle'
 import withHandlers from 'recompose/withHandlers'
@@ -10,52 +10,41 @@ import Settings from '../../components/Settings'
 import {
   fetchServerStatus,
   selectServerStatus,
-} from '../../stores/servers/status'
-import {
   selectAllDevices,
-} from '../../stores/servers/devices'
-import {
   selectAllConnections,
-} from '../../stores/servers/connections'
-import {
   fetchAccountServers,
   selectAccountServers,
-} from '../../stores/servers/account'
-import {
   usePlexServer,
-  usePlexLibrarySection,
+  setLibrarySectionId,
   selectPlex,
-} from '../../stores/plex/instance'
-import {
+  selectLibrarySectionId,
   fetchLibrarySections,
-} from '../../stores/library/sections/actions'
-import {
-  value as selectLibrarySections,
-} from '../../stores/library/sections/selectors'
+  selectLibrarySections
+} from '@stayradiated/hifi-redux'
 
 async function componentWillMount () {
-  const {dispatch} = this.props
+  const { dispatch } = this.props
   const getState = await dispatch(fetchAccountServers())
   const accountServers = selectAccountServers.value(getState())
   accountServers.forEach((id) => dispatch(fetchServerStatus(id)))
 }
 
 async function componentWillReceiveProps (nextProps) {
-  const {serverId, dispatch} = nextProps
-  const {serverId: prevServerId} = this.props
+  const { serverId, dispatch } = nextProps
+  const { serverId: prevServerId } = this.props
   if (serverId !== prevServerId) {
     dispatch(fetchLibrarySections())
   }
 }
 
 const handleSelectServerId = (props) => (serverId) => {
-  const {dispatch} = props
+  const { dispatch } = props
   dispatch(usePlexServer(serverId))
 }
 
 const handleSelectLibrarySectionId = (props) => (librarySectionId) => {
-  const {dispatch} = props
-  dispatch(usePlexLibrarySection(librarySectionId))
+  const { dispatch } = props
+  dispatch(setLibrarySectionId(librarySectionId))
 }
 
 const handleLogOut = () => () => {
@@ -67,7 +56,7 @@ export function SettingsRoute (props) {
   const {
     accountServers, allDevices, allConnections, allStatuses,
     librarySections, librarySectionId, serverId,
-    onSelectServer, onSelectLibrarySection, onLogOut,
+    onSelectServer, onSelectLibrarySection, onLogOut
   } = props
 
   const servers = accountServers.map((id) => {
@@ -76,7 +65,7 @@ export function SettingsRoute (props) {
     return {
       ...allDevices.get(id),
       status,
-      connection,
+      connection
     }
   })
 
@@ -103,7 +92,7 @@ SettingsRoute.propTypes = {
   librarySectionId: PropTypes.number,
   onSelectServer: PropTypes.func.isRequired,
   onSelectLibrarySection: PropTypes.func.isRequired,
-  onLogOut: PropTypes.func.isRequired,
+  onLogOut: PropTypes.func.isRequired
 }
 
 export default compose(
@@ -112,17 +101,17 @@ export default compose(
     allDevices: selectAllDevices.values(state),
     allConnections: selectAllConnections.values(state),
     allStatuses: selectServerStatus.values(state),
-    librarySections: selectLibrarySections(state),
+    librarySections: selectLibrarySections.value(state),
     serverId: selectPlex.serverId(state),
-    librarySectionId: selectPlex.librarySectionId(state),
+    librarySectionId: selectLibrarySectionId(state)
   })),
   lifecycle({
     componentWillMount,
-    componentWillReceiveProps,
+    componentWillReceiveProps
   }),
   withHandlers({
     onSelectServer: handleSelectServerId,
     onSelectLibrarySection: handleSelectLibrarySectionId,
-    onLogOut: handleLogOut,
-  }),
+    onLogOut: handleLogOut
+  })
 )(SettingsRoute)

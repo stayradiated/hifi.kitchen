@@ -1,5 +1,5 @@
 import React from 'react'
-import {Pulse} from 'better-react-spinkit'
+import { Pulse } from 'better-react-spinkit'
 
 import './styles.css'
 

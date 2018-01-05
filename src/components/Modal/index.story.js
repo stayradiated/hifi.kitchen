@@ -1,9 +1,9 @@
 import React from 'react'
-import {storiesOf} from '@storybook/react'
-import {action} from '@storybook/addon-actions'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 
 import Wrapper from '../../stories/Wrapper'
-import {playlistIds, values} from '../../stories/data'
+import { playlistIds, values } from '../../stories/data'
 
 import Modal from './index'
 import PlaylistList from '../PlaylistList'
@@ -20,4 +20,3 @@ storiesOf('Modal', module)
       />
     </Modal>
   ))
-

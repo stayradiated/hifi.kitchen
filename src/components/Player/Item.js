@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import {SortableElement} from 'react-sortable-hoc'
+import { SortableElement } from 'react-sortable-hoc'
 import withHandlers from 'recompose/withHandlers'
 
 import './Item.css'
@@ -10,18 +10,18 @@ import SortHandle from '../SortHandle'
 import Time from '../Time'
 
 const handleRate = (props) => (rating) => {
-  const {track, onRate} = props
+  const { track, onRate } = props
   onRate(track.id, rating)
 }
 
 const PlayerItem = (props) => {
-  const {style, track, isSelected, onClick, onRate} = props
+  const { style, track, isSelected, onClick, onRate } = props
 
   return (
     <button
       style={style}
       className={classNames('PlayerItem', {
-        'PlayerItem-selected': isSelected,
+        'PlayerItem-selected': isSelected
       })}
       onClick={onClick}
     >
@@ -51,15 +51,15 @@ const PlayerItem = (props) => {
 PlayerItem.propTypes = {
   style: PropTypes.shape({}),
   track: PropTypes.shape({
-    title: PropTypes.string,
+    title: PropTypes.string
   }).isRequired,
   isSelected: PropTypes.bool.isRequired,
   onClick: PropTypes.func,
-  onRate: PropTypes.func,
+  onRate: PropTypes.func
 }
 
 export default new SortableElement(
   withHandlers({
-    onRate: handleRate,
+    onRate: handleRate
   })(PlayerItem)
 )
