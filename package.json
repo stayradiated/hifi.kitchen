@@ -48,7 +48,7 @@
     "react-router-redux": "next",
     "react-sortable-hoc": "^0.6.8",
     "react-spinkit": "^3.0.0",
-    "react-virtualized": "^9.16.0",
+    "react-virtualized": "^9.16.1",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-localstorage": "1.0.0-rc5",

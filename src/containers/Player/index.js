@@ -9,7 +9,7 @@ import Player from '../../components/Player'
 import {
   rateTrack, selectAllTracks,
   moveQueueItem, playQueueItem,
-  selectPlayer
+  selectQueue
 } from '@stayradiated/hifi-redux'
 
 const handleRateTrack = (props) => (track, rating) => {
@@ -61,8 +61,8 @@ export default compose(
     values: {
       tracks: selectAllTracks.values(state)
     },
-    items: selectPlayer.items(state),
-    selectedTrackId: selectPlayer.trackId(state)
+    items: selectQueue.items(state),
+    selectedTrackId: selectQueue.trackId(state)
   })),
   withHandlers({
     onChange: handleChange,
