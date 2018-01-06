@@ -8,6 +8,8 @@ import Icon from '../Icon'
 import ServerList from '../ServerList'
 import LibrarySectionList from '../LibrarySectionList'
 
+import { version } from '../../../package.json'
+
 export default function Settings (props) {
   const {
     servers, selectedServerId, onSelectServer,
@@ -18,7 +20,7 @@ export default function Settings (props) {
   return (
     <div className='Settings'>
       <div className='Settings-contents'>
-        <h1>Plex Settings</h1>
+        <h1>Plex Server Settings</h1>
 
         {servers.length > 0 &&
           <h2 className='Settings-sectionHeader'>
@@ -47,10 +49,13 @@ export default function Settings (props) {
             Done
           </Link>}
 
-        <footer>
+        <footer className='Settings-footer'>
           <button onClick={onLogOut} className='Settings-logoutButton'>
             <Icon icon='logout' /> Log Out
           </button>
+          <span className='Settings-version'>
+            v{version}
+          </span>
         </footer>
       </div>
     </div>

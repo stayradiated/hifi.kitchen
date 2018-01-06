@@ -32,12 +32,17 @@
   text-decoration: none;
   text-align: center;
   padding: 0.5em 1em;
-  border-top: 1px solid var(--white-05);
-  margin-top: 1em;
+  border: 1px solid var(--white-05);
+  margin: 1em 0;
 }
 
 .Settings-doneButton:hover {
   background: var(--white-05);
+}
+
+.Settings-footer {
+  display: flex;
+  justify-content: space-between;
 }
 
 .Settings-logoutButton {
@@ -50,4 +55,8 @@
 .Settings-logoutButton:hover {
   color: var(--white);
   text-decoration: underline;
+}
+
+.Settings-version {
+  color: var(--white-50);
 }
