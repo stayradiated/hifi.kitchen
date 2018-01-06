@@ -1,10 +1,10 @@
 import React from 'react'
 
 function TrackListItemLoading (props) {
-  const { index, key, style } = props
+  const { index, style } = props
 
   return (
-    <button className='TrackListItem' key={key} style={style}>
+    <button className='TrackListItem' style={style}>
       <div className='TrackListItem-contents'>
         <span className='TrackListItem-index'>
           {index}

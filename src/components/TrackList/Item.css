@@ -50,6 +50,10 @@
   text-align: right;
 }
 
+.TrackListItem-duration:hover {
+  color: var(--white);
+}
+
 .TrackListItem-rating {
   width: 40px;
   height: 15px;

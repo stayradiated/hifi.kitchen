@@ -21,7 +21,7 @@ Time.propTypes = {
 }
 
 Time.defaultProps = {
-  format: 'm:ss',
+  format: 'h:mm:ss',
   unit: 'ms',
   trim: true
 }

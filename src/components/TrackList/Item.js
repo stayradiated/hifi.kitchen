@@ -24,7 +24,8 @@ const handleSelect = (props) => () => {
 function TrackListItem (props) {
   const {
     index, context, track, style, currentlyPlaying, displayArtist, playerState,
-    onSelect, onRate
+    relativeTrackStartTime,
+    onSelect, onRate, onClickTime
   } = props
 
   return (
@@ -56,7 +57,10 @@ function TrackListItem (props) {
           />
           <Time
             className='TrackListItem-duration'
-            value={track.duration}
+            value={relativeTrackStartTime != null
+              ? relativeTrackStartTime
+              : track.duration}
+            onClick={onClickTime}
           />
         </div>
       </button>
@@ -74,11 +78,13 @@ TrackListItem.propTypes = {
     userRating: PropTypes.nuumber,
     duration: PropTypes.nuumber
   }).isRequired,
+  relativeTrackStartTime: PropTypes.number,
   currentlyPlaying: PropTypes.bool,
   displayArtist: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   playerState: PropTypes.string,
   onSelect: PropTypes.func.isRequired,
-  onRate: PropTypes.func.isRequired
+  onRate: PropTypes.func.isRequired,
+  onClickTime: PropTypes.func
 }
 
 export default withHandlers({

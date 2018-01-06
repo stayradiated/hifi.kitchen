@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import compose from 'recompose/compose'
 import withHandlers from 'recompose/withHandlers'
 import setPropTypes from 'recompose/setPropTypes'
+import withState from 'recompose/withState'
 
 import ItemsList from '../List/withAutoSizer'
 import TrackListItem from '../TrackList/Item'
@@ -10,11 +11,19 @@ import TrackListItemLoading from '../TrackList/ItemLoading'
 import TrackListSummary from '../TrackList/Summary'
 import AsyncListLayout from '../AsyncListLayout'
 
+const handleClickTime = (props) => (event) => {
+  event.stopPropagation()
+  const { useRelativeTime, setUseRelativeTime } = props
+  setUseRelativeTime(!useRelativeTime)
+}
+
 /* eslint react/prop-types: "off" */
 const handlePlaylistItem = (props) => (item, index) => ({ key, style }) => {
   const {
     values, currentlyPlayingTrackId,
-    playerState, onRateTrack, onSelectTrack
+    playlistItems, playerState,
+    useRelativeTime,
+    onClickTime, onRateTrack, onSelectTrack
   } = props
 
   const track = item && values.tracks.get(item.track)
@@ -29,6 +38,13 @@ const handlePlaylistItem = (props) => (item, index) => ({ key, style }) => {
     )
   }
 
+  let relativeTrackStartTime = null
+  if (useRelativeTime) {
+    relativeTrackStartTime = playlistItems
+      .slice(0, index)
+      .reduce((sum, item) => sum + values.tracks.get(item.track).duration, 0)
+  }
+
   return (
     <TrackListItem
       displayArtist
@@ -39,10 +55,12 @@ const handlePlaylistItem = (props) => (item, index) => ({ key, style }) => {
       context={{
         playlistItem: item
       }}
+      relativeTrackStartTime={relativeTrackStartTime}
       playerState={playerState}
       currentlyPlaying={item.trackId === currentlyPlayingTrackId}
       onRate={onRateTrack}
       onSelect={onSelectTrack}
+      onClickTime={onClickTime}
     />
   )
 }
@@ -112,7 +130,12 @@ export default compose(
     onRateTrack: PropTypes.func.isRequired,
     onSelectTrack: PropTypes.func.isRequired,
     playerState: PropTypes.string,
-    preserveTrackIndex: PropTypes.bool
+    preserveTrackIndex: PropTypes.bool,
+    useRelativeTime: PropTypes.bool
+  }),
+  withState('useRelativeTime', 'setUseRelativeTime', false),
+  withHandlers({
+    onClickTime: handleClickTime
   }),
   withHandlers({
     renderPlaylistItem: handlePlaylistItem,
