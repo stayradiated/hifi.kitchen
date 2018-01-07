@@ -18,7 +18,7 @@ export default function store (options = {}) {
     ...options.middleware,
     ...hifiRedux.middleware,
     createLogger({
-      // predicate: () => false,
+      predicate: () => process.env.NODE_ENV !== 'production',
       collapsed: true
     })
   )
