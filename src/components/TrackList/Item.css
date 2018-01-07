@@ -14,19 +14,6 @@
   align-items: center;
 }
 
-.TrackListItem-index {
-  width: 30px;
-  font-size: 0.8em;
-  color: var(--white-50);
-}
-
-.TrackListItem-nowPlayingIcon {
-  width: 12px;
-  height: 10px;
-  display: flex;
-  margin-right: 1em;
-}
-
 .TrackListItem-fulltitle {
   flex: 1;
   white-space: nowrap;

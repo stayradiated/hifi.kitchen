@@ -43,7 +43,7 @@ const PlayerItem = (props) => {
         className='PlayerItem-time'
         value={track.duration}
       />
-      <SortHandle />
+      <SortHandle className='PlayerItem-sortHandle' />
     </button>
   )
 }

@@ -46,3 +46,7 @@
 .PlayerItem-time {
   color: var(--white-50);
 }
+
+.PlayerItem-sortHandle {
+  margin-left: 0.5em;
+}

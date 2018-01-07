@@ -1,0 +1,28 @@
+.TrackListItemHandle-container,
+.TrackListItemHandle-sortableContainer {
+  width: 30px;
+}
+
+.TrackListItemHandle-sortableContainer:hover .TrackListItemHandle-sortHandle {
+  display: block;
+}
+
+.TrackListItemHandle-sortableContainer:hover .TrackListItemHandle-index {
+  display: none;
+}
+
+.TrackListItemHandle-sortHandle {
+  display: none;
+}
+
+.TrackListItemHandle-index {
+  font-size: 0.8em;
+  color: var(--white-50);
+}
+
+.TrackListItemHandle-nowPlayingIcon {
+  width: 12px;
+  height: 10px;
+  display: flex;
+  margin-right: 1em;
+}

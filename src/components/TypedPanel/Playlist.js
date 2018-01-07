@@ -14,10 +14,19 @@ const handleSelectTrack = (props) => (track) => {
   onCreateQueue(PLAYLIST, playlist.id, track.id)
 }
 
+const handleSort = (props) => ({ newIndex, oldIndex }) => {
+  const { playlist, onMovePlaylistItem } = props
+  onMovePlaylistItem({
+    playlistId: playlist.id,
+    newIndex,
+    oldIndex
+  })
+}
+
 function PlaylistPanel (props) {
   const {
     playlist, values, currentlyPlayingTrackId, playerState,
-    onSelectTrack, onLoadItems, onRateTrack,
+    onSelectTrack, onLoadItems, onRateTrack, onSort,
     ...otherProps
   } = props
 
@@ -37,6 +46,7 @@ function PlaylistPanel (props) {
         onLoadItems={onLoadItems}
         onRateTrack={onRateTrack}
         onSelectTrack={onSelectTrack}
+        onSort={onSort}
         playerState={playerState}
         playlistItems={playlistItems}
         values={values}
@@ -48,6 +58,7 @@ function PlaylistPanel (props) {
 PlaylistPanel.propTypes = {
   currentlyPlayingTrackId: PropTypes.number,
   onLoadItems: PropTypes.func,
+  onMovePlaylistItem: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func,
   onSelectTrack: PropTypes.func,
   playerState: PropTypes.string,
@@ -65,6 +76,7 @@ export default compose(
     onCreateQueue: PropTypes.func.isRequired
   }),
   withHandlers({
-    onSelectTrack: handleSelectTrack
+    onSelectTrack: handleSelectTrack,
+    onSort: handleSort
   })
 )(PlaylistPanel)

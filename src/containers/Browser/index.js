@@ -39,6 +39,7 @@ import {
   selectAllPlaylistItems,
   resetPlaylistItems,
   setPlaylistTitle,
+  movePlaylistItem,
   rateTrack,
   selectAllTracks,
   fetchCurrentLibraryTracksRange,
@@ -102,6 +103,11 @@ function componentWillMount () {
 
 function componentWillReceiveProps (nextProps) {
   receiveProps(this.props, nextProps)
+}
+
+const handleMovePlaylistItem = (props) => ({ playlistId, newIndex, oldIndex }) => {
+  const { dispatch } = props
+  dispatch(movePlaylistItem({ playlistId, newIndex, oldIndex }))
 }
 
 const handleLoadItems = (props) => (section, start, end) => {
@@ -263,7 +269,7 @@ const BrowserContainer = (props) => {
     onChangeItem, onChangeSection,
     onLoadItems, onLoadItemChildren,
     sortBy, sortDesc, sortOptions, onChangeSortBy,
-    onRateTrack,
+    onRateTrack, onMovePlaylistItem,
     trackId, onCreateQueue
   } = props
 
@@ -341,6 +347,7 @@ const BrowserContainer = (props) => {
       onChangeSection={onChangeSection}
       onCreateQueue={onCreateQueue}
       onLoadItems={onLoadItems}
+      onMovePlaylistItem={onMovePlaylistItem}
       onLoadItemChildren={onLoadItemChildren}
       onRateTrack={onRateTrack}
       onChangeSearchQuery={onChangeSearchQuery}
@@ -375,6 +382,8 @@ BrowserContainer.propTypes = {
   onLoadItems: PropTypes.func,
   onLoadItemChildren: PropTypes.func,
   onRateTrack: PropTypes.func.isRequired,
+
+  onMovePlaylistItem: PropTypes.func.isRequired,
 
   itemType: PropTypes.string,
   itemId: PropTypes.number,
@@ -452,6 +461,7 @@ export default compose(
   }),
   withHandlers({
     onLoadItems: handleLoadItems,
+    onMovePlaylistItem: handleMovePlaylistItem,
     onLoadItemChildren: handleLoadItemChildren,
     onRateTrack: handleRateTrack,
     onCreateQueue: handleCreateQueue,

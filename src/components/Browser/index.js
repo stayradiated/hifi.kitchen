@@ -27,7 +27,7 @@ function Browser (props) {
     className, section, values, sectionItems, navBarSections,
     currentlyPlayingTrackId, playerState,
     item, onChangeItem, onLoadItems, onLoadItemChildren,
-    sortBy, sortDesc, sortOptions,
+    sortBy, sortDesc, sortOptions, onMovePlaylistItem,
     onEditItem,
     onRefreshItem, onRefreshSection,
     onChangeSection, onRateTrack, onChangeSortBy,
@@ -99,6 +99,7 @@ function Browser (props) {
           onEdit={onEditItem}
           onCreateQueue={onCreateQueue}
           onLoadItems={(start, end) => onLoadItemChildren(item, start, end)}
+          onMovePlaylistItem={onMovePlaylistItem}
         />}
     </div>
   )
@@ -124,6 +125,7 @@ Browser.propTypes = {
   onCreateQueue: PropTypes.func,
   onLoadItemChildren: PropTypes.func,
   onLoadItems: PropTypes.func,
+  onMovePlaylistItem: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
   onEditItem: PropTypes.func.isRequired,
   onRefreshItem: PropTypes.func.isRequired,

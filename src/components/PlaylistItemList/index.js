@@ -5,8 +5,8 @@ import withHandlers from 'recompose/withHandlers'
 import setPropTypes from 'recompose/setPropTypes'
 import withState from 'recompose/withState'
 
-import ItemsList from '../List/withAutoSizer'
-import TrackListItem from '../TrackList/Item'
+import SortableItemsList from '../SortableList'
+import TrackListItemSortable from '../TrackList/ItemSortable'
 import TrackListItemLoading from '../TrackList/ItemLoading'
 import TrackListSummary from '../TrackList/Summary'
 import AsyncListLayout from '../AsyncListLayout'
@@ -46,15 +46,17 @@ const handlePlaylistItem = (props) => (item, index) => ({ key, style }) => {
   }
 
   return (
-    <TrackListItem
+    <TrackListItemSortable
       displayArtist
+      sortable
       key={key}
       style={style}
       track={track}
-      index={index + 1}
+      trackIndex={index + 1}
       context={{
         playlistItem: item
       }}
+      index={index}
       relativeTrackStartTime={relativeTrackStartTime}
       playerState={playerState}
       currentlyPlaying={item.trackId === currentlyPlayingTrackId}
@@ -81,7 +83,10 @@ const handleSummary = (props) => () => ({ style, key }) => {
 }
 
 function PlaylistItemList (props) {
-  const { playlistItems, renderPlaylistItem, renderSummary, onLoadItems } = props
+  const {
+    playlistItems, renderPlaylistItem, renderSummary,
+    onLoadItems, onSort
+  } = props
 
   const layout = [
     {
@@ -99,12 +104,16 @@ function PlaylistItemList (props) {
   return (
     <AsyncListLayout layout={layout} onLoad={onLoadItems}>
       {({ rowCount, isRowLoaded, renderItem, onLoad }) => (
-        <ItemsList
+        <SortableItemsList
           rowHeight={40}
           rowCount={rowCount}
           renderItem={renderItem}
           isRowLoaded={isRowLoaded}
           onLoad={onLoad}
+          onSortEnd={onSort}
+          useDragHandle
+          lockAxis='y'
+          helperClass='PlaylistItemList-helper SortHandle-helper'
         />
       )}
     </AsyncListLayout>
@@ -116,7 +125,8 @@ PlaylistItemList.propTypes = {
     id: PropTypes.number,
     track: PropTypes.numbers
   })),
-  onLoadItems: PropTypes.func
+  onLoadItems: PropTypes.func,
+  onSort: PropTypes.func.isRequired
 }
 
 PlaylistItemList.defaultProps = {

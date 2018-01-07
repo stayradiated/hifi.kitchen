@@ -2,14 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import withHandlers from 'recompose/withHandlers'
 import { ContextMenuTrigger } from 'react-contextmenu'
-import { PLAYER_STATE_PAUSED } from '@stayradiated/hifi-redux'
 
 import './Item.css'
 
 import { TRACK_CONTEXT_MENU } from '../ContextMenu/Track'
 import Time from '../Time'
 import RatingBars from '../RatingBars'
-import SoundBars from '../SoundBars'
+import TrackListItemHandle from './ItemHandle'
 
 const handleRate = (props) => (rating) => {
   const { track, onRate } = props
@@ -23,8 +22,7 @@ const handleSelect = (props) => () => {
 
 function TrackListItem (props) {
   const {
-    index, context, track, style, currentlyPlaying, displayArtist, playerState,
-    relativeTrackStartTime,
+    context, track, style, displayArtist, relativeTrackStartTime,
     onSelect, onRate, onClickTime
   } = props
 
@@ -37,13 +35,7 @@ function TrackListItem (props) {
     >
       <button className='TrackListItem' style={style} onClick={onSelect}>
         <div className='TrackListItem-contents'>
-          {currentlyPlaying
-            ? <span className='TrackListItem-nowPlayingIcon'>
-              <SoundBars paused={playerState === PLAYER_STATE_PAUSED} />
-            </span>
-            : <span className='TrackListItem-index'>
-              {index != null ? index : track.index}
-            </span>}
+          <TrackListItemHandle {...props} />
           <span className='TrackListItem-fulltitle'>
             <span className='TrackListItem-title'>{track.title}</span>
             {displayArtist != null && displayArtist !== track.originalTitle &&
@@ -70,7 +62,7 @@ function TrackListItem (props) {
 
 TrackListItem.propTypes = {
   style: PropTypes.shape({}),
-  index: PropTypes.number,
+  trackIndex: PropTypes.number,
   context: PropTypes.shape({}),
   track: PropTypes.shape({
     index: PropTypes.number,
