@@ -21,7 +21,7 @@
     "react-scripts": "1.0.17"
   },
   "dependencies": {
-    "@stayradiated/hifi-redux": "^1.4.1",
+    "@stayradiated/hifi-redux": "^1.5.0",
     "@stayradiated/mandarin": "^1.14.0",
     "@stayradiated/react-floating-label": "^1.0.5",
     "@stayradiated/web-audio": "^2.0.1",
@@ -34,7 +34,7 @@
     "moment-duration-format": "^2.1.1",
     "nop": "^1.0.0",
     "normalizr": "^3.2.4",
-    "perplexed": "^3.0.1",
+    "perplexed": "^4.0.0",
     "plural": "^0.3.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
