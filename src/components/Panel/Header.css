@@ -66,3 +66,17 @@
 .PanelHeader-refresh:hover {
   opacity: 1;
 }
+
+.PanelHeader-edit {
+  position: absolute;
+  bottom: 0.5em;
+  left: 0.5em;
+  font-size: 1em;
+  opacity: 0.3;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.PanelHeader-edit:hover {
+  opacity: 1;
+}

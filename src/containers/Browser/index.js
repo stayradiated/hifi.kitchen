@@ -35,8 +35,10 @@ import {
   sortLibraryPlaylists,
   selectAllPlaylists,
   fetchPlaylistItems,
+  forceFetchPlaylist,
   selectAllPlaylistItems,
   resetPlaylistItems,
+  setPlaylistTitle,
   rateTrack,
   selectAllTracks,
   fetchCurrentLibraryTracksRange,
@@ -188,6 +190,22 @@ const handleChangeSortBy = (props) => (sortBy) => {
   handleLoadItems(props)(section, 0, 30)
 }
 
+const handleEditItem = (props) => async () => {
+  const { dispatch, itemType, itemId, allPlaylists } = props
+  switch (itemType) {
+    case PLAYLIST:
+      const playlist = allPlaylists.get(itemId)
+      const title = window.prompt('Enter new playlist title', playlist.title)
+      if (title != null) {
+        await dispatch(setPlaylistTitle(itemId, title))
+        await dispatch(forceFetchPlaylist(itemId))
+      }
+      break
+    default:
+      console.error('Could not edit based on item type:', itemType)
+  }
+}
+
 const handleRefreshItem = (props) => async () => {
   const { dispatch, itemType, itemId } = props
   switch (itemType) {
@@ -240,7 +258,10 @@ const BrowserContainer = (props) => {
     allAlbums, allArtists, allPlaylists, allTracks,
     allArtistAlbums, allAlbumTracks, allPlaylistItems,
     playerState,
-    onRefreshItem, onRefreshSection, onChangeItem, onChangeSection, onLoadItems, onLoadItemChildren,
+    onEditItem,
+    onRefreshItem, onRefreshSection,
+    onChangeItem, onChangeSection,
+    onLoadItems, onLoadItemChildren,
     sortBy, sortDesc, sortOptions, onChangeSortBy,
     onRateTrack,
     trackId, onCreateQueue
@@ -313,6 +334,7 @@ const BrowserContainer = (props) => {
         [TRACK]: 'Tracks'
       }}
       playerState={playerState}
+      onEditItem={onEditItem}
       onRefreshItem={onRefreshItem}
       onRefreshSection={onRefreshSection}
       onChangeItem={onChangeItem}
@@ -435,6 +457,7 @@ export default compose(
     onCreateQueue: handleCreateQueue,
     onChangeSearchQuery: handleChangeSearchQuery,
     onChangeSortBy: handleChangeSortBy,
+    onEditItem: handleEditItem,
     onRefreshItem: handleRefreshItem,
     onRefreshSection: handleRefreshSection
   }),
