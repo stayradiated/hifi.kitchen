@@ -1,3 +1,9 @@
+.RatingStars-empty,
+.RatingStars-full {
+  width: 30px;
+  font-size: 20px;
+}
+
 .RatingStars-empty {
   color: var(--white-10);
 }
