@@ -113,7 +113,7 @@ function PlaylistItemList (props) {
           onSortEnd={onSort}
           useDragHandle
           lockAxis='y'
-          helperClass='PlaylistItemList-helper SortHandle-helper'
+          helperClass='TrackListItem-helper SortHandle-helper'
         />
       )}
     </AsyncListLayout>

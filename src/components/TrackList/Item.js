@@ -28,34 +28,38 @@ function TrackListItem (props) {
 
   return (
     <ContextMenuTrigger
+      renderTag='button'
+      attributes={{
+        className: 'TrackListItem',
+        style,
+        onClick: onSelect
+      }}
       id={TRACK_CONTEXT_MENU}
       context={context}
       track={track}
       collect={(p) => p}
     >
-      <button className='TrackListItem' style={style} onClick={onSelect}>
-        <div className='TrackListItem-contents'>
-          <TrackListItemHandle {...props} />
-          <span className='TrackListItem-fulltitle'>
-            <span className='TrackListItem-title'>{track.title}</span>
-            {displayArtist != null && displayArtist !== track.originalTitle &&
-              <span className='TrackListItem-artist'>{track.originalTitle}</span>}
-          </span>
-          <RatingBars
-            className='TrackListItem-rating'
-            value={track.userRating}
-            maxValue={10}
-            onRate={onRate}
-          />
-          <Time
-            className='TrackListItem-duration'
-            value={relativeTrackStartTime != null
-              ? relativeTrackStartTime
-              : track.duration}
-            onClick={onClickTime}
-          />
-        </div>
-      </button>
+      <div className='TrackListItem-contents'>
+        <TrackListItemHandle {...props} />
+        <span className='TrackListItem-fulltitle'>
+          <span className='TrackListItem-title'>{track.title}</span>
+          {displayArtist != null && displayArtist !== track.originalTitle &&
+            <span className='TrackListItem-artist'>{track.originalTitle}</span>}
+        </span>
+        <RatingBars
+          className='TrackListItem-rating'
+          value={track.userRating}
+          maxValue={10}
+          onRate={onRate}
+        />
+        <Time
+          className='TrackListItem-duration'
+          value={relativeTrackStartTime != null
+            ? relativeTrackStartTime
+            : track.duration}
+          onClick={onClickTime}
+        />
+      </div>
     </ContextMenuTrigger>
   )
 }

@@ -51,7 +51,7 @@ TrackListItemHandle.propTypes = {
   }),
   currentlyPlaying: PropTypes.bool,
   playerState: PropTypes.string,
-  sortable: PropTypes.boolean
+  sortable: PropTypes.bool
 }
 
 export default TrackListItemHandle
