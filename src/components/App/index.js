@@ -91,10 +91,12 @@ export default compose(
   }),
   withProps((props) => {
     const params = new window.URLSearchParams(props.location.search)
+    const itemId = parseInt(params.get('itemId'), 10)
+
     return {
       section: params.get('section'),
       itemType: params.get('itemType'),
-      itemId: parseInt(params.get('itemId'), 10)
+      itemId: isNaN(itemId) ? null : itemId
     }
   })
 )(App)

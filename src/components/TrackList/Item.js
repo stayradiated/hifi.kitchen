@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import withHandlers from 'recompose/withHandlers'
 import { ContextMenuTrigger } from 'react-contextmenu'
 
-import './Item.css'
-
 import { TRACK_CONTEXT_MENU } from '../ContextMenu/Track'
 import Time from '../Time'
 import RatingBars from '../RatingBars'
 import TrackListItemHandle from './ItemHandle'
+
+import './Item.css'
 
 const handleRate = (props) => (rating) => {
   const { track, onRate } = props

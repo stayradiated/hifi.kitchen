@@ -1,9 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import { InfiniteLoader, AutoSizer, Table, Column } from 'react-virtualized'
-
+import { defaultTableRowRenderer, InfiniteLoader, AutoSizer, Table, Column } from 'react-virtualized'
+import { ContextMenuTrigger } from 'react-contextmenu'
 import { TRACK } from '@stayradiated/hifi-redux'
+
+import { TRACK_CONTEXT_MENU } from '../ContextMenu/Track'
 
 import './styles.css'
 
@@ -11,6 +13,21 @@ import RatingBars from '../RatingBars'
 import Time from '../Time'
 
 const ROW_HEIGHT = 40
+
+const rowRenderer = (props) => {
+  const { key, rowData } = props
+
+  return (
+    <ContextMenuTrigger
+      key={key}
+      id={TRACK_CONTEXT_MENU}
+      track={rowData}
+      collect={(p) => p}
+    >
+      {defaultTableRowRenderer(props)}
+    </ContextMenuTrigger>
+  )
+}
 
 const TrackTable = (props) => {
   const { tracks, onLoad, onChange, onRate } = props
@@ -39,6 +56,7 @@ const TrackTable = (props) => {
                     ? 'TrackTable-row TrackTable-evenRow'
                     : 'TrackTable-row TrackTable-oddRow'
               )}
+              rowRenderer={rowRenderer}
               onRowsRendered={onRowsRendered}
               onRowClick={({ rowData }) => onChange(TRACK, rowData.id)}
               ref={registerChild}
