@@ -21,7 +21,7 @@
     "react-scripts": "1.1.0"
   },
   "dependencies": {
-    "@stayradiated/hifi-redux": "^2.1.4",
+    "@stayradiated/hifi-redux": "^2.2.0",
     "@stayradiated/mandarin": "^3.1.3",
     "@stayradiated/react-floating-label": "^1.0.5",
     "@stayradiated/web-audio": "^2.0.1",
@@ -48,7 +48,7 @@
     "react-router-redux": "next",
     "react-sortable-hoc": "^0.6.8",
     "react-spinkit": "^3.0.0",
-    "react-virtualized": "^9.18.0",
+    "react-virtualized": "^9.18.2",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
     "redux-localstorage": "1.0.0-rc5",
