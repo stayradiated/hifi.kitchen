@@ -14,11 +14,11 @@
     "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
-    "@storybook/addon-knobs": "3.3.11",
-    "@storybook/addons": "3.3.11",
-    "@storybook/react": "3.3.11",
+    "@storybook/addon-knobs": "3.3.12",
+    "@storybook/addons": "3.3.12",
+    "@storybook/react": "3.3.12",
     "gh-pages": "1.1.0",
-    "react-scripts": "1.1.0"
+    "react-scripts": "1.1.1"
   },
   "dependencies": {
     "@stayradiated/hifi-redux": "2.2.0",
@@ -48,7 +48,7 @@
     "react-router-redux": "next",
     "react-sortable-hoc": "0.6.8",
     "react-spinkit": "3.0.0",
-    "react-virtualized": "9.18.0",
+    "react-virtualized": "^9.18.5",
     "recompose": "0.26.0",
     "redux": "3.7.2",
     "redux-localstorage": "1.0.0-rc5",
