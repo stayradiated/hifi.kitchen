@@ -14,9 +14,9 @@
     "build-storybook": "build-storybook -s public"
   },
   "devDependencies": {
-    "@storybook/addon-knobs": "3.3.12",
-    "@storybook/addons": "3.3.12",
-    "@storybook/react": "3.3.12",
+    "@storybook/addon-knobs": "3.3.13",
+    "@storybook/addons": "3.3.13",
+    "@storybook/react": "3.3.13",
     "gh-pages": "1.1.0",
     "react-scripts": "1.1.1"
   },
@@ -31,7 +31,7 @@
     "konva": "1.7.6",
     "lodash.throttle": "4.1.1",
     "moment": "2.20.1",
-    "moment-duration-format": "2.2.1",
+    "moment-duration-format": "2.2.2",
     "nop": "1.0.0",
     "normalizr": "3.2.4",
     "perplexed": "4.1.1",
@@ -41,8 +41,8 @@
     "react-contextmenu": "2.9.2",
     "react-dom": "16.2.0",
     "react-konva": "1.6.6",
-    "react-rating": "1.0.4",
-    "react-redux": "5.0.6",
+    "react-rating": "1.0.5",
+    "react-redux": "5.0.7",
     "react-router": "4.2.0",
     "react-router-dom": "4.2.2",
     "react-router-redux": "next",
