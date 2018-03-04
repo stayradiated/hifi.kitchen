@@ -33,7 +33,7 @@ const InputNumber = (props) => {
       type='number'
       className='Input-input'
       value={value[0]}
-      onChange={(event) => onChange([parseInt(event.target.value, 10)])}
+      onChange={(event) => onChange(event.target.value, 10)}
     />
   )
 }
@@ -70,17 +70,11 @@ const InputRelativeDate = (props) => {
         type='number'
         className='Input-input'
         value={value[0]}
-        onChange={(event) => onChange([
-          parseInt(event.target.value, 10),
-          value[1]
-        ])}
+        onChange={(event) => onChange([event.target.value, value[1]])}
       />
       <SelectOption
         value={value[1]}
-        onChange={(event) => onChange([
-          value[0],
-          event.target.value
-        ])}
+        onChange={(event) => onChange([value[0], event.target.value])}
         options={filter.availableDateUnits}
       />
     </div>
@@ -120,7 +114,7 @@ const Input = (props) => {
 
 Input.propTypes = {
   operator: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired
 }
 

@@ -11,47 +11,60 @@ import {
   PLAYLIST,
   TRACK,
   SEARCH,
+
   fetchCurrentLibraryAlbumsRange,
   selectLibraryAlbums,
   sortLibraryAlbums,
   resetCurrentLibraryAlbums,
+
   fetchAlbum,
   selectAllAlbums,
   fetchAlbumTracks,
   selectAllAlbumTracks,
   resetAlbumTracks,
+
   fetchCurrentLibraryArtistsRange,
   selectLibraryArtists,
   sortLibraryArtists,
   resetCurrentLibraryArtists,
+
   fetchArtist,
   selectAllArtists,
   fetchArtistAlbums,
   selectAllArtistAlbums,
   resetArtistAlbums,
+
   fetchCurrentLibraryPlaylistsRange,
   resetCurrentLibraryPlaylists,
   selectLibraryPlaylists,
   sortLibraryPlaylists,
+
   selectAllPlaylists,
   fetchPlaylistItems,
   forceFetchPlaylist,
   selectAllPlaylistItems,
+
   resetPlaylistItems,
   setPlaylistTitle,
   movePlaylistItem,
+
   rateTrack,
   selectAllTracks,
+
   fetchCurrentLibraryTracksRange,
   selectLibraryTracks,
   sortLibraryTracks,
   resetCurrentLibraryTracks,
+  filterLibraryTracks,
+
   createQueueFromArtist,
   createQueueFromAlbum,
   createQueueFromPlaylist,
   createQueueFromTrack,
+
   fetchSearchResults,
   selectSearch,
+
   selectQueue,
   selectTimeline
 } from '@stayradiated/hifi-redux'
@@ -146,6 +159,12 @@ const handleLoadItemChildren = (props) => (item, start, end) => {
 const handleRateTrack = (props) => (trackId, rating) => {
   const { dispatch } = props
   dispatch(rateTrack(trackId, rating))
+}
+
+const handleFilterSection = (props) => (filter) => {
+  const { dispatch } = props
+  dispatch(filterLibraryTracks(filter))
+  dispatch(fetchCurrentLibraryTracksRange(0, 30))
 }
 
 const handleCreateQueue = (props) => (parentType, parentId, trackId) => {
@@ -269,7 +288,7 @@ const BrowserContainer = (props) => {
     onChangeItem, onChangeSection,
     onLoadItems, onLoadItemChildren,
     sortBy, sortDesc, sortOptions, onChangeSortBy,
-    onRateTrack, onMovePlaylistItem,
+    onRateTrack, onFilterSection, onMovePlaylistItem,
     trackId, onCreateQueue
   } = props
 
@@ -350,6 +369,7 @@ const BrowserContainer = (props) => {
       onMovePlaylistItem={onMovePlaylistItem}
       onLoadItemChildren={onLoadItemChildren}
       onRateTrack={onRateTrack}
+      onFilterSection={onFilterSection}
       onChangeSearchQuery={onChangeSearchQuery}
       onChangeSortBy={onChangeSortBy}
     />
@@ -382,6 +402,7 @@ BrowserContainer.propTypes = {
   onLoadItems: PropTypes.func,
   onLoadItemChildren: PropTypes.func,
   onRateTrack: PropTypes.func.isRequired,
+  onFilterSection: PropTypes.func.isRequired,
 
   onMovePlaylistItem: PropTypes.func.isRequired,
 
@@ -464,6 +485,7 @@ export default compose(
     onMovePlaylistItem: handleMovePlaylistItem,
     onLoadItemChildren: handleLoadItemChildren,
     onRateTrack: handleRateTrack,
+    onFilterSection: handleFilterSection,
     onCreateQueue: handleCreateQueue,
     onChangeSearchQuery: handleChangeSearchQuery,
     onChangeSortBy: handleChangeSortBy,

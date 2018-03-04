@@ -12,7 +12,7 @@ import TypedGrid from '../TypedGrid'
 import TypedPanel from '../TypedPanel'
 import NavBar from '../NavBar'
 import SearchResults from '../SearchResults'
-import TrackTable from '../TrackTable'
+import TracksSection from '../Sections/Tracks'
 
 const handleChangeItem = (props) => (itemType, itemId) => {
   const { onChangeItem, onCreateQueue } = props
@@ -30,7 +30,7 @@ function Browser (props) {
     sortBy, sortDesc, sortOptions, onMovePlaylistItem,
     onEditItem,
     onRefreshItem, onRefreshSection,
-    onChangeSection, onRateTrack, onChangeSortBy,
+    onChangeSection, onRateTrack, onChangeSortBy, onFilterSection,
     searchQuery, onChangeSearchQuery, onCreateQueue
   } = props
 
@@ -47,11 +47,12 @@ function Browser (props) {
       break
     case TRACK:
       contents = (
-        <TrackTable
+        <TracksSection
           tracks={sectionItems}
           onChange={onChangeItem}
           onLoad={(start, end) => onLoadItems(section, start, end)}
           onRate={onRateTrack}
+          onFilter={onFilterSection}
         />
       )
       break
@@ -127,6 +128,7 @@ Browser.propTypes = {
   onLoadItems: PropTypes.func,
   onMovePlaylistItem: PropTypes.func.isRequired,
   onRateTrack: PropTypes.func.isRequired,
+  onFilterSection: PropTypes.func.isRequired,
   onEditItem: PropTypes.func.isRequired,
   onRefreshItem: PropTypes.func.isRequired,
   onRefreshSection: PropTypes.func.isRequired
