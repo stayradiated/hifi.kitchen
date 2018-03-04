@@ -21,7 +21,7 @@
     "react-scripts": "1.1.1"
   },
   "dependencies": {
-    "@stayradiated/hifi-redux": "2.2.2",
+    "@stayradiated/hifi-redux": "2.3.0",
     "@stayradiated/mandarin": "3.1.3",
     "@stayradiated/react-floating-label": "1.0.5",
     "@stayradiated/web-audio": "2.0.1",
@@ -30,7 +30,7 @@
     "get-scrollbar-width": "1.0.4",
     "konva": "1.7.6",
     "lodash.throttle": "4.1.1",
-    "moment": "2.20.1",
+    "moment": "2.21.0",
     "moment-duration-format": "2.2.2",
     "nop": "1.0.0",
     "normalizr": "3.2.4",
