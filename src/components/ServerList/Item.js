@@ -8,33 +8,37 @@ import Icon from '../Icon'
 
 export default function ServerListItem (props) {
   const { selected, server, onSelect } = props
-  const { connection } = server
+  const { status } = server
 
-  let status = ''
+  let statusText = ''
+  let unavailable = false
   switch (true) {
-    case connection == null:
-      status = 'Unavailable'
+    case status == null || status.available === false:
+      statusText = 'Unavailable'
+      unavailable = true
       break
-    case connection.local:
-      status = 'Nearby'
+    case status.connection.local:
+      statusText = 'Nearby'
       break
     default:
-      status = 'Available'
+      statusText = 'Available'
       break
   }
+
+  const secure = !unavailable && status.connection.protocol === 'https'
 
   return (
     <button
       className={classNames('ServerListItem', {
         'ServerListItem-selected': selected,
-        'ServerListItem-unavailable': connection == null,
-        'ServerListItem-secure': connection && connection.protocol === 'https'
+        'ServerListItem-unavailable': unavailable,
+        'ServerListItem-secure': secure
       })}
       onClick={onSelect}
     >
       <div className='ServerListItem-text'>
         <h1 className='ServerListItem-name'>{server.name}</h1>
-        <h2 className='ServerListItem-status'>{status}</h2>
+        <h2 className='ServerListItem-status'>{statusText}</h2>
       </div>
       <Icon icon='check' className='ServerListItem-icon-ok ServerListItem-icon' />
       <Icon icon='lock' className='ServerListItem-icon-lock ServerListItem-icon' />
