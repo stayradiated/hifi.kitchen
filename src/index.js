@@ -13,7 +13,9 @@ import createStore from './store'
 import App from './routes/App'
 
 const history = createHistory()
-const middleware = routerMiddleware(history)
+const middleware = [
+  routerMiddleware(history)
+]
 
 const store = createStore({
   middleware
