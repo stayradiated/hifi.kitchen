@@ -1,11 +1,16 @@
 {
-  "main.css": "static/css/main.ef891f89.css",
-  "main.css.map": "static/css/main.ef891f89.css.map",
-  "main.js": "static/js/main.45d5fb07.js",
-  "main.js.map": "static/js/main.45d5fb07.js.map",
-  "static/media/fontello.eot?18744287": "static/media/fontello.d8df8153.eot",
-  "static/media/fontello.svg?18744287": "static/media/fontello.9e2a15d3.svg",
-  "static/media/fontello.ttf?18744287": "static/media/fontello.79cf0627.ttf",
-  "static/media/fontello.woff2?18744287": "static/media/fontello.a1646623.woff2",
-  "static/media/fontello.woff?18744287": "static/media/fontello.0f806c62.woff"
+  "main.css": "/static/css/main.c6be1cae.chunk.css",
+  "main.js": "/static/js/main.81b3ed8c.chunk.js",
+  "main.js.map": "/static/js/main.81b3ed8c.chunk.js.map",
+  "static/css/1.55593daf.chunk.css": "/static/css/1.55593daf.chunk.css",
+  "static/js/1.ba084905.chunk.js": "/static/js/1.ba084905.chunk.js",
+  "static/js/1.ba084905.chunk.js.map": "/static/js/1.ba084905.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.229c360f.js",
+  "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
+  "static/media/fontello.css": "/static/media/fontello.0f806c62.woff",
+  "static/css/main.c6be1cae.chunk.css.map": "/static/css/main.c6be1cae.chunk.css.map",
+  "static/css/1.55593daf.chunk.css.map": "/static/css/1.55593daf.chunk.css.map",
+  "index.html": "/index.html",
+  "precache-manifest.924cce04f5304fa2f42f9e59cee76821.js": "/precache-manifest.924cce04f5304fa2f42f9e59cee76821.js",
+  "service-worker.js": "/service-worker.js"
 }
