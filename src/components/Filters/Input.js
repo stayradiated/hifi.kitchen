@@ -33,7 +33,7 @@ const InputNumber = (props) => {
       type='number'
       className='Input-input'
       value={value[0]}
-      onChange={(event) => onChange(event.target.value, 10)}
+      onChange={(event) => onChange([parseInt(event.target.value, 10)])}
     />
   )
 }

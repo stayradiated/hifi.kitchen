@@ -76,7 +76,10 @@ const Filters = (props) => {
 Filters.propTypes = {
   property: PropTypes.string,
   operator: PropTypes.string,
-  value: PropTypes.arrayOf(PropTypes.string).isRequired,
+  value: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])).isRequired,
 
   onPropertyChange: PropTypes.func.isRequired,
   onOperatorChange: PropTypes.func.isRequired,
