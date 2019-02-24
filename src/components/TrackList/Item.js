@@ -71,8 +71,8 @@ TrackListItem.propTypes = {
   track: PropTypes.shape({
     index: PropTypes.number,
     title: PropTypes.string,
-    userRating: PropTypes.nuumber,
-    duration: PropTypes.nuumber
+    userRating: PropTypes.number,
+    duration: PropTypes.number
   }).isRequired,
   relativeTrackStartTime: PropTypes.number,
   currentlyPlaying: PropTypes.bool,

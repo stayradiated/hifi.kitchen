@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import noop from 'nop'
+import debounce from 'lodash.debounce'
 
 import './styles.css'
 
@@ -16,7 +17,7 @@ export default class SearchBar extends Component {
     }
 
     this.handleBlur = this.handleBlur.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleChange = debounce(this.handleChange.bind(this), 500)
     this.handleClick = this.handleClick.bind(this)
   }
 

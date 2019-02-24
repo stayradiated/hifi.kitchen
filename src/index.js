@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createHistory from 'history/createHashHistory'
 import { Provider } from 'react-redux'
-import { ConnectedRouter, routerMiddleware } from 'react-router-redux'
+import { HashRouter } from 'react-router-dom'
 import { Route } from 'react-router'
 
 import 'react-virtualized/styles.css'
@@ -12,19 +11,12 @@ import createStore from './store'
 
 import App from './routes/App'
 
-const history = createHistory()
-const middleware = [
-  routerMiddleware(history)
-]
-
-const store = createStore({
-  middleware
-})
+const store = createStore()
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <HashRouter>
       <Route path='/' component={App} />
-    </ConnectedRouter>
+    </HashRouter>
   </Provider>
   , document.getElementById('root'))

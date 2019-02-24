@@ -27,4 +27,4 @@ ContextMenuContainer.propTypes = {
   onNavigate: PropTypes.func.isRequired
 }
 
-export default connect()(ContextMenuContainer)
+export default connect(null)(ContextMenuContainer)
