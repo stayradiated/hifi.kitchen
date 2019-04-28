@@ -19,7 +19,9 @@ button {
 
 body {
   font-size: 16px;
-  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+
+  scrollbar-color: var(--scroll-thumb) var(--scroll-background);
 }
 
  :root {

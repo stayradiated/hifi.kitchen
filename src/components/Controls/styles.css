@@ -115,6 +115,7 @@
 .Controls-albumThumb {
   width: 40px;
   margin: 0 calc((var(--height) - 40px) / 2);
+  margin-left: 2em;
 }
 
 .Controls-albumThumbImage {
